@@ -1,0 +1,507 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Model Feedback &mdash; legion 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Metrics" href="int_metrics.html" />
+    <link rel="prev" title="MLFlow Trainer" href="comp_mlflow_trainer.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> legion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Model Feedback</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#protocol">Protocol</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#worked-example-without-request-id">Worked example (without Request-ID)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#worked-example-with-request-id">Worked example (with Request-ID)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#worked-example-send-feedback-as-payload">Worked Example - Send Feedback as Payload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#worked-example-send-feedback-as-url-param">Worked Example - Send Feedback as URL param</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">legion</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Model Feedback</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/comp_model_feedback.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="model-feedback">
+<h1>Model Feedback<a class="headerlink" href="#model-feedback" title="Permalink to this headline">¶</a></h1>
+<p><strong>Model Feedback</strong> provides a view of performance over all stages of model lifecycle.</p>
+<p>The mechanism is simple:</p>
+<ol class="arabic simple">
+<li>Ask Deploy for prediction (with or without <code class="docutils literal notranslate"><span class="pre">Request-Id</span></code> provided)</li>
+<li>Send Feedback to Legion about the prediction (with <code class="docutils literal notranslate"><span class="pre">Request-Id</span></code> returned from previous step)</li>
+<li>Legion stores the prediction and feedback to a configurable location</li>
+</ol>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This flow requires <code class="docutils literal notranslate"><span class="pre">feedback</span></code> to be enabled in <code class="docutils literal notranslate"><span class="pre">values.yaml</span></code> during Helm chart install</p>
+</div>
+<div class="section" id="protocol">
+<h2>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>If prediction is requested without Request-ID: <code class="docutils literal notranslate"><span class="pre">Request-ID</span></code> header with random ID is added to the request. Otherwise, Request-ID is not generated.</li>
+<li>Request and response are stored on configured external storage (eg. S3, GCS)</li>
+</ol>
+<p>3. User sends Model Feedback as an argument to the feedback endpoint. (Feedback can be arbitrary JSON.)
+5. All Feedback is persisted on external storage and can be used by models during subsequent Trains.</p>
+<div class="section" id="worked-example-without-request-id">
+<h3>Worked example (without Request-ID)<a class="headerlink" href="#worked-example-without-request-id" title="Permalink to this headline">¶</a></h3>
+<p>Make prediction request to EDGE:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST -vv <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/model/</span><span class="si">${</span><span class="nv">ROUTE</span><span class="si">}</span><span class="s2">/api/model/invoke&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Authorization: Bearer </span><span class="si">${</span><span class="nv">JWT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
+-d <span class="s1">&#39;age=35&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;capital-gain=14084&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;capital-loss=0&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;education=Bachelors&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;education-num=13&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;fnlwgt=77516&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;hours-per-week=40&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;marital-status=Married-civ-spouse&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;native-country=United-States&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;occupation=Exec-managerial&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;race=White&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;relationship=Not-in-family&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;sex=Male&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;workclass=Private&#39;</span>
+</pre></div>
+</div>
+<p>The response contains a generated <code class="docutils literal notranslate"><span class="pre">Request-Id</span></code> header.</p>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>RESPONSE
+</pre></div>
+</div>
+<p>Requests and responses are persisted in two buckets on S3. (File name ~= <code class="docutils literal notranslate"><span class="pre">/request_response/income/1.1/year=2019/month=07/day=24/2019072414_4.json</span></code>)</p>
+<p>The first file contains meta-information about request and response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;85252432-8d26-9b5f-bed3-e9ceeafc688c&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;request_get_args&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="nt">&quot;response_status&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;request_host&quot;</span><span class="p">:</span> <span class="s2">&quot;edge.legion-test.epm.kharlamov.biz&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model_endpoint&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;request_http_method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;request_http_headers&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;:scheme&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;accept&quot;</span><span class="p">:</span> <span class="s2">&quot;*/*&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;knative-serving-namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;legion&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;:authority&quot;</span><span class="p">:</span> <span class="s2">&quot;edge.legion-test.epm.kharlamov.biz&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;:path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/model/invoke&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;:method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;user-agent&quot;</span><span class="p">:</span> <span class="s2">&quot;python-requests/2.22.0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-b3-traceid&quot;</span><span class="p">:</span> <span class="s2">&quot;1bd630537a9a54c9d3997150ca540d01&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-request-id&quot;</span><span class="p">:</span> <span class="s2">&quot;85252432-8d26-9b5f-bed3-e9ceeafc688c&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-b3-sampled&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-envoy-external-address&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.1.1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-forwarded-host&quot;</span><span class="p">:</span> <span class="s2">&quot;edge.legion-test.epm.kharlamov.biz&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-original-uri&quot;</span><span class="p">:</span> <span class="s2">&quot;/model/sklearn-income/api/model/invoke&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/x-www-form-urlencoded&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-forwarded-port&quot;</span><span class="p">:</span> <span class="s2">&quot;443&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;accept-encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;gzip, deflate&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;knative-serving-revision&quot;</span><span class="p">:</span> <span class="s2">&quot;sklearn-income-5jrrp&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-envoy-original-path&quot;</span><span class="p">:</span> <span class="s2">&quot;/model/sklearn-income/api/model/invoke&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-real-ip&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.1.1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-envoy-decorator-operation&quot;</span><span class="p">:</span> <span class="s2">&quot;sklearn-income-5jrrp.legion.svc.cluster.local:80/model/sklearn-income/api*&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-istio-attributes&quot;</span><span class="p">:</span> <span class="s2">&quot;==&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-forwarded-for&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.1.1,1.1.1.1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;content-length&quot;</span><span class="p">:</span> <span class="s2">&quot;257&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-forwarded-proto&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-scheme&quot;</span><span class="p">:</span> <span class="s2">&quot;https&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-b3-spanid&quot;</span><span class="p">:</span> <span class="s2">&quot;d3997150ca540d01&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;request_post_args&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;native-country&quot;</span><span class="p">:</span> <span class="s2">&quot;United-States&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sex&quot;</span><span class="p">:</span> <span class="s2">&quot;Male&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;education&quot;</span><span class="p">:</span> <span class="s2">&quot;Bachelors&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;hours-per-week&quot;</span><span class="p">:</span> <span class="s2">&quot;40&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;workclass&quot;</span><span class="p">:</span> <span class="s2">&quot;Private&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;race&quot;</span><span class="p">:</span> <span class="s2">&quot;White&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;relationship&quot;</span><span class="p">:</span> <span class="s2">&quot;Husband&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;marital-status&quot;</span><span class="p">:</span> <span class="s2">&quot;Married-civ-spouse&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;occupation&quot;</span><span class="p">:</span> <span class="s2">&quot;Exec-managerial&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;age&quot;</span><span class="p">:</span> <span class="s2">&quot;35&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;fnlwgt&quot;</span><span class="p">:</span> <span class="s2">&quot;77516&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;capital-gain&quot;</span><span class="p">:</span> <span class="s2">&quot;14084&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;capital-loss&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;education-num&quot;</span><span class="p">:</span> <span class="s2">&quot;13&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;request_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;/model/sklearn-income/api/model/invoke&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;response_http_headers&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;model-endpoint&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;model-name&quot;</span><span class="p">:</span> <span class="s2">&quot;income&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;model-version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="s2">&quot;istio-envoy&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;:status&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;content-length&quot;</span><span class="p">:</span> <span class="s2">&quot;18&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;x-envoy-upstream-service-time&quot;</span><span class="p">:</span> <span class="s2">&quot;67&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;connection&quot;</span><span class="p">:</span> <span class="s2">&quot;close&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;Wed, 24 Jul 2019 14:53:55 GMT&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;request-id&quot;</span><span class="p">:</span> <span class="s2">&quot;85252432-8d26-9b5f-bed3-e9ceeafc688c&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;income&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-24 14:53:55 +0000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The second file contains the response body with the same <code class="docutils literal notranslate"><span class="pre">Request-Id</span></code> (File name ~= <code class="docutils literal notranslate"><span class="pre">/response_body/income/1.1/year=2019/month=07/day=24/2019072414_1.json</span></code>)</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;85252432-8d26-9b5f-bed3-e9ceeafc688c&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model_endpoint&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;income&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;response_content&quot;</span><span class="p">:</span> <span class="s2">&quot;{\n  \&quot;result\&quot;: 1\n}\n&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-24 14:03:00 +0000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="worked-example-with-request-id">
+<h3>Worked example (with Request-ID)<a class="headerlink" href="#worked-example-with-request-id" title="Permalink to this headline">¶</a></h3>
+<p>Make prediction request to EDGE:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST -vv <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/model/</span><span class="si">${</span><span class="nv">ROUTE</span><span class="si">}</span><span class="s2">/api/model/invoke&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Authorization: Bearer </span><span class="si">${</span><span class="nv">JWT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Request-ID: my-example-request-id&quot;</span> <span class="se">\</span>
+-d <span class="s1">&#39;age=35&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;capital-gain=14084&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;capital-loss=0&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;education=Bachelors&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;education-num=13&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;fnlwgt=77516&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;hours-per-week=40&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;marital-status=Married-civ-spouse&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;native-country=United-States&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;occupation=Exec-managerial&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;race=White&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;relationship=Not-in-family&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;sex=Male&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;workclass=Private&#39;</span>
+</pre></div>
+</div>
+<p>Response contains sent <code class="docutils literal notranslate"><span class="pre">request-id</span></code> header.</p>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>RESPONSE
+</pre></div>
+</div>
+<p>Request and response are persisted to S3, as in a previous case.</p>
+<p>In both examples, we have obtained a prediction value and Request-ID.
+We can use these facts to send back Model Feedback about the prediction (precision, area-under-curve, etc).
+Legion will store the Feedback, Request, Response, and Prediction behind one unified interface for later use.</p>
+</div>
+<div class="section" id="worked-example-send-feedback-as-payload">
+<h3>Worked Example - Send Feedback as Payload<a class="headerlink" href="#worked-example-send-feedback-as-payload" title="Permalink to this headline">¶</a></h3>
+<p>Send Model Feedback request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST -vv <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/feedback/model/&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Authorization: Bearer </span><span class="si">${</span><span class="nv">JWT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;x-model-name: income&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;x-model-version: 1.1&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Request-ID: previous-prediction-id&quot;</span> <span class="se">\</span>
+-H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;{&quot;truthful&quot;: 1}&#39;</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">-d</span></code> argument can pass arbitrary JSON.</p>
+<p>A successful feedback request will have the following properties:</p>
+<ul class="simple">
+<li>HTTP response: 200</li>
+<li>Response field <code class="docutils literal notranslate"><span class="pre">error</span></code> is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</li>
+<li>Response field <code class="docutils literal notranslate"><span class="pre">registered</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</li>
+<li>Response field <code class="docutils literal notranslate"><span class="pre">message</span></code> is what was sent to storage.</li>
+</ul>
+<p>Example response</p>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>RESPONSE
+</pre></div>
+</div>
+<p>File name ~= <code class="docutils literal notranslate"><span class="pre">/feedback/income/1.1/year=2019/month=07/day=23/2019072311_2.json</span></code> will have a format like this,
+with feedback stored in the <code class="docutils literal notranslate"><span class="pre">payload</span></code> field:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;previous-prediction-id&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;income&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;payload&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;json&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;truthful&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-23 12:40:16 +0000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="worked-example-send-feedback-as-url-param">
+<h3>Worked Example - Send Feedback as URL param<a class="headerlink" href="#worked-example-send-feedback-as-url-param" title="Permalink to this headline">¶</a></h3>
+<p>Send Model Feedback request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST -vv <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/feedback/model/?truthful=1&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Authorization: Bearer </span><span class="si">${</span><span class="nv">JWT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;x-model-name: income&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;x-model-version: 1.1&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Request-ID: previous-prediction-id&quot;</span>
+</pre></div>
+</div>
+<p>Response</p>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>RESPONSE
+</pre></div>
+</div>
+<p>File name ~= <code class="docutils literal notranslate"><span class="pre">/feedback/income/1.1/year=2019/month=07/day=23/2019072311_2.json</span></code> will have a format like this,
+with feedback stored in the <code class="docutils literal notranslate"><span class="pre">payload</span></code> field:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+    &quot;request_id&quot;: &quot;previous-prediction-id&quot;,
+    &quot;model_version&quot;: &quot;1.1&quot;,
+    &quot;model_name&quot;: &quot;income&quot;,
+    &quot;payload&quot;: {
+        XXXX
+    },
+    &quot;time&quot;: &quot;2019-07-23 12:40:16 +0000&quot;
+}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="int_metrics.html" class="btn btn-neutral float-right" title="Metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="comp_mlflow_trainer.html" class="btn btn-neutral" title="MLFlow Trainer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Legion Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

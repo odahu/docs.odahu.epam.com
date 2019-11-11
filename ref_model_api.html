@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Model API &mdash; legion 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Model Format" href="ref_model_format.html" />
+    <link rel="prev" title="Kubernetes" href="ref_kubernetes.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> legion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Model API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#model-information"><strong>Model information</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-invocation"><strong>Model invocation</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-batch-invocation"><strong>Model batch invocation</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">legion</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Model API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ref_model_api.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="model-api">
+<h1>Model API<a class="headerlink" href="#model-api" title="Permalink to this headline">¶</a></h1>
+<p>Each model provides endpoints for obtaining information,
+simple and batch call of models.</p>
+<p><strong>Information in this section is outdated, please update</strong></p>
+<div class="section" id="model-information">
+<h2><strong>Model information</strong><a class="headerlink" href="#model-information" title="Permalink to this headline">¶</a></h2>
+<p>Fetching common information about model (id, version) and endpoints (their names, parameters).</p>
+<ul>
+<li><p class="first"><strong>URL</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">/api/model/:model_id/:model_version/info</span></code></p>
+</li>
+<li><p class="first"><strong>Method:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">GET</span></code></p>
+</li>
+<li><p class="first"><strong>URL Params</strong></p>
+<p><strong>Required:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">model_id=[str]</span></code>- ID of model</p>
+<p><code class="docutils literal notranslate"><span class="pre">model_version=[str]</span></code>- version of model</p>
+</li>
+<li><p class="first"><strong>Success Response:</strong></p>
+<p>Result consists of valid JSON object with common model information (id and version)
+and information about each endpoint.</p>
+<ul>
+<li><p class="first"><strong>Strict model example (one endpoint)</strong> <br />
+<strong>Code:</strong> 200 <br />
+<strong>Content</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;endpoints&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;input_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;age&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;numpy_type&quot;</span><span class="p">:</span> <span class="s2">&quot;int64&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Integer&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;capital-gain&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;numpy_type&quot;</span><span class="p">:</span> <span class="s2">&quot;int64&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Integer&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;capital-loss&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;numpy_type&quot;</span><span class="p">:</span> <span class="s2">&quot;int64&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Integer&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;use_df&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;income&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>Model example (strict abc endpoint, non strict def endpoint)</strong> <br />
+<strong>Code:</strong> 200 <br />
+<strong>Content</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;endpoints&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;abc&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;input_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;age&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;numpy_type&quot;</span><span class="p">:</span> <span class="s2">&quot;int64&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Integer&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;capital-gain&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;numpy_type&quot;</span><span class="p">:</span> <span class="s2">&quot;int64&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Integer&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;capital-loss&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;numpy_type&quot;</span><span class="p">:</span> <span class="s2">&quot;int64&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Integer&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;abc&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;use_df&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;def&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;def&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;use_df&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;income&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first"><strong>Error Response:</strong></p>
+<p>500 will be returned on any server-side error</p>
+</li>
+<li><p class="first"><strong>Sample Call:</strong></p>
+</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="se">\</span>
+  https://edge-company-a.legion-test.epm.kharlamov.biz/api/model/test-summation/1.0/info
+</pre></div>
+</div>
+<ul>
+<li><p class="first"><strong>Notes:</strong></p>
+<p>02.07.2018, Kirill Makhonin</p>
+</li>
+</ul>
+</div>
+<div class="section" id="model-invocation">
+<h2><strong>Model invocation</strong><a class="headerlink" href="#model-invocation" title="Permalink to this headline">¶</a></h2>
+<p>Running prediction and getting result.</p>
+<ul>
+<li><p class="first"><strong>URL</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">/api/model/:model_id/:model_version/invoke</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">/api/model/:model_id/:model_version/invoke/:endpoint</span></code></p>
+</li>
+<li><p class="first"><strong>Method:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">GET</span></code> | <code class="docutils literal notranslate"><span class="pre">POST</span></code></p>
+</li>
+<li><p class="first"><strong>URL Params</strong></p>
+<p><strong>Required:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">model_id=[str]</span></code>- ID of model</p>
+<p><code class="docutils literal notranslate"><span class="pre">model_version=[str]</span></code>- version of model</p>
+<p><strong>Optional:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">endpoint=[str]</span></code> - name of endpoint, <code class="docutils literal notranslate"><span class="pre">default</span></code> if omitted</p>
+<p><code class="docutils literal notranslate"><span class="pre">key=[str]</span></code> - argument for model invocation. Can be passed in URL params or in data params. List of required params can be gathered from model info (for strict models) or from model specification (for non strict models)</p>
+</li>
+<li><p class="first"><strong>Data Params</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">key=[str]</span></code> - argument for model invocation. Can be passed in URL params in case of using <code class="docutils literal notranslate"><span class="pre">GET</span></code> method or in data
+params in case of using <code class="docutils literal notranslate"><span class="pre">POST</span></code> method. List of required params can be gathered from model info (for strict models) or
+from model specification (for non strict models)</p>
+</li>
+<li><p class="first"><strong>Success Response:</strong></p>
+<p>Successful invocation of model should return 200 code and valid JSON response (structure of response defined in a model code).</p>
+<ul>
+<li><p class="first"><strong>Strict model example</strong> <br />
+<strong>Code:</strong> 200 <br />
+<strong>Content</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="mi">3</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first"><strong>Error Response:</strong></p>
+<p>500 will be returned on any server-side error</p>
+</li>
+<li><p class="first"><strong>Sample Call:</strong>
+With params specified in GET:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="se">\</span>
+<span class="s1">&#39;https://edge-company-a.legion-test.epm.kharlamov.biz/api/model/test-summation/1.0/invoke?a=20&amp;b=23&#39;</span>
+</pre></div>
+</div>
+<p>With params specified in POST:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="se">\</span>
+https://edge-company-a.legion-test.epm.kharlamov.biz/api/model/test-summation/1.0/invoke <span class="se">\</span>
+-F <span class="nv">a</span><span class="o">=</span><span class="m">15</span> <span class="se">\</span>
+-F <span class="nv">b</span><span class="o">=</span><span class="m">27</span>
+</pre></div>
+</div>
+<p>With list params (only for non-strict models):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="se">\</span>
+https://edge-company-a.legion-test.epm.kharlamov.biz/api/model/test-name-rate/1.0/invoke <span class="se">\</span>
+-F <span class="s1">&#39;name[]=Alex&#39;</span> <span class="se">\</span>
+-F <span class="s1">&#39;name[]=Oleg&#39;</span>
+</pre></div>
+</div>
+<p>With file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">F</span> <span class="s2">&quot;image=@examples/sklearn_demos/nine.png;filename=image&quot;</span> \
+<span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">edge</span><span class="o">-</span><span class="n">company</span><span class="o">-</span><span class="n">a</span><span class="o">.</span><span class="n">legion</span><span class="o">-</span><span class="n">test</span><span class="o">.</span><span class="n">epm</span><span class="o">.</span><span class="n">kharlamov</span><span class="o">.</span><span class="n">biz</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">image_recognize</span><span class="o">/</span><span class="mf">1.0</span><span class="o">/</span><span class="n">invoke</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>Notes:</strong></p>
+<p>You can invoke model with lists. In this case you should use non-strict model
+and send each list value with a key ending in <code class="docutils literal notranslate"><span class="pre">[]</span></code>. For example <code class="docutils literal notranslate"><span class="pre">movie[]=Titanic</span></code> and <code class="docutils literal notranslate"><span class="pre">movie[]=Clockwork</span> <span class="pre">orange</span></code>.</p>
+<p>Files should be send as form-data files with specified file names.</p>
+<p>02.07.2018, Kirill Makhonin</p>
+</li>
+</ul>
+</div>
+<div class="section" id="model-batch-invocation">
+<h2><strong>Model batch invocation</strong><a class="headerlink" href="#model-batch-invocation" title="Permalink to this headline">¶</a></h2>
+<p>Running many predictions and getting many results in one request.</p>
+<ul>
+<li><p class="first"><strong>URL</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">/api/model/:model_id/:model_version/batch</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">/api/model/:model_id/:model_version/batch/:endpoint</span></code></p>
+</li>
+<li><p class="first"><strong>Method:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">POST</span></code></p>
+</li>
+<li><p class="first"><strong>URL Params</strong></p>
+<p><strong>Required:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">model_id=[str]</span></code>- ID of model</p>
+<p><code class="docutils literal notranslate"><span class="pre">model_version=[str]</span></code>- version of model</p>
+<p><strong>Optional:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">endpoint=[str]</span></code> - name of endpoint, <code class="docutils literal notranslate"><span class="pre">default</span></code> if omitted</p>
+</li>
+<li><p class="first"><strong>Data Params</strong></p>
+<p>Request should contain request body. Request body contains line for each model
+invocation. Each line should consists of valid GET parameters (encoded)</p>
+</li>
+<li><p class="first"><strong>Success Response:</strong></p>
+<p>Successful batch invocation of model should return 200 code and valid JSON response.
+Response is a valid JSON array, each value of which is a response for
+model invocation.</p>
+<ul>
+<li><p class="first"><strong>Code:</strong> 200 <br />
+<strong>Content:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="mi">30</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="mi">40</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first"><strong>Error Response:</strong></p>
+<p>500 will be returned on any server-side error</p>
+</li>
+<li><p class="first"><strong>Sample Call:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="se">\</span>
+https://edge-company-a.legion-test.epm.kharlamov.biz/api/model/test-summation/1.0/batch <span class="se">\</span>
+-d <span class="s1">&#39;a=10&amp;b=20</span>
+<span class="s1">a=10&amp;b=30&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>Notes:</strong></p>
+<p>Files cannot be send in batch mode.</p>
+<p>02.07.2018, Kirill Makhonin</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ref_model_format.html" class="btn btn-neutral float-right" title="Model Format" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ref_kubernetes.html" class="btn btn-neutral" title="Kubernetes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Legion Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

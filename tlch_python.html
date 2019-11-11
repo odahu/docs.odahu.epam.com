@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python toolchain &mdash; legion 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> legion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">legion</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Python toolchain</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tlch_python.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="python-toolchain">
+<h1>Python toolchain<a class="headerlink" href="#python-toolchain" title="Permalink to this headline">¶</a></h1>
+<p>Legion’s Python toolchain (SDK) allows to create ML models for Legion platform. It exposes API (<a class="reference external" href="#toolchain-api">described below</a>) to developers.</p>
+<div class="section" id="toolchain-api">
+<h2>Toolchain API<a class="headerlink" href="#toolchain-api" title="Permalink to this headline">¶</a></h2>
+<p>Each API method uses or changes “Legion Model Context”. Context stores information about model, its endpoints, train metrics and other train information.</p>
+<div class="section" id="general">
+<h3>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">init(model_id:</span> <span class="pre">str,</span> <span class="pre">model_version:</span> <span class="pre">str)</span></code> - initializes context of model training. Should be called before any other API method. Can be called once (or after <code class="docutils literal notranslate"><span class="pre">reset_context</span></code>). Returns nothing.</li>
+<li><code class="docutils literal notranslate"><span class="pre">get_context()</span></code> - returns current state of context as object, depending of realization. <strong>Context should be initialized before.</strong></li>
+<li><code class="docutils literal notranslate"><span class="pre">reset_context()</span></code> - resets context object. <code class="docutils literal notranslate"><span class="pre">init</span></code> should be called later (before any other API method).</li>
+<li><code class="docutils literal notranslate"><span class="pre">save()</span></code> - saves model to file system. It captures context of exported functions and serializes them. <strong>Context should be initialized before, at least one function should be exported.</strong></li>
+</ul>
+</div>
+<div class="section" id="metrics">
+<h3>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h3>
+<p><strong>Context should be initialized before calling any of these functions.</strong></p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">send_metric(metric:</span> <span class="pre">str,</span> <span class="pre">value:</span> <span class="pre">float</span> <span class="pre">or</span> <span class="pre">int)</span></code> - sends training metric (e.g. accuracy of trained model). Metrics with same name can be sent only once.</li>
+</ul>
+</div>
+<div class="section" id="export">
+<h3>Export<a class="headerlink" href="#export" title="Permalink to this headline">¶</a></h3>
+<p><strong>Context should be initialized before calling any of these functions.</strong>
+Exporting functions allows expose model predictions, defined as functions, as API methods. <code class="docutils literal notranslate"><span class="pre">apply_func</span></code> - function that receives prediction parameters (details in function specification) and returns json-serializable object (like dictionary) to API client. <code class="docutils literal notranslate"><span class="pre">prepare_func</span></code> - optional function, that is called before apply function, if defined. <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> - name of exported endpoint, model may have more then one endpoint. By default endpoint name equals to <code class="docutils literal notranslate"><span class="pre">&quot;default&quot;</span></code>.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">export_df(apply_func,</span> <span class="pre">input_data_frame,</span> <span class="pre">prepare_func,</span> <span class="pre">endpoint:</span> <span class="pre">str)</span></code> - exports <code class="docutils literal notranslate"><span class="pre">apply_func</span></code> and <code class="docutils literal notranslate"><span class="pre">prepare_func</span></code> functions that take pandas’es DataFrame as input. <code class="docutils literal notranslate"><span class="pre">input_data_frame</span></code> should be DataFrame with structure similar to input format (Legion validates that input has same structure as <code class="docutils literal notranslate"><span class="pre">input_data_frame</span></code>). <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> - name of exported endpoint, described above.</li>
+<li><code class="docutils literal notranslate"><span class="pre">export(apply_func,</span> <span class="pre">column_types,</span> <span class="pre">prepare_func,</span> <span class="pre">endpoint:</span> <span class="pre">str)</span></code> - exports <code class="docutils literal notranslate"><span class="pre">apply_func</span></code> and <code class="docutils literal notranslate"><span class="pre">prepare_func</span></code> functions that take dictionary as input. <code class="docutils literal notranslate"><span class="pre">column_types</span></code> should be Python’s map with keys equal to name of parameters and values that are instances of <code class="docutils literal notranslate"><span class="pre">legion.model.types.ColumnInformation</span></code> (see <a class="reference external" href="#supported-types">supported types</a>). <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> - name of exported endpoint, described above.</li>
+<li><code class="docutils literal notranslate"><span class="pre">export_untyped(apply_func,</span> <span class="pre">prepare_func,</span> <span class="pre">endpoint:</span> <span class="pre">str)</span></code> - exports <code class="docutils literal notranslate"><span class="pre">apply_func</span></code> and <code class="docutils literal notranslate"><span class="pre">prepare_func</span></code> functions that take dictionary as input. <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> - name of exported endpoint, described above.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="supported-types">
+<h2>Supported types<a class="headerlink" href="#supported-types" title="Permalink to this headline">¶</a></h2>
+<p>For <code class="docutils literal notranslate"><span class="pre">export</span></code> function Legion provides built-in types, that could be chosen without implementing custom types (custom types are also possible).</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">int8</span></code>, <code class="docutils literal notranslate"><span class="pre">uint8</span></code>, <code class="docutils literal notranslate"><span class="pre">int16</span></code>, <code class="docutils literal notranslate"><span class="pre">uint16</span></code>, <code class="docutils literal notranslate"><span class="pre">int32</span></code>, <code class="docutils literal notranslate"><span class="pre">uint32</span></code>, <code class="docutils literal notranslate"><span class="pre">int64</span></code>, <code class="docutils literal notranslate"><span class="pre">uint64</span></code> - that are wrappers around appropriate NumPy’s types</li>
+<li><code class="docutils literal notranslate"><span class="pre">float16</span></code>, <code class="docutils literal notranslate"><span class="pre">float32</span></code>, <code class="docutils literal notranslate"><span class="pre">float64</span></code> - that are wrappers around appropriate NumPy’s types</li>
+<li><code class="docutils literal notranslate"><span class="pre">string</span></code>, <code class="docutils literal notranslate"><span class="pre">boolean</span></code> - that are wrappers around standard Python’s types</li>
+<li><code class="docutils literal notranslate"><span class="pre">image</span></code> - that allows to send image as string (base64), url (URL of image on external resource) or bytes (image file)</li>
+</ul>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li>Exports API with endpoint <code class="docutils literal notranslate"><span class="pre">default</span></code> that takes one argument (<code class="docutils literal notranslate"><span class="pre">image</span></code>) and calls <code class="docutils literal notranslate"><span class="pre">predict</span></code> function for prediction:</li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">legion.toolchain</span> <span class="kn">import</span> <span class="n">model</span>
+<span class="n">model</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s1">&#39;test-model&#39;</span><span class="p">,</span> <span class="s1">&#39;1.0&#39;</span><span class="p">)</span>  <span class="c1"># initialize model with id=test-model and version=1.0</span>
+
+<span class="c1"># ... prepare model, results are accuracy_value and predict function</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">send_metric</span><span class="p">(</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">accuracy_value</span><span class="p">)</span>  <span class="c1"># send training metrics</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">{</span><span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">image</span><span class="p">})</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li>Exports API with endpoint <code class="docutils literal notranslate"><span class="pre">clsf</span></code> that takes arguments as in data frame <code class="docutils literal notranslate"><span class="pre">features_data</span></code> and calls <code class="docutils literal notranslate"><span class="pre">predict</span></code> function of scikit’s DecisionTreeClassifier for prediction:</li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">legion.toolchain</span> <span class="kn">import</span> <span class="n">model</span>
+<span class="n">model</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s1">&#39;classifier-1&#39;</span><span class="p">,</span> <span class="s1">&#39;1.2&#39;</span><span class="p">)</span>  <span class="c1"># initialize model with id=classifier-1 and version=1.2</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">export_df</span><span class="p">(</span><span class="n">apply_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="p">},</span>
+                <span class="n">prepare_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">prepare</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+                <span class="n">input_data_frame</span><span class="o">=</span><span class="n">features_data</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For more examples please refer <a class="reference external" href="https://github.com/legion-platform/legion/tree/develop/examples">examples folder</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Legion Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

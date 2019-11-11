@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Jupyterlab &mdash; legion 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> legion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">legion</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Jupyterlab</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/jupyterlab_configuration.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jupyterlab">
+<h1>Jupyterlab<a class="headerlink" href="#jupyterlab" title="Permalink to this headline">¶</a></h1>
+<p>Legion provides the Jupyterlab plugin as part of the platform.</p>
+<div class="section" id="internal-deployment">
+<h2>Internal deployment<a class="headerlink" href="#internal-deployment" title="Permalink to this headline">¶</a></h2>
+<p>Every Legion deployment contains Jupyterlab instance.
+Its URL is <code class="docutils literal notranslate"><span class="pre">https://jupyterlab.&lt;root-domain&gt;/</span></code>.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>For now, there is no way to install the plugin from pypy\npm.
+You can use the prebuilt Docker image, which is located in <a class="reference external" href="https://hub.docker.com/r/legionplatformtest/jupyterlab/tags">repository</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>legionctl sandbox --image legion/jupyterlab:latest
+./legion-activate.sh
+</pre></div>
+</div>
+<p>To setup an instance of Jupyterlab, you can use an environment variables. Available configuration options:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">DEFAULT_EDI_ENDPOINT</span></code> - preconfigured EDI endpoint, for example <code class="docutils literal notranslate"><span class="pre">http://edi.demo.ailifecycle.org</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">LEGIONCTL_OAUTH_AUTH_URL</span></code> - Keycloak authorization endpoint, for example <code class="docutils literal notranslate"><span class="pre">https://keycloak.company.org/auth/realms/master/protocol/openid-connect/auth</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">JUPYTER_REDIRECT_URL</span></code> - JupyterLab external URL.</li>
+<li><code class="docutils literal notranslate"><span class="pre">LEGIONCTL_OAUTH_SCOPE</span></code> - Oauth2 scopes. Th default value is <code class="docutils literal notranslate"><span class="pre">openid</span> <span class="pre">profile</span> <span class="pre">email</span> <span class="pre">offline_access</span> <span class="pre">groups</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">LEGIONCTL_OAUTH_CLIENT_SECRET</span></code> - Oauth2 client secret</li>
+<li><code class="docutils literal notranslate"><span class="pre">LEGIONCTL_OAUTH_CLIENT_ID</span></code> - Oauth client ID</li>
+</ul>
+<p>To enable SSO, you should provide the following options:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">LEGIONCTL_OAUTH_AUTH_URL</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">JUPYTER_REDIRECT_URL</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">LEGIONCTL_OAUTH_CLIENT_SECRET</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">LEGIONCTL_OAUTH_CLIENT_ID</span></code></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Legion Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,901 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuration &mdash; legion 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Kubernetes" href="ref_kubernetes.html" />
+    <link rel="prev" title="Airflow" href="int_airflow.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> legion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#legion-helm-chart">Legion Helm chart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ci-cd">CI/CD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#profile">Profile</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#profile-format">Profile format</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#secrets">Secrets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#secrets-format">Secrets format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">legion</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Configuration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ref_configuration.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="legion-helm-chart">
+<h2>Legion Helm chart<a class="headerlink" href="#legion-helm-chart" title="Permalink to this headline">¶</a></h2>
+<p id="config-values-yaml">Example Helm values file:</p>
+<div class="literal-block-wrapper docutils container" id="values-yaml">
+<div class="code-block-caption"><span class="caption-text">values.yaml</span><a class="headerlink" href="#values-yaml" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Version of Legion</span>
+<span class="c1"># By default .Chart.AppVersion version is used</span>
+<span class="c1"># Type: string</span>
+<span class="c1"># legionVersion: &quot;1.0&quot;</span>
+
+<span class="c1"># Does cluster require RBAC</span>
+<span class="c1"># Type: bool</span>
+<span class="nt">rbac</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># Docker images registry</span>
+<span class="c1"># This registry will be used for automatic docker image name deduction based on Legion naming for images</span>
+<span class="c1"># Each image could be overridden manually in .&lt;service&gt;.image, please see .edi root section or other</span>
+<span class="c1"># Type: string</span>
+<span class="nt">imagesRegistry</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legionplatform/</span>
+
+<span class="c1"># Verbosity of logging features in components</span>
+<span class="c1"># Valid values are:</span>
+<span class="c1"># - info</span>
+<span class="c1"># - debug</span>
+<span class="c1"># - warning</span>
+<span class="c1"># - error</span>
+<span class="nt">logLevel</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">info</span>
+
+<span class="c1"># Configuration of Legion ingresses</span>
+<span class="c1"># Ingresses are for next &lt;service&gt;s</span>
+<span class="c1"># - edi</span>
+<span class="c1"># - edge</span>
+<span class="nt">ingress</span><span class="p">:</span>
+  <span class="c1"># Global flag for Ingress enabling</span>
+  <span class="c1"># Each Ingress could be configured manually in .&lt;service&gt;.ingress.enabled</span>
+  <span class="c1"># Type: bool</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+  <span class="c1"># Root domain for auto-created Ingress domains.</span>
+  <span class="c1"># Each domain could be configured manually in .&lt;service&gt;.ingress.domain</span>
+  <span class="c1"># Also it controls building URLs for external resources such as auth endpoint</span>
+  <span class="c1"># Type: string</span>
+  <span class="nt">globalDomain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example.com</span>
+
+  <span class="c1"># Global annotations for all services</span>
+  <span class="c1"># Each Ingress could be configured manually in .&lt;service&gt;.ingress.annotations</span>
+  <span class="c1"># Type: string-&gt;string map</span>
+  <span class="nt">annotations</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
+  <span class="c1">#  kubernetes.io/ingress.class: nginx</span>
+  <span class="c1">#  kubernetes.io/tls-acme: &quot;true&quot;</span>
+
+  <span class="c1"># Global TLS flag</span>
+  <span class="c1"># Each Ingress could be configured manually in .&lt;service&gt;.ingress.tlsEnabled</span>
+  <span class="c1"># Also it controls building URLs for external resources such as auth endpoint</span>
+  <span class="c1"># Type: bool</span>
+  <span class="nt">tlsEnabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+  <span class="c1"># Global TLS secret name</span>
+  <span class="c1"># Each Ingress could be configured manually in .&lt;service&gt;.ingress.tlsSecretName</span>
+  <span class="c1"># Type: string</span>
+  <span class="nt">tlsSecretName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">~</span>
+
+<span class="c1"># Security configuration. Model API security configures in .modelApiSecurity section (see below)</span>
+<span class="nt">security</span><span class="p">:</span>
+  <span class="c1"># Is authorization for WEB requests enabled or not</span>
+  <span class="c1"># Type: bool</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+  <span class="c1"># Type of authorization. Currently only oauth2_proxy is supported</span>
+  <span class="c1"># Valid values are:</span>
+  <span class="c1"># - oauth2_proxy</span>
+  <span class="nt">integration</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">oauth2_proxy</span>
+
+  <span class="c1"># Detail configuration of oauth2_proxy</span>
+  <span class="nt">oauth2_proxy</span><span class="p">:</span>
+    <span class="c1"># Internal URL of oauth2_proxy that will be called on each Ingress request. Is used in auth_request directive on Ingress Nginx</span>
+    <span class="c1"># Type: string</span>
+    <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://oauth2-proxy.kube-system.svc.cluster.local:4180/oauth2/auth</span>
+
+    <span class="c1"># Public URL on which user will be redirected for authrorization</span>
+    <span class="c1"># Uncomment for custom public URL, otherwise auth.&lt;ingress.globalDomain&gt; will be used</span>
+    <span class="c1"># besides standard Nginx Ingress variables, escaped_request_uri is available too</span>
+    <span class="c1"># Type: string</span>
+    <span class="c1"># public_url: https://auth.my-company.com/oauth2/start?rd=https://$host$escaped_request_uri</span>
+
+<span class="c1"># Model API security</span>
+<span class="nt">modelApiSecurity</span><span class="p">:</span>
+  <span class="c1"># Should Model API security be closed by auth. or not</span>
+  <span class="c1"># Type: bool</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+  <span class="c1"># Type of auth. mechanism for Model API gateway</span>
+  <span class="c1"># Valid values are:</span>
+  <span class="c1"># - jwt</span>
+  <span class="nt">integration</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jwt</span>
+
+  <span class="c1"># Detailed JWT configuration</span>
+  <span class="nt">jwt</span><span class="p">:</span>
+    <span class="c1"># Secret for JWT</span>
+    <span class="c1"># Type: string</span>
+    <span class="nt">secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example</span>
+
+    <span class="c1"># Default token&#39;s TTL in minutes</span>
+    <span class="c1"># Type: integer</span>
+    <span class="nt">defaultTokenTTLInMinutes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">120</span>
+
+    <span class="c1"># Maximum value of TTL in minutes</span>
+    <span class="c1"># This value is used in EDI to validate requests for token generation</span>
+    <span class="c1"># Type: integer</span>
+    <span class="nt">maxTokenTTLInMinutes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">525600</span>
+
+    <span class="c1"># Default TTL end date</span>
+    <span class="c1"># Type: date sting, e.g. 2030-12-30T00:00:00</span>
+    <span class="nt">defaultTokenTTLEndDate</span><span class="p">:</span> <span class="s">&quot;2030-12-30T00:00:00&quot;</span>
+
+<span class="c1"># Components metrics measurement</span>
+<span class="c1"># Measures components performance through prometheus protocol</span>
+<span class="nt">metrics</span><span class="p">:</span>
+  <span class="c1"># Is measurements enabled or not</span>
+  <span class="c1"># Type: bool</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+  <span class="c1"># Labels for ServiceMonitor CR objects</span>
+  <span class="c1"># Type: string -&gt; string map</span>
+  <span class="nt">serviceMonitoringLabels</span><span class="p">:</span>
+    <span class="nt">monitoring</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">prometheus</span>
+
+<span class="c1"># StatsD configuration for metrics that requires StatsD format (e.g. model invocation &amp; training metrics)</span>
+<span class="nt">modelMetrics</span><span class="p">:</span>
+  <span class="c1"># Is model performance metrics enabled or not</span>
+  <span class="c1"># Type: bool</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+  <span class="c1"># StatsD host</span>
+  <span class="c1"># Type: string</span>
+  <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">statsd-exporter.kube-monitoring.svc.cluster.local</span>
+
+  <span class="c1"># StatsD port</span>
+  <span class="c1"># Type: integer</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">9125</span>
+
+<span class="c1"># Default VCS instances. Will be spawned on cluster start</span>
+<span class="c1"># For more information, read the VCSCredential documentation. Example:</span>
+<span class="c1"># - name: &quot;legion&quot;</span>
+<span class="c1">#   type: &quot;git&quot;</span>
+<span class="c1">#   uri: &quot;git@github.com:legion-platform/legion.git&quot;</span>
+<span class="c1">#   defaultReference: &quot;origin/develop&quot;</span>
+<span class="c1">#   creds: &quot;&quot;</span>
+<span class="nt">vcs</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+
+<span class="c1"># Model storage is a Docker Registry</span>
+<span class="c1"># Credentials are required for gathering model information</span>
+<span class="nt">modelStorage</span><span class="p">:</span>
+  <span class="c1"># Prefix for all built images</span>
+  <span class="c1"># Might be useful for management purposes</span>
+  <span class="c1"># Type: string</span>
+  <span class="nt">buildPrefix</span><span class="p">:</span> <span class="s">&quot;legion&quot;</span>
+
+  <span class="c1"># Type of Docker Registry.</span>
+  <span class="c1"># Valid values are:</span>
+  <span class="c1"># - external - use external Docker Registry</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">external</span>
+  <span class="c1"># TODO: add &quot;internal&quot; variant - deploy and use internal Docker Registry with ephemeral disk (only for development purposes)</span>
+
+  <span class="c1"># Detailed configuration of external Docker Registry</span>
+  <span class="nt">external</span><span class="p">:</span>
+    <span class="c1"># Protocol for connection to Docker Registry</span>
+    <span class="c1"># Valid values are:</span>
+    <span class="c1"># - https</span>
+    <span class="c1"># - http</span>
+    <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">~</span>
+
+    <span class="c1"># URL of Docker Registry</span>
+    <span class="c1"># Type: string</span>
+    <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">~</span>
+
+    <span class="c1"># Credentials on Docker Registry</span>
+    <span class="c1"># Type: string</span>
+    <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example</span>
+
+    <span class="c1"># Credentials on Docker Registry</span>
+    <span class="c1"># Type: string</span>
+    <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example</span>
+
+<span class="c1"># Configuration of model execution process</span>
+<span class="nt">modelExecution</span><span class="p">:</span>
+  <span class="c1"># Limitations of model deployment pods</span>
+  <span class="c1"># For declaration format see https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/</span>
+  <span class="nt">limits</span><span class="p">:</span>
+    <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">256m</span>
+    <span class="nt">mem</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">256Mi</span>
+
+<span class="c1"># Feedback configuration</span>
+<span class="nt">feedback</span><span class="p">:</span>
+  <span class="c1"># Is feedback gathering stack enabled or not</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+  <span class="nt">fluentd</span><span class="p">:</span>
+    <span class="c1"># This variable can be enabled to setup custom image name for fluentd</span>
+    <span class="c1"># Type: string</span>
+    <span class="c1"># image: custom-image:1.0</span>
+
+    <span class="c1"># Resources for each instance</span>
+    <span class="c1"># For declaration format see https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/</span>
+    <span class="nt">resources</span><span class="p">:</span>
+      <span class="nt">requests</span><span class="p">:</span>
+        <span class="nt">cpu</span><span class="p">:</span> <span class="s">&quot;300m&quot;</span>
+        <span class="nt">memory</span><span class="p">:</span> <span class="s">&quot;256Mi&quot;</span>
+      <span class="nt">limits</span><span class="p">:</span>
+        <span class="nt">cpu</span><span class="p">:</span> <span class="s">&quot;500m&quot;</span>
+        <span class="nt">memory</span><span class="p">:</span> <span class="s">&quot;1024Mi&quot;</span>
+
+    <span class="c1"># Input port number</span>
+    <span class="c1"># Type: integer</span>
+    <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">24224</span>
+
+  <span class="nt">output</span><span class="p">:</span>
+    <span class="c1"># Where feedback data should be stored</span>
+    <span class="c1"># Only S3 is supported nowadays</span>
+    <span class="c1"># Valid values:</span>
+    <span class="c1"># s3 - AWS S3</span>
+    <span class="nt">target</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3</span>
+
+    <span class="c1"># Detail configuration for storing on S3</span>
+    <span class="nt">s3</span><span class="p">:</span>
+      <span class="c1"># Type of authorization on S3</span>
+      <span class="c1"># Valid values are:</span>
+      <span class="c1"># - iam - requires kube2iam to be installed in cluster,</span>
+      <span class="c1">#         adds annotation &quot;iam.amazonaws.com/role&quot; to FluentD Pod</span>
+      <span class="c1">#         value of annotation could be specified in .feedback.output.s3.customIAMRole</span>
+      <span class="c1"># - secret - provide AWS Key ID and AWS Secret Key in ENV variables for FluentD server</span>
+      <span class="c1">#            AWS Key ID and AWS Secret Key should be specified in</span>
+      <span class="c1">#            .feedback.output.s3.AWSKeyID and .feedback.output.s3.AWSSecretKey</span>
+      <span class="nt">authorization</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">iam</span>
+
+      <span class="c1"># Custom name for IAM for iam-based authorization mode of FluentD</span>
+      <span class="c1"># For details see authorization directive above</span>
+      <span class="c1"># By default &quot;&lt;.ingress.globalDomain&gt;-&lt;.Release.Namespace&gt;-collector-role&quot; is used</span>
+      <span class="c1"># Type: string</span>
+      <span class="c1">#customIAMRole: ~</span>
+
+      <span class="c1"># AWS Key ID for secret-based authorization mode of FluentD</span>
+      <span class="c1"># For details see authorization directive above</span>
+      <span class="c1"># Type: string</span>
+      <span class="c1">#AWSKeyID: ~</span>
+
+      <span class="c1"># AWS Secret Key for secret-based authorization mode of FluentD</span>
+      <span class="c1"># For details see authorization directive above</span>
+      <span class="c1"># Type: string</span>
+      <span class="c1">#AWSSecretKey: ~</span>
+
+      <span class="c1"># S3 bucket name</span>
+      <span class="c1"># Type: string</span>
+      <span class="nt">bucket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">~</span>
+
+      <span class="c1"># S3 region</span>
+      <span class="c1"># Type: string</span>
+      <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">~</span>
+
+      <span class="c1"># Directory for data storing</span>
+      <span class="c1"># Type: string</span>
+      <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;model_log/${tag}/${model_id}/${model_version}/year=%Y/month=%m/day=%d/&quot;</span>
+
+      <span class="c1"># Format of file names</span>
+      <span class="c1"># Type: string</span>
+      <span class="nt">objectKeyFormat</span><span class="p">:</span> <span class="s">&quot;%{path}%{time_slice}_%{index}.%{file_extension}&quot;</span>
+
+      <span class="c1"># Slicing format</span>
+      <span class="c1"># Type: string</span>
+      <span class="nt">timeSliceFormat</span><span class="p">:</span> <span class="s">&quot;%Y%m%d%H&quot;</span>
+
+      <span class="c1"># Slicing wait time</span>
+      <span class="c1"># Type: string</span>
+      <span class="nt">timeSliceWait</span><span class="p">:</span> <span class="s">&quot;5m&quot;</span>
+
+      <span class="c1"># Storage type</span>
+      <span class="c1"># Type: string</span>
+      <span class="nt">storeAs</span><span class="p">:</span> <span class="s">&quot;json&quot;</span>
+
+      <span class="c1"># Storage format</span>
+      <span class="c1"># Type: string</span>
+      <span class="nt">format</span><span class="p">:</span> <span class="s">&quot;json&quot;</span>
+
+      <span class="c1"># Buffering (chunking)</span>
+      <span class="nt">buffering</span><span class="p">:</span>
+        <span class="c1"># Chunks length (window size)</span>
+        <span class="c1"># Type: string</span>
+        <span class="nt">timekey</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1m</span>
+
+        <span class="c1"># Delay for flush (after end of window)</span>
+        <span class="c1"># Type: string</span>
+        <span class="nt">timekeyWait</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+
+        <span class="c1"># Temporary buffering location</span>
+        <span class="c1"># Type: string</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp</span>
+
+<span class="c1"># Operator configuration</span>
+<span class="c1"># Operator handles all Legion&#39;s CustomResources such as ModelTraining and etc.</span>
+<span class="nt">operator</span><span class="p">:</span>
+  <span class="c1"># Operator&#39;s server configuration</span>
+  <span class="c1"># It listens Kubernetes API for Legion CR update events</span>
+  <span class="c1">#  and creates/updates appropriate Pods / Secrets</span>
+  <span class="nt">server</span><span class="p">:</span>
+    <span class="c1"># This variable can be uncommented to setup custom image name for operator (server)</span>
+    <span class="c1"># Type: string</span>
+    <span class="c1"># image: custom-image:1.0</span>
+
+    <span class="c1"># Count of operator replicas</span>
+    <span class="c1"># Type: integer</span>
+    <span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+
+    <span class="c1"># Resources for each instance</span>
+    <span class="c1"># For declaration format see https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/</span>
+    <span class="nt">resources</span><span class="p">:</span>
+      <span class="nt">limits</span><span class="p">:</span>
+        <span class="nt">cpu</span><span class="p">:</span> <span class="s">&quot;256m&quot;</span>
+        <span class="nt">memory</span><span class="p">:</span> <span class="s">&quot;256Mi&quot;</span>
+      <span class="nt">requests</span><span class="p">:</span>
+        <span class="nt">cpu</span><span class="p">:</span> <span class="s">&quot;128m&quot;</span>
+        <span class="nt">memory</span><span class="p">:</span> <span class="s">&quot;128Mi&quot;</span>
+
+  <span class="c1"># Builder&#39;s configuration</span>
+  <span class="c1"># It places in sidecar container for training pod</span>
+  <span class="c1">#  and it is in charge of communicating with host&#39;s Docker socket</span>
+  <span class="c1">#  for training container capturing.</span>
+  <span class="nt">builder</span><span class="p">:</span>
+    <span class="c1"># This variable can be uncommented to setup custom image name for operator (builder)</span>
+    <span class="c1"># Type: string</span>
+    <span class="c1"># image: custom-image:1.0</span>
+
+<span class="c1"># EDI server configuration</span>
+<span class="c1"># It provides HTTP API for model training &amp; model deployment management</span>
+<span class="c1">#  also it creates JWT tokens for model invocation</span>
+<span class="nt">edi</span><span class="p">:</span>
+  <span class="c1"># EDI could be disabled</span>
+  <span class="c1"># Type: bool</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+
+  <span class="c1"># This variable can be uncommented to setup custom image name for operator (server)</span>
+  <span class="c1"># Type: string</span>
+  <span class="c1"># image: custom-image:1.0</span>
+
+  <span class="c1"># Count of EDI replicas</span>
+  <span class="c1"># Type: integer</span>
+  <span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+
+  <span class="c1"># Maximum number of retries for K8S API calls</span>
+  <span class="c1"># Type: integer</span>
+  <span class="nt">k8sApiRetryNumberMaxLimit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+
+  <span class="c1"># Delay between retries for K8S API calls</span>
+  <span class="c1"># Type: integer</span>
+  <span class="nt">k8sApiRetryDelaySec</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+
+  <span class="c1"># Port on which EDI listens income traffic</span>
+  <span class="c1"># Type: integer</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+
+  <span class="c1"># Resources for each instance</span>
+  <span class="c1"># For declaration format see https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/</span>
+  <span class="nt">resources</span><span class="p">:</span>
+    <span class="nt">requests</span><span class="p">:</span>
+      <span class="nt">cpu</span><span class="p">:</span> <span class="s">&quot;50m&quot;</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="s">&quot;128Mi&quot;</span>
+    <span class="nt">limits</span><span class="p">:</span>
+      <span class="nt">cpu</span><span class="p">:</span> <span class="s">&quot;100m&quot;</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="s">&quot;512Mi&quot;</span>
+
+  <span class="c1"># Configuration of ingress object</span>
+  <span class="nt">ingress</span><span class="p">:</span>
+    <span class="c1"># Custom enabling/disabling of Ingress resource for EDI</span>
+    <span class="c1"># To use specific value, uncomment and replace ~ with target value</span>
+    <span class="c1"># Type: bool</span>
+    <span class="c1"># enabled: ~</span>
+
+    <span class="c1"># Annotations for ingress</span>
+    <span class="c1"># Will be added to global annotations (.ingress.annotations)</span>
+    <span class="c1"># Type: string-&gt;string map</span>
+    <span class="nt">annotations</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
+
+    <span class="c1"># Custom domain name</span>
+    <span class="c1"># By default domain name &quot;edi.&lt;..ingress.globalDomain&gt;&quot; is used</span>
+    <span class="c1"># To use specific value, replace ~ with target value</span>
+    <span class="c1"># Type: string</span>
+    <span class="c1"># domain: ~</span>
+
+    <span class="c1"># Is TLS enabled for this Ingress or not</span>
+    <span class="c1"># By default global variable is used (.ingress.tlsEnabled)</span>
+    <span class="c1"># To use specific value, replace ~ with target value</span>
+    <span class="c1"># Type: string</span>
+    <span class="c1"># tlsEnabled: false</span>
+
+    <span class="c1"># Global TLS secret name</span>
+    <span class="c1"># By default global variable is used (.ingress.tlsSecretName)</span>
+    <span class="c1"># To use specific value, replace ~ with target value</span>
+    <span class="c1"># Type: string</span>
+    <span class="c1"># tlsSecretName: ~</span>
+
+<span class="c1"># EDGE gateway</span>
+<span class="c1"># It handles all income traffic for model invocation</span>
+<span class="c1">#  and it does JWT validation of requests if it is enabled</span>
+<span class="nt">edge</span><span class="p">:</span>
+  <span class="c1"># EDGE gateway could be disabled</span>
+  <span class="c1"># Type: bool</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+
+  <span class="c1"># This variable can be uncommented to setup custom image name for operator (server)</span>
+  <span class="c1"># Type: string</span>
+  <span class="c1"># image: custom-image:1.0</span>
+
+  <span class="c1"># Count of EDGE replicas</span>
+  <span class="c1"># Type: integer</span>
+  <span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+
+  <span class="c1"># Port on which EDI listens income traffic</span>
+  <span class="c1"># Type: integer</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+
+  <span class="c1"># Resources for each instance</span>
+  <span class="c1"># For declaration format see https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/</span>
+  <span class="nt">resources</span><span class="p">:</span>
+    <span class="nt">requests</span><span class="p">:</span>
+      <span class="nt">cpu</span><span class="p">:</span> <span class="s">&quot;50m&quot;</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="s">&quot;128Mi&quot;</span>
+    <span class="nt">limits</span><span class="p">:</span>
+      <span class="nt">cpu</span><span class="p">:</span> <span class="s">&quot;100m&quot;</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="s">&quot;512Mi&quot;</span>
+
+  <span class="c1"># Ingress object configuration</span>
+  <span class="nt">ingress</span><span class="p">:</span>
+    <span class="c1"># Custom enabling/disabling of Ingress resource for EDGE</span>
+    <span class="c1"># To use specific value, uncomment and replace ~ with target value</span>
+    <span class="c1"># Type: bool</span>
+    <span class="c1">#enabled: ~</span>
+
+    <span class="c1"># Annotations for ingress</span>
+    <span class="c1"># Will be added to global annotations (.ingress.annotations)</span>
+    <span class="c1"># Type: string-&gt;string map</span>
+    <span class="nt">annotations</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
+
+    <span class="c1"># Custom domain name</span>
+    <span class="c1"># By default domain name &quot;edge.&lt;..ingress.globalDomain&gt;&quot; is used</span>
+    <span class="c1"># To use specific value, uncomment and replace ~ with target value</span>
+    <span class="c1"># Type: string</span>
+    <span class="c1">#domain: ~</span>
+
+    <span class="c1"># Is TLS enabled for this Ingress or not</span>
+    <span class="c1"># By default global variable is used (.ingress.tlsEnabled)</span>
+    <span class="c1"># To use specific value, uncomment and replace ~ with target value</span>
+    <span class="c1"># Type: string</span>
+    <span class="c1">#tlsEnabled: ~</span>
+
+    <span class="c1"># Global TLS secret name</span>
+    <span class="c1"># By default global variable is used (.ingress.tlsSecretName)</span>
+    <span class="c1"># To use specific value, uncomment and replace ~ with target value</span>
+    <span class="c1"># Type: string</span>
+    <span class="c1">#tlsSecretName: ~</span>
+
+<span class="nt">toolchains</span><span class="p">:</span>
+  <span class="nt">python</span><span class="p">:</span>
+    <span class="c1"># This variable can be uncommented to setup custom image name for python</span>
+    <span class="c1"># Type: string</span>
+    <span class="c1"># image: custom-image:1.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ci-cd">
+<h2>CI/CD<a class="headerlink" href="#ci-cd" title="Permalink to this headline">¶</a></h2>
+<p>Each cluster that you want to deploy with our Jenkinsfiles and Ansible playbooks should be configured using <strong>profiles</strong> and <strong>secrets</strong>. For application configuration you can use the <strong>CLI configuration interface</strong> or <strong>environment variables</strong>.</p>
+<p>A <strong>profile</strong> describes characteristics of a cluster, such as DNS names, machine shapes (RAM, CPU, etc) and so on.</p>
+<p><strong>Secrets</strong> describe private cluster information, such as credentials for internal and external systems, secret keys and other privileged information.</p>
+<p>A <strong>CLI configuration interface</strong> is a way to change a Legion application (logging level, auth tokens, etc) but may control only part of a Legion application’s configuration.</p>
+<p><strong>Environment variables</strong> exert full control over all Legion applications’ configurations.</p>
+<div class="section" id="profile">
+<h3>Profile<a class="headerlink" href="#profile" title="Permalink to this headline">¶</a></h3>
+<p>Each profile should be located in the <cite>/deploy/profiles</cite> directory of the repository. A profile file name consists of two parts: environment name (usually equal to the DNS name) and the <cite>.yml</cite> extension.</p>
+<p>The file should be well-formed YAML text.</p>
+<div class="section" id="profile-format">
+<h4>Profile format<a class="headerlink" href="#profile-format" title="Permalink to this headline">¶</a></h4>
+<p>Example profile file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># DNS</span>
+<span class="nt">base_domain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion-dev.epm.kharlamov.biz</span>     <span class="c1"># DNS name of environment</span>
+<span class="nt">route53_zone</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">epm.kharlamov.biz</span>               <span class="c1"># AWS Route53 zone on which domain will be created (zone should be parked before deploy)</span>
+
+<span class="c1"># Common</span>
+<span class="nt">vendor</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion</span>          <span class="c1"># name of vendor, will be used in resource tags</span>
+<span class="nt">env_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion-dev</span>    <span class="c1"># short name of env, will be added in resource tags</span>
+
+<span class="c1"># Ansible variables</span>
+<span class="nt">tmp_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/</span>                          <span class="c1"># directory for storing temporary files (on host during deploy)</span>
+<span class="nt">git_key</span><span class="p">:</span> <span class="s">&quot;/home/jenkins/deploy.cert&quot;</span>    <span class="c1"># SSH Git access key which will be copied to Jenkins in cluster</span>
+<span class="nt">ssh_public_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">~/.ssh/id_rsa.pub</span>       <span class="c1"># public key which will be copied to cluster</span>
+
+<span class="c1"># AWS configuration</span>
+<span class="nt">aws_region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">us-east-2</span>      <span class="c1"># target AWS region for EC2 instances</span>
+<span class="nt">bastion_shape</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">t2.micro</span>    <span class="c1"># shape for bastion nodes (not as part of Kubernetes cluster)</span>
+<span class="nt">master_shape</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">t2.large</span>     <span class="c1"># shape for masters</span>
+<span class="nt">node_shape</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">t2.large</span>       <span class="c1"># shape for modes</span>
+<span class="nt">node_autoscaler_min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>     <span class="c1"># minimum count of nodes for autoscaler group</span>
+<span class="nt">node_autoscaler_max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>     <span class="c1"># maximum count of nodes for autoscaler group</span>
+<span class="nt">node_extra_shapes</span><span class="p">:</span>         <span class="c1"># list of shapes that can be started up during model building of Jenkins (will be shutted down automatically)</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">r4.large</span>       <span class="c1"># 2 cpu   / 15.25Gb / $0.133 ph</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">r4.xlarge</span>      <span class="c1"># 4 cpu   / 30.5Gb  / $0.266 ph</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">r4.2xlarge</span>     <span class="c1"># 8 cpu   / 61Gb    / $0.532 ph</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">r4.4xlarge</span>     <span class="c1"># 16 cpu  / 122Gb   / $1.064 ph</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">r4.8xlarge</span>     <span class="c1"># 32 cpu  / 244Gb   / $2.128 ph</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">r4.16xlarge</span>    <span class="c1"># 64 cpu  / 488Gb   / $4.256 ph</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">x1.16xlarge</span>    <span class="c1"># 64 cpu  / 976Gb   / $6.669 ph</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">x1.32xlarge</span>    <span class="c1"># 128 cpu / 1952Gb  / $13.338 ph</span>
+<span class="nt">node_extra_min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>          <span class="c1"># minimum count of nodes for model building</span>
+<span class="nt">node_extra_max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>          <span class="c1"># maximum count of nodes for model building</span>
+
+<span class="nt">vpc_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">vpc-5729c13e</span>               <span class="c1"># VPC id where the cluster will be created</span>
+
+<span class="c1"># Common cluster configuration for KOPS</span>
+<span class="nt">cluster_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion-dev.epm.kharlamov.biz</span> <span class="c1"># unique KOPS cluster name</span>
+<span class="nt">state_store</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3://legion-cluster</span>  <span class="c1"># AWS S3 bucket for storing KOPS state</span>
+<span class="nt">aws_image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kope.io/k8s-1.8-debian-jessie-amd64-hvm-ebs-2018-02-08</span>  <span class="c1"># base Kubernetes image</span>
+<span class="nt">kubernetes_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1.9.3</span>         <span class="c1"># kubernetes version</span>
+<span class="nt">private_network</span><span class="p">:</span> <span class="s">&#39;172.31&#39;</span>         <span class="c1"># private network prefix</span>
+<span class="nt">cluster_zones</span><span class="p">:</span>                    <span class="c1"># configuration of cluster zones</span>
+  <span class="p p-Indicator">-</span> <span class="nt">zone_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">us-east-2a</span>
+    <span class="nt">kops_cidr</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">private_network</span><span class="nv"> </span><span class="s">}}.100.0/24&quot;</span>
+    <span class="nt">kops_utility_cidr</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">private_network</span><span class="nv"> </span><span class="s">}}.103.0/24&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="nt">zone_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">us-east-2b</span>
+    <span class="nt">kops_cidr</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">private_network</span><span class="nv"> </span><span class="s">}}.101.0/24&quot;</span>
+    <span class="nt">kops_utility_cidr</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">private_network</span><span class="nv"> </span><span class="s">}}.104.0/24&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="nt">zone_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">us-east-2c</span>
+    <span class="nt">kops_cidr</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">private_network</span><span class="nv"> </span><span class="s">}}.102.0/24&quot;</span>
+    <span class="nt">kops_utility_cidr</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">private_network</span><span class="nv"> </span><span class="s">}}.105.0/24&quot;</span>
+
+<span class="c1"># TLS sertificates issuing configuration (via Let&#39;s Encrypt)</span>
+<span class="nt">certificate_email</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion@epam.com</span>      <span class="c1"># Let&#39;s Encrypt notification email</span>
+<span class="nt">cert_dir</span><span class="p">:</span> <span class="s">&quot;/etc/dynssl&quot;</span>                 <span class="c1"># folder for storing SSL certificates on host</span>
+
+<span class="c1"># Deploying and test configuration</span>
+<span class="nt">use_https</span><span class="p">:</span> <span class="s">&quot;yes&quot;</span> <span class="c1"># [?]</span>
+<span class="nt">use_https_for_tests</span><span class="p">:</span> <span class="s">&quot;yes&quot;</span> <span class="c1"># [?]</span>
+<span class="nt">pypi_repo</span><span class="p">:</span> <span class="s">&quot;https://nexus-local.cc.epm.kharlamov.biz/repository/pypi-hosted/simple&quot;</span> <span class="c1"># repository for Python packages</span>
+<span class="nt">docker_repo</span><span class="p">:</span> <span class="s">&quot;nexus-local.cc.epm.kharlamov.biz:443&quot;</span> <span class="c1"># docker registry with builded images</span>
+<span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>      <span class="c1"># namespace of core deployment</span>
+<span class="nt">deployment</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion</span>      <span class="c1"># name of deployment</span>
+<span class="nt">examples_to_test</span><span class="p">:</span>       <span class="c1"># which Jenkins examples will be executed in tests</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Test-Summation</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Digit-Recognition</span>
+<span class="nt">model_id_to_test</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">income</span>  <span class="c1"># id of model which will be tested in EDI tests</span>
+<span class="nt">enclaves</span><span class="p">:</span>  <span class="c1"># list of enclaves which will be automatically deployed after Legion deploy</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">company-a</span>
+<span class="nt">legion_data_s3_bucket</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">legion_data_bucket_prefix</span><span class="nv"> </span><span class="s">}}-{{</span><span class="nv"> </span><span class="s">env_name</span><span class="nv"> </span><span class="s">}}-{{</span><span class="nv"> </span><span class="s">enclave</span><span class="nv"> </span><span class="s">}}&quot;</span>                              <span class="c1"># Airflow storage location at S3</span>
+
+<span class="c1"># Dex</span>
+<span class="nt">dex</span><span class="p">:</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>   <span class="c1"># by default Dex is disabled in profiles (but enabled in secrets)</span>
+
+<span class="c1"># Secrets</span>
+<span class="nt">secrets_bucket</span><span class="p">:</span> <span class="s">&quot;legion-secrets&quot;</span>               <span class="c1"># S3 bucket with secrets</span>
+<span class="nt">secrets_file</span><span class="p">:</span> <span class="s">&quot;/tmp/{{</span><span class="nv"> </span><span class="s">cluster_name</span><span class="nv"> </span><span class="s">}}-secrets&quot;</span>  <span class="c1"># path for temporary storage</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="secrets">
+<h3>Secrets<a class="headerlink" href="#secrets" title="Permalink to this headline">¶</a></h3>
+<p>Each secret should be encrypted with Ansible vault and uploaded to S3.
+Secret should be stored on a Jenkins like credentials file (for example vault-legion-dev.epm.kharlamov.biz).
+S3 path to secrets builds using next template <cite>{{ secrets_bucket }}/vault/{{ profile }}</cite> for example <cite>legion-secrets/vault/legion-dev.epm.kharlamov.biz</cite></p>
+<p>Decrypted file should consists of appropriate YAML formatted text.</p>
+<div class="section" id="secrets-format">
+<h4>Secrets format<a class="headerlink" href="#secrets-format" title="Permalink to this headline">¶</a></h4>
+<p>Example secret file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># AWS resources configuration</span>
+<span class="nt">aws</span><span class="p">:</span>
+  <span class="nt">account_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">000000000000</span>
+  <span class="nt">rds</span><span class="p">:</span> <span class="c1"># credentials for dynamically deployed RDS</span>
+    <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example</span>
+    <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example</span>
+    <span class="nt">database_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">db</span>
+
+<span class="nt">external_access_sgs</span><span class="p">:</span> <span class="c1"># list of AWS SG that should be added on ELB</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sg-00000000</span>
+<span class="nt">allowed_wan_ips</span><span class="p">:</span>  <span class="c1"># list of whitelisted CIDRs</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">1.2.3.4/32</span>
+<span class="nt">jenkins_cc_sg</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sg-00000000</span> <span class="c1"># CC Jenkins Security Group to be whitelisted on cluster</span>
+
+<span class="c1"># DEX configuration</span>
+<span class="nt">dex</span><span class="p">:</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">config</span><span class="p">:</span>
+    <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion-dev.epm.kharlamov.biz</span> <span class="c1"># env. name ()</span>
+    <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AAAAAAAAAAAAAAAA</span> <span class="c1"># randomly generated 24-len password</span>
+    <span class="nt">connectors</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">github</span>
+      <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">github</span>
+      <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GitHub</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">clientID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client_id</span>
+        <span class="nt">clientSecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client_secret</span>
+        <span class="nt">redirectURI</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://dex.legion-dev.epm.kharlamov.biz/callback</span> <span class="c1"># DEX callback URL</span>
+        <span class="nt">orgs</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion-platform</span>  <span class="c1"># linked GitHub organizations</span>
+    <span class="nt">staticPasswords</span><span class="p">:</span>  <span class="c1"># static hardcoded passwords for test</span>
+    <span class="p p-Indicator">-</span> <span class="nt">email</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example@example.com</span>
+      <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example</span>
+      <span class="nt">hash</span><span class="p">:</span> <span class="s">&quot;$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W&quot;</span> <span class="c1"># bcrypt hash of the string &quot;password&quot;</span>
+      <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example</span>
+      <span class="nt">userID</span><span class="p">:</span> <span class="s">&quot;08a8684b-db88-4b73-90a9-3cd1661f5466&quot;</span>
+  <span class="nt">groups</span><span class="p">:</span>  <span class="c1"># GitHub groups mapping</span>
+  <span class="p p-Indicator">-</span> <span class="nt">clusterrolebinding</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cluster-admin</span>
+    <span class="nt">group</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion-platform:admin</span>
+  <span class="p p-Indicator">-</span> <span class="nt">clusterrolebinding</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">view</span>
+    <span class="nt">group</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion-platform:view</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ref_kubernetes.html" class="btn btn-neutral float-right" title="Kubernetes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="int_airflow.html" class="btn btn-neutral" title="Airflow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Legion Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

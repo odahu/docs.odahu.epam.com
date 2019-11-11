@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Legion Platform Architecture &mdash; legion 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> legion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">legion</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Legion Platform Architecture</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gen_architecture.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="legion-platform-architecture">
+<h1>Legion Platform Architecture<a class="headerlink" href="#legion-platform-architecture" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="building-training-and-deploying">
+<h2>Building, training and deploying<a class="headerlink" href="#building-training-and-deploying" title="Permalink to this headline">¶</a></h2>
+<p>Legion tries to unify process of training, building and deploying ML/AI models, splitting them to 3 main phases.</p>
+<ol class="arabic simple">
+<li><span class="xref std std-term">Model Training</span></li>
+<li><span class="xref std std-term">Model Packaging</span></li>
+<li><span class="xref std std-term">Model Deploying</span></li>
+</ol>
+<p>Legion provides an ability to develop applications/tools that can be used for these phases. These applications are:</p>
+<ol class="arabic simple">
+<li><span class="xref std std-term">Model Trainer</span></li>
+<li><span class="xref std std-term">Model Packager</span></li>
+<li><span class="xref std std-term">Model Deployer</span></li>
+</ol>
+<p>For cloud use case, these applications/tools have to be registered in Legion Platform using:</p>
+<ol class="arabic simple">
+<li><span class="xref std std-term">Toolchain Train Integration</span></li>
+<li><span class="xref std std-term">Toolchain Packaging Integration</span></li>
+</ol>
+<p>These registrations are required to have an ability to integrate training / packaging process with other subsystem Legion provides too (e.g. <span class="xref std std-term">Model Training Metrics</span>, <span class="xref std std-term">Model Training Tags</span>).</p>
+</div>
+<div class="section" id="storing-of-trained-models">
+<h2>Storing of trained models<a class="headerlink" href="#storing-of-trained-models" title="Permalink to this headline">¶</a></h2>
+<p>As an intermediate format for storing trained models Legion Platform declares <span class="xref std std-term">Trained Model Binary Formats</span> for different languages.</p>
+<p>Nowadays, Legion Platform declares:</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="gen_glossary.html#term-general-python-prediction-interface"><span class="xref std std-term">General Python Prediction Interface</span></a></li>
+</ol>
+<div class="section" id="ready-to-use-solutions">
+<h3>Ready to use solutions<a class="headerlink" href="#ready-to-use-solutions" title="Permalink to this headline">¶</a></h3>
+<p>There are ready for use <span class="xref std std-term">Toolchain Train Integrations</span> and <span class="xref std std-term">Toolchain Packaging Integration</span>:</p>
+<ol class="arabic simple">
+<li><span class="xref std std-term">MLflow Model Training Toolchain Integration</span></li>
+<li><span class="xref std std-term">Docker REST API Packaging Toolchain Integration</span></li>
+</ol>
+<p>But Legion Platform users are not limited to set of predefined <span class="xref std std-term">Toolchain Train</span> and <span class="xref std std-term">Toolchain Packaging</span> integrations and are free for installation of third-party integrations.</p>
+</div>
+</div>
+<div class="section" id="legion-subsystems">
+<h2>Legion subsystems<a class="headerlink" href="#legion-subsystems" title="Permalink to this headline">¶</a></h2>
+<p>Legion subsystems are:</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="gen_glossary.html#term-edi"><span class="xref std std-term">EDI</span></a></li>
+<li><a class="reference internal" href="gen_glossary.html#term-operator"><span class="xref std std-term">Operator</span></a></li>
+<li><a class="reference internal" href="gen_glossary.html#term-feedback-aggregator"><span class="xref std std-term">Feedback aggregator</span></a></li>
+</ol>
+<p>These subsystems are optional, and can be deployed not just inside Legion Cloud, but even in other products.</p>
+</div>
+<div class="section" id="other-integrations">
+<h2>Other integrations<a class="headerlink" href="#other-integrations" title="Permalink to this headline">¶</a></h2>
+<p>For integration with Legion, there are libraries and plugins:</p>
+<ol class="arabic simple">
+<li><span class="xref std std-term">Python SDK Library</span></li>
+<li><a class="reference internal" href="gen_glossary.html#term-legion-cli"><span class="xref std std-term">Legion CLI</span></a></li>
+<li><a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a></li>
+<li><a class="reference internal" href="gen_glossary.html#term-plugin-for-jenkins"><span class="xref std std-term">Plugin for Jenkins</span></a></li>
+<li><a class="reference internal" href="gen_glossary.html#term-plugin-for-airflow"><span class="xref std std-term">Plugin for Airflow</span></a></li>
+</ol>
+</div>
+<div class="section" id="deploying-of-legion-platform">
+<h2>Deploying of Legion Platform<a class="headerlink" href="#deploying-of-legion-platform" title="Permalink to this headline">¶</a></h2>
+<p>Legion Platform can be installed locally or on Kubernetes cluster.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Legion Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

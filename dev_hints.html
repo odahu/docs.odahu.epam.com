@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Development hints &mdash; legion 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to build docker images" href="dev_building.html" />
+    <link rel="prev" title="Project structure" href="dev_project_structure.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> legion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development hints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#set-up-a-development-environment">Set up a development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update-dependencies">Update dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#make-changes-in-api-entities">Make changes in API entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#actions-before-a-pull-request">Actions before a pull request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local-helm-deploy">Local Helm deploy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">legion</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Development hints</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/dev_hints.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="development-hints">
+<h1>Development hints<a class="headerlink" href="#development-hints" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="set-up-a-development-environment">
+<h2>Set up a development environment<a class="headerlink" href="#set-up-a-development-environment" title="Permalink to this headline">¶</a></h2>
+<p>Legion product contains 5 main development parts:</p>
+<ul class="simple">
+<li>Python packages<ul>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install-all</span></code> command to downloads all dependencies and install Legion python packages.</li>
+<li>Verifies that the command finished successfully, for example: <code class="docutils literal notranslate"><span class="pre">legionctl</span> <span class="pre">--version</span></code></li>
+<li>Main entrypoints:<ul>
+<li>Legion sdk - <code class="docutils literal notranslate"><span class="pre">legion/sdk</span></code></li>
+<li>Legion cli - <code class="docutils literal notranslate"><span class="pre">legion/cli</span></code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Legion Jupiterlab plugin<ul>
+<li>Workdir is <code class="docutils literal notranslate"><span class="pre">legion/jupyterlab-plugin</span></code></li>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">install</span></code> command to downloads all Javascripts dependencies.</li>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">build</span> <span class="pre">&amp;&amp;</span> <span class="pre">jupyter</span> <span class="pre">labextension</span> <span class="pre">install</span></code> command to build the Jupiterlab plugin.</li>
+<li>Starts the Jyputerlab server using <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code> command.</li>
+<li>Or you can perform all actions above using docker, for example: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docker-build-jupyterlab</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">run-sandbox</span></code></li>
+</ul>
+</li>
+<li>Golang services:<ul>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">dep</span> <span class="pre">ensure</span></code> command in the <code class="docutils literal notranslate"><span class="pre">legion/operator</span></code> directory to downloads all dependencies.</li>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build-all</span></code> command in the <code class="docutils literal notranslate"><span class="pre">legion/operator</span></code> to build all Golang services.</li>
+<li>Main entrypoints:<ul>
+<li>API Gateway service - <code class="docutils literal notranslate"><span class="pre">legion/operator/cmd/edi/main.go</span></code></li>
+<li>Kubernetes operator - <code class="docutils literal notranslate"><span class="pre">legion/operator/cmd/operator/main.go</span></code></li>
+<li>AI Trainer - <code class="docutils literal notranslate"><span class="pre">legion/operator/cmd/trainer/main.go</span></code></li>
+<li>AI Packager - <code class="docutils literal notranslate"><span class="pre">legion/operator/cmd/packager/main.go</span></code></li>
+<li>Service catalog - <code class="docutils literal notranslate"><span class="pre">legion/operator/cmd/service_catalog/main.go</span></code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Legion Mlflow integration<ul>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> command in the <code class="docutils literal notranslate"><span class="pre">legion-mlflow</span></code> repository.</li>
+</ul>
+</li>
+<li>Legion Airflow plugin<ul>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> command in the <code class="docutils literal notranslate"><span class="pre">legion-airflow-plugins</span></code> repository.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="update-dependencies">
+<h2>Update dependencies<a class="headerlink" href="#update-dependencies" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Python</span></code>. Update dependencies in a <code class="docutils literal notranslate"><span class="pre">Pipfile</span></code>. Execute <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">update-python-deps</span></code> command.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Golang</span></code>. Update dependencies in a <code class="docutils literal notranslate"><span class="pre">Gopkg.toml</span></code>. Execute <code class="docutils literal notranslate"><span class="pre">dep</span> <span class="pre">ensure</span></code> command in <code class="docutils literal notranslate"><span class="pre">legion/operator</span></code> directory.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Typescript</span></code>. Legion uses the <code class="docutils literal notranslate"><span class="pre">yarn</span></code> to manipulate the typescript dependencies.</li>
+</ul>
+</div>
+<div class="section" id="make-changes-in-api-entities">
+<h2>Make changes in API entities<a class="headerlink" href="#make-changes-in-api-entities" title="Permalink to this headline">¶</a></h2>
+<p>All API entities are located in <code class="docutils literal notranslate"><span class="pre">legion/operator/pkg/api</span></code> directory.</p>
+<p>To generate swagger documentation execute <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">generate-all</span></code> in <code class="docutils literal notranslate"><span class="pre">legion/operator</span></code> directory.
+Important for Mac users: Makefile uses GNU <code class="docutils literal notranslate"><span class="pre">sed</span></code> tool, but MacOS uses BSD <code class="docutils literal notranslate"><span class="pre">sed</span></code> by default. They are not fully
+compatible. So you need install and use GNU <code class="docutils literal notranslate"><span class="pre">sed</span></code> on your Mac for using Makefile.</p>
+<p>After previous action you can update python and typescript clients using the following command: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">generate-clients</span></code>.</p>
+</div>
+<div class="section" id="actions-before-a-pull-request">
+<h2>Actions before a pull request<a class="headerlink" href="#actions-before-a-pull-request" title="Permalink to this headline">¶</a></h2>
+<p>Make sure you have done the following actions before a pull request:</p>
+<ul class="simple">
+<li>for python packages:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">unittest</span></code> - Run the python unit tests.</li>
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lint</span></code> - Run the python linters.</li>
+</ul>
+</li>
+<li>for golang services in the <code class="docutils literal notranslate"><span class="pre">legion/operator</span></code> directory:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code> - Run the golang unit tests.</li>
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lint</span></code> - Run the golang linters.</li>
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build-all</span></code> - Compile all golang legion services</li>
+</ul>
+</li>
+<li>for typescript code in the <code class="docutils literal notranslate"><span class="pre">legion/jupyterlab-plugin</span></code> directory:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">lint</span></code> - Run the typescript linter.</li>
+<li><code class="docutils literal notranslate"><span class="pre">jlpm</span> <span class="pre">run</span> <span class="pre">build</span></code> - Compile the jupyterlab plugin.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="local-helm-deploy">
+<h2>Local Helm deploy<a class="headerlink" href="#local-helm-deploy" title="Permalink to this headline">¶</a></h2>
+<p>During development, you often have to change the helm chart, to test the changes you can use the following command
+quickly: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">helm-install</span></code>.</p>
+<p>Optionally, you can create the variables helm file and specify it using the <code class="docutils literal notranslate"><span class="pre">HELM_ADDITIONAL_PARAMS</span></code> Makefile option.
+You always can download real variables file from a Terraform state.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dev_building.html" class="btn btn-neutral float-right" title="How to build docker images" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dev_project_structure.html" class="btn btn-neutral" title="Project structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Legion Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

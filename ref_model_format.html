@@ -1,0 +1,431 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Model Format &mdash; legion 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Networking" href="ref_networking.html" />
+    <link rel="prev" title="Model API" href="ref_model_api.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> legion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Model Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#legion-model-yaml">legion.model.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#legion-model-environments">Legion Model Environments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#legion-s-general-python-prediction-interface-gppi">Legion’s General Python Prediction Interface (GPPI)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-information">General Information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#required-environment-variables">Required Environment variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interface-declaration">Interface declaration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">legion</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Model Format</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ref_model_format.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="model-format">
+<h1>Model Format<a class="headerlink" href="#model-format" title="Permalink to this headline">¶</a></h1>
+<p>The <strong>Legion Model Artifact Format</strong> (LMAF) describes a format to package, store, and transport ML models.</p>
+<p>Models can be built in different languages and use different platform libraries. For example: {Python, Scala, R, …}
+using {scikit-learn, tensorflow, keras, …}.</p>
+<p>An LMAF <strong>Artifact</strong> is stored as a file-system folder packed into a ZIP file using the Deflate ZIP compression algorithm.</p>
+<p>The Artifact contains:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">legion.model.yaml</span></code> a YAML file in the root folder. This file contains meta-information about the type of binary model
+and other model related information (e.g. language, import endpoints, dependencies).</li>
+<li>Additional folders and files, depending upon meta-information declared in <code class="docutils literal notranslate"><span class="pre">legion.model.yaml</span></code>.</li>
+</ul>
+<div class="section" id="legion-model-yaml">
+<h2>legion.model.yaml<a class="headerlink" href="#legion-model-yaml" title="Permalink to this headline">¶</a></h2>
+<p>File structure:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">binaries</span></code> - Language and dependencies that should be used to load model binaries</li>
+<li><code class="docutils literal notranslate"><span class="pre">binaries.type</span></code> - Required Legion Model Environments. See section <a class="reference external" href="#legion-model-environments">Legion Model Environments</a>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">binaries.dependencies</span></code> - Dependency management system, compatible with the selected Legion Model Environment</li>
+<li><code class="docutils literal notranslate"><span class="pre">binaries.&lt;additional&gt;</span></code> - Model Environment and dependency management system values, for example ‘a path to the requirements file’</li>
+<li><code class="docutils literal notranslate"><span class="pre">model</span></code> - Location of the model artifact Model artifact format depends on <a class="reference external" href="#legion-model-environments">Legion Model Environment</a>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">model.name</span></code> - name of the model, <code class="docutils literal notranslate"><span class="pre">[a-Z0-9\-]+</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">model.version</span></code> - version of model. Format is <code class="docutils literal notranslate"><span class="pre">&lt;Apache</span> <span class="pre">Version&gt;-&lt;Additional</span> <span class="pre">suffix&gt;</span></code>, where <code class="docutils literal notranslate"><span class="pre">Additional</span> <span class="pre">suffix</span></code> is a <code class="docutils literal notranslate"><span class="pre">[a-Z0-9\-\.]+</span></code> string.</li>
+<li><code class="docutils literal notranslate"><span class="pre">model.workDir</span></code> - working directory to start model from.</li>
+<li><code class="docutils literal notranslate"><span class="pre">model.entrypoint</span></code> - name of model artifact (e.g. Python module or Java JAR file).</li>
+<li><code class="docutils literal notranslate"><span class="pre">legionVersion</span></code> - LMAF version</li>
+<li><code class="docutils literal notranslate"><span class="pre">toolchain</span></code> - toolchain used for training and preparing the Artifact</li>
+<li><code class="docutils literal notranslate"><span class="pre">toolchain.name</span></code> - name of the toolchain</li>
+<li><code class="docutils literal notranslate"><span class="pre">toolchain.version</span></code> - version of used toolchain.</li>
+<li><code class="docutils literal notranslate"><span class="pre">toolchain.&lt;additional&gt;</span></code> - additional fields, related to used toolchain (e.g. used submodule of toolchain).</li>
+</ul>
+<p>Examples:</p>
+<p>Example with GPPI using conda for dependency management, mlflow toolchain.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">binaries</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">python</span>
+  <span class="n">dependencies</span><span class="p">:</span> <span class="n">conda</span>
+  <span class="n">conda_path</span><span class="p">:</span> <span class="n">mlflow</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">mlflow_env</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">model</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">wine</span><span class="o">-</span><span class="n">quality</span>
+  <span class="n">version</span><span class="p">:</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">12333122</span>
+  <span class="n">workDir</span><span class="p">:</span> <span class="n">mlflow</span><span class="o">/</span><span class="n">model</span>
+  <span class="n">entrypoint</span><span class="p">:</span> <span class="n">entrypoint</span>
+<span class="n">legionVersion</span><span class="p">:</span> <span class="s1">&#39;1.0&#39;</span>
+<span class="n">toolchain</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">mlflow</span>
+  <span class="n">version</span><span class="p">:</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="legion-model-environments">
+<h2>Legion Model Environments<a class="headerlink" href="#legion-model-environments" title="Permalink to this headline">¶</a></h2>
+<p>Legion supports these model environments:</p>
+<ul class="simple">
+<li>General Python Prediction Interface (GPPI). Can import a trained model as a python module and use a predefined function for prediction. Value for <code class="docutils literal notranslate"><span class="pre">binaries.type</span></code> should be <code class="docutils literal notranslate"><span class="pre">python</span></code>.</li>
+<li>General Java Prediction Interface (GJPI). Can import a trained model as a Java Library and use a predefined interfaces for prediction. Value for <code class="docutils literal notranslate"><span class="pre">binaries.type</span></code> should be <code class="docutils literal notranslate"><span class="pre">java</span></code>.</li>
+</ul>
+<div class="section" id="legion-s-general-python-prediction-interface-gppi">
+<h3>Legion’s General Python Prediction Interface (GPPI)<a class="headerlink" href="#legion-s-general-python-prediction-interface-gppi" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="general-information">
+<h4>General Information<a class="headerlink" href="#general-information" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>General Python Prediction Interface (GPPI)</td>
+</tr>
+<tr>
+<td>Supported languages</td>
+<td>Python 3.6+</td>
+</tr>
+<tr>
+<td>binaries.type</td>
+<td>"python"</td>
+</tr>
+<tr>
+<td>binaries.dependencies</td>
+<td>"conda"</td>
+</tr>
+<tr>
+<td>binaries.conda_path</td>
+<td>Path to conda env, from artifact root</td>
+</tr>
+<tr>
+<td>model.workDir</td>
+<td>Working directory, PYTHON PATH</td>
+</tr>
+<tr>
+<td>model.entrypoint</td>
+<td>Python import, relative to model.workDir</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="description">
+<h4>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h4>
+<p>This interface is an importable Python module with a declared interface (functions with arguments and return types). Toolchains that save models in this format must provide an <code class="docutils literal notranslate"><span class="pre">entrypoint</span></code> with this interface or they may provide a wrapper around their interface for this interface.</p>
+</div>
+<div class="section" id="required-environment-variables">
+<h4>Required Environment variables<a class="headerlink" href="#required-environment-variables" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>MODEL_LOCATION – path to model’s file, relative to working directory.</li>
+</ul>
+</div>
+<div class="section" id="interface-declaration">
+<h4>Interface declaration<a class="headerlink" href="#interface-declaration" title="Permalink to this headline">¶</a></h4>
+<p>Interface functions:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>init</td>
+<td>Required. Invoked during service boot. Returns prediction mode: object-based or matrix-based.</td>
+</tr>
+<tr>
+<td>predict_on_objects</td>
+<td>Optional. Make prediction based on input objects. Return type is configurable.</td>
+</tr>
+<tr>
+<td>get_object_input_type</td>
+<td>Optional. Get type of input for <code>predict_on_objects</code>. Defaults to List of Dicts if a value is not provided.</td>
+</tr>
+<tr>
+<td>get_object_output_type</td>
+<td>Optional. Get the output type of <code>predict_on_objects</code>. Otherwise it returns a JSON-serializable List of Dicts.</td>
+</tr>
+<tr>
+<td>predict_on_matrix</td>
+<td>Optional. Make prediction based on a value matrix (tuple of tuples). Accepts names of columns. Returns matrix.</td>
+</tr>
+<tr>
+<td>get_output_json_serializer</td>
+<td>Optional. Serialize output, if declared. Otherwise, use default.</td>
+</tr>
+<tr>
+<td>get_info</td>
+<td>Optional. Return OpenAPI description of input and output types (if possible).</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ref_networking.html" class="btn btn-neutral float-right" title="Networking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ref_model_api.html" class="btn btn-neutral" title="Model API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Legion Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

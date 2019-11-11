@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Glossary &mdash; legion 1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Development" href="dev_general.html" />
+    <link rel="prev" title="Networking" href="ref_networking.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> legion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">legion</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Glossary</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gen_glossary.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="glossary">
+<h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
+<dl class="glossary docutils">
+<dt id="term-vcs">VCS</dt>
+<dd>Version control system. A service that stores model source code for development
+and deployment procedures (e.g. a GitHub Repository).</dd>
+<dt id="term-trained-model-binary">Trained Model Binary</dt>
+<dd>An archive containing a trained ML/AI model (inference code, model weights,
+etc). Legion defines a format for these binaries. See &lt;ref_model_format.html&gt;</dd>
+<dt id="term-trainer">Trainer</dt>
+<dd>Application that uses model source code, <a class="reference internal" href="#term-data-binding"><span class="xref std std-term">Data Bindings</span></a>,
+<a class="reference internal" href="#term-connection"><span class="xref std std-term">Connections</span></a> and <a class="reference internal" href="#term-training-hyperparameters"><span class="xref std std-term">Training Hyperparameters</span></a> to produce
+a <a class="reference internal" href="#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a>.</dd>
+<dt id="term-data-binding">Data Binding</dt>
+<dd>Reference to remote data (e.g. files from S3) should be placed for a
+<a class="reference internal" href="#term-train"><span class="xref std std-term">Train</span></a> process.</dd>
+<dt id="term-connection">Connection</dt>
+<dd>Credentials for an external system. For example: Docker Registry, cloud
+storage location, etc.</dd>
+<dt id="term-training-hyperparameters">Training Hyperparameters</dt>
+<dd>Parameter for Training process. For example, count of epochs in evolution algorithms.</dd>
+<dt id="term-train">Train</dt>
+<dd>A containerized process that converts model source code,
+<a class="reference internal" href="#term-data-binding"><span class="xref std std-term">Data Bindings</span></a>, <a class="reference internal" href="#term-connection"><span class="xref std std-term">Connections</span></a>
+and <a class="reference internal" href="#term-training-hyperparameters"><span class="xref std std-term">Training Hyperparameters</span></a> to <a class="reference internal" href="#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a> using a <a class="reference internal" href="#term-trainer"><span class="xref std std-term">Trainer</span></a>
+defined in a <a class="reference internal" href="#term-trainer-extension"><span class="xref std std-term">Trainer Extension</span></a></dd>
+<dt id="term-trainer-extension">Trainer Extension</dt>
+<dd>A pluggable <a class="reference internal" href="#term-train"><span class="xref std std-term">Train</span></a> implementation.</dd>
+<dt id="term-packager">Packager</dt>
+<dd>Containerized application that uses a <a class="reference internal" href="#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a> and <a class="reference internal" href="#term-connection"><span class="xref std std-term">Connections</span></a>
+and converts them into a target Archive. Typically this is a Docker image with REST API.</dd>
+<dt id="term-package">Package</dt>
+<dd>Containerized process which turns a <a class="reference internal" href="#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a> into a Docker image with REST API using a
+<a class="reference internal" href="#term-packager-extension"><span class="xref std std-term">Packager Extension</span></a>.</dd>
+<dt id="term-packager-extension">Packager Extension</dt>
+<dd>A pluggable <a class="reference internal" href="#term-package"><span class="xref std std-term">Package</span></a> implementation.</dd>
+<dt id="term-deployer">Deployer</dt>
+<dd>Containerized application that uses the results of a <a class="reference internal" href="#term-package"><span class="xref std std-term">Package</span></a> process and
+<a class="reference internal" href="#term-connection"><span class="xref std std-term">Connections</span></a> to deploy a packaged model on a Kubernetes cluster.</dd>
+<dt id="term-deploy">Deploy</dt>
+<dd>Containerized process that <cite>Deploys &lt;Deploy&gt;`results of a :term:`Package</cite> operation to Kubernetes cluster with
+a REST web service.</dd>
+<dt id="term-trainer-metrics">Trainer Metrics</dt>
+<dd>Metrics set by <cite>Trainer</cite> code during <cite>Train</cite> (e.g. accuracy of model). These metrics can be used for
+querying and comparing <cite>Train</cite> events.</dd>
+<dt id="term-trainer-tags">Trainer Tags</dt>
+<dd>Key/value value pairs that are set by <cite>Trainer</cite> code (e.g. type of algorithm). Can be used for querying and
+comparing <cite>Train</cite> runs.</dd>
+<dt id="term-general-python-prediction-interface">General Python Prediction Interface</dt>
+<dd>Format of storing models, written in a Python language</dd>
+<dt id="term-mlflow-trainer">MLflow Trainer</dt>
+<dd>Integration of MLflow library for training models, written in a Python. Details - <a class="reference internal" href="comp_mlflow_trainer.html#mod-dev-using-mlflow-section"><span class="std std-ref">MLFlow Trainer</span></a></dd>
+<dt id="term-rest-api-packager">REST API Packager</dt>
+<dd>Integration for packing trained models into Docker Image with served via REST API</dd>
+<dt id="term-edi">EDI</dt>
+<dd>API for managing Legion Platform resources for cloud deployed Platform</dd>
+<dt id="term-operator">Operator</dt>
+<dd>A Kubernetes Operator that manages Kubernetes resources (Pods, Services and etc.) for Legion
+<a class="reference internal" href="#term-train"><span class="xref std std-term">Train</span></a>, <a class="reference internal" href="#term-package"><span class="xref std std-term">Package</span></a>, and <a class="reference internal" href="#term-deploy"><span class="xref std std-term">Deploy</span></a> instances.</dd>
+<dt id="term-prediction">Prediction</dt>
+<dd>A deployed model output, given input parameters.</dd>
+<dt id="term-model-prediction-api">Model prediction API</dt>
+<dd>API provided by deployed models to allow users to request predictions through a web service.</dd>
+<dt id="term-prediction-feedback">Prediction Feedback</dt>
+<dd>Feedback versus the previous <a class="reference internal" href="#term-prediction"><span class="xref std std-term">prediction</span></a>, e.g. prediction correctness.</dd>
+<dt id="term-model-feedback-api">Model Feedback API</dt>
+<dd>An API for gathering <a class="reference internal" href="#term-prediction-feedback"><span class="xref std std-term">Prediction Feedback</span></a></dd>
+<dt id="term-feedback-aggregator">Feedback aggregator</dt>
+<dd>A service that provides a <a class="reference internal" href="#term-model-feedback-api"><span class="xref std std-term">Model Feedback API</span></a> and gathers input and output
+<a class="reference internal" href="#term-model-prediction-api"><span class="xref std std-term">prediction requests</span></a></dd>
+<dt id="term-legion-sdk">Legion SDK</dt>
+<dd>An extensible Python client library for <a class="reference internal" href="#term-edi"><span class="xref std std-term">EDI</span></a>, written in Python language. Can be installed from PyPi.</dd>
+<dt id="term-legion-cli">Legion CLI</dt>
+<dd>Command Line Interface for <a class="reference internal" href="#term-edi"><span class="xref std std-term">EDI</span></a>, written in Python. Can be installed from PyPi. It uses the <a class="reference internal" href="#term-legion-sdk"><span class="xref std std-term">Legion SDK</span></a>.</dd>
+<dt id="term-plugin-for-jupyterlab">Plugin for JupyterLab</dt>
+<dd>A legion-specific plugin that provides Legion Platform management controls in JupyterLab.</dd>
+<dt id="term-plugin-for-jenkins">Plugin for Jenkins</dt>
+<dd>A library for managing Legion Platform resources from Jenkins Pipelines.</dd>
+<dt id="term-plugin-for-airflow">Plugin for Airflow</dt>
+<dd>A library that provides Hooks and Operators for managing Legion Platform resources from Airflow.</dd>
+<dt id="term-model-deployment-access-role-name">Model Deployment Access Role Name</dt>
+<dd>Name of scope or role for accessing model deployments.</dd>
+<dt id="term-jwt-token">JWT Token</dt>
+<dd>A JSON Web Token that allows users to query deployed models and to provide feedback. This token contains an
+encoded <a class="reference internal" href="#term-model-deployment-access-role-name"><span class="xref std std-term">role name</span></a>.</dd>
+<dt id="term-a-b-testing">A/B testing</dt>
+<dd>Process of splitting predictions between multiple <a class="reference internal" href="#term-deploy"><span class="xref std std-term">Model Deployments</span></a> in order to compare
+prediction metrics and <a class="reference internal" href="#term-prediction-feedback"><span class="xref std std-term">Model Feedback</span></a> for models, which can vary by
+<a class="reference internal" href="#term-vcs"><span class="xref std std-term">source code</span></a>, <a class="reference internal" href="#term-data-binding"><span class="xref std std-term">dataset</span></a> and/or
+<a class="reference internal" href="#term-training-hyperparameters"><span class="xref std std-term">training hyperparameters</span></a></dd>
+<dt id="term-legion-distribution">Legion distribution</dt>
+<dd>A collection of Docker Images, Python packages, or NPM packages, which are publicly available for
+installation as a composable Legion Platform.</dd>
+<dt id="term-legion-helm-chart">Legion Helm Chart</dt>
+<dd>A YAML definition for Helm that defines a Legion Platform deployed on a Kubernetes cluster.</dd>
+<dt id="term-legion-s-crds">Legion’s CRDs</dt>
+<dd><p class="first">Objects that <a class="reference internal" href="#term-edi"><span class="xref std std-term">EDI</span></a> creates for actions that require computing resources
+to be stored. For example: <a class="reference internal" href="#term-connection"><span class="xref std std-term">connections</span></a>, <a class="reference internal" href="#term-train"><span class="xref std std-term">Trains</span></a>, etc).</p>
+<p class="last">These objects are Kubernetes Custom Resources and are managed by <a class="reference internal" href="#term-operator"><span class="xref std std-term">operator</span></a>.</p>
+</dd>
+</dl>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dev_general.html" class="btn btn-neutral float-right" title="Development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ref_networking.html" class="btn btn-neutral" title="Networking" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Legion Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
