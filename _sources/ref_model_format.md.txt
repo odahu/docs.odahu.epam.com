@@ -1,11 +1,11 @@
 # Model Format
 
-The **Odahu Model Artifact Format** (LMAF) describes a format to package, store, and transport ML models.
+The **Odahu Model Artifact Format** (OMAF) describes a format to package, store, and transport ML models.
  
 Models can be built in different languages and use different platform libraries. For example: {Python, Scala, R, ...} 
 using {scikit-learn, tensorflow, keras, ...}.
 
-An LMAF **Artifact** is stored as a file-system folder packed into a ZIP file using the Deflate ZIP compression algorithm. 
+An OMAF **Artifact** is stored as a file-system folder packed into a ZIP file using the Deflate ZIP compression algorithm. 
 
 The Artifact contains:
 
@@ -27,7 +27,7 @@ File structure:
 * `model.version` - version of model. Format is `<Apache Version>-<Additional suffix>`, where `Additional suffix` is a `[a-Z0-9\-\.]+` string.
 * `model.workDir` - working directory to start model from.
 * `model.entrypoint` - name of model artifact (e.g. Python module or Java JAR file).
-* `odahuflowVersion` - LMAF version
+* `odahuflowVersion` - OMAF version
 * `toolchain` - toolchain used for training and preparing the Artifact
 * `toolchain.name` - name of the toolchain
 * `toolchain.version` - version of used toolchain.

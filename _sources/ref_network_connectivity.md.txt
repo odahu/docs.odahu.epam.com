@@ -10,6 +10,5 @@ You can use principle of least privilege that denies any connection in cluster a
 * Connection between [EDGE](./comp_edge.md) and model deployment instances - for routing model API traffic
 * Connection between [API](./comp_api.md) and Docker Registry that is used for storing trained models - for inspecting meta-information about images before deploy
 * Connection between cluster's Ingress controller (nginx-ingress or etc.) and [EDGE](./comp_edge.md) (for model API) and [API](./comp_api.md) (for manage API)
-* Connection between training instances and statsd (in external namespace) - for storing train metrics
 * Connection between Prometheus and Odahu's components - for exporting performance metrics
 * Connection between [EDGE](./comp_edge.md) and feedback components (aggregator and FluentD) -- for feedback loop

@@ -60,8 +60,9 @@ Python packages
    "odahu-flow-cli", "odahu/odahu-flow", "Odahu-flow CLI"
    "odahu-flow-sdk", "odahu/odahu-flow", "Odahu-flow SDK"
    "odahu-flow-jupyterlab-plugin", "odahu/odahu-flow-jupyterlab-plugin", "Jupyterlab with the Odahu-flow plugin"
-   "odahu-flow-mlflow-runner", "odahu/odahu-trainer", "Odahu-flow mlflow toolchain"
+   "odahu-flow-mlflow-trainer", "odahu/odahu-trainer", "Odahu-flow mlflow toolchain"
    "odahu-flow-rest-packager", "odahu/odahu-packager", "Odahu-flow REST packager"
+   "odahu-flow-airflow-plugin", "odahu/odahu-airflow-plugin", "Odahu-flow Airflow plugin(operators, hooks and so on)"
 
 NPM packages
 -----

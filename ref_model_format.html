@@ -201,10 +201,10 @@
             
   <div class="section" id="model-format">
 <h1>Model Format<a class="headerlink" href="#model-format" title="Permalink to this headline">¶</a></h1>
-<p>The <strong>Odahu Model Artifact Format</strong> (LMAF) describes a format to package, store, and transport ML models.</p>
+<p>The <strong>Odahu Model Artifact Format</strong> (OMAF) describes a format to package, store, and transport ML models.</p>
 <p>Models can be built in different languages and use different platform libraries. For example: {Python, Scala, R, …}
 using {scikit-learn, tensorflow, keras, …}.</p>
-<p>An LMAF <strong>Artifact</strong> is stored as a file-system folder packed into a ZIP file using the Deflate ZIP compression algorithm.</p>
+<p>An OMAF <strong>Artifact</strong> is stored as a file-system folder packed into a ZIP file using the Deflate ZIP compression algorithm.</p>
 <p>The Artifact contains:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">odahuflow.model.yaml</span></code> a YAML file in the root folder. This file contains meta-information about the type of binary model
@@ -224,7 +224,7 @@ and other model related information (e.g. language, import endpoints, dependenci
 <li><code class="docutils literal notranslate"><span class="pre">model.version</span></code> - version of model. Format is <code class="docutils literal notranslate"><span class="pre">&lt;Apache</span> <span class="pre">Version&gt;-&lt;Additional</span> <span class="pre">suffix&gt;</span></code>, where <code class="docutils literal notranslate"><span class="pre">Additional</span> <span class="pre">suffix</span></code> is a <code class="docutils literal notranslate"><span class="pre">[a-Z0-9\-\.]+</span></code> string.</li>
 <li><code class="docutils literal notranslate"><span class="pre">model.workDir</span></code> - working directory to start model from.</li>
 <li><code class="docutils literal notranslate"><span class="pre">model.entrypoint</span></code> - name of model artifact (e.g. Python module or Java JAR file).</li>
-<li><code class="docutils literal notranslate"><span class="pre">odahuflowVersion</span></code> - LMAF version</li>
+<li><code class="docutils literal notranslate"><span class="pre">odahuflowVersion</span></code> - OMAF version</li>
 <li><code class="docutils literal notranslate"><span class="pre">toolchain</span></code> - toolchain used for training and preparing the Artifact</li>
 <li><code class="docutils literal notranslate"><span class="pre">toolchain.name</span></code> - name of the toolchain</li>
 <li><code class="docutils literal notranslate"><span class="pre">toolchain.version</span></code> - version of used toolchain.</li>

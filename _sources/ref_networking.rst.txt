@@ -14,6 +14,5 @@ Odahu components require communication between:
 * EDGE and Deployer instances
 * API and Docker Registry
 * Cluster ingress controller and EDGE
-* Trainer instances and statsd (in external namespace)
 * Prometheus and Odahu components -- for exporting performance metrics
 * EDGE and feedback components (aggregator and FluentD) -- for feedback loop

@@ -24,7 +24,7 @@ There are two authentication types for Odahu CLI.
 
 You should open an API server URL in a browser to get the login command.
 The command already contains your token.
-Copy and past provided command into your shell. 
+Copy and paste provided command into your shell. 
 
 Example of command:
 ```bash
