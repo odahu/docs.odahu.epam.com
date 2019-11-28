@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; legion 1.2 documentation</title>
+  <title>Index &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -49,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> legion
+            <a href="index.html" class="icon icon-home"> Odahu
           
 
           
@@ -85,7 +85,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -95,16 +95,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
@@ -116,9 +109,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
@@ -126,10 +117,9 @@
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
@@ -145,7 +135,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">legion</a>
+          <a href="index.html">Odahu</a>
         
       </nav>
 
@@ -200,11 +190,9 @@
  <a href="#A"><strong>A</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
- | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#J"><strong>J</strong></a>
- | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
@@ -217,6 +205,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_glossary.html#term-a-b-testing"><strong>A/B testing</strong></a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="gen_glossary.html#term-api-service"><strong>API service</strong></a>
 </li>
   </ul></td>
 </tr></table>
@@ -234,19 +226,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_glossary.html#term-data-binding"><strong>Data Binding</strong></a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_glossary.html#term-deploy"><strong>Deploy</strong></a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_glossary.html#term-deployer"><strong>Deployer</strong></a>
 </li>
-  </ul></td>
-</tr></table>
-
-<h2 id="E">E</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="gen_glossary.html#term-edi"><strong>EDI</strong></a>
+      <li><a href="int_airflow.html#DeploymentOperator">DeploymentOperator (built-in class)</a>
+</li>
+      <li><a href="int_airflow.html#DeploymentSensor">DeploymentSensor (built-in class)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -262,6 +250,10 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="int_airflow.html#GcpConnectionToOdahuConnectionOperator">GcpConnectionToOdahuConnectionOperator (built-in class)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_glossary.html#term-general-python-prediction-interface"><strong>General Python Prediction Interface</strong></a>
 </li>
   </ul></td>
@@ -275,24 +267,6 @@
   </ul></td>
 </tr></table>
 
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="gen_glossary.html#term-legion-cli"><strong>Legion CLI</strong></a>
-</li>
-      <li><a href="gen_glossary.html#term-legion-distribution"><strong>Legion distribution</strong></a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="gen_glossary.html#term-legion-helm-chart"><strong>Legion Helm Chart</strong></a>
-</li>
-      <li><a href="gen_glossary.html#term-legion-sdk"><strong>Legion SDK</strong></a>
-</li>
-      <li><a href="gen_glossary.html#term-legion-s-crds"><strong>Legion&#39;s CRDs</strong></a>
-</li>
-  </ul></td>
-</tr></table>
-
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -300,11 +274,15 @@
 </li>
       <li><a href="gen_glossary.html#term-model-deployment-access-role-name"><strong>Model Deployment Access Role Name</strong></a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_glossary.html#term-model-feedback-api"><strong>Model Feedback API</strong></a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_glossary.html#term-model-prediction-api"><strong>Model prediction API</strong></a>
+</li>
+      <li><a href="int_airflow.html#ModelInfoRequestOperator">ModelInfoRequestOperator (built-in class)</a>
+</li>
+      <li><a href="int_airflow.html#ModelPredictRequestOperator">ModelPredictRequestOperator (built-in class)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -312,6 +290,18 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="gen_glossary.html#term-odahu-distribution"><strong>Odahu distribution</strong></a>
+</li>
+      <li><a href="gen_glossary.html#term-odahu-helm-chart"><strong>Odahu Helm Chart</strong></a>
+</li>
+      <li><a href="gen_glossary.html#term-odahu-flow-cli"><strong>Odahu-flow CLI</strong></a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="gen_glossary.html#term-odahu-flow-sdk"><strong>Odahu-flow SDK</strong></a>
+</li>
+      <li><a href="gen_glossary.html#term-odahu-flow-s-crds"><strong>Odahu-flow&#39;s CRDs</strong></a>
+</li>
       <li><a href="gen_glossary.html#term-operator"><strong>Operator</strong></a>
 </li>
   </ul></td>
@@ -326,10 +316,14 @@
 </li>
       <li><a href="gen_glossary.html#term-packager-extension"><strong>Packager Extension</strong></a>
 </li>
-      <li><a href="gen_glossary.html#term-plugin-for-airflow"><strong>Plugin for Airflow</strong></a>
+      <li><a href="int_airflow.html#PackagingOperator">PackagingOperator (built-in class)</a>
+</li>
+      <li><a href="int_airflow.html#PackagingSensor">PackagingSensor (built-in class)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="gen_glossary.html#term-plugin-for-airflow"><strong>Plugin for Airflow</strong></a>
+</li>
       <li><a href="gen_glossary.html#term-plugin-for-jenkins"><strong>Plugin for Jenkins</strong></a>
 </li>
       <li><a href="gen_glossary.html#term-plugin-for-jupyterlab"><strong>Plugin for JupyterLab</strong></a>
@@ -358,15 +352,19 @@
 </li>
       <li><a href="gen_glossary.html#term-trainer"><strong>Trainer</strong></a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_glossary.html#term-trainer-extension"><strong>Trainer Extension</strong></a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_glossary.html#term-trainer-metrics"><strong>Trainer Metrics</strong></a>
 </li>
       <li><a href="gen_glossary.html#term-trainer-tags"><strong>Trainer Tags</strong></a>
 </li>
       <li><a href="gen_glossary.html#term-training-hyperparameters"><strong>Training Hyperparameters</strong></a>
+</li>
+      <li><a href="int_airflow.html#TrainingOperator">TrainingOperator (built-in class)</a>
+</li>
+      <li><a href="int_airflow.html#TrainingSensor">TrainingSensor (built-in class)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -391,7 +389,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Legion Team.
+        &copy; Copyright 2019, Odahu Team.
 
     </p>
   </div>

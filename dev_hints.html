@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Development hints &mdash; legion 1.2 documentation</title>
+  <title>Development hints &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="How to build docker images" href="dev_building.html" />
-    <link rel="prev" title="Project structure" href="dev_project_structure.html" /> 
+    <link rel="next" title="Integration Testing" href="dev_testing.html" />
+    <link rel="prev" title="A repository directory structure" href="dev_project_structure.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -50,7 +50,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> legion
+            <a href="index.html" class="icon icon-home"> Odahu
           
 
           
@@ -86,7 +86,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -96,16 +96,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
@@ -117,9 +110,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
@@ -127,8 +118,8 @@
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Development hints</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#set-up-a-development-environment">Set up a development environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#update-dependencies">Update dependencies</a></li>
@@ -137,7 +128,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#local-helm-deploy">Local Helm deploy</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
@@ -153,7 +143,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">legion</a>
+          <a href="index.html">Odahu</a>
         
       </nav>
 
@@ -207,20 +197,20 @@
 <h1>Development hints<a class="headerlink" href="#development-hints" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="set-up-a-development-environment">
 <h2>Set up a development environment<a class="headerlink" href="#set-up-a-development-environment" title="Permalink to this headline">¶</a></h2>
-<p>Legion product contains 5 main development parts:</p>
+<p>Odahu product contains 5 main development parts:</p>
 <ul class="simple">
 <li>Python packages<ul>
-<li>Executes the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install-all</span></code> command to downloads all dependencies and install Legion python packages.</li>
-<li>Verifies that the command finished successfully, for example: <code class="docutils literal notranslate"><span class="pre">legionctl</span> <span class="pre">--version</span></code></li>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install-all</span></code> command to downloads all dependencies and install Odahu python packages.</li>
+<li>Verifies that the command finished successfully, for example: <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span> <span class="pre">--version</span></code></li>
 <li>Main entrypoints:<ul>
-<li>Legion sdk - <code class="docutils literal notranslate"><span class="pre">legion/sdk</span></code></li>
-<li>Legion cli - <code class="docutils literal notranslate"><span class="pre">legion/cli</span></code></li>
+<li>Odahu-flow sdk - <code class="docutils literal notranslate"><span class="pre">packages/sdk</span></code></li>
+<li>Odahu-flow cli - <code class="docutils literal notranslate"><span class="pre">packages/cli</span></code></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Legion Jupiterlab plugin<ul>
-<li>Workdir is <code class="docutils literal notranslate"><span class="pre">legion/jupyterlab-plugin</span></code></li>
+<li>Odahu-flow Jupiterlab plugin<ul>
+<li>Workdir is <code class="docutils literal notranslate"><span class="pre">odahu/jupyterlab-plugin</span></code></li>
 <li>Executes the <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">install</span></code> command to downloads all Javascripts dependencies.</li>
 <li>Executes the <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">build</span> <span class="pre">&amp;&amp;</span> <span class="pre">jupyter</span> <span class="pre">labextension</span> <span class="pre">install</span></code> command to build the Jupiterlab plugin.</li>
 <li>Starts the Jyputerlab server using <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code> command.</li>
@@ -228,24 +218,24 @@
 </ul>
 </li>
 <li>Golang services:<ul>
-<li>Executes the <code class="docutils literal notranslate"><span class="pre">dep</span> <span class="pre">ensure</span></code> command in the <code class="docutils literal notranslate"><span class="pre">legion/operator</span></code> directory to downloads all dependencies.</li>
-<li>Executes the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build-all</span></code> command in the <code class="docutils literal notranslate"><span class="pre">legion/operator</span></code> to build all Golang services.</li>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">dep</span> <span class="pre">ensure</span></code> command in the <code class="docutils literal notranslate"><span class="pre">packages/operator</span></code> directory to downloads all dependencies.</li>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build-all</span></code> command in the <code class="docutils literal notranslate"><span class="pre">packages/operator</span></code> to build all Golang services.</li>
 <li>Main entrypoints:<ul>
-<li>API Gateway service - <code class="docutils literal notranslate"><span class="pre">legion/operator/cmd/edi/main.go</span></code></li>
-<li>Kubernetes operator - <code class="docutils literal notranslate"><span class="pre">legion/operator/cmd/operator/main.go</span></code></li>
-<li>AI Trainer - <code class="docutils literal notranslate"><span class="pre">legion/operator/cmd/trainer/main.go</span></code></li>
-<li>AI Packager - <code class="docutils literal notranslate"><span class="pre">legion/operator/cmd/packager/main.go</span></code></li>
-<li>Service catalog - <code class="docutils literal notranslate"><span class="pre">legion/operator/cmd/service_catalog/main.go</span></code></li>
+<li>API Gateway service - <code class="docutils literal notranslate"><span class="pre">packages/operator/cmd/edi/main.go</span></code></li>
+<li>Kubernetes operator - <code class="docutils literal notranslate"><span class="pre">packages/operator/cmd/operator/main.go</span></code></li>
+<li>AI Trainer - <code class="docutils literal notranslate"><span class="pre">packages/operator/cmd/trainer/main.go</span></code></li>
+<li>AI Packager - <code class="docutils literal notranslate"><span class="pre">packages/operator/cmd/packager/main.go</span></code></li>
+<li>Service catalog - <code class="docutils literal notranslate"><span class="pre">packages/operator/cmd/service_catalog/main.go</span></code></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Legion Mlflow integration<ul>
-<li>Executes the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> command in the <code class="docutils literal notranslate"><span class="pre">legion-mlflow</span></code> repository.</li>
+<li>Odahu-flow Mlflow integration<ul>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> command in the <code class="docutils literal notranslate"><span class="pre">odahu-flow-mlflow</span></code> repository.</li>
 </ul>
 </li>
-<li>Legion Airflow plugin<ul>
-<li>Executes the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> command in the <code class="docutils literal notranslate"><span class="pre">legion-airflow-plugins</span></code> repository.</li>
+<li>Odahu-flow Airflow plugin<ul>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> command in the <code class="docutils literal notranslate"><span class="pre">odahu-flow-airflow-plugins</span></code> repository.</li>
 </ul>
 </li>
 </ul>
@@ -254,14 +244,14 @@
 <h2>Update dependencies<a class="headerlink" href="#update-dependencies" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">Python</span></code>. Update dependencies in a <code class="docutils literal notranslate"><span class="pre">Pipfile</span></code>. Execute <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">update-python-deps</span></code> command.</li>
-<li><code class="docutils literal notranslate"><span class="pre">Golang</span></code>. Update dependencies in a <code class="docutils literal notranslate"><span class="pre">Gopkg.toml</span></code>. Execute <code class="docutils literal notranslate"><span class="pre">dep</span> <span class="pre">ensure</span></code> command in <code class="docutils literal notranslate"><span class="pre">legion/operator</span></code> directory.</li>
-<li><code class="docutils literal notranslate"><span class="pre">Typescript</span></code>. Legion uses the <code class="docutils literal notranslate"><span class="pre">yarn</span></code> to manipulate the typescript dependencies.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Golang</span></code>. Update dependencies in a <code class="docutils literal notranslate"><span class="pre">Gopkg.toml</span></code>. Execute <code class="docutils literal notranslate"><span class="pre">dep</span> <span class="pre">ensure</span></code> command in <code class="docutils literal notranslate"><span class="pre">packages/operator</span></code> directory.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Typescript</span></code>. Odahu-flow uses the <code class="docutils literal notranslate"><span class="pre">yarn</span></code> to manipulate the typescript dependencies.</li>
 </ul>
 </div>
 <div class="section" id="make-changes-in-api-entities">
 <h2>Make changes in API entities<a class="headerlink" href="#make-changes-in-api-entities" title="Permalink to this headline">¶</a></h2>
-<p>All API entities are located in <code class="docutils literal notranslate"><span class="pre">legion/operator/pkg/api</span></code> directory.</p>
-<p>To generate swagger documentation execute <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">generate-all</span></code> in <code class="docutils literal notranslate"><span class="pre">legion/operator</span></code> directory.
+<p>All API entities are located in <code class="docutils literal notranslate"><span class="pre">packages/operator/pkg/api</span></code> directory.</p>
+<p>To generate swagger documentation execute <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">generate-all</span></code> in <code class="docutils literal notranslate"><span class="pre">packages/operator</span></code> directory.
 Important for Mac users: Makefile uses GNU <code class="docutils literal notranslate"><span class="pre">sed</span></code> tool, but MacOS uses BSD <code class="docutils literal notranslate"><span class="pre">sed</span></code> by default. They are not fully
 compatible. So you need install and use GNU <code class="docutils literal notranslate"><span class="pre">sed</span></code> on your Mac for using Makefile.</p>
 <p>After previous action you can update python and typescript clients using the following command: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">generate-clients</span></code>.</p>
@@ -275,13 +265,13 @@ compatible. So you need install and use GNU <code class="docutils literal notran
 <li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lint</span></code> - Run the python linters.</li>
 </ul>
 </li>
-<li>for golang services in the <code class="docutils literal notranslate"><span class="pre">legion/operator</span></code> directory:<ul>
+<li>for golang services in the <code class="docutils literal notranslate"><span class="pre">packages/operator</span></code> directory:<ul>
 <li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code> - Run the golang unit tests.</li>
 <li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lint</span></code> - Run the golang linters.</li>
-<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build-all</span></code> - Compile all golang legion services</li>
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build-all</span></code> - Compile all golang Odahu-flow services</li>
 </ul>
 </li>
-<li>for typescript code in the <code class="docutils literal notranslate"><span class="pre">legion/jupyterlab-plugin</span></code> directory:<ul>
+<li>for typescript code in the <code class="docutils literal notranslate"><span class="pre">packages/jupyterlab-plugin</span></code> directory:<ul>
 <li><code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">lint</span></code> - Run the typescript linter.</li>
 <li><code class="docutils literal notranslate"><span class="pre">jlpm</span> <span class="pre">run</span> <span class="pre">build</span></code> - Compile the jupyterlab plugin.</li>
 </ul>
@@ -305,10 +295,10 @@ You always can download real variables file from a Terraform state.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dev_building.html" class="btn btn-neutral float-right" title="How to build docker images" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dev_testing.html" class="btn btn-neutral float-right" title="Integration Testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dev_project_structure.html" class="btn btn-neutral" title="Project structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dev_project_structure.html" class="btn btn-neutral" title="A repository directory structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -317,7 +307,7 @@ You always can download real variables file from a Terraform state.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Legion Team.
+        &copy; Copyright 2019, Odahu Team.
 
     </p>
   </div>

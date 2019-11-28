@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; Odahu 1.2 documentation</title>
+  <title>API &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -29,7 +29,9 @@
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Operator" href="comp_operator.html" />
+    <link rel="prev" title="MLFlow" href="tutorials_wine.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -95,8 +97,13 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Components</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#api-provided-urls">API-provided URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authentication-and-authorization">Authentication and authorization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation-details">Implementation details</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
@@ -165,13 +172,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>&lt;no title&gt;</li>
+      <li>API</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/ref_legion_helm_values_examples.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/comp_api.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -184,13 +191,79 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <p># Example Odahu HELM configuration</p>
+  <div class="section" id="api">
+<span id="api-server-description"></span><h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<p><span class="xref std std-term">API</span> is a service that manages Odahu Platform entities.</p>
+<ul class="simple">
+<li><a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">Connections</span></a></li>
+<li><a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Trainings</span></a></li>
+<li><a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Packaging</span></a></li>
+<li><a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">Deployments</span></a></li>
+</ul>
+<p><span class="xref std std-term">API</span> can provide the following data, when queried:</p>
+<ul class="simple">
+<li>Model Train and Deploy logs</li>
+<li>Model <a class="reference internal" href="gen_glossary.html#term-trainer-metrics"><span class="xref std std-term">Trainer Metrics</span></a></li>
+<li>Model <a class="reference internal" href="gen_glossary.html#term-trainer-tags"><span class="xref std std-term">Trainer Tags</span></a></li>
+</ul>
+<div class="section" id="api-provided-urls">
+<h2>API-provided URLs<a class="headerlink" href="#api-provided-urls" title="Permalink to this headline">¶</a></h2>
+<p>All information about URLs that <span class="xref std std-term">API</span> provides can be viewed using the auto-generated, interactive Swagger page. It is located at <code class="docutils literal notranslate"><span class="pre">&lt;api-address&gt;/swagger/index.html</span></code>.
+You can read all of the up-to-date documentation and invoke all methods (allowed for your account) right from this web page.</p>
+</div>
+<div class="section" id="authentication-and-authorization">
+<h2>Authentication and authorization<a class="headerlink" href="#authentication-and-authorization" title="Permalink to this headline">¶</a></h2>
+<p><span class="xref std std-term">API</span> analyzes incoming HTTP headers for JWT token, extracts client’s scopes from this token and approves / declines incoming requests based on these (provided in JWT) scopes.</p>
+<span class="target" id="api-server-auth"></span></div>
+<div class="section" id="implementation-details">
+<h2>Implementation details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">¶</a></h2>
+<p><span class="xref std std-term">API</span> is a REST server, written in GoLang. For easy integration, it provides a Swagger endpoint with up-to-date protocol information.</p>
+<table border="1" class="docutils" style="width: 100%">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub">Technologies used</th>
+<td>GoLang</td>
+</tr>
+<tr class="row-even"><th class="stub">Distribution representation</th>
+<td>Docker Image</td>
+</tr>
+<tr class="row-odd"><th class="stub">Source code location</th>
+<td><a class="reference external" href="https://github.com/odahu/odahu-flow/tree/develop/packages/operator">packages/operator</a></td>
+</tr>
+<tr class="row-even"><th class="stub">Can be used w/o Odahu Platform?</th>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><th class="stub">Does it connect to other services?</th>
+<td>Yes (Kubernetes API)</td>
+</tr>
+<tr class="row-even"><th class="stub">Can it be deployed locally?</th>
+<td>If a local Kubernetes cluster is present</td>
+</tr>
+<tr class="row-odd"><th class="stub">Does it provide any interface?</th>
+<td>Yes (HTTP REST API)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="comp_operator.html" class="btn btn-neutral float-right" title="Operator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorials_wine.html" class="btn btn-neutral" title="MLFlow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

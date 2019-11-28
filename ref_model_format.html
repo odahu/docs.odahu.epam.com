@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Model Format &mdash; legion 1.2 documentation</title>
+  <title>Model Format &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Networking" href="ref_networking.html" />
-    <link rel="prev" title="Model API" href="ref_model_api.html" /> 
+    <link rel="prev" title="Kubernetes" href="ref_kubernetes.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -50,7 +50,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> legion
+            <a href="index.html" class="icon icon-home"> Odahu
           
 
           
@@ -86,7 +86,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -96,16 +96,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
@@ -117,13 +110,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Model Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#legion-model-yaml">legion.model.yaml</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#legion-model-environments">Legion Model Environments</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#legion-s-general-python-prediction-interface-gppi">Legion’s General Python Prediction Interface (GPPI)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#odahuflow-model-yaml">odahuflow.model.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#odahu-model-environments">Odahu Model Environments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#odahu-s-general-python-prediction-interface-gppi">Odahu’s General Python Prediction Interface (GPPI)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#general-information">General Information</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#description">Description</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#required-environment-variables">Required Environment variables</a></li>
@@ -140,10 +131,9 @@
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
@@ -159,7 +149,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">legion</a>
+          <a href="index.html">Odahu</a>
         
       </nav>
 
@@ -211,30 +201,30 @@
             
   <div class="section" id="model-format">
 <h1>Model Format<a class="headerlink" href="#model-format" title="Permalink to this headline">¶</a></h1>
-<p>The <strong>Legion Model Artifact Format</strong> (LMAF) describes a format to package, store, and transport ML models.</p>
+<p>The <strong>Odahu Model Artifact Format</strong> (LMAF) describes a format to package, store, and transport ML models.</p>
 <p>Models can be built in different languages and use different platform libraries. For example: {Python, Scala, R, …}
 using {scikit-learn, tensorflow, keras, …}.</p>
 <p>An LMAF <strong>Artifact</strong> is stored as a file-system folder packed into a ZIP file using the Deflate ZIP compression algorithm.</p>
 <p>The Artifact contains:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">legion.model.yaml</span></code> a YAML file in the root folder. This file contains meta-information about the type of binary model
+<li><code class="docutils literal notranslate"><span class="pre">odahuflow.model.yaml</span></code> a YAML file in the root folder. This file contains meta-information about the type of binary model
 and other model related information (e.g. language, import endpoints, dependencies).</li>
-<li>Additional folders and files, depending upon meta-information declared in <code class="docutils literal notranslate"><span class="pre">legion.model.yaml</span></code>.</li>
+<li>Additional folders and files, depending upon meta-information declared in <code class="docutils literal notranslate"><span class="pre">odahuflow.model.yaml</span></code>.</li>
 </ul>
-<div class="section" id="legion-model-yaml">
-<h2>legion.model.yaml<a class="headerlink" href="#legion-model-yaml" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="odahuflow-model-yaml">
+<h2>odahuflow.model.yaml<a class="headerlink" href="#odahuflow-model-yaml" title="Permalink to this headline">¶</a></h2>
 <p>File structure:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">binaries</span></code> - Language and dependencies that should be used to load model binaries</li>
-<li><code class="docutils literal notranslate"><span class="pre">binaries.type</span></code> - Required Legion Model Environments. See section <a class="reference external" href="#legion-model-environments">Legion Model Environments</a>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">binaries.dependencies</span></code> - Dependency management system, compatible with the selected Legion Model Environment</li>
+<li><code class="docutils literal notranslate"><span class="pre">binaries.type</span></code> - Required Odahu Model Environments. See section <a class="reference external" href="#odahu-model-environments">Odahu Model Environments</a>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">binaries.dependencies</span></code> - Dependency management system, compatible with the selected Odahu Model Environment</li>
 <li><code class="docutils literal notranslate"><span class="pre">binaries.&lt;additional&gt;</span></code> - Model Environment and dependency management system values, for example ‘a path to the requirements file’</li>
-<li><code class="docutils literal notranslate"><span class="pre">model</span></code> - Location of the model artifact Model artifact format depends on <a class="reference external" href="#legion-model-environments">Legion Model Environment</a>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">model</span></code> - Location of the model artifact Model artifact format depends on <a class="reference external" href="#odahu-model-environments">Odahu Model Environment</a>.</li>
 <li><code class="docutils literal notranslate"><span class="pre">model.name</span></code> - name of the model, <code class="docutils literal notranslate"><span class="pre">[a-Z0-9\-]+</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">model.version</span></code> - version of model. Format is <code class="docutils literal notranslate"><span class="pre">&lt;Apache</span> <span class="pre">Version&gt;-&lt;Additional</span> <span class="pre">suffix&gt;</span></code>, where <code class="docutils literal notranslate"><span class="pre">Additional</span> <span class="pre">suffix</span></code> is a <code class="docutils literal notranslate"><span class="pre">[a-Z0-9\-\.]+</span></code> string.</li>
 <li><code class="docutils literal notranslate"><span class="pre">model.workDir</span></code> - working directory to start model from.</li>
 <li><code class="docutils literal notranslate"><span class="pre">model.entrypoint</span></code> - name of model artifact (e.g. Python module or Java JAR file).</li>
-<li><code class="docutils literal notranslate"><span class="pre">legionVersion</span></code> - LMAF version</li>
+<li><code class="docutils literal notranslate"><span class="pre">odahuflowVersion</span></code> - LMAF version</li>
 <li><code class="docutils literal notranslate"><span class="pre">toolchain</span></code> - toolchain used for training and preparing the Artifact</li>
 <li><code class="docutils literal notranslate"><span class="pre">toolchain.name</span></code> - name of the toolchain</li>
 <li><code class="docutils literal notranslate"><span class="pre">toolchain.version</span></code> - version of used toolchain.</li>
@@ -251,22 +241,22 @@ and other model related information (e.g. language, import endpoints, dependenci
   <span class="n">version</span><span class="p">:</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">12333122</span>
   <span class="n">workDir</span><span class="p">:</span> <span class="n">mlflow</span><span class="o">/</span><span class="n">model</span>
   <span class="n">entrypoint</span><span class="p">:</span> <span class="n">entrypoint</span>
-<span class="n">legionVersion</span><span class="p">:</span> <span class="s1">&#39;1.0&#39;</span>
+<span class="n">odahuflowVersion</span><span class="p">:</span> <span class="s1">&#39;1.0&#39;</span>
 <span class="n">toolchain</span><span class="p">:</span>
   <span class="n">name</span><span class="p">:</span> <span class="n">mlflow</span>
   <span class="n">version</span><span class="p">:</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="legion-model-environments">
-<h2>Legion Model Environments<a class="headerlink" href="#legion-model-environments" title="Permalink to this headline">¶</a></h2>
-<p>Legion supports these model environments:</p>
+<div class="section" id="odahu-model-environments">
+<h2>Odahu Model Environments<a class="headerlink" href="#odahu-model-environments" title="Permalink to this headline">¶</a></h2>
+<p>Odahu supports these model environments:</p>
 <ul class="simple">
 <li>General Python Prediction Interface (GPPI). Can import a trained model as a python module and use a predefined function for prediction. Value for <code class="docutils literal notranslate"><span class="pre">binaries.type</span></code> should be <code class="docutils literal notranslate"><span class="pre">python</span></code>.</li>
 <li>General Java Prediction Interface (GJPI). Can import a trained model as a Java Library and use a predefined interfaces for prediction. Value for <code class="docutils literal notranslate"><span class="pre">binaries.type</span></code> should be <code class="docutils literal notranslate"><span class="pre">java</span></code>.</li>
 </ul>
-<div class="section" id="legion-s-general-python-prediction-interface-gppi">
-<h3>Legion’s General Python Prediction Interface (GPPI)<a class="headerlink" href="#legion-s-general-python-prediction-interface-gppi" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="odahu-s-general-python-prediction-interface-gppi">
+<h3>Odahu’s General Python Prediction Interface (GPPI)<a class="headerlink" href="#odahu-s-general-python-prediction-interface-gppi" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="general-information">
 <h4>General Information<a class="headerlink" href="#general-information" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
@@ -373,7 +363,7 @@ and other model related information (e.g. language, import endpoints, dependenci
         <a href="ref_networking.html" class="btn btn-neutral float-right" title="Networking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ref_model_api.html" class="btn btn-neutral" title="Model API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ref_kubernetes.html" class="btn btn-neutral" title="Kubernetes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -382,7 +372,7 @@ and other model related information (e.g. language, import endpoints, dependenci
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Legion Team.
+        &copy; Copyright 2019, Odahu Team.
 
     </p>
   </div>

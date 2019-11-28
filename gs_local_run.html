@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Local run (local model execution) &mdash; legion 1.2 documentation</title>
+  <title>Local run (local model execution) &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -48,7 +48,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> legion
+            <a href="index.html" class="icon icon-home"> Odahu
           
 
           
@@ -84,7 +84,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -94,16 +94,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
@@ -115,9 +108,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
@@ -125,10 +116,9 @@
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
@@ -144,7 +134,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">legion</a>
+          <a href="index.html">Odahu</a>
         
       </nav>
 
@@ -196,7 +186,7 @@
             
   <div class="section" id="local-run-local-model-execution">
 <h1>Local run (local model execution)<a class="headerlink" href="#local-run-local-model-execution" title="Permalink to this headline">¶</a></h1>
-<p>In order to run model in environment that is similar to train and execution environments Legion Platform provides you <code class="docutils literal notranslate"><span class="pre">legionctl</span> <span class="pre">create-sandbox</span></code> command that can create docker container with preinstalled requirements.</p>
+<p>In order to run model in environment that is similar to train and execution environments Odahu Platform provides you <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span> <span class="pre">create-sandbox</span></code> command that can create docker container with preinstalled requirements.</p>
 <div class="section" id="prerequirements">
 <h2>Prerequirements<a class="headerlink" href="#prerequirements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -208,28 +198,28 @@
 <div class="section" id="how-to-run">
 <h2>How to run?<a class="headerlink" href="#how-to-run" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
-<li>Firstly, you have to install <code class="docutils literal notranslate"><span class="pre">legion</span></code> package from PyPi (you may do this in the dedicated environment, created by pipenv, for example).</li>
+<li>Firstly, you have to install <code class="docutils literal notranslate"><span class="pre">odahu-flow-cli</span></code> package from PyPi (you may do this in the dedicated environment, created by pipenv, for example).</li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --user legion
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --user odahu-flow-cli
 </pre></div>
 </div>
 <ol class="simple">
-<li>Then, you have to run <code class="docutils literal notranslate"><span class="pre">legionctl</span> <span class="pre">create-sandbox</span></code> command that will create <code class="docutils literal notranslate"><span class="pre">legion-activate.sh</span></code> script <strong>in the your current directory</strong>.</li>
+<li>Then, you have to run <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span> <span class="pre">create-sandbox</span></code> command that will create <code class="docutils literal notranslate"><span class="pre">odahu-flow-activate.sh</span></code> script <strong>in the your current directory</strong>.</li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>legionctl create-sandbox
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl create-sandbox
 </pre></div>
 </div>
-<p>You may override default parameters using CLI arguments or Legion application configuration (see <strong>configuration</strong> section).</p>
+<p>You may override default parameters using CLI arguments or Odahu application configuration (see <strong>configuration</strong> section).</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">--image</span></code> - docker image (named Legion Toolchain) from which container will be started. Default value comes from <code class="docutils literal notranslate"><span class="pre">legion.config.SANDBOX_PYTHON_TOOLCHAIN_IMAGE</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">--force-recreate</span></code> - recreate <code class="docutils literal notranslate"><span class="pre">legion-activate.sh</span></code> if it exists.</li>
+<li><code class="docutils literal notranslate"><span class="pre">--image</span></code> - docker image (named Odahu Toolchain) from which container will be started. Default value comes from <code class="docutils literal notranslate"><span class="pre">odahuflow.config.SANDBOX_PYTHON_TOOLCHAIN_IMAGE</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">--force-recreate</span></code> - recreate <code class="docutils literal notranslate"><span class="pre">odahu-flow-activate.sh</span></code> if it exists.</li>
 </ul>
-<p>Image should be compatible with Legion Platform. By default Legion Platform provides <strong>legion/python-toolchain</strong> public image.</p>
-<p>Example of value: <code class="docutils literal notranslate"><span class="pre">docker-registry-host:900/legion/python-toolchain:1.0.0</span></code></p>
+<p>Image should be compatible with Odahu Platform. By default Odahu Platform provides <strong>odahu/python-toolchain</strong> public image.</p>
+<p>Example of value: <code class="docutils literal notranslate"><span class="pre">docker-registry-host:900/odahu/python-toolchain:1.0.0</span></code></p>
 <ol class="simple">
-<li>Activate Legion environment (go inside docker container)</li>
+<li>Activate Odahu environment (go inside docker container)</li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./legion-activate.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./odahu-flow-activate.sh
 </pre></div>
 </div>
 <p>Execution of this command starts temporarly docker container (will be removed on exit) with mounting actual working directory to <code class="docutils literal notranslate"><span class="pre">/work-directory</span></code> path inside container.</p>
@@ -242,21 +232,7 @@
 <span class="o">*</span> <span class="n">PTVSD</span> <span class="n">wait</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">attach</span><span class="p">:</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">configured</span> <span class="p">(</span><span class="n">you</span> <span class="n">may</span> <span class="n">configure</span> <span class="n">it</span> <span class="n">using</span> <span class="n">PTVSD_WAIT_ATTACH</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Block above says that ports 56388, 56387 have been mapped from your host to container, that means that traffic from <code class="docutils literal notranslate"><span class="pre">localhost:56388</span></code> will be routed to container’s <code class="docutils literal notranslate"><span class="pre">56388</span></code> port. This ports choose at each <code class="docutils literal notranslate"><span class="pre">legion-activate.sh</span></code> execution.</p>
-<ol class="simple">
-<li>Run your training scripts</li>
-</ol>
-<p>Inside container’s shell (bash) you may run your python code (using <code class="docutils literal notranslate"><span class="pre">python3</span></code> command), run your notebooks (using <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconver</span> <span class="pre">--execute</span></code> command), run Jupyter notebook server (that will be accessible from your machine) or run other commands.</p>
-<p>Your code may use <code class="docutils literal notranslate"><span class="pre">legion</span></code> python package to generate Legion Platform model binaries using <code class="docutils literal notranslate"><span class="pre">legion.model</span></code> API.</p>
-<p>At the end of your pipeline you have to export and save your models (using <code class="docutils literal notranslate"><span class="pre">legion.model.export(....)</span></code> and <code class="docutils literal notranslate"><span class="pre">legion.model.save()</span></code> commands)</p>
-<ol class="simple">
-<li>Build model images</li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>legionctl build
-</pre></div>
-</div>
-<p>To build model images you have to run command above. It will self-capture current container with all installed dependecies, add additional packages (as a nginx webserver) and persist it on your machine’s docker engine as a new image.</p>
-<p>Name of image will be printed in the console.</p>
+<p>Block above says that ports 56388, 56387 have been mapped from your host to container, that means that traffic from <code class="docutils literal notranslate"><span class="pre">localhost:56388</span></code> will be routed to container’s <code class="docutils literal notranslate"><span class="pre">56388</span></code> port. This ports choose at each <code class="docutils literal notranslate"><span class="pre">odahu-flow-activate.sh</span></code> execution.</p>
 </div>
 <div class="section" id="how-to-use-with-jupyter-notebook">
 <h2>How to use with Jupyter Notebook?<a class="headerlink" href="#how-to-use-with-jupyter-notebook" title="Permalink to this headline">¶</a></h2>
@@ -280,10 +256,10 @@
 <p>To start debugging you have to:</p>
 <ol class="simple">
 <li>Start debugging server in your IDE.</li>
-<li>Run <code class="docutils literal notranslate"><span class="pre">legion-activate.sh</span></code> with environment variables <code class="docutils literal notranslate"><span class="pre">PYDEVD_HOST</span></code> and <code class="docutils literal notranslate"><span class="pre">PYDEVD_PORT</span></code>.</li>
+<li>Run <code class="docutils literal notranslate"><span class="pre">odahu-flow-activate.sh</span></code> with environment variables <code class="docutils literal notranslate"><span class="pre">PYDEVD_HOST</span></code> and <code class="docutils literal notranslate"><span class="pre">PYDEVD_PORT</span></code>.</li>
 </ol>
 <p>Example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PYDEVD_HOST</span><span class="o">=</span><span class="m">127</span>.0.0.1 <span class="nv">PYDEVD_PORT</span><span class="o">=</span><span class="m">8090</span> ./legion-activate.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PYDEVD_HOST</span><span class="o">=</span><span class="m">127</span>.0.0.1 <span class="nv">PYDEVD_PORT</span><span class="o">=</span><span class="m">8090</span> ./odahu-flow-activate.sh
 </pre></div>
 </div>
 </div>
@@ -298,10 +274,10 @@
 <p>To start debugging you have to:</p>
 <ol class="simple">
 <li>Configure attaching in your IDE, choose port (for example 8000)</li>
-<li>Run <code class="docutils literal notranslate"><span class="pre">legion-activate.sh</span></code> (<code class="docutils literal notranslate"><span class="pre">PTVSD_PORT</span></code> and <code class="docutils literal notranslate"><span class="pre">PTVSD_WAIT_ATTACH</span></code> are optional, default <code class="docutils literal notranslate"><span class="pre">PTVSD_WAIT_ATTACH=0</span></code>).</li>
+<li>Run <code class="docutils literal notranslate"><span class="pre">odahu-flow-activate.sh</span></code> (<code class="docutils literal notranslate"><span class="pre">PTVSD_PORT</span></code> and <code class="docutils literal notranslate"><span class="pre">PTVSD_WAIT_ATTACH</span></code> are optional, default <code class="docutils literal notranslate"><span class="pre">PTVSD_WAIT_ATTACH=0</span></code>).</li>
 </ol>
 <p>Example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PTVSD_WAIT_ATTACH</span><span class="o">=</span><span class="m">1</span> ./legion-activate.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PTVSD_WAIT_ATTACH</span><span class="o">=</span><span class="m">1</span> ./odahu-flow-activate.sh
 </pre></div>
 </div>
 <div class="section" id="how-to-configure-debugging-using-ptvsd-in-vscode">
@@ -328,7 +304,7 @@
 </pre></div>
 </div>
 <ol class="simple">
-<li>Run <code class="docutils literal notranslate"><span class="pre">./legion-activate.sh</span></code> with <code class="docutils literal notranslate"><span class="pre">PTVSD_*</span></code> environment variables.</li>
+<li>Run <code class="docutils literal notranslate"><span class="pre">./odahu-flow-activate.sh</span></code> with <code class="docutils literal notranslate"><span class="pre">PTVSD_*</span></code> environment variables.</li>
 <li>Run debugging configuration</li>
 </ol>
 </div>
@@ -338,35 +314,17 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Go to project directory</span>
 host&gt; <span class="nb">cd</span> /my-ml-project
 
-<span class="c1"># Install legion CLI tools and python package</span>
-host&gt; sudo pip3 install legion
+<span class="c1"># Install odahuflow CLI tools and python package</span>
+host&gt; sudo pip3 install odahu-flow-cli
 
 <span class="c1"># Create sandbox</span>
-host&gt; legionctl create-sandbox
+host&gt; odahuflowctl create-sandbox
 
 <span class="c1"># Go inside sandbox</span>
-host&gt; ./legion-activate.sh
+host&gt; ./odahu-flow-activate.sh
 
-<span class="c1"># Run Jupyter notebook server</span>
-sandbox&gt; jupyter notebook
-
-<span class="c1"># ... do actions inside Jupyter web console</span>
-<span class="c1"># ... execute legion.model.save() inside Jupyter web console</span>
-
-<span class="c1"># Create model&#39;s image</span>
-sandbox&gt; legionctl build
-
-<span class="c1"># Deploy model locally: legionctl deploy &lt;builded-model-image&gt; --local</span>
-<span class="c1"># For example</span>
-sandbox or host&gt; legionctl deploy model-summation:latest --local
-
-<span class="c1"># Invoke model: legionctl invoke --model-id &lt;model-id&gt; --model-version &lt;model-version&gt; -p &lt;parameters&gt; --local</span>
-<span class="c1"># For example</span>
-sandbox or host&gt; legionctl invoke --model-id test-summation --model -version <span class="s1">&#39;2.0&#39;</span> -p <span class="nv">a</span><span class="o">=</span><span class="m">1</span> -p <span class="nv">b</span><span class="o">=</span><span class="m">2</span> --local
-
-<span class="c1"># Undeploy your model: legionctl undeploy &lt;model-id&gt; --model-version &lt;model-version&gt; --local</span>
-<span class="c1"># For example</span>
-sandbox or host&gt; legionctl undeploy test-summation --model-version <span class="s1">&#39;2.0&#39;</span> --local
+<span class="c1"># Run Jupyterlab server</span>
+sandbox&gt; jupyter lab
 </pre></div>
 </div>
 </div>
@@ -383,7 +341,7 @@ sandbox or host&gt; legionctl undeploy test-summation --model-version <span clas
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Legion Team.
+        &copy; Copyright 2019, Odahu Team.
 
     </p>
   </div>

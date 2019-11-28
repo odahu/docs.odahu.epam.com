@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operator &mdash; legion 1.2 documentation</title>
+  <title>Operator &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="MLFlow Trainer" href="comp_mlflow_trainer.html" />
-    <link rel="prev" title="EDI" href="comp_edi.html" /> 
+    <link rel="prev" title="API" href="comp_api.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -50,7 +50,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> legion
+            <a href="index.html" class="icon icon-home"> Odahu
           
 
           
@@ -86,7 +86,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -96,22 +96,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Operator</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#legion-model-pods">Legion Model Pods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#train-process">Train Process</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#build-process">Build Process</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#deploy-process">Deploy Process</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#connecting-to-operator">Connecting to Operator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#implementation-details">Implementation details</a></li>
 </ul>
 </li>
@@ -125,9 +113,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
@@ -135,10 +121,9 @@
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
@@ -154,7 +139,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">legion</a>
+          <a href="index.html">Odahu</a>
         
       </nav>
 
@@ -206,45 +191,11 @@
             
   <div class="section" id="operator">
 <h1>Operator<a class="headerlink" href="#operator" title="Permalink to this headline">¶</a></h1>
-<p><strong>Operator</strong> monitors Legion-provided Kubernetes (K8s)
+<p><strong>Operator</strong> monitors Odahu-provided Kubernetes (K8s)
 <a class="reference external" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">Custom Resources</a>.
-This gives Operator the ability to manage Legion entities using K8s infrastructure (Secrets, Pods, Services, etc).
-The K8s entities that belong to Legion are referred to as <a class="reference internal" href="gen_glossary.html#term-legion-s-crds"><span class="xref std std-term">Legion’s CRDs</span></a>.</p>
-<p>Operator is a mandatory component in Legion clusters.</p>
-<div class="section" id="legion-model-pods">
-<h2>Legion Model Pods<a class="headerlink" href="#legion-model-pods" title="Permalink to this headline">¶</a></h2>
-<p>For each model, operator creates a K8s pod containing:
-* a Builder container, created from <cite>k8s-model-builder</cite> image
-* a Model container, created from a toolchain image. The toolchain is specified as an argument to EDI
-* a VolumeMount for source code, using a <cite>Connection</cite> (usually to Git)
-* (optional) other resources (e.g. GCS or S3 buckets)</p>
-</div>
-<div class="section" id="train-process">
-<h2>Train Process<a class="headerlink" href="#train-process" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li>Check out source code</li>
-<li>Execute Train, produce .zip file</li>
-</ol>
-</div>
-<div class="section" id="build-process">
-<h2>Build Process<a class="headerlink" href="#build-process" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple" start="3">
-<li>Execute Build, produce Docker image</li>
-<li>Push image to Docker repository</li>
-</ol>
-</div>
-<div class="section" id="deploy-process">
-<h2>Deploy Process<a class="headerlink" href="#deploy-process" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple" start="5">
-<li>Create K8s pod</li>
-<li>Deploy image to pod</li>
-<li>Create service to route traffic</li>
-</ol>
-</div>
-<div class="section" id="connecting-to-operator">
-<h2>Connecting to Operator<a class="headerlink" href="#connecting-to-operator" title="Permalink to this headline">¶</a></h2>
-<p>Operator does not ship a connection interface.</p>
-</div>
+This gives Operator the ability to manage Odahu entities using K8s infrastructure (Secrets, Pods, Services, etc).
+The K8s entities that belong to Odahu are referred to as <span class="xref std std-term">Odahu’s CRDs</span>.</p>
+<p>Operator is a mandatory component in Odahu clusters.</p>
 <div class="section" id="implementation-details">
 <h2>Implementation details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="gen_glossary.html#term-operator"><span class="xref std std-term">Operator</span></a> is a Kubernetes Operator, written using Kubernetes Go packages.</p>
@@ -261,9 +212,9 @@ The K8s entities that belong to Legion are referred to as <a class="reference in
 <td>Docker Image</td>
 </tr>
 <tr class="row-odd"><th class="stub">Source code location</th>
-<td><a class="reference external" href="https://github.com/legion-platform/legion/tree/develop/legion/operator">legion/legion/operator</a></td>
+<td><a class="reference external" href="https://github.com/odahu/odahu-flow/tree/develop/packages/operator">packages/operator</a></td>
 </tr>
-<tr class="row-even"><th class="stub">Can be used w/o Legion Platform?</th>
+<tr class="row-even"><th class="stub">Can be used w/o Odahu Platform?</th>
 <td>Yes</td>
 </tr>
 <tr class="row-odd"><th class="stub">Does it connect to another services?</th>
@@ -291,7 +242,7 @@ The K8s entities that belong to Legion are referred to as <a class="reference in
         <a href="comp_mlflow_trainer.html" class="btn btn-neutral float-right" title="MLFlow Trainer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="comp_edi.html" class="btn btn-neutral" title="EDI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="comp_api.html" class="btn btn-neutral" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -300,7 +251,7 @@ The K8s entities that belong to Legion are referred to as <a class="reference in
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Legion Team.
+        &copy; Copyright 2019, Odahu Team.
 
     </p>
   </div>

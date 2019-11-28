@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Feedback loop &mdash; legion 1.2 documentation</title>
+  <title>Feedback loop &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -48,7 +48,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> legion
+            <a href="index.html" class="icon icon-home"> Odahu
           
 
           
@@ -84,7 +84,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -94,16 +94,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
@@ -115,9 +108,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
@@ -125,10 +116,9 @@
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
@@ -144,7 +134,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">legion</a>
+          <a href="index.html">Odahu</a>
         
       </nav>
 
@@ -252,15 +242,15 @@ must point to existed EDGE endpoint, existed route name and use valid JWT token 
     <span class="s2">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;85252432-8d26-9b5f-bed3-e9ceeafc688c&quot;</span><span class="p">,</span>
     <span class="s2">&quot;request_get_args&quot;</span><span class="p">:</span> <span class="p">{},</span>
     <span class="s2">&quot;response_status&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;request_host&quot;</span><span class="p">:</span> <span class="s2">&quot;edge.legion-test.epm.kharlamov.biz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;request_host&quot;</span><span class="p">:</span> <span class="s2">&quot;edge.odahu-test.epm.kharlamov.biz&quot;</span><span class="p">,</span>
     <span class="s2">&quot;model_endpoint&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
     <span class="s2">&quot;model_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
     <span class="s2">&quot;request_http_method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
     <span class="s2">&quot;request_http_headers&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;:scheme&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
         <span class="s2">&quot;accept&quot;</span><span class="p">:</span> <span class="s2">&quot;*/*&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;knative-serving-namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;legion&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;:authority&quot;</span><span class="p">:</span> <span class="s2">&quot;edge.legion-test.epm.kharlamov.biz&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;knative-serving-namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;odahu&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;:authority&quot;</span><span class="p">:</span> <span class="s2">&quot;edge.odahu-test.epm.kharlamov.biz&quot;</span><span class="p">,</span>
         <span class="s2">&quot;:path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/model/invoke&quot;</span><span class="p">,</span>
         <span class="s2">&quot;:method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
         <span class="s2">&quot;user-agent&quot;</span><span class="p">:</span> <span class="s2">&quot;python-requests/2.22.0&quot;</span><span class="p">,</span>
@@ -268,7 +258,7 @@ must point to existed EDGE endpoint, existed route name and use valid JWT token 
         <span class="s2">&quot;x-request-id&quot;</span><span class="p">:</span> <span class="s2">&quot;85252432-8d26-9b5f-bed3-e9ceeafc688c&quot;</span><span class="p">,</span>
         <span class="s2">&quot;x-b3-sampled&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
         <span class="s2">&quot;x-envoy-external-address&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.1.1&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;x-forwarded-host&quot;</span><span class="p">:</span> <span class="s2">&quot;edge.legion-test.epm.kharlamov.biz&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x-forwarded-host&quot;</span><span class="p">:</span> <span class="s2">&quot;edge.odahu-test.epm.kharlamov.biz&quot;</span><span class="p">,</span>
         <span class="s2">&quot;x-original-uri&quot;</span><span class="p">:</span> <span class="s2">&quot;/model/sklearn-income/api/model/invoke&quot;</span><span class="p">,</span>
         <span class="s2">&quot;content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/x-www-form-urlencoded&quot;</span><span class="p">,</span>
         <span class="s2">&quot;x-forwarded-port&quot;</span><span class="p">:</span> <span class="s2">&quot;443&quot;</span><span class="p">,</span>
@@ -276,7 +266,7 @@ must point to existed EDGE endpoint, existed route name and use valid JWT token 
         <span class="s2">&quot;knative-serving-revision&quot;</span><span class="p">:</span> <span class="s2">&quot;sklearn-income-5jrrp&quot;</span><span class="p">,</span>
         <span class="s2">&quot;x-envoy-original-path&quot;</span><span class="p">:</span> <span class="s2">&quot;/model/sklearn-income/api/model/invoke&quot;</span><span class="p">,</span>
         <span class="s2">&quot;x-real-ip&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.1.1&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;x-envoy-decorator-operation&quot;</span><span class="p">:</span> <span class="s2">&quot;sklearn-income-5jrrp.legion.svc.cluster.local:80/model/sklearn-income/api*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x-envoy-decorator-operation&quot;</span><span class="p">:</span> <span class="s2">&quot;sklearn-income-5jrrp.odahu.svc.cluster.local:80/model/sklearn-income/api*&quot;</span><span class="p">,</span>
         <span class="s2">&quot;x-istio-attributes&quot;</span><span class="p">:</span> <span class="s2">&quot;CksKGGRlc3RpbmF0aW9uLnNlcnZpY2UuaG9zdBIvEi1za2xlYXJuLWluY29tZS01anJycC5sZWdpb24uc3ZjLmNsdXN0ZXIubG9jYWwKSQoXZGVzdGluYXRpb24uc2VydmljZS51aWQSLhIsaXN0aW86Ly9sZWdpb24vc2VydmljZXMvc2tsZWFybi1pbmNvbWUtNWpycnAKMgoYZGVzdGluYXRpb24uc2VydmljZS5uYW1lEhYSFHNrbGVhcm4taW5jb21lLTVqcnJwCikKHWRlc3RpbmF0aW9uLnNlcnZpY2UubmFtZXNwYWNlEggSBmxlZ2lvbgpPCgpzb3VyY2UudWlkEkESP2t1YmVybmV0ZXM6Ly9pc3Rpby1pbmdyZXNzZ2F0ZXdheS02ODVkOTY0OWZkLXRjcmx2LmlzdGlvLXN5c3RlbQ==&quot;</span><span class="p">,</span>
         <span class="s2">&quot;x-forwarded-for&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.1.1,1.1.1.1&quot;</span><span class="p">,</span>
         <span class="s2">&quot;content-length&quot;</span><span class="p">:</span> <span class="s2">&quot;257&quot;</span><span class="p">,</span>
@@ -430,7 +420,7 @@ must point to existed EDGE endpoint, existed route name and use valid JWT token 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Legion Team.
+        &copy; Copyright 2019, Odahu Team.
 
     </p>
   </div>

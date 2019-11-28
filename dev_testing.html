@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Integration Testing &mdash; legion 1.2 documentation</title>
+  <title>Integration Testing &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="How to build docker images" href="dev_building.html" /> 
+    <link rel="prev" title="Development hints" href="dev_hints.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -49,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> legion
+            <a href="index.html" class="icon icon-home"> Odahu
           
 
           
@@ -85,7 +85,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -95,16 +95,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
@@ -116,9 +109,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
@@ -126,10 +117,9 @@
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Integration Testing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#running-system-integration-tests">Running system/integration tests</a></li>
 </ul>
@@ -148,7 +138,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">legion</a>
+          <a href="index.html">Odahu</a>
         
       </nav>
 
@@ -200,37 +190,36 @@
             
   <div class="section" id="integration-testing">
 <h1>Integration Testing<a class="headerlink" href="#integration-testing" title="Permalink to this headline">¶</a></h1>
-<p>Legion uses the robotframework for an integration testing.
+<p>Odahu uses the robotframework for an integration testing.
 System/integration tests located in the following directories:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">legion/robot</span></code> - a python package with additional Robot libraries. For example: kubernetes, auth_client, feedback, and so on.</li>
-<li><code class="docutils literal notranslate"><span class="pre">legion/tests/stuff</span></code> - artifacts for integration testing. For example: pre-trained ML artifacts, test toolchain integrations, and so on.</li>
-<li><code class="docutils literal notranslate"><span class="pre">legion/tests/e2e</span></code> - directory with the RobotFramework tests.</li>
+<li><code class="docutils literal notranslate"><span class="pre">packages/robot</span></code> - a python package with additional Robot libraries. For example: kubernetes, auth_client, feedback, and so on.</li>
+<li><code class="docutils literal notranslate"><span class="pre">packages/tests/stuff</span></code> - artifacts for integration testing. For example: pre-trained ML artifacts, test toolchain integrations, and so on.</li>
+<li><code class="docutils literal notranslate"><span class="pre">packages/tests/e2e</span></code> - directory with the RobotFramework tests.</li>
 </ul>
 <div class="section" id="running-system-integration-tests">
 <h2>Running system/integration tests<a class="headerlink" href="#running-system-integration-tests" title="Permalink to this headline">¶</a></h2>
-<p>We set up robot tests for <code class="docutils literal notranslate"><span class="pre">gke-legion-test</span></code> cluster in the example below.
-<em>Do not forget change your cluster url and legion version.</em></p>
-<p>Export cluster secrets from legion-profiles directory.</p>
+<p>We set up robot tests for <code class="docutils literal notranslate"><span class="pre">gke-odahu-flow-test</span></code> cluster in the example below.
+<em>Do not forget change your cluster url and odahu-flow version.</em></p>
+<p>Export cluster secrets from odahu-flow-profiles directory.</p>
 <ul class="simple">
-<li>Clones <em>internal</em> legion-profiles repository. Checkout your or the developer branch.</li>
-<li>Clones <a class="reference external" href="https://github.com/legion-platform/legion-infrastructure">legion-infrastructure</a> repository. Checkout your or the developer branch.</li>
-<li>Build terraform docker image using the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docker-build-terraform</span></code> command in legion-infrastructure directory.</li>
+<li>Clones <em>internal</em> odahu-flow-profiles repository. Checkout your or the developer branch.</li>
+<li>Build hiera docker image using the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docker-build-hiera</span></code> command in odahu-flow-profiles directory.</li>
 <li>You can optionally override the following parameters in <code class="docutils literal notranslate"><span class="pre">.env</span></code> file:<ul>
 <li><code class="docutils literal notranslate"><span class="pre">CLUSTER_NAME</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">HIERA_KEYS_DIR</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">SECRET_DIR</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">CLOUD_PROVIDER</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">EXPORT_HIERA_DOCKER_IMAGE</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">LEGION_PROFILES_DIR</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">ODAHUFLOW_PROFILES_DIR</span></code></li>
 </ul>
 </li>
-<li>Executes <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">export-hiera</span></code> command in the legion dir.</li>
+<li>Executes <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">export-hiera</span></code> command.</li>
 <li>Verify that <code class="docutils literal notranslate"><span class="pre">${SECRET_DIR}/.cluster_profile.json</span></code> file was created.</li>
 </ul>
 <p>Updates the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file when you should override a default Makefile option:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cluster name</span>
-<span class="nv">CLUSTER_NAME</span><span class="o">=</span>gke-legion-test
+<span class="nv">CLUSTER_NAME</span><span class="o">=</span>gke-odahu-flow-test
 <span class="c1"># Optionnaly, you can provide RobotFramework settings below.</span>
 <span class="c1"># Additional robot parameters. For example, you can specify tags or variables.</span>
 <span class="nv">ROBOT_OPTIONS</span><span class="o">=</span>-e disable
@@ -238,7 +227,7 @@ System/integration tests located in the following directories:</p>
 <span class="nv">ROBOT_FILES</span><span class="o">=</span>**/*.robot
 </pre></div>
 </div>
-<p>Afterward, you should set up a Legion cluster for RobotFramework tests using the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">setup-e2e-robot</span></code> command.
+<p>Afterward, you should set up a Odahu cluster for RobotFramework tests using the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">setup-e2e-robot</span></code> command.
 You should execute the previous command only once.</p>
 <p>Finally, starts the robot tests:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make e2e-robot
@@ -256,7 +245,7 @@ You should execute the previous command only once.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="dev_building.html" class="btn btn-neutral" title="How to build docker images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dev_hints.html" class="btn btn-neutral" title="Development hints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -265,7 +254,7 @@ You should execute the previous command only once.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Legion Team.
+        &copy; Copyright 2019, Odahu Team.
 
     </p>
   </div>

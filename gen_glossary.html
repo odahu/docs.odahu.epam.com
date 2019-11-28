@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Glossary &mdash; legion 1.2 documentation</title>
+  <title>Glossary &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -50,7 +50,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> legion
+            <a href="index.html" class="icon icon-home"> Odahu
           
 
           
@@ -86,7 +86,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -96,16 +96,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
@@ -117,9 +110,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a></li>
@@ -127,10 +118,9 @@
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
@@ -146,7 +136,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">legion</a>
+          <a href="index.html">Odahu</a>
         
       </nav>
 
@@ -204,7 +194,7 @@
 and deployment procedures (e.g. a GitHub Repository).</dd>
 <dt id="term-trained-model-binary">Trained Model Binary</dt>
 <dd>An archive containing a trained ML/AI model (inference code, model weights,
-etc). Legion defines a format for these binaries. See &lt;ref_model_format.html&gt;</dd>
+etc). Odahu defines a format for these binaries. See &lt;ref_model_format.html&gt;</dd>
 <dt id="term-trainer">Trainer</dt>
 <dd>Application that uses model source code, <a class="reference internal" href="#term-data-binding"><span class="xref std std-term">Data Bindings</span></a>,
 <a class="reference internal" href="#term-connection"><span class="xref std std-term">Connections</span></a> and <a class="reference internal" href="#term-training-hyperparameters"><span class="xref std std-term">Training Hyperparameters</span></a> to produce
@@ -250,10 +240,10 @@ comparing <cite>Train</cite> runs.</dd>
 <dd>Integration of MLflow library for training models, written in a Python. Details - <a class="reference internal" href="comp_mlflow_trainer.html#mod-dev-using-mlflow-section"><span class="std std-ref">MLFlow Trainer</span></a></dd>
 <dt id="term-rest-api-packager">REST API Packager</dt>
 <dd>Integration for packing trained models into Docker Image with served via REST API</dd>
-<dt id="term-edi">EDI</dt>
-<dd>API for managing Legion Platform resources for cloud deployed Platform</dd>
+<dt id="term-api-service">API service</dt>
+<dd>API for managing Odahu Platform resources for cloud deployed Platform</dd>
 <dt id="term-operator">Operator</dt>
-<dd>A Kubernetes Operator that manages Kubernetes resources (Pods, Services and etc.) for Legion
+<dd>A Kubernetes Operator that manages Kubernetes resources (Pods, Services and etc.) for Odahu
 <a class="reference internal" href="#term-train"><span class="xref std std-term">Train</span></a>, <a class="reference internal" href="#term-package"><span class="xref std std-term">Package</span></a>, and <a class="reference internal" href="#term-deploy"><span class="xref std std-term">Deploy</span></a> instances.</dd>
 <dt id="term-prediction">Prediction</dt>
 <dd>A deployed model output, given input parameters.</dd>
@@ -266,16 +256,16 @@ comparing <cite>Train</cite> runs.</dd>
 <dt id="term-feedback-aggregator">Feedback aggregator</dt>
 <dd>A service that provides a <a class="reference internal" href="#term-model-feedback-api"><span class="xref std std-term">Model Feedback API</span></a> and gathers input and output
 <a class="reference internal" href="#term-model-prediction-api"><span class="xref std std-term">prediction requests</span></a></dd>
-<dt id="term-legion-sdk">Legion SDK</dt>
-<dd>An extensible Python client library for <a class="reference internal" href="#term-edi"><span class="xref std std-term">EDI</span></a>, written in Python language. Can be installed from PyPi.</dd>
-<dt id="term-legion-cli">Legion CLI</dt>
-<dd>Command Line Interface for <a class="reference internal" href="#term-edi"><span class="xref std std-term">EDI</span></a>, written in Python. Can be installed from PyPi. It uses the <a class="reference internal" href="#term-legion-sdk"><span class="xref std std-term">Legion SDK</span></a>.</dd>
+<dt id="term-odahu-flow-sdk">Odahu-flow SDK</dt>
+<dd>An extensible Python client library for <span class="xref std std-term">API</span>, written in Python language. Can be installed from PyPi.</dd>
+<dt id="term-odahu-flow-cli">Odahu-flow CLI</dt>
+<dd>Command Line Interface for <span class="xref std std-term">API</span>, written in Python. Can be installed from PyPi. It uses the <a class="reference internal" href="#term-odahu-flow-sdk"><span class="xref std std-term">Odahu-flow SDK</span></a>.</dd>
 <dt id="term-plugin-for-jupyterlab">Plugin for JupyterLab</dt>
-<dd>A legion-specific plugin that provides Legion Platform management controls in JupyterLab.</dd>
+<dd>A odahu-specific plugin that provides Odahu Platform management controls in JupyterLab.</dd>
 <dt id="term-plugin-for-jenkins">Plugin for Jenkins</dt>
-<dd>A library for managing Legion Platform resources from Jenkins Pipelines.</dd>
+<dd>A library for managing Odahu Platform resources from Jenkins Pipelines.</dd>
 <dt id="term-plugin-for-airflow">Plugin for Airflow</dt>
-<dd>A library that provides Hooks and Operators for managing Legion Platform resources from Airflow.</dd>
+<dd>A library that provides Hooks and Operators for managing Odahu Platform resources from Airflow.</dd>
 <dt id="term-model-deployment-access-role-name">Model Deployment Access Role Name</dt>
 <dd>Name of scope or role for accessing model deployments.</dd>
 <dt id="term-jwt-token">JWT Token</dt>
@@ -286,13 +276,13 @@ encoded <a class="reference internal" href="#term-model-deployment-access-role-n
 prediction metrics and <a class="reference internal" href="#term-prediction-feedback"><span class="xref std std-term">Model Feedback</span></a> for models, which can vary by
 <a class="reference internal" href="#term-vcs"><span class="xref std std-term">source code</span></a>, <a class="reference internal" href="#term-data-binding"><span class="xref std std-term">dataset</span></a> and/or
 <a class="reference internal" href="#term-training-hyperparameters"><span class="xref std std-term">training hyperparameters</span></a></dd>
-<dt id="term-legion-distribution">Legion distribution</dt>
+<dt id="term-odahu-distribution">Odahu distribution</dt>
 <dd>A collection of Docker Images, Python packages, or NPM packages, which are publicly available for
-installation as a composable Legion Platform.</dd>
-<dt id="term-legion-helm-chart">Legion Helm Chart</dt>
-<dd>A YAML definition for Helm that defines a Legion Platform deployed on a Kubernetes cluster.</dd>
-<dt id="term-legion-s-crds">Legion’s CRDs</dt>
-<dd><p class="first">Objects that <a class="reference internal" href="#term-edi"><span class="xref std std-term">EDI</span></a> creates for actions that require computing resources
+installation as a composable Odahu Platform.</dd>
+<dt id="term-odahu-helm-chart">Odahu Helm Chart</dt>
+<dd>A YAML definition for Helm that defines a Odahu Platform deployed on a Kubernetes cluster.</dd>
+<dt id="term-odahu-flow-s-crds">Odahu-flow’s CRDs</dt>
+<dd><p class="first">Objects that <span class="xref std std-term">API</span> creates for actions that require computing resources
 to be stored. For example: <a class="reference internal" href="#term-connection"><span class="xref std std-term">connections</span></a>, <a class="reference internal" href="#term-train"><span class="xref std std-term">Trains</span></a>, etc).</p>
 <p class="last">These objects are Kubernetes Custom Resources and are managed by <a class="reference internal" href="#term-operator"><span class="xref std std-term">operator</span></a>.</p>
 </dd>
@@ -319,7 +309,7 @@ to be stored. For example: <a class="reference internal" href="#term-connection"
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Legion Team.
+        &copy; Copyright 2019, Odahu Team.
 
     </p>
   </div>

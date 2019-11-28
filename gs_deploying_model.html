@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>================ Deploying models &mdash; legion 1.2 documentation</title>
+  <title>================ Deploying models &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -48,7 +48,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> legion
+            <a href="index.html" class="icon icon-home"> Odahu
           
 
           
@@ -84,7 +84,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -94,16 +94,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
@@ -115,9 +108,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
@@ -125,10 +116,9 @@
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
@@ -144,7 +134,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">legion</a>
+          <a href="index.html">Odahu</a>
         
       </nav>
 
@@ -198,18 +188,18 @@ Deploying models</li>
   <div class="section" id="deploying-models">
 <h1>================
 Deploying models<a class="headerlink" href="#deploying-models" title="Permalink to this headline">¶</a></h1>
-<p>Legion supports deploying <a class="reference internal" href="gs_what_is_model.html"><span class="doc">Legion-compatible models</span></a> on top of cluster or on any machine with installed Docker Engine. This chapter describes on-cluster deployment. For local deployment please refer <a class="reference internal" href="gs_local_run.html"><span class="doc">local mode section</span></a>.</p>
-<p><strong>WARNING: Not every Docker Image can be deployed on Legion. Legion only supports deploying of <a class="reference external" href="./gs_what_is_model.md#built-model">compatible models</a>.</strong></p>
-<p>To deploy Legion model on top of cluster next mechanisms can be used:</p>
+<p>Odahu supports deploying <a class="reference internal" href="gs_what_is_model.html"><span class="doc">Odahu-compatible models</span></a> on top of cluster or on any machine with installed Docker Engine. This chapter describes on-cluster deployment. For local deployment please refer <a class="reference internal" href="gs_local_run.html"><span class="doc">local mode section</span></a>.</p>
+<p><strong>WARNING: Not every Docker Image can be deployed on Odahu. Odahu only supports deploying of <a class="reference external" href="./gs_what_is_model.md#built-model">compatible models</a>.</strong></p>
+<p>To deploy Odahu model on top of cluster next mechanisms can be used:</p>
 <ul class="simple">
 <li>Creationing of <a class="reference external" href="./ref_crds">ModelDeployment CR</a>.</li>
-<li>Using <code class="docutils literal notranslate"><span class="pre">legionctl</span></code> tool. <a class="reference internal" href="cmp_legionctl.html"><span class="doc">See chapter</span></a>.</li>
-<li>Calling EDI service using HTTP requests.</li>
+<li>Using <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span></code> tool. <a class="reference external" href="./cmp_odahuflowctl">See chapter</a>.</li>
+<li>Calling API service using HTTP requests.</li>
 </ul>
 <p>Each deployed model is available to:</p>
 <ul class="simple">
 <li>Be queried using HTTP API. <a class="reference internal" href="gs_querying_model.html"><span class="doc">See chapter</span></a></li>
-<li>Be scaled using <code class="docutils literal notranslate"><span class="pre">legionctl</span></code> / EDI call.</li>
+<li>Be scaled using <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span></code> / API call.</li>
 <li>Be undeployed (using same ways as for deployment).</li>
 </ul>
 <div class="section" id="examples-of-vcs-credentials-management">
@@ -217,35 +207,23 @@ Deploying models<a class="headerlink" href="#deploying-models" title="Permalink 
 <div class="section" id="using-kubectl">
 <h3>Using <code class="docutils literal notranslate"><span class="pre">kubectl</span></code><a class="headerlink" href="#using-kubectl" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl create -f - <span class="s">&lt;&lt;EOF</span>
-<span class="s">apiVersion: legion.legion-platform.org/v1alpha1</span>
-<span class="s">kind: VCSCredential</span>
-<span class="s">metadata:</span>
-<span class="s">  name: vcs-examlpe</span>
+<span class="s">kind: Connection</span>
+<span class="s">id: vcs-examlpe</span>
 <span class="s">spec:</span>
 <span class="s">  credential: bG9sa2VrbG9sa2VrCg==</span>
 <span class="s">  defaultReference: master</span>
 <span class="s">  type: git</span>
-<span class="s">  uri: git@github.com:legion-platform/legion.git</span>
+<span class="s">  uri: git@github.com:odahu/odahu-examples.git</span>
 <span class="s">EOF</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="using-legionctl">
-<h3>Using <code class="docutils literal notranslate"><span class="pre">legionctl</span></code><a class="headerlink" href="#using-legionctl" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>legionctl vcs create vcs-examlpe <span class="se">\</span>
-          --type git <span class="se">\</span>
-          --uri git@github.com:legion-platform/legion.git <span class="se">\</span>
-          --default-reference master <span class="se">\</span>
-          --credential <span class="s2">&quot;bG9sa2VrbG9sa2VrCg==&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="using-plain-http">
 <h3>Using Plain HTTP<a class="headerlink" href="#using-plain-http" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="s2">&quot;https://&lt;edi-url&gt;/api/v1/vcs&quot;</span> <span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="s2">&quot;https://&lt;apu-url&gt;/api/v1/connection&quot;</span> <span class="se">\</span>
      -H <span class="s2">&quot;accept: application/json&quot;</span> <span class="se">\</span>
      -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
-     -d <span class="s1">&#39;{ &quot;name&quot;: &quot;vcs-examlpe&quot;, &quot;spec&quot;: { &quot;credential&quot;: &quot;bG9sa2VrbG9sa2VrCg==&quot;, &quot;defaultReference&quot;: &quot;master&quot;, &quot;type&quot;: &quot;git&quot;, &quot;uri&quot;: &quot;git@github.com:legion-platform/legion.git&quot; }}&#39;</span>
+     -d <span class="s1">&#39;{ &quot;id&quot;: &quot;vcs-examlpe&quot;, &quot;spec&quot;: { &quot;credential&quot;: &quot;bG9sa2VrbG9sa2VrCg==&quot;, &quot;defaultReference&quot;: &quot;master&quot;, &quot;type&quot;: &quot;git&quot;, &quot;uri&quot;: &quot;git@github.com:odahu/odahu-examples.git&quot; }}&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -255,31 +233,21 @@ Deploying models<a class="headerlink" href="#deploying-models" title="Permalink 
 <div class="section" id="id1">
 <h3>Using <code class="docutils literal notranslate"><span class="pre">kubectl</span></code><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl create -f - <span class="s">&lt;&lt;EOF</span>
-<span class="s">apiVersion: legion.legion-platform.org/v1alpha1</span>
 <span class="s">kind: ModelDeployment</span>
-<span class="s">metadata:</span>
-<span class="s">  name: deployment-example</span>
+<span class="s">id: deployment-example</span>
 <span class="s">spec:</span>
-<span class="s">  image: &lt;docker-repository&gt;/legion/example:1.0</span>
+<span class="s">  image: &lt;docker-repository&gt;/odahu/example:1.0</span>
 <span class="s">  replicas: 2</span>
 <span class="s">EOF</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id2">
-<h3>Using <code class="docutils literal notranslate"><span class="pre">legionctl</span></code><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>legionctl md create deployment-example <span class="se">\</span>
-          --image &lt;docker-repository&gt;/legion/example:1.0 <span class="se">\</span>
-          --replicas <span class="m">2</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="id3">
-<h3>Using Plain HTTP<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="s2">&quot;https://&lt;edi-url&gt;/api/v1/model/deployment&quot;</span> <span class="se">\</span>
+<h3>Using Plain HTTP<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="s2">&quot;https://&lt;api-url&gt;/api/v1/model/deployment&quot;</span> <span class="se">\</span>
      -H <span class="s2">&quot;accept: application/json&quot;</span> <span class="se">\</span>
      -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
-     -d <span class="s1">&#39;{&quot;name&quot;:&quot;deployment-example&quot;,&quot;spec&quot;: {&quot;image&quot;:&quot;&lt;docker-repository&gt;/legion/example:1.0&quot;,&quot;replicas&quot;: 2 }}&#39;</span>
+     -d <span class="s1">&#39;{&quot;name&quot;:&quot;deployment-example&quot;,&quot;spec&quot;: {&quot;image&quot;:&quot;&lt;docker-repository&gt;/odahu/example:1.0&quot;,&quot;replicas&quot;: 2 }}&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -297,7 +265,7 @@ Deploying models<a class="headerlink" href="#deploying-models" title="Permalink 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Legion Team.
+        &copy; Copyright 2019, Odahu Team.
 
     </p>
   </div>

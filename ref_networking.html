@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Networking &mdash; legion 1.2 documentation</title>
+  <title>Networking &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -50,7 +50,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> legion
+            <a href="index.html" class="icon icon-home"> Odahu
           
 
           
@@ -86,7 +86,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -96,16 +96,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
@@ -117,9 +110,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Networking</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#network-rules">Network rules</a></li>
@@ -130,10 +121,9 @@
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
@@ -149,7 +139,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">legion</a>
+          <a href="index.html">Odahu</a>
         
       </nav>
 
@@ -201,19 +191,19 @@
             
   <div class="section" id="networking">
 <h1>Networking<a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h1>
-<p>By default, Legion does not provide NetworkPolicy instances, but any policy that uses Pod label
+<p>By default, Odahu does not provide NetworkPolicy instances, but any policy that uses Pod label
 selection may be used (e.g. K8S NetworkPolicy).</p>
 <div class="section" id="network-rules">
 <h2>Network rules<a class="headerlink" href="#network-rules" title="Permalink to this headline">¶</a></h2>
-<p>Legion components require communication between:</p>
+<p>Odahu components require communication between:</p>
 <ul class="simple">
 <li>Operator, Trainer, Packager, and Deployer instances</li>
-<li>EDI and Deployer instances</li>
+<li>API and Deployer instances</li>
 <li>EDGE and Deployer instances</li>
-<li>EDI and Docker Registry</li>
+<li>API and Docker Registry</li>
 <li>Cluster ingress controller and EDGE</li>
 <li>Trainer instances and statsd (in external namespace)</li>
-<li>Prometheus and Legion components – for exporting performance metrics</li>
+<li>Prometheus and Odahu components – for exporting performance metrics</li>
 <li>EDGE and feedback components (aggregator and FluentD) – for feedback loop</li>
 </ul>
 </div>
@@ -239,7 +229,7 @@ selection may be used (e.g. K8S NetworkPolicy).</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Legion Team.
+        &copy; Copyright 2019, Odahu Team.
 
     </p>
   </div>

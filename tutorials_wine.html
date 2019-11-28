@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>MLFlow &mdash; legion 1.2 documentation</title>
+  <title>MLFlow &mdash; Odahu 1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Prerequisites" href="inst_cluster_installation.html" />
+    <link rel="next" title="API" href="comp_api.html" />
     <link rel="prev" title="Security" href="gen_security.html" /> 
 
   
@@ -50,7 +50,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> legion
+            <a href="index.html" class="icon icon-home"> Odahu
           
 
           
@@ -86,7 +86,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Legion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -113,16 +113,9 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion">Legion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#legion-cli">Legion CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin">Jupyter Plugin</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="comp_edi.html">EDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
@@ -134,9 +127,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ref_configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_model_api.html">Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
@@ -144,10 +135,9 @@
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Project structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories-structure">Repositories structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_building.html">How to build docker images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
@@ -163,7 +153,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">legion</a>
+          <a href="index.html">Odahu</a>
         
       </nav>
 
@@ -215,15 +205,15 @@
             
   <div class="section" id="mlflow">
 <h1>MLFlow<a class="headerlink" href="#mlflow" title="Permalink to this headline">¶</a></h1>
-<p>In this tutorial you will learn how to Train, Package and Deploy a model from scratch on Legion. Once deployed, the model serves RESTful requests, and makes a prediction when provided user input.</p>
-<p>Legion’s <a class="reference internal" href="comp_edi.html#edi-server-description"><span class="std std-ref">EDI</span></a> server performs Train, Package, and Deploy operations for you, using its REST API.</p>
+<p>In this tutorial you will learn how to Train, Package and Deploy a model from scratch on Odahu. Once deployed, the model serves RESTful requests, and makes a prediction when provided user input.</p>
+<p>Odahu’s <a class="reference internal" href="comp_api.html#api-server-description"><span class="std std-ref">API</span></a> server performs Train, Package, and Deploy operations for you, using its REST API.</p>
 <div class="section" id="prerequisites">
 <span id="tutorials-wine-req"></span><h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Legion cluster (<a class="reference internal" href="inst_cluster_installation.html#installation-prereqs"><span class="std std-ref">installation</span></a>)</li>
+<li>Odahu cluster (<span class="xref std std-ref">installation</span>)</li>
 <li><a class="reference internal" href="comp_mlflow_trainer.html#mod-dev-using-mlflow-section"><span class="std std-ref">MLFlow</span></a> and <a class="reference internal" href="gen_glossary.html#term-rest-api-packager"><span class="xref std std-term">REST API Packager</span></a> (installed by default)</li>
-<li><a class="reference internal" href="gen_glossary.html#term-legion-cli"><span class="xref std std-term">Legion CLI</span></a> or <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a> (installation instructions: <a class="reference internal" href="inst_cluster_installation.html#legion-cli-install"><span class="std std-ref">CLI</span></a>, <a class="reference internal" href="inst_cluster_installation.html#jupyter-plugin-install"><span class="std std-ref">Plugin</span></a>)</li>
-<li>JWT token from EDI (<a class="reference internal" href="comp_edi.html#edi-server-auth"><span class="std std-ref">instructions</span></a>)</li>
+<li><a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a> or <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a> (installation instructions: <span class="xref std std-ref">CLI</span>, <span class="xref std std-ref">Plugin</span>)</li>
+<li>JWT token from API (<a class="reference internal" href="comp_api.html#api-server-auth"><span class="std std-ref">instructions</span></a>)</li>
 <li>Google Cloud Storage bucket on Google Compute Platform</li>
 <li>GitHub repository and an ssh key to connect to it</li>
 </ul>
@@ -242,7 +232,7 @@
 <p>This tutorial uses a dataset to predict the quality of the wine based on quantitative features
 like the wine’s <em>fixed acidity</em>, <em>pH</em>, <em>residual sugar</em>, and so on.
 The dataset is from <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Wine+Quality">UCI’s machine learning repository</a>.</p>
-<p>Code for the tutorial is available on <a class="reference external" href="https://github.com/legion-platform/legion-examples/tree/master/mlflow/sklearn/wine">GitHub</a>.</p>
+<p>Code for the tutorial is available on <a class="reference external" href="https://github.com/odahu/odahu-examples/tree/master/mlflow/sklearn/wine">GitHub</a>.</p>
 <div class="section" id="create-mlflow-project">
 <span id="tutorials-wine-create-project"></span><h3>Create MLFlow project<a class="headerlink" href="#create-mlflow-project" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils" style="width: 100%">
@@ -252,7 +242,7 @@ The dataset is from <a class="reference external" href="https://archive.ics.uci.
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><th class="stub">Before</th>
-<td>Legion cluster that meets <a class="reference internal" href="#tutorials-wine-req"><span class="std std-ref">prerequisites</span></a></td>
+<td>Odahu cluster that meets <a class="reference internal" href="#tutorials-wine-req"><span class="std std-ref">prerequisites</span></a></td>
 </tr>
 <tr class="row-even"><th class="stub">After</th>
 <td>Model code that predicts wine quality</td>
@@ -495,14 +485,14 @@ The dataset is from <a class="reference external" href="https://archive.ics.uci.
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><th class="stub">Before</th>
-<td>Legion cluster that meets <a class="reference internal" href="#tutorials-wine-req"><span class="std std-ref">prerequisites</span></a></td>
+<td>Odahu cluster that meets <a class="reference internal" href="#tutorials-wine-req"><span class="std std-ref">prerequisites</span></a></td>
 </tr>
 <tr class="row-even"><th class="stub">After</th>
-<td>Legion cluster with <a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">Connections</span></a></td>
+<td>Odahu cluster with <a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">Connections</span></a></td>
 </tr>
 </tbody>
 </table>
-<p>Legion Platform uses the concept of <a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">Connections</span></a> to manage authorizations to external services and data.</p>
+<p>Odahu Platform uses the concept of <a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">Connections</span></a> to manage authorizations to external services and data.</p>
 <p>This tutorial requires three Connections:</p>
 <ul class="simple">
 <li>A GitHub repository, where the code is located</li>
@@ -511,28 +501,28 @@ The dataset is from <a class="reference external" href="https://archive.ics.uci.
 </ul>
 <div class="section" id="create-a-connection-to-github-repository">
 <h4>Create a <a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">Connection</span></a> to GitHub repository<a class="headerlink" href="#create-a-connection-to-github-repository" title="Permalink to this headline">¶</a></h4>
-<p>Because <a class="reference external" href="https://github.com/legion-platform/legion-examples">legion-examples</a> repository already contains the required code
+<p>Because <a class="reference external" href="https://github.com/odahu/odahu-examples">odahu-examples</a> repository already contains the required code
 we will just use this repository. But feel free to create and use a new repository if you want.</p>
-<p>Legion is REST-powered, and so we encode the REST “payloads” in this tutorial in YAML files. Create a directory where payloads files will be staged:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> mkdir ./legion
+<p>Odahu is REST-powered, and so we encode the REST “payloads” in this tutorial in YAML files. Create a directory where payloads files will be staged:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> mkdir ./odahu-flow
 </pre></div>
 </div>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./legion/vcs_connection.legion.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/vcs_connection.odahu.yaml
 </pre></div>
 </div>
 <p>Paste code into the created file:</p>
 <div class="literal-block-wrapper docutils container" id="vcs-connection">
-<div class="code-block-caption"><span class="caption-text">vcs_connection.legion.yaml</span><a class="headerlink" href="#vcs-connection" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">vcs_connection.odahu.yaml</span><a class="headerlink" href="#vcs-connection" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Connection</span>
- <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion-examples</span>
+ <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-examples</span>
  <span class="nt">spec</span><span class="p">:</span>
    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">git</span>
-   <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">git@github.com:legion-platform/legion-examples.git</span>
+   <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">git@github.com:odahu/odahu-examples.git</span>
    <span class="nt">reference</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">origin/master</span>
    <span class="nt">keySecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;paste here your key github ssh key&gt;</span>
-   <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Git repository with legion-examples</span>
-   <span class="nt">webUILink</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://github.com/legion-platform/legion-examples</span>
+   <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Git repository with odahu-flow-examples</span>
+   <span class="nt">webUILink</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://github.com/odahu/odahu-examples</span>
 </pre></div>
 </div>
 </div>
@@ -540,26 +530,26 @@ we will just use this repository. But feel free to create and use a new reposito
 <p class="first admonition-title">Note</p>
 <p class="last">Read more about <a class="reference external" href="https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh">GitHub ssh keys</a></p>
 </div>
-<p>Create a Connection using the <a class="reference internal" href="gen_glossary.html#term-legion-cli"><span class="xref std std-term">Legion CLI</span></a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> legionctl conn create -f ./legion/vcs_connection.legion.yaml
+<p>Create a Connection using the <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl conn create -f ./odahu-flow/vcs_connection.odahu.yaml
 </pre></div>
 </div>
 <p>Or create a Connection using <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a>:</p>
 <ol class="arabic simple">
 <li>Open jupyterlab (available by jupyterlab.&lt;your-cluster-base-address&gt;);</li>
 <li>Open cloned repo, and then the folder with the project;</li>
-<li>Select file <code class="docutils literal notranslate"><span class="pre">./legion/vcs_connection.legion.yaml</span></code> and in context menu press <code class="docutils literal notranslate"><span class="pre">submit</span></code> button;</li>
+<li>Select file <code class="docutils literal notranslate"><span class="pre">./odahu-flow/vcs_connection.odahu.yaml</span></code> and in context menu press <code class="docutils literal notranslate"><span class="pre">submit</span></code> button;</li>
 </ol>
 </div>
 <div class="section" id="create-connection-to-wine-quality-csv-object-storage">
 <h4>Create <a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">Connection</span></a> to wine-quality.csv object storage<a class="headerlink" href="#create-connection-to-wine-quality-csv-object-storage" title="Permalink to this headline">¶</a></h4>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./legion/wine_connection.legion.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/wine_connection.odahu.yaml
 </pre></div>
 </div>
 <p>Paste this code into the file:</p>
 <div class="literal-block-wrapper docutils container" id="wine-connection">
-<div class="code-block-caption"><span class="caption-text">wine_connection.legion.yaml</span><a class="headerlink" href="#wine-connection" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">wine_connection.odahu.yaml</span><a class="headerlink" href="#wine-connection" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Connection</span>
  <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
  <span class="nt">spec</span><span class="p">:</span>
@@ -571,7 +561,7 @@ we will just use this repository. But feel free to create and use a new reposito
 </pre></div>
 </div>
 </div>
-<p>Create a connection using the <a class="reference internal" href="gen_glossary.html#term-legion-cli"><span class="xref std std-term">Legion CLI</span></a> or <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a>, as in the previous example.</p>
+<p>Create a connection using the <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a> or <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a>, as in the previous example.</p>
 <p>If wine-quality.csv is not in the GCS bucket yet, use this command:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> gsutil cp ./data/wine-quality.csv gs://&lt;bucket-name&gt;/data/
 </pre></div>
@@ -580,12 +570,12 @@ we will just use this repository. But feel free to create and use a new reposito
 <div class="section" id="create-a-connection-to-a-docker-registry">
 <h4>Create a <a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">Connection</span></a> to a docker registry<a class="headerlink" href="#create-a-connection-to-a-docker-registry" title="Permalink to this headline">¶</a></h4>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./legion/docker_connection.legion.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/docker_connection.odahu.yaml
 </pre></div>
 </div>
 <p>Paste this code into the file:</p>
 <div class="literal-block-wrapper docutils container" id="docker-connection">
-<div class="code-block-caption"><span class="caption-text">docker_connection.legion.yaml</span><a class="headerlink" href="#docker-connection" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">docker_connection.odahu.yaml</span><a class="headerlink" href="#docker-connection" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Connection</span>  <span class="c1"># type of payload</span>
  <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-ci</span>
  <span class="nt">spec</span><span class="p">:</span>
@@ -597,15 +587,15 @@ we will just use this repository. But feel free to create and use a new reposito
 </pre></div>
 </div>
 </div>
-<p>Create the connection using <a class="reference internal" href="gen_glossary.html#term-legion-cli"><span class="xref std std-term">Legion CLI</span></a> or <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a>, as in the previous example.</p>
+<p>Create the connection using <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a> or <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a>, as in the previous example.</p>
 <p>Check that all Connections were created successfully:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> legionctl conn get <span class="p">|</span> grep -e id: -e type: -e description
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl conn get <span class="p">|</span> grep -e id: -e type: -e description
 
 <span class="go">- id: docker-ci</span>
 <span class="go">    description: Docker repository for model packaging</span>
 <span class="go">    type: docker</span>
-<span class="go">- id: legion-examples</span>
-<span class="go">    description: Git repository with legion-examples</span>
+<span class="go">- id: odahu-flow-examples</span>
+<span class="go">    description: Git repository with odahu-flow-examples</span>
 <span class="go">    type: git</span>
 <span class="go">- id: models-output</span>
 <span class="go">    description: Storage for trainined artifacts</span>
@@ -635,12 +625,12 @@ we will just use this repository. But feel free to create and use a new reposito
 </tbody>
 </table>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./legion/training.legion.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/training.odahu.yaml
 </pre></div>
 </div>
 <p>Paste code into the file:</p>
 <div class="literal-block-wrapper docutils container" id="modeltraining">
-<div class="code-block-caption"><span class="caption-text">./legion/training.legion.yaml</span><a class="headerlink" href="#modeltraining" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">./odahu-flow/training.odahu.yaml</span><a class="headerlink" href="#modeltraining" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -683,32 +673,32 @@ we will just use this repository. But feel free to create and use a new reposito
      <span class="nt">requests</span><span class="p">:</span>
        <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2024m</span>
        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2024Mi</span>
-<span class="hll">   <span class="nt">vcsName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">legion-examples</span>
+<span class="hll">   <span class="nt">vcsName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-examples</span>
 </span></pre></div>
 </td></tr></table></div>
 </div>
 <p>In this file, we:</p>
 <ul class="simple">
-<li>line 7: Set Legion toolchain’s name to <a class="reference internal" href="comp_mlflow_trainer.html#mod-dev-using-mlflow-section"><span class="std std-ref">mlflow</span></a></li>
+<li>line 7: Set Odahu toolchain’s name to <a class="reference internal" href="comp_mlflow_trainer.html#mod-dev-using-mlflow-section"><span class="std std-ref">mlflow</span></a></li>
 <li>line 8: Reference <code class="docutils literal notranslate"><span class="pre">main</span></code> method in <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> (which is defined for <a class="reference internal" href="#mlproject-file"><span class="std std-ref">MLproject files</span></a>.</li>
 <li>line 9: Point <code class="docutils literal notranslate"><span class="pre">workDir</span></code> to the MLFlow project directory. (This is the directory that has the <a class="reference internal" href="#mlproject-file"><span class="std std-ref">MLproject</span></a> in it.)</li>
 <li>line 10: A section defining input data</li>
-<li>line 11: <code class="docutils literal notranslate"><span class="pre">connName</span></code> id of the <a class="reference internal" href="#wine-connection"><span class="std std-ref">wine_connection.legion.yaml</span></a> (created in the previous step)</li>
+<li>line 11: <code class="docutils literal notranslate"><span class="pre">connName</span></code> id of the <a class="reference internal" href="#wine-connection"><span class="std std-ref">wine_connection.odahu.yaml</span></a> (created in the previous step)</li>
 <li>line 12: <code class="docutils literal notranslate"><span class="pre">localPath</span></code> relative path of the data file</li>
 <li>lines 13-14: Input hyperparameters, defined in MLProject file, and passed to <code class="docutils literal notranslate"><span class="pre">main</span></code> method</li>
-<li>line 22: <code class="docutils literal notranslate"><span class="pre">vcsName</span></code> id of the <a class="reference internal" href="#vcs-connection"><span class="std std-ref">vcs_connection.legion.yaml</span></a> (created in the previous step)</li>
+<li>line 22: <code class="docutils literal notranslate"><span class="pre">vcsName</span></code> id of the <a class="reference internal" href="#vcs-connection"><span class="std std-ref">vcs_connection.odahu.yaml</span></a> (created in the previous step)</li>
 </ul>
-<p><a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> using <a class="reference internal" href="gen_glossary.html#term-legion-cli"><span class="xref std std-term">Legion CLI</span></a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> legionctl conn create -f ./legion/training.legion.yaml
+<p><a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> using <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl conn create -f ./odahu-flow/training.odahu.yaml
 </pre></div>
 </div>
 <p>Check <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> logs:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> legionctl training logs --id wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl training logs --id wine
 </pre></div>
 </div>
 <p>The <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> process will finish after some time.</p>
 <p>To check the status run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> legionctl training get --id wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl training get --id wine
 </pre></div>
 </div>
 <p>When the Train process finishes, the command will output this YAML:</p>
@@ -720,23 +710,23 @@ we will just use this repository. But feel free to create and use a new reposito
 <ol class="arabic simple">
 <li>Open jupyterlab</li>
 <li>Open cloned repo, and then the folder with the project</li>
-<li>Select file <code class="docutils literal notranslate"><span class="pre">./legion/training.legion.yaml</span></code> and in context menu press <code class="docutils literal notranslate"><span class="pre">submit</span></code> button</li>
+<li>Select file <code class="docutils literal notranslate"><span class="pre">./odahu-flow/training.odahu.yaml</span></code> and in context menu press <code class="docutils literal notranslate"><span class="pre">submit</span></code> button</li>
 </ol>
-<p>You can see model logs using <code class="docutils literal notranslate"><span class="pre">Legion</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> in the left side tab (cloud icon) in Jupyterlab</p>
+<p>You can see model logs using <code class="docutils literal notranslate"><span class="pre">Odahu</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> in the left side tab (cloud icon) in Jupyterlab</p>
 <ol class="arabic simple">
-<li>Open <code class="docutils literal notranslate"><span class="pre">Legion</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab</li>
+<li>Open <code class="docutils literal notranslate"><span class="pre">Odahu</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab</li>
 <li>Look for <code class="docutils literal notranslate"><span class="pre">TRAINING</span></code> section</li>
 <li>Press on the row with <cite>ID=wine</cite></li>
 <li>Press button <code class="docutils literal notranslate"><span class="pre">LOGS</span></code> to connect to <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> logs</li>
 </ol>
 <p>After some time, the <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> process will finish. Train status is updated in column <code class="docutils literal notranslate"><span class="pre">status</span></code> of the <cite>TRAINING</cite> section
-in the <code class="docutils literal notranslate"><span class="pre">Legion</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab. If the model training finishes with success, you will see <cite>status=succeeded</cite>.</p>
+in the <code class="docutils literal notranslate"><span class="pre">Odahu</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab. If the model training finishes with success, you will see <cite>status=succeeded</cite>.</p>
 <p>Then open <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> again by pressing the appropriate row. Look at the <cite>Results</cite> section. You should see:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">artifactName</span></code> (filename of <a class="reference internal" href="gen_glossary.html#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a>)</li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">artifactName</span></code> is the filename of the trained model. This model is in <a class="reference internal" href="gen_glossary.html#term-general-python-prediction-interface"><span class="xref std std-term">GPPI</span></a> format.
-We can download it from storage defined in the <code class="docutils literal notranslate"><span class="pre">models-output</span></code> Connection.  (This connection is created during Legion Platform installation, so we were not required to create this Connection as part of this tutorial.)</p>
+We can download it from storage defined in the <code class="docutils literal notranslate"><span class="pre">models-output</span></code> Connection.  (This connection is created during Odahu Platform installation, so we were not required to create this Connection as part of this tutorial.)</p>
 </div>
 <div class="section" id="package-the-model">
 <span id="tutorials-wine-pack"></span><h3>Package the model<a class="headerlink" href="#package-the-model" title="Permalink to this headline">¶</a></h3>
@@ -755,12 +745,12 @@ We can download it from storage defined in the <code class="docutils literal not
 </tbody>
 </table>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./legion/packaging.legion.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/packaging.odahu.yaml
 </pre></div>
 </div>
 <p>Paste code into the file:</p>
 <div class="literal-block-wrapper docutils container" id="modelpackaging">
-<div class="code-block-caption"><span class="caption-text">./legion/packaging.legion.yaml</span><a class="headerlink" href="#modelpackaging" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">./odahu-flow/packaging.odahu.yaml</span><a class="headerlink" href="#modelpackaging" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -786,17 +776,17 @@ We can download it from storage defined in the <code class="docutils literal not
 <li>line 7: Specify the docker command</li>
 <li>line 8: id of the <a class="reference internal" href="gen_glossary.html#term-rest-api-packager"><span class="xref std std-term">REST API Packager</span></a></li>
 </ul>
-<p>Create a <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> using <a class="reference internal" href="gen_glossary.html#term-legion-cli"><span class="xref std std-term">Legion CLI</span></a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> legionctl conn create -f ./legion/packaging.legion.yaml
+<p>Create a <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> using <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl conn create -f ./odahu-flow/packaging.odahu.yaml
 </pre></div>
 </div>
 <p>Check the <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> logs:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> legionctl packaging logs --id wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl packaging logs --id wine
 </pre></div>
 </div>
 <p>After some time, the <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> process will finish.</p>
 <p>To check the status, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> legionctl packaging get --id wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl packaging get --id wine
 </pre></div>
 </div>
 <p>You will see YAML with updated <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> resource. Look at the status section. You can see:</p>
@@ -807,16 +797,16 @@ We can download it from storage defined in the <code class="docutils literal not
 <ol class="arabic simple">
 <li>Open jupyterlab</li>
 <li>Open the repository that has the source code, and navigate to the folder with the MLProject file</li>
-<li>Select file <code class="docutils literal notranslate"><span class="pre">./legion/packaging.legion.yaml</span></code> and in the context menu press the <code class="docutils literal notranslate"><span class="pre">submit</span></code> button</li>
+<li>Select file <code class="docutils literal notranslate"><span class="pre">./odahu-flow/packaging.odahu.yaml</span></code> and in the context menu press the <code class="docutils literal notranslate"><span class="pre">submit</span></code> button</li>
 </ol>
-<p>To view Package logs, use <code class="docutils literal notranslate"><span class="pre">Legion</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> in the side tab of your Jupyterlab</p>
+<p>To view Package logs, use <code class="docutils literal notranslate"><span class="pre">Odahu</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> in the side tab of your Jupyterlab</p>
 <ol class="arabic simple">
-<li>Open <code class="docutils literal notranslate"><span class="pre">Legion</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab</li>
+<li>Open <code class="docutils literal notranslate"><span class="pre">Odahu</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab</li>
 <li>Look for <code class="docutils literal notranslate"><span class="pre">PACKAGING</span></code> section</li>
 <li>Click on the row with <cite>ID=wine</cite></li>
 <li>Click the button for <code class="docutils literal notranslate"><span class="pre">LOGS</span></code> and view the <code class="docutils literal notranslate"><span class="pre">Packaging</span></code> logs</li>
 </ol>
-<p>After some time, the <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> process will finish. The status of training is updated in column <code class="docutils literal notranslate"><span class="pre">status</span></code> of the <cite>PACKAGING</cite> section in the <code class="docutils literal notranslate"><span class="pre">Legion</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab. You should see <cite>status=succeeded</cite>.</p>
+<p>After some time, the <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> process will finish. The status of training is updated in column <code class="docutils literal notranslate"><span class="pre">status</span></code> of the <cite>PACKAGING</cite> section in the <code class="docutils literal notranslate"><span class="pre">Odahu</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab. You should see <cite>status=succeeded</cite>.</p>
 <p>Then open PACKAGING again by pressing the appropriate row. Look at the <cite>Results</cite> section. You should see:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">image</span></code> (this is the filename of docker image in the registry with the trained model as a REST service`);</li>
@@ -834,17 +824,17 @@ We can download it from storage defined in the <code class="docutils literal not
 <td>Model is packaged as image in the Docker registry</td>
 </tr>
 <tr class="row-even"><th class="stub">After</th>
-<td>Model is served via REST API from the Legion cluster</td>
+<td>Model is served via REST API from the Odahu cluster</td>
 </tr>
 </tbody>
 </table>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./legion/deployment.legion.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/deployment.odahu.yaml
 </pre></div>
 </div>
 <p>Paste code into the file:</p>
 <div class="literal-block-wrapper docutils container" id="modeldeployment">
-<div class="code-block-caption"><span class="caption-text">./legion/deployment.legion.yaml</span><a class="headerlink" href="#modeldeployment" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">./odahu-flow/deployment.odahu.yaml</span><a class="headerlink" href="#modeldeployment" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -864,28 +854,28 @@ We can download it from storage defined in the <code class="docutils literal not
 <li>line 4: Set the <code class="docutils literal notranslate"><span class="pre">image</span></code> that was created in the Package step</li>
 <li>line 6: Set the id of the <a class="reference internal" href="gen_glossary.html#term-rest-api-packager"><span class="xref std std-term">REST API Packager</span></a></li>
 </ul>
-<p>Create a <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">Deploy</span></a> using the <a class="reference internal" href="gen_glossary.html#term-legion-cli"><span class="xref std std-term">Legion CLI</span></a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> legionctl conn create -f ./legion/deployment.legion.yaml
+<p>Create a <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">Deploy</span></a> using the <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl conn create -f ./odahu-flow/deployment.odahu.yaml
 </pre></div>
 </div>
 <p>After some time, the <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">Deploy</span></a> process will finish.</p>
 <p>To check its status, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> legionctl deployment get --id wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl deployment get --id wine
 </pre></div>
 </div>
 <p>Or create a <cite>Deploy</cite> using the <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a>:</p>
 <ol class="arabic simple">
 <li>Open jupyterlab</li>
 <li>Open the cloned repo, and then the folder with the MLProject file</li>
-<li>Select file <code class="docutils literal notranslate"><span class="pre">./legion/deployment.legion.yaml</span></code>. In context menu press the <code class="docutils literal notranslate"><span class="pre">submit</span></code> button</li>
+<li>Select file <code class="docutils literal notranslate"><span class="pre">./odahu-flow/deployment.odahu.yaml</span></code>. In context menu press the <code class="docutils literal notranslate"><span class="pre">submit</span></code> button</li>
 </ol>
-<p>You can see Deploy logs using the <code class="docutils literal notranslate"><span class="pre">Legion</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> side tab in your Jupyterlab</p>
+<p>You can see Deploy logs using the <code class="docutils literal notranslate"><span class="pre">Odahu</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> side tab in your Jupyterlab</p>
 <ol class="arabic simple">
-<li>Open the <code class="docutils literal notranslate"><span class="pre">Legion</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab</li>
+<li>Open the <code class="docutils literal notranslate"><span class="pre">Odahu</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab</li>
 <li>Look for the <code class="docutils literal notranslate"><span class="pre">DEPLOYMENT</span></code> section</li>
 <li>Click the row with <cite>ID=wine</cite></li>
 </ol>
-<p>After some time, the <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">Deploy</span></a> process will finish. The status of Deploy is updated in column <code class="docutils literal notranslate"><span class="pre">status</span></code> of the <cite>DEPLOYMENT</cite> section in the <code class="docutils literal notranslate"><span class="pre">Legion</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab. You should see <cite>status=Ready</cite>.</p>
+<p>After some time, the <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">Deploy</span></a> process will finish. The status of Deploy is updated in column <code class="docutils literal notranslate"><span class="pre">status</span></code> of the <cite>DEPLOYMENT</cite> section in the <code class="docutils literal notranslate"><span class="pre">Odahu</span> <span class="pre">cloud</span> <span class="pre">mode</span></code> tab. You should see <cite>status=Ready</cite>.</p>
 </div>
 <div class="section" id="use-the-deployed-model">
 <span id="tutorials-wine-use"></span><h3>Use the deployed model<a class="headerlink" href="#use-the-deployed-model" title="Permalink to this headline">¶</a></h3>
@@ -901,19 +891,19 @@ We can download it from storage defined in the <code class="docutils literal not
 </tbody>
 </table>
 <p>After the model is deployed, you can check its API in Swagger:</p>
-<p>Open <code class="docutils literal notranslate"><span class="pre">&lt;your-legion-platform-host&gt;/swagger/index.html</span></code> and look and the endpoints:</p>
+<p>Open <code class="docutils literal notranslate"><span class="pre">&lt;your-odahu-platform-host&gt;/swagger/index.html</span></code> and look and the endpoints:</p>
 <ol class="arabic simple">
 <li><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/model/wine/api/model/info</span></code> – OpenAPI model specification;</li>
 <li><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/model/wine/api/model/invoke</span></code> – Endpoint to do predictions;</li>
 </ol>
-<p>But you can also do predictions using the <a class="reference internal" href="gen_glossary.html#term-legion-cli"><span class="xref std std-term">Legion CLI</span></a>.</p>
+<p>But you can also do predictions using the <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>.</p>
 <p>Create a payload file:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./legion/r.json
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/r.json
 </pre></div>
 </div>
 <p>Add payload for <code class="docutils literal notranslate"><span class="pre">/model/wine/api/model/invoke</span></code> according to the OpenAPI schema. In this payload we provide values for model input variables:</p>
 <div class="literal-block-wrapper docutils container" id="model-invoke-payload">
-<div class="code-block-caption"><span class="caption-text">./legion/r.json</span><a class="headerlink" href="#model-invoke-payload" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">./odahu-flow/r.json</span><a class="headerlink" href="#model-invoke-payload" title="Permalink to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;columns&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;fixed acidity&quot;</span><span class="p">,</span>
@@ -948,11 +938,11 @@ We can download it from storage defined in the <code class="docutils literal not
 </div>
 </div>
 <p>Invoke the model to make a prediction:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> legionctl model invoke --mr wine --json-file r.json
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl model invoke --mr wine --json-file r.json
 </pre></div>
 </div>
 <div class="literal-block-wrapper docutils container" id="model-invoke-output">
-<div class="code-block-caption"><span class="caption-text">./legion/r.json</span><a class="headerlink" href="#model-invoke-output" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">./odahu-flow/r.json</span><a class="headerlink" href="#model-invoke-output" title="Permalink to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;prediction&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">6.0</span><span class="p">],</span> <span class="nt">&quot;columns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;quality&quot;</span><span class="p">]}</span>
 </pre></div>
 </div>
@@ -970,7 +960,7 @@ We can download it from storage defined in the <code class="docutils literal not
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="inst_cluster_installation.html" class="btn btn-neutral float-right" title="Prerequisites" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="comp_api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="gen_security.html" class="btn btn-neutral" title="Security" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -982,7 +972,7 @@ We can download it from storage defined in the <code class="docutils literal not
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Legion Team.
+        &copy; Copyright 2019, Odahu Team.
 
     </p>
   </div>
