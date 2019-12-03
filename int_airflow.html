@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Airflow &mdash; Odahu 1.2 documentation</title>
+  <title>Airflow &mdash; Odahu 1.0.0-rc27 documentation</title>
   
 
   
@@ -656,10 +656,10 @@ connection. Because Odahu uses OpenID authorization, additional OpenID/OAuth 2.0
 
 <span class="n">default_args</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="s1">&#39;airflow&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;depends_on_past&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="s1">&#39;depends_on_past&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
     <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-    <span class="s1">&#39;email_on_failure&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
-    <span class="s1">&#39;email_on_retry&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="s1">&#39;email_on_failure&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;email_on_retry&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
     <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2099</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
 <span class="p">}</span>
 
@@ -674,7 +674,7 @@ connection. Because Odahu uses OpenID authorization, additional OpenID/OAuth 2.0
     <span class="nb">id</span><span class="o">=</span><span class="n">wine_conn_id</span><span class="p">,</span>
     <span class="n">spec</span><span class="o">=</span><span class="n">ConnectionSpec</span><span class="p">(</span>
         <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;gcs&quot;</span><span class="p">,</span>
-        <span class="n">uri</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;gs://{wine_bucket}/data/wine-quality.csv&#39;</span><span class="p">,</span>
+        <span class="n">uri</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;gs://</span><span class="si">{wine_bucket}</span><span class="s1">/data/wine-quality.csv&#39;</span><span class="p">,</span>
         <span class="n">region</span><span class="o">=</span><span class="n">gcp_project</span><span class="p">,</span>
     <span class="p">)</span>
 <span class="p">)</span>
@@ -740,7 +740,7 @@ connection. Because Odahu uses OpenID authorization, additional OpenID/OAuth 2.0
 <span class="n">dag</span> <span class="o">=</span> <span class="n">DAG</span><span class="p">(</span>
     <span class="s1">&#39;wine_model&#39;</span><span class="p">,</span>
     <span class="n">default_args</span><span class="o">=</span><span class="n">default_args</span><span class="p">,</span>
-    <span class="n">schedule_interval</span><span class="o">=</span><span class="bp">None</span>
+    <span class="n">schedule_interval</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">)</span>
 
 <span class="k">with</span> <span class="n">dag</span><span class="p">:</span>
@@ -888,7 +888,7 @@ connection. Because Odahu uses OpenID authorization, additional OpenID/OAuth 2.0
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.2',
+            VERSION:'1.0.0-rc27',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
