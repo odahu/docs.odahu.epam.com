@@ -29,7 +29,9 @@
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Kubernetes" href="ref_kubernetes.html" />
+    <link rel="prev" title="Airflow" href="int_airflow.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -107,10 +109,19 @@
 <li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
-<ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Odahuflowctl</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#help">Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#login">Login</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#specifying-of-a-token-explicitly">Specifying of a token explicitly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sign-in-interactively">Sign in interactively</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_networking.html">Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
@@ -171,7 +182,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/cmp_legionctl.md.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/ref_odahuflowctl.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -187,6 +198,14 @@
   <div class="section" id="odahuflowctl">
 <h1>Odahuflowctl<a class="headerlink" href="#odahuflowctl" title="Permalink to this headline">¶</a></h1>
 <p>Odahuflowctl (<code class="docutils literal notranslate"><span class="pre">odahuflowctl</span></code>) is a command-line interface for interacting with Odahu-flow API service.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Odahu-flow CLI is available in PyPi repository. You should execute the following command to install <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install odahu-flow-cli
+odahuflowctl --version
+</pre></div>
+</div>
+</div>
 <div class="section" id="help">
 <h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
 <p>To read odahuflowctl help, you should use the following command:</p>
@@ -228,6 +247,15 @@ Copy and paste provided command into your shell.</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ref_kubernetes.html" class="btn btn-neutral float-right" title="Kubernetes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="int_airflow.html" class="btn btn-neutral" title="Airflow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
