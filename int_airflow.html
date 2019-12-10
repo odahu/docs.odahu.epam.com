@@ -118,6 +118,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#train-pack-deploy-operators">Train, Pack, Deploy operators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#model-usage-operators">Model usage operators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#helper-operators">Helper operators</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-describe-operators">How to describe operators</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dag-example">DAG example</a></li>
 </ul>
 </li>
@@ -441,6 +444,84 @@ connection. Because Odahu uses OpenID authorization, additional OpenID/OAuth 2.0
 </table>
 </dd></dl>
 
+</div>
+</div>
+<div class="section" id="how-to-describe-operators">
+<h2>How to describe operators<a class="headerlink" href="#how-to-describe-operators" title="Permalink to this headline">¶</a></h2>
+<p>When you initialize Odahu custom operators such as <code class="docutils literal notranslate"><span class="pre">TrainingOperator</span></code>, <code class="docutils literal notranslate"><span class="pre">PackagingOperator</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">DeploymentOperator</span></code> you should pass odahu resource payload as a parameter.</p>
+<p>Actually, this is payload that describes a resource that will be created at Odahu-flow cluster. You should describe
+such payloads using odahuflow.sdk models</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Creating training payload</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">training</span> <span class="o">=</span> <span class="n">ModelTraining</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="n">training_id</span><span class="p">,</span>
+    <span class="n">spec</span><span class="o">=</span><span class="n">ModelTrainingSpec</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">ModelIdentity</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;wine&quot;</span><span class="p">,</span>
+            <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span>
+        <span class="p">),</span>
+        <span class="n">toolchain</span><span class="o">=</span><span class="s2">&quot;mlflow&quot;</span><span class="p">,</span>
+        <span class="n">entrypoint</span><span class="o">=</span><span class="s2">&quot;main&quot;</span><span class="p">,</span>
+        <span class="n">work_dir</span><span class="o">=</span><span class="s2">&quot;mlflow/sklearn/wine&quot;</span><span class="p">,</span>
+        <span class="n">hyper_parameters</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span>
+        <span class="p">},</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">DataBindingDir</span><span class="p">(</span>
+                <span class="n">conn_name</span><span class="o">=</span><span class="s1">&#39;wine&#39;</span><span class="p">,</span>
+                <span class="n">local_path</span><span class="o">=</span><span class="s1">&#39;mlflow/sklearn/wine/wine-quality.csv&#39;</span>
+            <span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">resources</span><span class="o">=</span><span class="n">ResourceRequirements</span><span class="p">(</span>
+            <span class="n">requests</span><span class="o">=</span><span class="n">ResourceList</span><span class="p">(</span>
+                <span class="n">cpu</span><span class="o">=</span><span class="s2">&quot;2024m&quot;</span><span class="p">,</span>
+                <span class="n">memory</span><span class="o">=</span><span class="s2">&quot;2024Mi&quot;</span>
+            <span class="p">),</span>
+            <span class="n">limits</span><span class="o">=</span><span class="n">ResourceList</span><span class="p">(</span>
+                <span class="n">cpu</span><span class="o">=</span><span class="s2">&quot;2024m&quot;</span><span class="p">,</span>
+                <span class="n">memory</span><span class="o">=</span><span class="s2">&quot;2024Mi&quot;</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">vcs_name</span><span class="o">=</span><span class="s2">&quot;odahu-flow-examples&quot;</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>But if you did some RnD work with Odahu-flow previously, it’s likely that you already have yaml/json files that
+describe the same payloads. You can reuse them to create odahuflow.sdk models automatically</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Using plain yaml/json text</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">odahuflow.airflow.resources</span> <span class="kn">import</span> <span class="n">resource</span>
+
+<span class="n">packaging_id</span><span class="p">,</span> <span class="n">packaging</span> <span class="o">=</span> <span class="n">resource</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">id: airlfow-wine</span>
+<span class="s2">kind: ModelPackaging</span>
+<span class="s2">spec:</span>
+<span class="s2">  artifactName: &quot;&lt;fill-in&gt;&quot;</span>
+<span class="s2">  targets:</span>
+<span class="s2">    - connectionName: docker-ci</span>
+<span class="s2">      name: docker-push</span>
+<span class="s2">  integrationName: docker-rest</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Or refer to yaml/json files that must be located at Airflow DAGs folder or Airflow Home folder (these folders are
+configured at airflow.cfg file)</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Creating training payload</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">odahuflow.airflow.resources</span> <span class="kn">import</span> <span class="n">resource</span>
+<span class="n">training_id</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="n">resource</span><span class="p">(</span><span class="s1">&#39;training.odahuflow.yaml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>In this file, we refer to file <cite>training.odahuflow.yaml</cite> that is located at airflow dag’s folder</p>
+<p>For example, if you use <a class="reference external" href="https://cloud.google.com/composer/">Google Cloud Composer</a> then you can locate your yamls inside DAGs bucket and refer to them by
+relative path:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gsutil</span> <span class="n">cp</span> <span class="o">~/.</span><span class="n">training</span><span class="o">.</span><span class="n">odahuflow</span><span class="o">.</span><span class="n">yaml</span> <span class="n">gs</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">composer</span><span class="o">-</span><span class="n">dags</span><span class="o">-</span><span class="n">bucket</span><span class="o">&gt;/</span>
+</pre></div>
 </div>
 <div class="section" id="dag-example">
 <h3>DAG example<a class="headerlink" href="#dag-example" title="Permalink to this headline">¶</a></h3>
