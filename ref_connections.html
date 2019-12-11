@@ -1,0 +1,635 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Connections &mdash; Odahu 1.0.0-rc27 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Glossary" href="gen_glossary.html" />
+    <link rel="prev" title="Model Format" href="ref_model_format.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Odahu
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_jupyterlab_extension.html">Jupyterlab extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ref_odahuflowctl.html">Odahuflowctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Connections</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-connection-structure">General connection structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connection-management">Connection management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#swagger-ui">Swagger UI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#odahu-flow-cli">Odahu-flow CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jupyterlab">JupyterLab</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#connection-types">Connection types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#s3">S3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#google-cloud-storage">Google Cloud Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#azure-blob-storage">Azure Blob storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git">GIT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker">Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#amazon-elastic-container-registry">Amazon Elastic Container Registry</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Odahu</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Connections</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ref_connections.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="connections">
+<h1>Connections<a class="headerlink" href="#connections" title="Permalink to this headline">¶</a></h1>
+<p>Odahu needs to know how to connect to a bucket, git repository, and so on.
+This kind of information is handled by Connection API.</p>
+<div class="section" id="general-connection-structure">
+<h2>General connection structure<a class="headerlink" href="#general-connection-structure" title="Permalink to this headline">¶</a></h2>
+<p>All types of connections have the same general structure.
+But different connections require a different set of fields.
+You can find the examples of specific type of connection in the id of the <span class="xref std std-ref">Connection types</span> section.
+Below you can find the description of all fields:</p>
+<div class="literal-block-wrapper docutils container" id="connection-api-file">
+<div class="code-block-caption"><span class="caption-text">Connection API</span><a class="headerlink" href="#connection-api-file" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Unique value among all connections</span>
+<span class="nt">id</span><span class="p">:</span> <span class="s">&quot;id-12345&quot;</span>
+<span class="nt">spec</span><span class="p">:</span>
+    <span class="c1"># Optionally description of a connection</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Some</span><span class="nv"> </span><span class="s">description&quot;</span>
+    <span class="c1"># Optionally link to the web resource. For example, git repo or a gcp bucket</span>
+    <span class="nt">webUILink</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://test.org/123</span>
+    <span class="c1"># URI. It is a required value.</span>
+    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3://some-bucket/path/file</span>
+    <span class="c1"># Type of a connection. Available values: s3, gcs, azureblob, git, docker, ecr.</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3</span>
+    <span class="c1"># Username</span>
+    <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">admin</span>
+    <span class="c1"># Password</span>
+    <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">admin</span>
+    <span class="c1"># Service account role</span>
+    <span class="nt">role</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some-role</span>
+    <span class="c1"># AWS region or GCP project</span>
+    <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some region</span>
+    <span class="c1"># VCS reference</span>
+    <span class="nt">reference</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">develop</span>
+    <span class="c1"># Key ID</span>
+    <span class="nt">keyID</span><span class="p">:</span> <span class="s">&quot;1234567890&quot;</span>
+    <span class="c1"># SSH or service account secret</span>
+    <span class="nt">keySecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">b2RhaHUK</span>
+    <span class="c1"># SSH public key</span>
+    <span class="nt">publicKey</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">b2RhaHUK</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="connection-management">
+<h2>Connection management<a class="headerlink" href="#connection-management" title="Permalink to this headline">¶</a></h2>
+<p>Connections can be managed using the following ways.</p>
+<div class="section" id="swagger-ui">
+<h3>Swagger UI<a class="headerlink" href="#swagger-ui" title="Permalink to this headline">¶</a></h3>
+<p>Swagger UI is available at <a class="reference external" href="http://api-service/swagger/index.html">http://api-service/swagger/index.html</a> URL.</p>
+</div>
+<div class="section" id="odahu-flow-cli">
+<h3>Odahu-flow CLI<a class="headerlink" href="#odahu-flow-cli" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="ref_odahuflowctl.html#odahuflowctl"><span class="std std-ref">Odahuflowctl</span></a> supports the connection API.
+You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><span class="std std-ref">Login</span></a> if you want to get access to the API.</p>
+<p>Getting all connections in json format:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl conn get --format json
+</pre></div>
+</div>
+<p>Getting the reference of the connection:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl conn get --id odahu-flow-examples -o <span class="s1">&#39;jsonpath=[*].spec.reference&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Creating of a connection from <cite>conn.yaml</cite> file:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl conn create -f conn.yaml
+</pre></div>
+</div>
+</div>
+<div class="section" id="jupyterlab">
+<h3>JupyterLab<a class="headerlink" href="#jupyterlab" title="Permalink to this headline">¶</a></h3>
+<p>Odahu-flow provides the JupyterLab extension for interacting with Connection API.</p>
+</div>
+</div>
+<div class="section" id="connection-types">
+<h2>Connection types<a class="headerlink" href="#connection-types" title="Permalink to this headline">¶</a></h2>
+<p>For now, Odahu-flow supports the following connections types:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#s3"><span class="std std-ref">S3</span></a></li>
+<li><a class="reference internal" href="#google-cloud-storage"><span class="std std-ref">Google Cloud Storage</span></a></li>
+<li><a class="reference internal" href="#azure-blob-storage"><span class="std std-ref">Azure Blob storage</span></a></li>
+<li><a class="reference internal" href="#git"><span class="std std-ref">GIT</span></a></li>
+<li><a class="reference internal" href="#docker"><span class="std std-ref">Docker</span></a></li>
+<li><a class="reference internal" href="#amazon-elastic-container-registry"><span class="std std-ref">Amazon Elastic Container Registry</span></a></li>
+</ul>
+</div></blockquote>
+<div class="section" id="s3">
+<h3>S3<a class="headerlink" href="#s3" title="Permalink to this headline">¶</a></h3>
+<p>An S3 connection allows interactions with <a class="reference external" href="https://docs.aws.amazon.com/en_us/AmazonS3/latest/dev/Welcome.html">s3 API</a>.
+This type of connection is used as storage of:</p>
+<blockquote>
+<div><ul class="simple">
+<li>model trained artifacts.</li>
+<li>input data for ML models.</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can use any S3 compatible API, for example minio or Ceph.</p>
+</div>
+<p>Before usage, make sure that:</p>
+<blockquote>
+<div><ul class="simple">
+<li>You have created an AWS S3 bucket. <a class="reference external" href="https://docs.aws.amazon.com/en_us/AmazonS3/latest/dev/create-bucket-get-location-example.html">Examples of Creating a Bucket</a>.</li>
+<li>You have created an IAM user that has access to the AWS S3 bucket. <a class="reference external" href="https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_users_create.html">Creating an IAM User in Your AWS Account</a>.</li>
+<li>You have created the IAM keys for the user. <a class="reference external" href="https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_credentials_access-keys.html">Managing Access Keys for IAM Users</a>.</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">At that moment, Odahu-flow only supports authorization though <a class="reference external" href="https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_users_create.html">IAM User</a>.
+We will support AWS service role and authorization using temporary credentials in the near future.</p>
+</div>
+<p>The following fields of connection API are required:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>s3</strong>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keyID</span></code> - an access key ID (for example, <code class="docutils literal notranslate"><span class="pre">AKIAIOSFODNN7EXAMPLE</span></code>).</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - a secret access key (for example, <code class="docutils literal notranslate"><span class="pre">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span></code>).</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> -  S3 compatible URI, for example s3://&lt;bucket-name&gt;/dir1/dir2/</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.region</span></code> - <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">AWS Region</a>, where a bucket was created.</li>
+</ul>
+</div></blockquote>
+<div class="literal-block-wrapper docutils container" id="connection-s3-file">
+<div class="code-block-caption"><span class="caption-text">Example of Connection S3:</span><a class="headerlink" href="#connection-s3-file" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;training-data&quot;</span>
+<span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3</span>
+    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3://raw-data/model/input</span>
+    <span class="nt">keyID</span><span class="p">:</span> <span class="s">&quot;AKIAIOSFODNN7EXAMPLE&quot;</span>
+    <span class="nt">keySecret</span><span class="p">:</span> <span class="s">&quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&quot;</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Training</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">model&quot;</span>
+    <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-central-1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="google-cloud-storage">
+<h3>Google Cloud Storage<a class="headerlink" href="#google-cloud-storage" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://cloud.google.com/storage/docs/">Google Cloud Storage</a> allows storing and accessing data on Google Cloud Platform infrastructure.
+This type of connection is used as storage of:</p>
+<blockquote>
+<div><ul class="simple">
+<li>model trained artifacts.</li>
+<li>input data for ML models.</li>
+</ul>
+</div></blockquote>
+<p>Before usage, make sure that:</p>
+<blockquote>
+<div><ul class="simple">
+<li>You have created an GCS bucket. <a class="reference external" href="https://cloud.google.com/storage/docs/creating-buckets">Creating storage buckets</a>.</li>
+<li>You have created an service account. <a class="reference external" href="https://cloud.google.com/iam/docs/creating-managing-service-accounts#iam-service-accounts-create-gcloud">Creating and managing service accounts</a>.</li>
+<li>You have assigned <code class="docutils literal notranslate"><span class="pre">roles/storage.objectAdmin</span></code> role on the service account for the GCS bucket. <a class="reference external" href="https://cloud.google.com/storage/docs/access-control/using-iam-permissions">Using Cloud IAM permissions</a>.</li>
+<li>You have created the IAM keys for the service account. <a class="reference external" href="https://cloud.google.com/iam/docs/creating-managing-service-account-keys">Creating and managing service account keys</a>.</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Workload Identity is the recommended way to access Google Cloud services from within GKE due to its improved security properties and manageability.
+We will support the Workload Identity in the near future.</p>
+</div>
+<p>The following fields of connection API are required:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>gcs</strong>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - a service account key in json format.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> -  GCS compatible URI, for example gcs://&lt;bucket-name&gt;/dir1/dir2/</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.region</span></code> - <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones">GCP Region</a>, where a bucket was created.</li>
+</ul>
+</div></blockquote>
+<div class="literal-block-wrapper docutils container" id="connection-gcs-file">
+<div class="code-block-caption"><span class="caption-text">Example of Connection GCS:</span><a class="headerlink" href="#connection-gcs-file" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;training-data&quot;</span>
+<span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcs</span>
+    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gsc://raw-data/model/input</span>
+    <span class="nt">keySecret</span><span class="p">:</span> <span class="s">&#39;{&quot;type&quot;:</span><span class="nv"> </span><span class="s">&quot;service_account&quot;,</span><span class="nv"> </span><span class="s">&quot;project_id&quot;:</span><span class="nv"> </span><span class="s">&quot;project_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;:</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key&quot;:</span><span class="nv"> </span><span class="s">&quot;-----BEGIN</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\nprivate_key\n-----END</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\n&quot;,</span><span class="nv"> </span><span class="s">&quot;client_email&quot;:</span><span class="nv"> </span><span class="s">&quot;test@project_id.iam.gserviceaccount.com&quot;,</span><span class="nv"> </span><span class="s">&quot;client_id&quot;:</span><span class="nv"> </span><span class="s">&quot;123455678&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://accounts.google.com/o/oauth2/auth&quot;,</span><span class="nv"> </span><span class="s">&quot;token_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://oauth2.googleapis.com/token&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_provider_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/oauth2/v1/certs&quot;,</span><span class="nv"> </span><span class="s">&quot;client_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/robot/v1/metadata/x509/test@project_id.iam.gserviceaccount.com&quot;}&#39;</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Training</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">model&quot;</span>
+    <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">us-central2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="azure-blob-storage">
+<h3>Azure Blob storage<a class="headerlink" href="#azure-blob-storage" title="Permalink to this headline">¶</a></h3>
+<p>Odahu-flow uses the <a class="reference external" href="https://docs.microsoft.com/ru-ru/azure/storage/blobs/storage-blobs-introduction">Blob storage</a> in Azure to store:</p>
+<blockquote>
+<div><ul class="simple">
+<li>model trained artifacts.</li>
+<li>input data for ML models.</li>
+</ul>
+</div></blockquote>
+<p>Before usage, make sure that:</p>
+<blockquote>
+<div><ul class="simple">
+<li>You have created a storage account . <a class="reference external" href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-cli#create-a-storage-account">Create a storage account</a>.</li>
+<li>You have created a storage container in the storage account . <a class="reference external" href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-cli#create-a-container">Create a container</a>.</li>
+<li>You have created a SAS token. <a class="reference external" href="https://docs.microsoft.com/en-us/rest/api/storageservices/create-account-sas">Create an account SAS</a>.</li>
+</ul>
+</div></blockquote>
+<p>The following fields of connection API are required:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>azureblob</strong>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - Odahu-flow uses the <a class="reference external" href="https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview">shared access signatures</a> to authorize in Azure.
+The key has the following format: “&lt;primary_blob_endpoint&gt;/&lt;sas_token&gt;”.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> -  Azure storage compatible URI, for example &lt;bucket-name&gt;/dir1/dir2/</li>
+</ul>
+</div></blockquote>
+<div class="literal-block-wrapper docutils container" id="connection-blob-storage-file">
+<div class="code-block-caption"><span class="caption-text">Example of Connection Blob Storage:</span><a class="headerlink" href="#connection-blob-storage-file" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;training-data&quot;</span>
+<span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azureblob</span>
+    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">raw-data/model/input</span>
+    <span class="nt">keySecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://myaccount.blob.core.windows.net/?restype=service&amp;comp=properties&amp;sv=2019-02-02&amp;ss=bf&amp;srt=s&amp;st=2019-08-01T22%3A18%3A26Z&amp;se=2019-08-10T02%3A23%3A26Z&amp;sr=b&amp;sp=rw&amp;sip=168.1.5.60-168.1.5.70&amp;spr=https&amp;sig=F%6GRVAZ5Cdj2Pw4tgU7IlSTkWgn7bUkkAg8P6HESXwmf%4B</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Training</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">model&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="git">
+<h3>GIT<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h3>
+<p>Odahu-flow uses the GIT type connection to download a ML source code from a git repository.</p>
+<p>The following fields of connection API are required:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>git</strong>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - a base64 encoded SSH private key.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> -  GIT SSH URL, for example <a class="reference external" href="mailto:git&#37;&#52;&#48;github&#46;com">git<span>&#64;</span>github<span>&#46;</span>com</a>:odahu/odahu-examples.git</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.reference</span></code> -  a branch, tag, or commit.</li>
+</ul>
+</div></blockquote>
+<p>Example of command to encode ssh key:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Odahu-flow only supports authorization through SSH.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">We recommend using the read-only deploy keys: <a class="reference external" href="https://github.blog/2015-06-16-read-only-deploy-keys/">Github docs</a> or <a class="reference external" href="https://docs.gitlab.com/ee/ssh/#per-repository-deploy-keys">Gitlab docs</a>.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="git-connection">
+<div class="code-block-caption"><span class="caption-text">Example of GIT Connection:</span><a class="headerlink" href="#git-connection" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;ml-repository&quot;</span>
+<span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">git</span>
+    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">git@github.com:odahu/odahu-examples.git</span>
+    <span class="nt">keySecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClNVUEVSIFNFQ1JFVAoK</span>
+    <span class="nt">reference</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Git</span><span class="nv"> </span><span class="s">repository</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">Odahu-Flow</span><span class="nv"> </span><span class="s">examples&quot;</span>
+    <span class="nt">webUILink</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://github.com/odahu/odahu-examples</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="docker">
+<h3>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
+<p>This type of connection is used for pulling and pushing of the Odahu packager result Docker images to a Docker registry.
+We have been testing the following Docker repositories:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://docs.docker.com/docker-hub/">Docker Hub</a></li>
+<li><a class="reference external" href="https://help.sonatype.com/repomanager3/formats/docker-registry">Nexus</a></li>
+<li><a class="reference external" href="https://cloud.google.com/container-registry/docs/">Google Container Registry</a></li>
+<li><a class="reference external" href="https://docs.microsoft.com/en-in/azure/container-registry/container-registry-intro">Azure Container Registry</a></li>
+</ul>
+</div></blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Every docker registry has its authorization specificity.
+But you must be able to authorize by a username and password. Read the documentation.</p>
+</div>
+<p>Before usage, make sure that:</p>
+<blockquote>
+<div><ul class="simple">
+<li>You have a username and password.</li>
+</ul>
+</div></blockquote>
+<p>The following fields of connection API are required:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>docker</strong>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.username</span></code> - docker registry username.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.password</span></code> - docker registry password.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> - docker registry host.</li>
+</ul>
+</div></blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Connection URI must not contain an URI schema.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="connection-gcr-docker-file">
+<div class="code-block-caption"><span class="caption-text">Example of GCR</span><a class="headerlink" href="#connection-gcr-docker-file" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;docker-registry&quot;</span>
+<span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ecr</span>
+    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcr.io/project/gke-legion</span>
+    <span class="nt">username</span><span class="p">:</span> <span class="s">&quot;_json&quot;</span>
+    <span class="nt">password</span><span class="p">:</span> <span class="s">&#39;{&quot;type&quot;:</span><span class="nv"> </span><span class="s">&quot;service_account&quot;,</span><span class="nv"> </span><span class="s">&quot;project_id&quot;:</span><span class="nv"> </span><span class="s">&quot;project_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;:</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key&quot;:</span><span class="nv"> </span><span class="s">&quot;-----BEGIN</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\nprivate_key\n-----END</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\n&quot;,</span><span class="nv"> </span><span class="s">&quot;client_email&quot;:</span><span class="nv"> </span><span class="s">&quot;test@project_id.iam.gserviceaccount.com&quot;,</span><span class="nv"> </span><span class="s">&quot;client_id&quot;:</span><span class="nv"> </span><span class="s">&quot;123455678&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://accounts.google.com/o/oauth2/auth&quot;,</span><span class="nv"> </span><span class="s">&quot;token_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://oauth2.googleapis.com/token&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_provider_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/oauth2/v1/certs&quot;,</span><span class="nv"> </span><span class="s">&quot;client_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/robot/v1/metadata/x509/test@project_id.iam.gserviceaccount.com&quot;}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="connection-docker-hub-file">
+<div class="code-block-caption"><span class="caption-text">Example of Docker Hub</span><a class="headerlink" href="#connection-docker-hub-file" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;docker-registry&quot;</span>
+<span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ecr</span>
+    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker.io/odahu/</span>
+    <span class="nt">username</span><span class="p">:</span> <span class="s">&quot;username&quot;</span>
+    <span class="nt">password</span><span class="p">:</span> <span class="s">&quot;password&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="amazon-elastic-container-registry">
+<h3>Amazon Elastic Container Registry<a class="headerlink" href="#amazon-elastic-container-registry" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html">Amazon Elastic Container Registry</a>  is a managed AWS Docker registry.
+This type of connection is used for pulling and pushing of the Odahu packager result Docker images.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Amazon Docker registry does not support a long-lived credential and requires explicitly to create a repository for every image.
+These are the reasons why we create a dedicated type of connection for the ECR.</p>
+</div>
+<p>Before usage, make sure that:</p>
+<blockquote>
+<div><ul class="simple">
+<li>You have created an ECR repository. <a class="reference external" href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html">Creating an ECR Repository</a>.</li>
+<li>You have created an IAM user that has access to the ECR repository. <a class="reference external" href="https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_users_create.html">Creating an IAM User in Your AWS Account</a>.</li>
+<li>You have created the IAM keys for the user. <a class="reference external" href="https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_credentials_access-keys.html">Managing Access Keys for IAM Users</a>.</li>
+</ul>
+</div></blockquote>
+<p>The following fields of connection API are required:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>ecr</strong>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keyID</span></code> - an access key ID (for example, <code class="docutils literal notranslate"><span class="pre">AKIAIOSFODNN7EXAMPLE</span></code>).</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - a secret access key (for example, <code class="docutils literal notranslate"><span class="pre">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span></code>).</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> -  The url must have the following format, <cite>aws_account_id</cite>.dkr.ecr.`region`.amazonaws.com/<cite>some-prefix</cite>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.region</span></code> - <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">AWS Region</a>, where a docker registry was created.</li>
+</ul>
+</div></blockquote>
+<div class="literal-block-wrapper docutils container" id="connection-ecr-file">
+<div class="code-block-caption"><span class="caption-text">Example of Connection ECR:</span><a class="headerlink" href="#connection-ecr-file" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;docker-registry&quot;</span>
+<span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ecr</span>
+    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5555555555.dkr.ecr.eu-central-1.amazonaws.com/odahuflow</span>
+    <span class="nt">keyID</span><span class="p">:</span> <span class="s">&quot;AKIAIOSFODNN7EXAMPLE&quot;</span>
+    <span class="nt">keySecret</span><span class="p">:</span> <span class="s">&quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&quot;</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Packager</span><span class="nv"> </span><span class="s">registry&quot;</span>
+    <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-central-1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gen_glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ref_model_format.html" class="btn btn-neutral" title="Model Format" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Odahu Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0-rc27',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
