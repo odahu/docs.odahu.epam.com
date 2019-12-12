@@ -214,7 +214,7 @@ This kind of information is handled by Connection API.</p>
 <h2>General connection structure<a class="headerlink" href="#general-connection-structure" title="Permalink to this headline">¶</a></h2>
 <p>All types of connections have the same general structure.
 But different connections require a different set of fields.
-You can find the examples of specific type of connection in the id of the <span class="xref std std-ref">Connection types</span> section.
+You can find the examples of specific type of connection in the id of the <a class="reference internal" href="#connection-types"><span class="std std-ref">Connection types</span></a> section.
 Below you can find the description of all fields:</p>
 <div class="literal-block-wrapper docutils container" id="connection-api-file">
 <div class="code-block-caption"><span class="caption-text">Connection API</span><a class="headerlink" href="#connection-api-file" title="Permalink to this code">¶</a></div>
@@ -441,6 +441,9 @@ The key has the following format: “&lt;primary_blob_endpoint&gt;/&lt;sas_token
 </ul>
 </div></blockquote>
 <p>Example of command to encode ssh key:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat ~/.ssh/id_rsa <span class="p">|</span> base64 -w0
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Odahu-flow only supports authorization through SSH.</p>
