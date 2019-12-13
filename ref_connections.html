@@ -30,7 +30,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Glossary" href="gen_glossary.html" />
+    <link rel="next" title="Packagers" href="ref_packagers.html" />
     <link rel="prev" title="Model Format" href="ref_model_format.html" /> 
 
   
@@ -133,6 +133,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Packagers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
@@ -259,12 +260,16 @@ Below you can find the description of all fields:</p>
 <div class="section" id="odahu-flow-cli">
 <h3>Odahu-flow CLI<a class="headerlink" href="#odahu-flow-cli" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="ref_odahuflowctl.html#odahuflowctl"><span class="std std-ref">Odahuflowctl</span></a> supports the connection API.
-You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><span class="std std-ref">Login</span></a> if you want to get access to the API.</p>
-<p>Getting all connections in json format:</p>
+You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><span class="std std-ref">login</span></a> if you want to get access to the API.</p>
+<ul class="simple">
+<li>Getting all connections in json format:</li>
+</ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl conn get --format json
 </pre></div>
 </div>
-<p>Getting the reference of the connection:</p>
+<ul class="simple">
+<li>Getting the reference of the connection:</li>
+</ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl conn get --id odahu-flow-examples -o <span class="s1">&#39;jsonpath=[*].spec.reference&#39;</span>
 </pre></div>
 </div>
@@ -272,6 +277,12 @@ You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><sp
 <li>Creating of a connection from <cite>conn.yaml</cite> file:</li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl conn create -f conn.yaml
+</pre></div>
+</div>
+<ul class="simple">
+<li>All connection commands and documentation:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl conn --help
 </pre></div>
 </div>
 </div>
@@ -502,12 +513,12 @@ But you must be able to authorize by a username and password. Read the documenta
 <p class="first admonition-title">Warning</p>
 <p class="last">Connection URI must not contain an URI schema.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="connection-gcr-docker-file">
-<div class="code-block-caption"><span class="caption-text">Example of GCR</span><a class="headerlink" href="#connection-gcr-docker-file" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="gcr-docker-connection-file">
+<div class="code-block-caption"><span class="caption-text">Example of GCR Docker connection</span><a class="headerlink" href="#gcr-docker-connection-file" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;docker-registry&quot;</span>
 <span class="nt">spec</span><span class="p">:</span>
-    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ecr</span>
-    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcr.io/project/gke-legion</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
+    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcr.io/project/odahuflow</span>
     <span class="nt">username</span><span class="p">:</span> <span class="s">&quot;_json&quot;</span>
     <span class="nt">password</span><span class="p">:</span> <span class="s">&#39;{&quot;type&quot;:</span><span class="nv"> </span><span class="s">&quot;service_account&quot;,</span><span class="nv"> </span><span class="s">&quot;project_id&quot;:</span><span class="nv"> </span><span class="s">&quot;project_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;:</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key&quot;:</span><span class="nv"> </span><span class="s">&quot;-----BEGIN</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\nprivate_key\n-----END</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\n&quot;,</span><span class="nv"> </span><span class="s">&quot;client_email&quot;:</span><span class="nv"> </span><span class="s">&quot;test@project_id.iam.gserviceaccount.com&quot;,</span><span class="nv"> </span><span class="s">&quot;client_id&quot;:</span><span class="nv"> </span><span class="s">&quot;123455678&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://accounts.google.com/o/oauth2/auth&quot;,</span><span class="nv"> </span><span class="s">&quot;token_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://oauth2.googleapis.com/token&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_provider_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/oauth2/v1/certs&quot;,</span><span class="nv"> </span><span class="s">&quot;client_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/robot/v1/metadata/x509/test@project_id.iam.gserviceaccount.com&quot;}&#39;</span>
 </pre></div>
@@ -517,7 +528,7 @@ But you must be able to authorize by a username and password. Read the documenta
 <div class="code-block-caption"><span class="caption-text">Example of Docker Hub</span><a class="headerlink" href="#connection-docker-hub-file" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;docker-registry&quot;</span>
 <span class="nt">spec</span><span class="p">:</span>
-    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ecr</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
     <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker.io/odahu/</span>
     <span class="nt">username</span><span class="p">:</span> <span class="s">&quot;username&quot;</span>
     <span class="nt">password</span><span class="p">:</span> <span class="s">&quot;password&quot;</span>
@@ -577,7 +588,7 @@ These are the reasons why we create a dedicated type of connection for the ECR.<
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="gen_glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ref_packagers.html" class="btn btn-neutral float-right" title="Packagers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="ref_model_format.html" class="btn btn-neutral" title="Model Format" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
