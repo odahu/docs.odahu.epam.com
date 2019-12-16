@@ -206,18 +206,17 @@
 <li>Executes the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install-all</span></code> command to downloads all dependencies and install Odahu python packages.</li>
 <li>Verifies that the command finished successfully, for example: <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span> <span class="pre">--version</span></code></li>
 <li>Main entrypoints:<ul>
-<li>Odahu-flow sdk - <code class="docutils literal notranslate"><span class="pre">packages/sdk</span></code></li>
-<li>Odahu-flow cli - <code class="docutils literal notranslate"><span class="pre">packages/cli</span></code></li>
+<li>Odahu-flow SDK - <code class="docutils literal notranslate"><span class="pre">packages/sdk</span></code></li>
+<li>Odahu-flow CLI - <code class="docutils literal notranslate"><span class="pre">packages/cli</span></code></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Odahu-flow Jupiterlab plugin<ul>
+<li>Odahu-flow JupyterLab plugin<ul>
 <li>Workdir is <code class="docutils literal notranslate"><span class="pre">odahu/jupyterlab-plugin</span></code></li>
-<li>Executes the <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">install</span></code> command to downloads all Javascripts dependencies.</li>
-<li>Executes the <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">build</span> <span class="pre">&amp;&amp;</span> <span class="pre">jupyter</span> <span class="pre">labextension</span> <span class="pre">install</span></code> command to build the Jupiterlab plugin.</li>
-<li>Starts the Jyputerlab server using <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code> command.</li>
-<li>Or you can perform all actions above using docker, for example: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docker-build-jupyterlab</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">run-sandbox</span></code></li>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">install</span></code> command to download all JavaScript dependencies.</li>
+<li>Executes the <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">build</span> <span class="pre">&amp;&amp;</span> <span class="pre">jupyter</span> <span class="pre">labextension</span> <span class="pre">install</span></code> command to build the JupyterLab plugin.</li>
+<li>Starts the JyputerLab server using <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code> command.</li>
 </ul>
 </li>
 <li>Golang services:<ul>
