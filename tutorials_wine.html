@@ -118,7 +118,6 @@
 <li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="comp_model_feedback.html">Model Feedback</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Integrations</span></p>
 <ul>
@@ -129,10 +128,11 @@
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ref_odahuflowctl.html">Odahuflowctl</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_connections.html">Connections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Packagers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
@@ -519,7 +519,7 @@ we will just use this repository. But feel free to create and use a new reposito
 <div class="literal-block-wrapper docutils container" id="vcs-connection">
 <div class="code-block-caption"><span class="caption-text">vcs_connection.odahu.yaml</span><a class="headerlink" href="#vcs-connection" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Connection</span>
- <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-examples</span>
+ <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-tutorial</span>
  <span class="nt">spec</span><span class="p">:</span>
    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">git</span>
    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">git@github.com:odahu/odahu-examples.git</span>
@@ -555,10 +555,10 @@ we will just use this repository. But feel free to create and use a new reposito
 <div class="literal-block-wrapper docutils container" id="wine-connection">
 <div class="code-block-caption"><span class="caption-text">wine_connection.odahu.yaml</span><a class="headerlink" href="#wine-connection" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Connection</span>
- <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
+ <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
  <span class="nt">spec</span><span class="p">:</span>
    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcs</span>
-   <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gs://&lt;paste your bucket address here&gt;/data/wine-quality.csv</span>
+   <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gs://&lt;paste your bucket address here&gt;/data-tutorial/wine-quality.csv</span>
    <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;paste region here&gt;</span>
    <span class="nt">keySecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;paste key secret here&gt;</span>
    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Wine dataset</span>
@@ -567,7 +567,7 @@ we will just use this repository. But feel free to create and use a new reposito
 </div>
 <p>Create a connection using the <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a> or <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a>, as in the previous example.</p>
 <p>If wine-quality.csv is not in the GCS bucket yet, use this command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> gsutil cp ./data/wine-quality.csv gs://&lt;bucket-name&gt;/data/
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> gsutil cp ./data/wine-quality.csv gs://&lt;bucket-name&gt;/data-tutorial/
 </pre></div>
 </div>
 </div>
@@ -581,7 +581,7 @@ we will just use this repository. But feel free to create and use a new reposito
 <div class="literal-block-wrapper docutils container" id="docker-connection">
 <div class="code-block-caption"><span class="caption-text">docker_connection.odahu.yaml</span><a class="headerlink" href="#docker-connection" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Connection</span>  <span class="c1"># type of payload</span>
- <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-ci</span>
+ <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-tutorial</span>
  <span class="nt">spec</span><span class="p">:</span>
    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;past uri of your registry here&gt;</span>  <span class="c1"># uri to docker image registry</span>
@@ -595,11 +595,11 @@ we will just use this repository. But feel free to create and use a new reposito
 <p>Check that all Connections were created successfully:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl conn get <span class="p">|</span> grep -e id: -e type: -e description
 
-<span class="go">- id: docker-ci</span>
+<span class="go">- id: docker-tutorial</span>
 <span class="go">    description: Docker repository for model packaging</span>
 <span class="go">    type: docker</span>
-<span class="go">- id: odahu-flow-examples</span>
-<span class="go">    description: Git repository with odahu-flow-examples</span>
+<span class="go">- id: odahu-flow-tutorial</span>
+<span class="go">    description: Git repository with odahu-flow-tutorial</span>
 <span class="go">    type: git</span>
 <span class="go">- id: models-output</span>
 <span class="go">    description: Storage for trainined artifacts</span>
@@ -657,7 +657,7 @@ we will just use this repository. But feel free to create and use a new reposito
 20
 21
 22</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
- <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
+ <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
  <span class="nt">spec</span><span class="p">:</span>
    <span class="nt">model</span><span class="p">:</span>
      <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
@@ -666,7 +666,7 @@ we will just use this repository. But feel free to create and use a new reposito
 </span><span class="hll">   <span class="nt">entrypoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
 </span><span class="hll">   <span class="nt">workDir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow/sklearn/wine</span>  <span class="c1"># MLproject location (in GitHub)</span>
 </span><span class="hll">   <span class="nt">data</span><span class="p">:</span>
-</span><span class="hll">     <span class="p p-Indicator">-</span> <span class="nt">connName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
+</span><span class="hll">     <span class="p p-Indicator">-</span> <span class="nt">connName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
 </span><span class="hll">       <span class="nt">localPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow/sklearn/wine/wine-quality.csv</span> <span class="c1"># wine-quality.csv file (on GCS)</span>
 </span><span class="hll">   <span class="nt">hyperParameters</span><span class="p">:</span>
 </span><span class="hll">     <span class="nt">alpha</span><span class="p">:</span> <span class="s">&quot;1.0&quot;</span>
@@ -677,7 +677,7 @@ we will just use this repository. But feel free to create and use a new reposito
      <span class="nt">requests</span><span class="p">:</span>
        <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2024m</span>
        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2024Mi</span>
-<span class="hll">   <span class="nt">vcsName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-examples</span>
+<span class="hll">   <span class="nt">vcsName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-tutorial</span>
 </span></pre></div>
 </td></tr></table></div>
 </div>
@@ -697,12 +697,12 @@ we will just use this repository. But feel free to create and use a new reposito
 </pre></div>
 </div>
 <p>Check <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> logs:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl training logs --id wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl training logs --id wine-tutorial
 </pre></div>
 </div>
 <p>The <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> process will finish after some time.</p>
 <p>To check the status run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl training get --id wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl training get --id wine-tutorial
 </pre></div>
 </div>
 <p>When the Train process finishes, the command will output this YAML:</p>
@@ -762,12 +762,12 @@ We can download it from storage defined in the <code class="docutils literal not
 5
 6
 7
-8</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelPackaging</span>
  <span class="nt">spec</span><span class="p">:</span>
 <span class="hll">   <span class="nt">artifactName</span><span class="p">:</span> <span class="s">&quot;&lt;fill-in&gt;&quot;</span>  <span class="c1"># Use artifact name from Train step</span>
 </span>   <span class="nt">targets</span><span class="p">:</span>
-<span class="hll">     <span class="p p-Indicator">-</span> <span class="nt">connectionName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-ci</span>  <span class="c1"># Docker registry when output image will be stored</span>
+<span class="hll">     <span class="p p-Indicator">-</span> <span class="nt">connectionName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-tutorial</span>  <span class="c1"># Docker registry when output image will be stored</span>
 </span><span class="hll">       <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-push</span>
 </span><span class="hll">   <span class="nt">integrationName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-rest</span>  <span class="c1"># REST API Packager</span>
 </span></pre></div>
@@ -785,12 +785,12 @@ We can download it from storage defined in the <code class="docutils literal not
 </pre></div>
 </div>
 <p>Check the <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> logs:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl packaging logs --id wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl packaging logs --id wine-tutorial
 </pre></div>
 </div>
 <p>After some time, the <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> process will finish.</p>
 <p>To check the status, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl packaging get --id wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl packaging get --id wine-tutorial
 </pre></div>
 </div>
 <p>You will see YAML with updated <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> resource. Look at the status section. You can see:</p>
@@ -844,12 +844,12 @@ We can download it from storage defined in the <code class="docutils literal not
 3
 4
 5
-6</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelDeployment</span>
  <span class="nt">spec</span><span class="p">:</span>
 <span class="hll">   <span class="nt">image</span><span class="p">:</span> <span class="s">&quot;&lt;fill-in&gt;&quot;</span>
 </span>   <span class="nt">minReplicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="hll">   <span class="nt">ImagePullConnectionID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-ci</span>
+<span class="hll">   <span class="nt">ImagePullConnectionID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-tutorial</span>
 </span></pre></div>
 </td></tr></table></div>
 </div>
@@ -859,12 +859,12 @@ We can download it from storage defined in the <code class="docutils literal not
 <li>line 6: Set the id of the <a class="reference internal" href="gen_glossary.html#term-rest-api-packager"><span class="xref std std-term">REST API Packager</span></a></li>
 </ul>
 <p>Create a <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">Deploy</span></a> using the <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl conn create -f ./odahu-flow/deployment.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl deployment create -f ./odahu-flow/deployment.odahu.yaml
 </pre></div>
 </div>
 <p>After some time, the <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">Deploy</span></a> process will finish.</p>
 <p>To check its status, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl deployment get --id wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl deployment get --id wine-tutorial
 </pre></div>
 </div>
 <p>Or create a <cite>Deploy</cite> using the <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a>:</p>
@@ -897,15 +897,15 @@ We can download it from storage defined in the <code class="docutils literal not
 <p>After the model is deployed, you can check its API in Swagger:</p>
 <p>Open <code class="docutils literal notranslate"><span class="pre">&lt;your-odahu-platform-host&gt;/swagger/index.html</span></code> and look and the endpoints:</p>
 <ol class="arabic simple">
-<li><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/model/wine/api/model/info</span></code> – OpenAPI model specification;</li>
-<li><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/model/wine/api/model/invoke</span></code> – Endpoint to do predictions;</li>
+<li><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/model/wine-tutorial/api/model/info</span></code> – OpenAPI model specification;</li>
+<li><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/model/wine-tutorial/api/model/invoke</span></code> – Endpoint to do predictions;</li>
 </ol>
 <p>But you can also do predictions using the <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>.</p>
 <p>Create a payload file:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/r.json
 </pre></div>
 </div>
-<p>Add payload for <code class="docutils literal notranslate"><span class="pre">/model/wine/api/model/invoke</span></code> according to the OpenAPI schema. In this payload we provide values for model input variables:</p>
+<p>Add payload for <code class="docutils literal notranslate"><span class="pre">/model/wine-tutorial/api/model/invoke</span></code> according to the OpenAPI schema. In this payload we provide values for model input variables:</p>
 <div class="literal-block-wrapper docutils container" id="model-invoke-payload">
 <div class="code-block-caption"><span class="caption-text">./odahu-flow/r.json</span><a class="headerlink" href="#model-invoke-payload" title="Permalink to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -942,7 +942,7 @@ We can download it from storage defined in the <code class="docutils literal not
 </div>
 </div>
 <p>Invoke the model to make a prediction:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl model invoke --mr wine --json-file r.json
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl model invoke --mr wine-tutorial --json-file r.json
 </pre></div>
 </div>
 <div class="literal-block-wrapper docutils container" id="model-invoke-output">

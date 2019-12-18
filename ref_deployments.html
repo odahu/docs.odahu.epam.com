@@ -1,0 +1,580 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Model Deployments &mdash; Odahu 1.0.0-rc27 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Glossary" href="gen_glossary.html" />
+    <link rel="prev" title="Model Packagers" href="ref_packagers.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Odahu
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">MLFlow</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_jupyterlab_extension.html">Jupyterlab extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ref_odahuflowctl.html">Odahuflowctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_connections.html">Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Model Deployments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-deployment-structure">General deployment structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-deployment-management">Model Deployment management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#swagger-ui">Swagger UI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#odahu-flow-cli">Odahu-flow CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jupyterlab">JupyterLab</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#service-catalog">Service Catalog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grafana-dashboard">Grafana Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feedback">Feedback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#protocol">Protocol</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#working-example">Working example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#working-example-send-feedback-as-payload">Working Example - Send Feedback as Payload</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Odahu</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Model Deployments</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ref_deployments.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="model-deployments">
+<h1>Model Deployments<a class="headerlink" href="#model-deployments" title="Permalink to this headline">¶</a></h1>
+<p>Odahu-flow Model Deployment API allows deploy of ML models in a Kubernetes cluster.
+Additionally, it provides the following set of features:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Feedback loop</li>
+<li>Scale to zero</li>
+<li>Dynamic Model swagger</li>
+<li>Monitoring of Model Deployment</li>
+</ul>
+</div></blockquote>
+<div class="section" id="general-deployment-structure">
+<h2>General deployment structure<a class="headerlink" href="#general-deployment-structure" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Deployment API</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelDeployment</span>
+<span class="c1"># Some unique value among all deployments</span>
+<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-12345</span>
+<span class="nt">spec</span><span class="p">:</span>
+    <span class="c1"># Model image is required value. Change it</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcr.io/project/test-e2e-wine-1.0:b591c752-43d4-43e0-8392-9a5715b67573</span>
+    <span class="c1"># If the Docker image is pulled from a private Docker repository then</span>
+    <span class="c1"># you have to create a Odahu-flow connecton and specify its id here.</span>
+    <span class="c1"># imagePullConnID: test</span>
+
+    <span class="c1"># Compute resources for the deployment job.</span>
+    <span class="nt">resources</span><span class="p">:</span>
+      <span class="nt">limits</span><span class="p">:</span>
+        <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+      <span class="nt">requests</span><span class="p">:</span>
+        <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+
+    <span class="c1"># Minimum number of replicas</span>
+    <span class="nt">minReplicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+    <span class="c1"># Maximum number of replicas</span>
+    <span class="nt">maxReplicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="model-deployment-management">
+<h2>Model Deployment management<a class="headerlink" href="#model-deployment-management" title="Permalink to this headline">¶</a></h2>
+<p>Model Deployments can be managed using the following ways.</p>
+<div class="section" id="swagger-ui">
+<h3>Swagger UI<a class="headerlink" href="#swagger-ui" title="Permalink to this headline">¶</a></h3>
+<p>ModelDeployments are available in the Swagger UI at <a class="reference external" href="http://api-service/swagger/index.html">http://api-service/swagger/index.html</a> URL.</p>
+</div>
+<div class="section" id="odahu-flow-cli">
+<h3>Odahu-flow CLI<a class="headerlink" href="#odahu-flow-cli" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="ref_odahuflowctl.html#odahuflowctl"><span class="std std-ref">Odahuflowctl</span></a> supports the Model Deployment API.
+You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><span class="std std-ref">logged in</span></a> if you want to access the API.</p>
+<p>Getting all model deployments in json format:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl deployment get --format json
+</pre></div>
+</div>
+<p>Getting the model name of the model deployments:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl deployment get --id tensorflow-cli -o <span class="s1">&#39;jsonpath=[*].spec.model.name&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Creating of a training from <cite>train.yaml</cite> file:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl deployment create -f train.yaml
+</pre></div>
+</div>
+<ul class="simple">
+<li>All model deployments commands and documentation:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl deployment --help
+</pre></div>
+</div>
+<ul class="simple">
+<li>All model deployments commands and documentation:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl deployment --help
+</pre></div>
+</div>
+<ul class="simple">
+<li>Getting a model deployment information:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl model info --md wine
+</pre></div>
+</div>
+<ul class="simple">
+<li>Making a prediction:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl model invoke --md wine --file request.json
+</pre></div>
+</div>
+</div>
+<div class="section" id="jupyterlab">
+<h3>JupyterLab<a class="headerlink" href="#jupyterlab" title="Permalink to this headline">¶</a></h3>
+<p>Odahu-flow provides the <a class="reference internal" href="int_jupyterlab_extension.html#jupyterlab-extension"><span class="std std-ref">Jupyterlab extension</span></a> for interacting with Model Deployments API.</p>
+</div>
+</div>
+<div class="section" id="service-catalog">
+<h2>Service Catalog<a class="headerlink" href="#service-catalog" title="Permalink to this headline">¶</a></h2>
+<p>Service catalog provides a Swagger UI for Model Deployments.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The model must provide <a class="reference internal" href="ref_trainings.html#mlflow-protocol"><span class="std std-ref">input and output samples</span></a> to appear in the Service Catalog</p>
+</div>
+<p>Service catalog Swagger UI:</p>
+<img alt="_images/service_catalog.png" src="_images/service_catalog.png" />
+<p>Example of a prediction request:</p>
+<img alt="_images/service_catalog_predict.png" src="_images/service_catalog_predict.png" />
+</div>
+<div class="section" id="grafana-dashboard">
+<h2>Grafana Dashboard<a class="headerlink" href="#grafana-dashboard" title="Permalink to this headline">¶</a></h2>
+<p>Out of the box, Odahu-flow provides the Grafana Model Deployment dashboard.
+It contains the charts with following system metrics:</p>
+<blockquote>
+<div><ul class="simple">
+<li>availability</li>
+<li>replicas</li>
+<li>CPU</li>
+<li>memory</li>
+<li>number of failed HTTP requests</li>
+<li>latency</li>
+<li>…</li>
+</ul>
+</div></blockquote>
+<p>Example of the dashboard:</p>
+<img alt="_images/model_deployment_dashboard.png" src="_images/model_deployment_dashboard.png" />
+</div>
+<div class="section" id="feedback">
+<h2>Feedback<a class="headerlink" href="#feedback" title="Permalink to this headline">¶</a></h2>
+<p><strong>Model Feedback</strong> provides a view of performance over all stages of model lifecycle.</p>
+<p>The mechanism is simple:</p>
+<ol class="arabic simple">
+<li>Ask Deploy for prediction (with or without <code class="docutils literal notranslate"><span class="pre">Request-Id</span></code> provided)</li>
+<li>Send prediction feedback to Odahu-flow  (with <code class="docutils literal notranslate"><span class="pre">Request-Id</span></code> returned from previous step)</li>
+<li>Odahu-flow stores the prediction and feedback to a configurable location</li>
+</ol>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This flow requires <code class="docutils literal notranslate"><span class="pre">feedback</span></code> to be enabled in <code class="docutils literal notranslate"><span class="pre">values.yaml</span></code> during Helm chart installation</p>
+</div>
+<div class="section" id="protocol">
+<h3>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>If prediction is requested without Request-ID: <code class="docutils literal notranslate"><span class="pre">Request-ID</span></code> header with random ID is added to the request. Otherwise, Request-ID is not generated.</li>
+<li>Request and response are stored on configured external storage (eg. S3, GCS)</li>
+</ol>
+<p>3. User sends Model Feedback as an argument to the feedback endpoint. (Feedback can be arbitrary JSON.)
+5. All Feedback is persisted on external storage and can be used by models during subsequent Trains.</p>
+<div class="section" id="working-example">
+<h4>Working example<a class="headerlink" href="#working-example" title="Permalink to this headline">¶</a></h4>
+<p>Making a prediction request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST -vv <span class="s2">&quot;https://``cluster-url``/model/``model-deployment-id``/api/model/invoke&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Authorization: Bearer ``JWT`` \</span>
+<span class="s2">-H &quot;</span>accept: application/json<span class="s2">&quot; \</span>
+<span class="s2">-H &quot;</span>Content-Type: application/json<span class="s2">&quot; \</span>
+<span class="s2">-d &quot;</span><span class="o">{</span> <span class="se">\&quot;</span>columns<span class="se">\&quot;</span>: <span class="o">[</span> <span class="se">\&quot;</span>fixed acidity<span class="se">\&quot;</span>, <span class="se">\&quot;</span>volatile acidity<span class="se">\&quot;</span>, <span class="se">\&quot;</span>citric acid<span class="se">\&quot;</span>, <span class="se">\&quot;</span>residual sugar<span class="se">\&quot;</span>, <span class="se">\&quot;</span>chlorides<span class="se">\&quot;</span>, <span class="se">\&quot;</span>free sulfur dioxide<span class="se">\&quot;</span>, <span class="se">\&quot;</span>total sulfur dioxide<span class="se">\&quot;</span>, <span class="se">\&quot;</span>density<span class="se">\&quot;</span>, <span class="se">\&quot;</span>pH<span class="se">\&quot;</span>, <span class="se">\&quot;</span>sulphates<span class="se">\&quot;</span>, <span class="se">\&quot;</span>alcohol<span class="se">\&quot;</span> <span class="o">]</span>, <span class="se">\&quot;</span>data<span class="se">\&quot;</span>: <span class="o">[</span> <span class="o">[</span> <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span> <span class="o">]</span> <span class="o">]}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>The response contains a generated <code class="docutils literal notranslate"><span class="pre">Request-Id</span></code> header.</p>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>HTTP/2 200
+server: nginx/1.13.12
+date: Tue, 17 Dec 2019 10:58:49 GMT
+content-type: application/json
+content-length: 45
+model-name: test-e2e-wine
+model-version: 1.0
+request-id: 6fa1f636-fb80-9979-b8c6-d78f5e90f0c1
+x-envoy-upstream-service-time: 43
+strict-transport-security: max-age=15724800; includeSubDomains
+
+{&quot;prediction&quot;: [6.0], &quot;columns&quot;: [&quot;quality&quot;]}
+</pre></div>
+</div>
+<p>Requests and responses are persisted in a bucket. (File name ~= <code class="docutils literal notranslate"><span class="pre">/request_response/income/1.1/year=2019/month=07/day=24/2019072414_4.json</span></code>)</p>
+<p>The first file contains meta-information about request and response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6fa1f636-fb80-9979-b8c6-d78f5e90f0c1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;request_content&quot;</span><span class="p">:</span> <span class="s2">&quot;{\&quot;columns\&quot;: [\&quot;alcohol\&quot;, \&quot;chlorides\&quot;, \&quot;citric acid\&quot;, \&quot;density\&quot;, \&quot;fixed acidity\&quot;, \&quot;free sulfur dioxide\&quot;, \&quot;pH\&quot;, \&quot;residual sugar\&quot;, \&quot;sulphates\&quot;, \&quot;total sulfur dioxide\&quot;, \&quot;volatile acidity\&quot;], \&quot;data\&quot;: [[12.8, 0.029, 0.48, 0.98, 6.2, 29, 3.33, 1.2, 0.39, 75, 0.66]]}&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;request_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;/model/test-e2e-wine/api/model/invoke&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;response_http_headers&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;:status&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;Tue, 17 Dec 2019 08:46:40 GMT&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model-name&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;model-version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="s2">&quot;istio-envoy&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;connection&quot;</span><span class="p">:</span> <span class="s2">&quot;close&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;content-length&quot;</span><span class="p">:</span> <span class="s2">&quot;45&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;request-id&quot;</span><span class="p">:</span> <span class="s2">&quot;12dcddd5-771d-9fc0-b326-816211cf8172&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-envoy-upstream-service-time&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;model_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;request_http_headers&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;:method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-scheme&quot;</span><span class="p">:</span> <span class="s2">&quot;https&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;accept&quot;</span><span class="p">:</span> <span class="s2">&quot;*/*&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-istio-attributes&quot;</span><span class="p">:</span> <span class="s2">&quot;ClEKF2Rlc3RpbmF0aW9uLnNlcnZpY2UudWlkEjYSNGlzdGlvOi8vb2RhaHUtZmxvdy1kZXBsb3ltZW50L3NlcnZpY2VzL3Rlc3QtZTJlLXdpbmUKUwoYZGVzdGluYXRpb24uc2VydmljZS5ob3N0EjcSNXRlc3QtZTJlLXdpbmUub2RhaHUtZmxvdy1kZXBsb3ltZW50LnN2Yy5jbHVzdGVyLmxvY2FsCisKGGRlc3RpbmF0aW9uLnNlcnZpY2UubmFtZRIPEg10ZXN0LWUyZS13aW5lCjgKHWRlc3RpbmF0aW9uLnNlcnZpY2UubmFtZXNwYWNlEhcSFW9kYWh1LWZsb3ctZGVwbG95bWVudApPCgpzb3VyY2UudWlkEkESP2t1YmVybmV0ZXM6Ly9pc3Rpby1pbmdyZXNzZ2F0ZXdheS04NjlkYjdkOWJiLWpsemtyLmlzdGlvLXN5c3RlbQ==&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;knative-serving-namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;odahu-flow-deployment&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-envoy-original-path&quot;</span><span class="p">:</span> <span class="s2">&quot;/model/test-e2e-wine/api/model/invoke&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;:scheme&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-forwarded-host&quot;</span><span class="p">:</span> <span class="s2">&quot;odahu.example.com&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-original-uri&quot;</span><span class="p">:</span> <span class="s2">&quot;/model/test-e2e-wine/api/model/invoke&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;user-agent&quot;</span><span class="p">:</span> <span class="s2">&quot;python-requests/2.22.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-forwarded-port&quot;</span><span class="p">:</span> <span class="s2">&quot;443&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-b3-sampled&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;content-length&quot;</span><span class="p">:</span> <span class="s2">&quot;257&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-real-ip&quot;</span><span class="p">:</span> <span class="s2">&quot;10.4.0.11&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-forwarded-for&quot;</span><span class="p">:</span> <span class="s2">&quot;10.4.0.11,10.44.0.10&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-envoy-external-address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.44.0.10&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-request-id&quot;</span><span class="p">:</span> <span class="s2">&quot;12dcddd5-771d-9fc0-b326-816211cf8172&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-forwarded-proto&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;:authority&quot;</span><span class="p">:</span> <span class="s2">&quot;odahu.example.com&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-b3-traceid&quot;</span><span class="p">:</span> <span class="s2">&quot;488abe197a652c2ce80e6b848a4c56e6&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;:path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/model/invoke&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;accept-encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;gzip, deflate&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-envoy-decorator-operation&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine.odahu-flow-deployment.svc.cluster.local:80/model/test-e2e-wine/api*&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;x-b3-spanid&quot;</span><span class="p">:</span> <span class="s2">&quot;e80e6b848a4c56e6&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;knative-serving-revision&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine-l4xt7&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;response_status&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;request_host&quot;</span><span class="p">:</span> <span class="s2">&quot;odahu.example.com&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;request_http_method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-17 08:46:40 +0000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The second file contains the response body with the same <code class="docutils literal notranslate"><span class="pre">Request-Id</span></code> (File name ~= <code class="docutils literal notranslate"><span class="pre">/response_body/income/1.1/year=2019/month=07/day=24/2019072414_1.json</span></code>)</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6fa1f636-fb80-9979-b8c6-d78f5e90f0c1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;model_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;response_content&quot;</span><span class="p">:</span> <span class="s2">&quot;{\&quot;prediction\&quot;: [6.0], \&quot;columns\&quot;: [\&quot;quality\&quot;]}&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-17 08:46:40 +0000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="working-example-send-feedback-as-payload">
+<h4>Working Example - Send Feedback as Payload<a class="headerlink" href="#working-example-send-feedback-as-payload" title="Permalink to this headline">¶</a></h4>
+<p>Send Model Feedback request:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST -vv <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/feedback/model/&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Authorization: Bearer </span><span class="si">${</span><span class="nv">JWT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;x-model-name: income&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;x-model-version: 1.1&quot;</span> <span class="se">\</span>
+-H <span class="s2">&quot;Request-ID: previous-prediction-id&quot;</span> <span class="se">\</span>
+-H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\</span>
+-d <span class="s1">&#39;{&quot;truthful&quot;: 1}&#39;</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">-d</span></code> argument can pass arbitrary JSON.</p>
+<p>A successful feedback request will have the following properties:</p>
+<ul class="simple">
+<li>HTTP response: 200</li>
+<li>Response field <code class="docutils literal notranslate"><span class="pre">error</span></code> is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</li>
+<li>Response field <code class="docutils literal notranslate"><span class="pre">registered</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</li>
+<li>Response field <code class="docutils literal notranslate"><span class="pre">message</span></code> is what was sent to storage.</li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example response</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;RequestID&quot;</span><span class="p">:</span> <span class="s2">&quot;previous-prediction-id&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ModelVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ModelName&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Payload&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;json&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;truthful&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>File name ~= <code class="docutils literal notranslate"><span class="pre">/feedback/test-e2e-wine/1.0/year=2019/month=11/day=23/2019072311_2.json</span></code> will have a format like this,
+with feedback stored in the <code class="docutils literal notranslate"><span class="pre">payload</span></code> field:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;previous-prediction-id&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;model_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;payload&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;json&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;truthful&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-17 20:08:05 +0000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gen_glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ref_packagers.html" class="btn btn-neutral" title="Model Packagers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Odahu Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0-rc27',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+  <style>
+         .wy-nav-content { max-width: none; }
+  </style>
+
+
+
+</body>
+</html>
