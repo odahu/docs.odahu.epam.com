@@ -1,0 +1,695 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; Odahu 1.0.0-rc27 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/nav_content_width.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quickstart" href="tutorials_wine.html" />
+    <link rel="prev" title="Security" href="gen_security.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Odahu
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Odahu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#kubernetes-setup">Kubernetes setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deploy-kubernetes-cluster-in-google-compute-platform-gke">Deploy Kubernetes cluster in Google Compute Platform (GKE)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploy-kubernetes-cluster-in-amazon-web-services-eks">Deploy Kubernetes cluster in Amazon Web Services (EKS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploy-kubernetes-cluster-in-microsoft-azure-aks">Deploy Kubernetes cluster in Microsoft Azure (AKS)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#install-base-kubernetes-services">Install base Kubernetes services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-helm-and-tiller-version-2-14-3">Install Helm and Tiller (version 2.14.3)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-nginx-ingress">Install Nginx Ingress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-istio-with-helm-and-tiller">Install Istio (with Helm and Tiller)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-odahu-helm-charts-repository">Add ODAHU Helm charts repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-knative">Install Knative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-tekton-pipelines">Install Tekton Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-fluentd-with-set-of-cloud-object-storage-plugins">Install Fluentd with set of cloud object storage plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#install-odahu">Install ODAHU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-core-odahu-services">Install core ODAHU services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#training-service-mlflow">Training service (MLFlow)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#packaging-service">Packaging service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-additional-services-optional">Install additional services (optional)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#delete-odahu-services">Delete ODAHU services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Quickstart</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_jupyterlab_extension.html">JupyterLab extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ref_odahuflowctl.html">Odahuflowctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_connections.html">Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Odahu</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+<li class="wy-breadcrumbs-aside">
+<a href="odahu-docs.pdf">Get PDF version</a>
+</li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>To install ODAHU services, you need to provide a number of preliminary requirements for it.</p>
+<p>In particular:</p>
+<ul class="simple">
+<li>Kubernetes cluster to perform base and accessory ODAHU services in it, as well as models training, packaging and deployment processes.
+To be able to use ODAHU services, minimum version of your Kubernetes cluster must be at least <a class="reference external" href="https://v1-13.docs.kubernetes.io/docs/setup/release/notes/">1.13</a>.</li>
+<li>object storage to store models training artifacts and get input data for models (<a class="reference internal" href="ref_connections.html#s3"><span class="std std-ref">S3</span></a>, <a class="reference internal" href="ref_connections.html#google-cloud-storage"><span class="std std-ref">Google Cloud Storage</span></a>, <a class="reference internal" href="ref_connections.html#azure-blob-storage"><span class="std std-ref">Azure Blob storage</span></a> are supported)</li>
+<li><a class="reference internal" href="ref_connections.html#docker"><span class="std std-ref">Docker registry</span></a> (to store resulting Docker images from <a class="reference internal" href="ref_packagers.html#model-packagers"><span class="std std-ref">packagers</span></a>)</li>
+</ul>
+<div class="section" id="kubernetes-setup">
+<span id="installation-k8s"></span><h2>Kubernetes setup<a class="headerlink" href="#kubernetes-setup" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="deploy-kubernetes-cluster-in-google-compute-platform-gke">
+<h3>Deploy Kubernetes cluster in Google Compute Platform (<a class="reference external" href="https://cloud.google.com/kubernetes-engine/">GKE</a>)<a class="headerlink" href="#deploy-kubernetes-cluster-in-google-compute-platform-gke" title="Permalink to this headline">¶</a></h3>
+<p><strong>Prerequisites</strong>:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://cloud.google.com/compute/docs/access/service-accounts">GCP service
+account</a>
+to deploy Kubernetes cluster with and use it credentials for access to object storage and Google Cloud Registry</li>
+<li>Google Cloud Storage bucket (<code class="docutils literal notranslate"><span class="pre">odahu-flow-test-store</span></code> in examples below) to store models output data</li>
+</ul>
+<p>Run deploy of a new Kubernetes cluster:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ gcloud container clusters create &lt;cluster-name&gt; \
+    --cluster-version latest \
+    --machine-type=n1-standard-2 \
+    --disk-size=100GB \
+    --disk-type=pd-ssd \
+    --num-nodes 4 \
+    --zone &lt;zone&gt; \
+    --project &lt;project-id&gt;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Make sure that the disk size on the cluster nodes is sufficient to store images for all services and packaged models.
+We recommend using a disk size of at least 100 GiB.</p>
+</div>
+<p>Fetch your Kubernetes credentials for kubectl after cluster is successfully deployed:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ gcloud container clusters get-credentials &lt;cluster-name&gt; \
+    --zone &lt;zone&gt; \
+    --project &lt;project-id&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="deploy-kubernetes-cluster-in-amazon-web-services-eks">
+<h3>Deploy Kubernetes cluster in Amazon Web Services (<a class="reference external" href="https://aws.amazon.com/eks/">EKS</a>)<a class="headerlink" href="#deploy-kubernetes-cluster-in-amazon-web-services-eks" title="Permalink to this headline">¶</a></h3>
+<p>TBD.</p>
+</div>
+<div class="section" id="deploy-kubernetes-cluster-in-microsoft-azure-aks">
+<h3>Deploy Kubernetes cluster in Microsoft Azure (<a class="reference external" href="https://docs.microsoft.com/en-us/azure/aks/">AKS</a>)<a class="headerlink" href="#deploy-kubernetes-cluster-in-microsoft-azure-aks" title="Permalink to this headline">¶</a></h3>
+<p>TBD.</p>
+</div>
+</div>
+<div class="section" id="install-base-kubernetes-services">
+<span id="installation-base-svc"></span><h2>Install base Kubernetes services<a class="headerlink" href="#install-base-kubernetes-services" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-helm-and-tiller-version-2-14-3">
+<h3>Install Helm and Tiller (<a class="reference external" href="https://v2-14-0.helm.sh/docs/using_helm/#installing-helm">version 2.14.3</a>)<a class="headerlink" href="#install-helm-and-tiller-version-2-14-3" title="Permalink to this headline">¶</a></h3>
+<p>Make sure you have a Kubernetes service account with the <code class="docutils literal notranslate"><span class="pre">cluster-admin</span></code> role defined for Tiller.
+If not already defined, create one using following commands:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat &lt;&lt; EOF &gt; tiller_sa.yaml
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tiller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: kube-system
+EOF
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl apply -f ./tiller_sa.yaml
+</pre></div>
+</div>
+<p>Install Tiller in your cluster with created service account:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm init --service-account=tiller
+</pre></div>
+</div>
+<p>Ensure that Tiller is installed:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl -n kube-system get pods --selector=app=helm
+NAME                            READY   STATUS    RESTARTS   AGE
+tiller-deploy-57f498469-r5cmv   1/1     Running   0          16s
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-nginx-ingress">
+<span id="installation-nginx-ingress"></span><h3>Install <a class="reference external" href="https://kubernetes.github.io/ingress-nginx/">Nginx Ingress</a><a class="headerlink" href="#install-nginx-ingress" title="Permalink to this headline">¶</a></h3>
+<p>Install <code class="docutils literal notranslate"><span class="pre">nginx-ingress</span></code> Helm chart:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install stable/nginx-ingress --name nginx-ingress --namespace kube-system
+</pre></div>
+</div>
+<p>Get external LoadBalancer IP assigned to <code class="docutils literal notranslate"><span class="pre">nginx-ingress</span></code> service:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl get -n kube-system svc nginx-ingress-controller \
+    -o=jsonpath=&#39;{.status.loadBalancer.ingress[*].ip}{&quot;\n&quot;}&#39;
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-istio-with-helm-and-tiller">
+<h3>Install <a class="reference external" href="https://istio.io/docs/setup/install/helm/#option-2-install-with-helm-and-tiller-via-helm-install">Istio</a> (with Helm and Tiller)<a class="headerlink" href="#install-istio-with-helm-and-tiller" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ODAHU services uses number of Istio custom resources actively, so Istio installation is mandatory.</p>
+</div>
+<p>Add Helm repository for Istio charts</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm repo add istio https://storage.googleapis.com/istio-release/releases/1.4.2/charts/
+</pre></div>
+</div>
+<p>Crate a namespace for the istio-system components</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl create namespace istio-system
+</pre></div>
+</div>
+<p>Install the <code class="docutils literal notranslate"><span class="pre">istio-init</span></code> chart to bootstrap all the Istio’s
+CustomResourceDefinitions</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install istio/istio-init --name istio-init --namespace istio-system
+</pre></div>
+</div>
+<p>Ensure that all <code class="docutils literal notranslate"><span class="pre">istio-init</span></code> jobs have been completed:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl -n istio-system get job \
+    -o=jsonpath=&#39;{range.items[?(@.status.succeeded==1)]}{.metadata.name}{&quot;\n&quot;}{end}&#39;
+</pre></div>
+</div>
+<p>Install Istio Helm chart with provided values.</p>
+<p>Example:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat &lt;&lt; EOF &gt; istio_values.yaml
+global:
+  proxy:
+    accessLogFile: &quot;/dev/stdout&quot;
+  disablePolicyChecks: false
+sidecarInjectorWebhook:
+  enabled: true
+pilot:
+  enabled: true
+mixer:
+  policy:
+    enabled: true
+  telemetry:
+    enabled: true
+  adapters:
+    stdio:
+      enabled: true
+gateways:
+  istio-ingressgateway:
+    enabled: true
+    type: ClusterIP
+    meshExpansionPorts: []
+    ports:
+      - port: 80
+        targetPort: 80
+        name: http
+      - port: 443
+        name: https
+      - port: 15000
+        name: administration
+  istio-egressgateway:
+    enabled: true
+prometheus:
+  enabled: false
+EOF
+
+$ helm install istio/istio --name istio --namespace istio-system --values ./istio_values.yaml
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-odahu-helm-charts-repository">
+<h3>Add ODAHU Helm charts repository<a class="headerlink" href="#add-odahu-helm-charts-repository" title="Permalink to this headline">¶</a></h3>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm repo add odahu https://raw.githubusercontent.com/odahu/odahu-helm/master
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-knative">
+<h3>Install <a class="reference external" href="https://knative.dev/docs/install/">Knative</a><a class="headerlink" href="#install-knative" title="Permalink to this headline">¶</a></h3>
+<p>Create namespace for Knative and label it for Istio injection:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl create namespace knative-serving &amp;&amp; \
+    kubectl label namespace knative-serving istio-injection=enabled
+</pre></div>
+</div>
+<p>Install Knative with <a class="reference external" href="https://github.com/odahu/odahu-helm/tree/master/odahu-flow-knative">Helm
+chart</a>
+provided by ODAHU team:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install odahu/odahu-flow-knative --name knative --namespace knative-serving
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-tekton-pipelines">
+<h3>Install <a class="reference external" href="https://github.com/tektoncd/pipeline">Tekton Pipelines</a><a class="headerlink" href="#install-tekton-pipelines" title="Permalink to this headline">¶</a></h3>
+<p>Create namespace for Tekton:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl create namespace tekton-pipelines
+</pre></div>
+</div>
+<p>Install Tekton Pipelines with <a class="reference external" href="https://github.com/odahu/odahu-helm/tree/master/odahu-flow-tekton">Helm
+chart</a>
+provided by ODAHU team:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install odahu/odahu-flow-tekton --name tekton --namespace tekton-pipelines
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-fluentd-with-set-of-cloud-object-storage-plugins">
+<h3>Install <a class="reference external" href="https://www.fluentd.org/">Fluentd</a> with set of cloud object storage plugins<a class="headerlink" href="#install-fluentd-with-set-of-cloud-object-storage-plugins" title="Permalink to this headline">¶</a></h3>
+<p>In order to save models training logs to object storage of cloud provider you use, a container with <code class="docutils literal notranslate"><span class="pre">fluentd</span></code> is used, in which a set of
+<a class="reference external" href="https://www.fluentd.org/plugins/all#input-output">plugins</a> for popular cloud providers’ object storages (AWS S3, Google Storage, Azure
+Blob) is added. Installation is done using a <a class="reference external" href="https://github.com/odahu/odahu-infra/tree/develop/helms/odahu-flow-fluentd">fluentd Helm chart</a>
+provided by ODAHU team.</p>
+<p>First, create an object storage bucket:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ gsutil mb gs://odahu-flow-test-store/
+</pre></div>
+</div>
+<p>Create namespace for Fluentd:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl create namespace fluentd
+</pre></div>
+</div>
+<p>Install Fluentd with specified values. Full list of values you can see
+in chart’s <a class="reference external" href="https://github.com/odahu/odahu-infra/blob/develop/helms/odahu-flow-fluentd/values.yaml">values.yaml</a>.</p>
+<p>Example:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat &lt;&lt; EOF &gt; fluentd_values.yaml
+output:
+  target: gcs
+  gcs:
+    authorization: keyfile
+    bucket: odahu-flow-test-store
+    project: my-gcp-project-id-zzzzz
+    private_key_id: 0bacc0b0caa0a0aacabcacbab0a0b00ababacaab
+    private_key: -----BEGIN PRIVATE KEY-----\nprivate-key-here\n-----END PRIVATE KEY-----\n
+    client_email: service-account@my-gcp-project-id-zzzzz.iam.gserviceaccount.com
+    client_id: 000000000000000000000
+    auth_uri: https://accounts.google.com/o/oauth2/auth
+    token_uri: https://oauth2.googleapis.com/token
+    auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+    client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/service-account%40my-gcp-project-id-zzzzz.iam.gserviceaccount.com
+EOF
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install odahu/odahu-flow-fluentd --name fluentd --namespace fluentd --values ./fluentd_values.yaml
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="install-odahu">
+<span id="tutorials-installation-odahu-svc"></span><h2>Install ODAHU<a class="headerlink" href="#install-odahu" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-core-odahu-services">
+<h3>Install core ODAHU services<a class="headerlink" href="#install-core-odahu-services" title="Permalink to this headline">¶</a></h3>
+<p>Create namespace for core ODAHU service:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl create namespace odahu-flow &amp;&amp;\
+    kubectl label namespace odahu-flow project=odahu-flow
+</pre></div>
+</div>
+<p>Create namespaces for ODAHU training, packaging and deployment.</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ for i in training packaging deployment; do \
+    kubectl create namespace odahu-flow-${i} &amp;&amp;\
+    kubectl label namespace odahu-flow-${i} project=odahu-flow; done
+</pre></div>
+</div>
+<p>Deployment namespace should be also labeled for Istio injection.</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl label namespace odahu-flow-deployment istio-injection=enabled
+</pre></div>
+</div>
+<p>Prepare YAML config with values for
+<a class="reference external" href="https://github.com/odahu/odahu-flow/tree/develop/helms/odahu-flow-core">odahu-flow-core</a>
+Helm chart.</p>
+<p>Example:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$  cat &lt;&lt; EOF &gt; odahuflow_values.yaml
+logLevel: debug
+ingress:
+  enabled: true
+  globalDomain: odahu.example.com
+edge:
+  ingress:
+    enabled: true
+    domain: odahu.example.com
+feedback:
+  enabled: true
+config:
+  common:
+    external_urls:
+    - name: Documentation
+      url: https://docs.odahu.org
+  connection:
+    enabled: true
+    decrypt_token: somenotemptystring
+    repository_type: kubernetes
+  deployment:
+    edge:
+      host: http://odahu.example.com
+EOF
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This example uses hostname <code class="docutils literal notranslate"><span class="pre">odahu.example.com</span></code> as entrypoint for cluster services.
+It should point to LoadBalancer IP got from <a class="reference internal" href="#installation-nginx-ingress"><span class="std std-ref">Nginx Ingress section</span></a>.</p>
+</div>
+<p>In order to setup ODAHU services along with ready-to-use <a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">connections</span></a>, you may add according section to
+values YAML in advance.</p>
+<p>Examples:</p>
+<ol class="loweralpha simple">
+<li><a class="reference internal" href="ref_connections.html#docker"><span class="std std-ref">Docker registry connection</span></a> is used to pull/push Odahu packager resulting Docker images to a Docker registry</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">connections</span><span class="p">:</span>
+<span class="o">-</span> <span class="nb">id</span><span class="p">:</span> <span class="n">docker</span><span class="o">-</span><span class="n">hub</span>
+  <span class="n">spec</span><span class="p">:</span>
+    <span class="n">description</span><span class="p">:</span> <span class="n">Docker</span> <span class="n">registry</span> <span class="k">for</span> <span class="n">model</span> <span class="n">packaging</span>
+    <span class="n">username</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span>
+    <span class="n">password</span><span class="p">:</span> <span class="s2">&quot;supersecure&quot;</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">docker</span>
+    <span class="n">uri</span><span class="p">:</span> <span class="n">docker</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">odahu</span><span class="o">-</span><span class="n">models</span><span class="o">-</span><span class="n">repo</span>
+    <span class="n">webUILink</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">hub</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">r</span><span class="o">/</span><span class="n">odahu</span><span class="o">-</span><span class="n">models</span><span class="o">-</span><span class="n">repo</span>
+</pre></div>
+</div>
+<ol class="loweralpha simple" start="2">
+<li><a class="reference internal" href="ref_connections.html#google-cloud-storage"><span class="std std-ref">Google Cloud Storage connection</span></a> is used to store model trained artifacts and input data for ML models</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>connections:
+- id: models-output
+  spec:
+    description: Object storage for trained artifacts
+    keySecret: &#39;{ &quot;type&quot;: &quot;service_account&quot;, &quot;project_id&quot;: &quot;my-gcp-project-id-zzzzz&quot;, &quot;private_key_id&quot;: &quot;0bacc0b0caa0a0aacabcacbab0a0b00ababacaab&quot;, &quot;private_key&quot;: &quot;-----BEGIN PRIVATE KEY-----\nprivate-key-here\n-----END PRIVATE KEY-----\n&quot;, &quot;client_email&quot;: &quot;service-account@my-gcp-project-id-zzzzz.iam.gserviceaccount.com&quot;, &quot;client_id&quot;: &quot;000000000000000000000&quot;, &quot;auth_uri&quot;: &quot;https://accounts.google.com/o/oauth2/auth&quot;, &quot;token_uri&quot;: &quot;https://oauth2.googleapis.com/token&quot;, &quot;auth_provider_x509_cert_url&quot;: &quot;https://www.googleapis.com/oauth2/v1/certs&quot;, &quot;client_x509_cert_url&quot;: &quot;https://www.googleapis.com/robot/v1/metadata/x509/service-account%40my-gcp-project-id-zzzzz.iam.gserviceaccount.com&quot; }&#39;
+    region: my-gcp-project-id-zzzzz
+    type: gcs
+    uri: gs://odahu-flow-test-store/output
+    webUILink: https://console.cloud.google.com/storage/browser/odahu-flow-test-store/output?project=my-gcp-project-id-zzzzz
+</pre></div>
+</div>
+<p>Install odahu-flow core services:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install odahu/odahu-flow-core --name odahu-flow --namespace odahu-flow --values ./odahuflow_values.yaml
+</pre></div>
+</div>
+</div>
+<div class="section" id="training-service-mlflow">
+<h3>Training service (MLFlow)<a class="headerlink" href="#training-service-mlflow" title="Permalink to this headline">¶</a></h3>
+<p>Prepare YAML config with values for
+<a class="reference external" href="https://github.com/odahu/odahu-trainer/tree/develop/helms/odahu-flow-mlflow">odahu-flow-mlflow</a>
+Helm chart.</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat &lt;&lt; EOF &gt; mlflow_values.yaml
+logLevel: debug
+ingress:
+  globalDomain: example.com
+  enabled: true
+tracking_server:
+  annotations:
+    sidecar.istio.io/inject: &quot;false&quot;
+toolchain_integration:
+  enabled: true
+EOF
+</pre></div>
+</div>
+<p>Install Helm chart:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install odahu/odahu-flow-mlflow --name odahu-flow-mlflow --namespace odahu-flow \
+    --values ./mlflow_values.yaml
+</pre></div>
+</div>
+</div>
+<div class="section" id="packaging-service">
+<h3>Packaging service<a class="headerlink" href="#packaging-service" title="Permalink to this headline">¶</a></h3>
+<p>Install <a class="reference external" href="https://github.com/odahu/odahu-packager/tree/develop/helms/odahu-flow-packagers">odahu-flow-packagers</a>
+Helm chart:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install odahu/odahu-flow-packagers --name odahu-flow-packagers --namespace odahu-flow
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-additional-services-optional">
+<h3>Install additional services (optional)<a class="headerlink" href="#install-additional-services-optional" title="Permalink to this headline">¶</a></h3>
+<p>In order to provide additional functionality, ODAHU team also developed several Helm charts to install them into Kubernetes cluster.
+These are:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/odahu/odahu-infra/tree/develop/helms/odahu-flow-monitoring">odahu-flow-monitoring</a> - Helm chart providing installation and setup of<ul>
+<li><a class="reference external" href="https://github.com/coreos/prometheus-operator">Prometheus operator</a> - to collect <a class="reference internal" href="int_metrics.html#metrics"><span class="std std-ref">various metrics</span></a> from models trainings</li>
+<li><a class="reference external" href="https://github.com/grafana/grafana">Grafana</a> with set of custom dashboards - to visualize these metrics</li>
+</ul>
+</li>
+<li><a class="reference external" href="https://github.com/odahu/odahu-infra/tree/develop/helms/odahu-flow-k8s-gke-saa">odahu-flow-k8s-gke-saa</a> - Helm chart providing installation and setup of <a class="reference external" href="https://github.com/imduffy15/k8s-gke-service-account-assigner">k8s-gke-service-account-assigner</a> service.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="delete-odahu-services">
+<h2>Delete ODAHU services<a class="headerlink" href="#delete-odahu-services" title="Permalink to this headline">¶</a></h2>
+<p>To delete and purge Helm chart run:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm delete --purge odahu-flow
+</pre></div>
+</div>
+<p>To clean up remaining <code class="docutils literal notranslate"><span class="pre">CustomResourceDefinitions</span></code> execute following
+command:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl get crd | awk &#39;/odahuflow/ {print $1}&#39; | xargs -n1 kubectl delete crd
+</pre></div>
+</div>
+<p>To purge everything installed in previous steps with single command, run</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm delete --purge odahu-flow-packagers odahu-flow-mlflow odahu-flow &amp;&amp;\
+  kubectl delete namespace odahu-flow &amp;&amp;\
+  for i in training packaging deployment; do \
+    kubectl delete namespace odahu-flow-${i} || true; done &amp;&amp;\
+  kubectl get crd | awk &#39;/odahuflow/ {print $1}&#39; | xargs -n1 kubectl delete crd &amp;&amp;\
+  kubectl -n istio-system delete job.batch/odahu-flow-feedback-rq-catcher-patcher &amp;&amp;\
+  kubectl -n istio-system delete sa/odahu-flow-feedback-rq-catcher-patcher &amp;&amp;\
+  kubectl -n istio-system delete cm/odahu-flow-feedback-rq-catcher-patch
+</pre></div>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>After successful deployment of a cluster, you may proceed to <a class="reference internal" href="tutorials_wine.html#quickstart"><span class="std std-ref">Quickstart section</span></a> and learn how to perform base ML operations such as <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">train</span></a>, <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">package</span></a> and <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">deploy</span></a> steps.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorials_wine.html" class="btn btn-neutral float-right" title="Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gen_security.html" class="btn btn-neutral" title="Security" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Odahu Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0-rc27',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
