@@ -131,6 +131,7 @@
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#odahu-odahu-infra">odahu/odahu-infra</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
@@ -214,23 +215,23 @@
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>odahu-flow-fluentd</td>
-<td>odahu/odahu-automation</td>
+<td>odahu/odahu-infra</td>
 <td>Fluentd with gcp, s3 and abs plugins</td>
 </tr>
 <tr class="row-odd"><td>odahu-flow-k8s-gke-saa</td>
-<td>odahu/odahu-automation</td>
+<td>odahu/odahu-infra</td>
 <td>GKE role assigner</td>
 </tr>
 <tr class="row-even"><td>odahu-flow-knative</td>
-<td>odahu/odahu-automation</td>
+<td>odahu/odahu-infra</td>
 <td>Custom knative chart</td>
 </tr>
 <tr class="row-odd"><td>odahu-flow-monitoring</td>
-<td>odahu/odahu-automation</td>
+<td>odahu/odahu-infra</td>
 <td>Prometheus, grafana and alertmanager</td>
 </tr>
 <tr class="row-even"><td>odahu-flow-tekton</td>
-<td>odahu/odahu-automation</td>
+<td>odahu/odahu-infra</td>
 <td>Custom tekton chart</td>
 </tr>
 <tr class="row-odd"><td>odahu-flow-core</td>
@@ -265,72 +266,68 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>odahu-flow-automation</td>
-<td>odahu/odahu-automation</td>
-<td>CI/CD pipeline component (not used by Odahu cluster)</td>
-</tr>
-<tr class="row-odd"><td>odahu-flow-fluentd</td>
-<td>odahu/odahu-automation</td>
+<tr class="row-even"><td>odahu-flow-fluentd</td>
+<td>odahu/odahu-infra</td>
 <td>Fluentd with gcp, s3 and abs plugins</td>
 </tr>
-<tr class="row-even"><td>odahu-flow-api</td>
+<tr class="row-odd"><td>odahu-flow-api</td>
 <td>odahu/odahu-flow</td>
 <td>Odahu-flow API service</td>
 </tr>
-<tr class="row-odd"><td>odahu-flow-model-cli</td>
+<tr class="row-even"><td>odahu-flow-model-cli</td>
 <td>odahu/odahu-flow</td>
 <td>Odahu-flow CLI</td>
 </tr>
-<tr class="row-even"><td>odahu-flow-model-trainer</td>
+<tr class="row-odd"><td>odahu-flow-model-trainer</td>
 <td>odahu/odahu-flow</td>
 <td>Trainer helper</td>
 </tr>
-<tr class="row-odd"><td>odahu-flow-model-packager</td>
+<tr class="row-even"><td>odahu-flow-model-packager</td>
 <td>odahu/odahu-flow</td>
 <td>Packager helper</td>
 </tr>
-<tr class="row-even"><td>odahu-flow-service-catalog</td>
+<tr class="row-odd"><td>odahu-flow-service-catalog</td>
 <td>odahu/odahu-flow</td>
 <td>Swagger for model deployments</td>
 </tr>
-<tr class="row-odd"><td>odahu-flow-operator</td>
+<tr class="row-even"><td>odahu-flow-operator</td>
 <td>odahu/odahu-flow</td>
 <td>Odahu-flow kubernetes orchestrator</td>
 </tr>
-<tr class="row-even"><td>odahu-flow-feedback-collector</td>
+<tr class="row-odd"><td>odahu-flow-feedback-collector</td>
 <td>odahu/odahu-flow</td>
 <td>REST API for user feedback service</td>
 </tr>
-<tr class="row-odd"><td>odahu-flow-feedback-rq-catcher</td>
+<tr class="row-even"><td>odahu-flow-feedback-rq-catcher</td>
 <td>odahu/odahu-flow</td>
 <td>Model deployment request-response catcher</td>
 </tr>
-<tr class="row-even"><td>odahu-flow-mlflow-toolchain</td>
+<tr class="row-odd"><td>odahu-flow-mlflow-toolchain</td>
 <td>odahu/odahu-trainer</td>
 <td>Odahu-flow mlflow toolchain</td>
 </tr>
-<tr class="row-odd"><td>odahu-flow-mlflow-toolchain-gpu</td>
+<tr class="row-even"><td>odahu-flow-mlflow-toolchain-gpu</td>
 <td>odahu/odahu-trainer</td>
 <td>Odahu-flow mlflow toolchain with NVIDIA GPU</td>
 </tr>
-<tr class="row-even"><td>odahu-flow-mlflow-tracking-server</td>
+<tr class="row-odd"><td>odahu-flow-mlflow-tracking-server</td>
 <td>odahu/odahu-trainer</td>
 <td>MLflow tracking service</td>
 </tr>
-<tr class="row-odd"><td>odahu-flow-packagers</td>
+<tr class="row-even"><td>odahu-flow-packagers</td>
 <td>odahu/odahu-packager</td>
 <td>Odahu-flow packagers</td>
 </tr>
-<tr class="row-even"><td>base-notebook</td>
-<td>odahu/base-notebook</td>
+<tr class="row-odd"><td>base-notebook</td>
+<td>odahu/odahu-flow-jupyterlab-plugin</td>
 <td>Image with <a class="reference internal" href="int_jupyterlab_extension.html#jupyterlab-extension"><span class="std std-ref">JupyterLab extension</span></a> based on <a class="reference external" href="https://hub.docker.com/r/jupyter/base-notebook">jupyter/base-notebook</a></td>
 </tr>
-<tr class="row-odd"><td>datascience-notebook</td>
-<td>odahu/datascience-notebook</td>
+<tr class="row-even"><td>datascience-notebook</td>
+<td>odahu/odahu-flow-jupyterlab-plugin</td>
 <td>Image with <a class="reference internal" href="int_jupyterlab_extension.html#jupyterlab-extension"><span class="std std-ref">JupyterLab extension</span></a> based on <a class="reference external" href="https://hub.docker.com/r/jupyter/datascience-notebook">jupyter/datascience-notebook</a></td>
 </tr>
-<tr class="row-even"><td>tensorflow-notebook</td>
-<td>odahu/tensorflow-notebook</td>
+<tr class="row-odd"><td>tensorflow-notebook</td>
+<td>odahu/odahu-flow-jupyterlab-plugin</td>
 <td>Image with <a class="reference internal" href="int_jupyterlab_extension.html#jupyterlab-extension"><span class="std std-ref">JupyterLab extension</span></a> based on <a class="reference external" href="https://hub.docker.com/r/jupyter/tensorflow-notebook">jupyter/tensorflow-notebook</a></td>
 </tr>
 </tbody>
