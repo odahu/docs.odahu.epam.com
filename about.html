@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>About Odahu &mdash; Odahu 1.0.0-rc27 documentation</title>
+  <title>About Open Data Analytics Hub (ODAHU) &mdash; Odahu 1.0.0-rc27 documentation</title>
   
 
   
@@ -87,7 +87,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">About Odahu</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">About Open Data Analytics Hub (ODAHU)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -173,7 +173,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>About Odahu</li>
+      <li>About Open Data Analytics Hub (ODAHU)</li>
     
     
 <li class="wy-breadcrumbs-aside">
@@ -188,39 +188,67 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="about-odahu">
-<h1>About Odahu<a class="headerlink" href="#about-odahu" title="Permalink to this headline">¶</a></h1>
-<p>The Odahu project automates ML and AI product life cycles in enterprise systems.</p>
+  <div class="section" id="about-open-data-analytics-hub-odahu">
+<h1>About Open Data Analytics Hub (ODAHU)<a class="headerlink" href="#about-open-data-analytics-hub-odahu" title="Permalink to this headline">¶</a></h1>
+<p>The ODAHU project is focused on creating system of services, extensions for third party systems and tools which help to accelerate building enterprise level systems with automated AI/ML models life cycle.</p>
 <dl class="docutils">
-<dt><strong>Any Cloud</strong></dt>
+<dt><strong>Multi ML Frameworks</strong></dt>
 <dd><ul class="first last simple">
-<li>K8s-native, supporting: EKS, AKS, GKE</li>
-<li>Deployment tools for: AWS, Azure, GCP</li>
+<li>Supporting major ML frameworks: Scikit-learn, Keras, Tensorflow, PyTorch, H2O (and more)</li>
+<li>Extends MLflow platform with enterprise level features</li>
 </ul>
 </dd>
-<dt><strong>Any Toolchain</strong></dt>
+<dt><strong>Multi Infrastructure</strong></dt>
 <dd><ul class="first last simple">
-<li>Scikit-learn, Keras, Tensorflow, PyTorch, H2O (and more)</li>
-<li>Multi-model composition via MLFlow</li>
-</ul>
-</dd>
-<dt><strong>Toolable</strong></dt>
-<dd><ul class="first last simple">
-<li>ML phases are pluggable: transform, train, package, deploy</li>
-<li>CLI for Odahu components</li>
-<li>Extensible via SDK and REST APIs</li>
-<li>IDE, Workflow and CICD Engine automation via plugins</li>
+<li>Kubernetes native system of services</li>
+<li>Deployment automation to Kubernetes cluster with Helm charts</li>
+<li>Supporting major Kubernetes platforms: AWS EKS, Azure AKS, GCP GKE, RedHat OpenShift</li>
 </ul>
 </dd>
 <dt><strong>Secure</strong></dt>
 <dd><ul class="first last simple">
-<li>Single sign-on (SSO), LDAP and AD using Keycloak</li>
-<li>Strong encryption via Istio</li>
-<li>Credential and security key managers via Vault</li>
+<li>Single sign-on (SSO) based on OAuth2</li>
+<li>RESTful API secured with SSL</li>
+<li>Role based access control</li>
+<li>Users activity audit</li>
+<li>Credentials and keys manager based on HashiCorp Vault</li>
+<li>Internal traffic encryption with Istio</li>
+</ul>
+</dd>
+<dt><strong>Modular and Extensible</strong></dt>
+<dd><ul class="first last simple">
+<li>Services for different ML phases: transform, train, package, deploy, evaluate</li>
+<li>Services are extensible and manageable via REST APIs, SDK and CLI</li>
+<li>Functionality can be extended with new services</li>
+<li>Connectors for data sources</li>
+<li>Connectors for package repositories</li>
+<li>Connectors for Docker container registries</li>
+<li>Plugins for data science IDEs</li>
+<li>Plugins for workflow engines (like Airflow and others)</li>
+</ul>
+</dd>
+<dt><strong>Scalable</strong></dt>
+<dd><ul class="first last simple">
+<li>Systems based on ODAHU can be scaled from small to very large.</li>
+<li>Scalable ML model training phase</li>
+<li>Scalable ML model serving phase</li>
+</ul>
+</dd>
+<dt><strong>Manageable</strong></dt>
+<dd><ul class="first last simple">
+<li>Pre-build monitoring dashboards</li>
+<li>Configurable alerting rules</li>
+<li>Configurable logs collection</li>
+<li>Compatible with third party logs processing system</li>
+</ul>
+</dd>
+<dt><strong>Open</strong></dt>
+<dd><ul class="first last simple">
+<li>It is free and open-source with the Apache2 License.</li>
+<li>Contribution to project is welcome!</li>
 </ul>
 </dd>
 </dl>
-<p>Odahu scales from small to very large. It is free and open-source via the Apache2 license.</p>
 </div>
 
 
