@@ -671,11 +671,11 @@ we will just use this repository. But feel free to create and use a new reposito
 </span><span class="hll">     <span class="nt">alpha</span><span class="p">:</span> <span class="s">&quot;1.0&quot;</span>
 </span>   <span class="nt">resources</span><span class="p">:</span>
      <span class="nt">limits</span><span class="p">:</span>
-       <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4024m</span>
-       <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4024Mi</span>
+       <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
+       <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4Gi</span>
      <span class="nt">requests</span><span class="p">:</span>
-       <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2024m</span>
-       <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2024Mi</span>
+       <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+       <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2Gi</span>
 <span class="hll">   <span class="nt">vcsName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-tutorial</span>
 </span></pre></div>
 </td></tr></table></div>
@@ -692,7 +692,7 @@ we will just use this repository. But feel free to create and use a new reposito
 <li>line 22: <code class="docutils literal notranslate"><span class="pre">vcsName</span></code> id of the <a class="reference internal" href="#vcs-connection"><span class="std std-ref">vcs_connection.odahu.yaml</span></a> (created in the previous step)</li>
 </ul>
 <p><a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> using <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl conn create -f ./odahu-flow/training.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl training create -f ./odahu-flow/training.odahu.yaml
 </pre></div>
 </div>
 <p>Check <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> logs:</p>
@@ -780,7 +780,7 @@ We can download it from storage defined in the <code class="docutils literal not
 <li>line 8: id of the <a class="reference internal" href="gen_glossary.html#term-rest-api-packager"><span class="xref std std-term">REST API Packager</span></a></li>
 </ul>
 <p>Create a <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> using <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl conn create -f ./odahu-flow/packaging.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl packaging create -f ./odahu-flow/packaging.odahu.yaml
 </pre></div>
 </div>
 <p>Check the <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> logs:</p>
