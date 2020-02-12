@@ -232,8 +232,7 @@
 <li><a class="reference internal" href="#tutorials-wine-use"><span class="std std-ref">Use the deployed model</span></a></li>
 </ol>
 <p>This tutorial uses a dataset to predict the quality of the wine based on quantitative features
-like the wine’s <em>fixed acidity</em>, <em>pH</em>, <em>residual sugar</em>, and so on.
-The dataset is from <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Wine+Quality">UCI’s machine learning repository</a>.</p>
+like the wine’s <em>fixed acidity</em>, <em>pH</em>, <em>residual sugar</em>, and so on.</p>
 <p>Code for the tutorial is available on <a class="reference external" href="https://github.com/odahu/odahu-examples/tree/master/mlflow/sklearn/wine">GitHub</a>.</p>
 <div class="section" id="create-mlflow-project">
 <span id="tutorials-wine-create-project"></span><h3>Create MLFlow project<a class="headerlink" href="#create-mlflow-project" title="Permalink to this headline">¶</a></h3>
@@ -465,7 +464,7 @@ The dataset is from <a class="reference external" href="https://archive.ics.uci.
 </div>
 <p>Make directory “data” and download the wine data set:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> mkdir ./data
-<span class="gp">$</span> wget https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv -O ./data/wine-quality.csv
+<span class="gp">$</span> wget https://raw.githubusercontent.com/odahu/odahu-examples/develop/mlflow/sklearn/wine/data/wine-quality.csv -O ./data/wine-quality.csv
 </pre></div>
 </div>
 <p>After this step the project folder should look like this:</p>
@@ -671,7 +670,7 @@ we will just use this repository. But feel free to create and use a new reposito
     <span class="nt">limits</span><span class="p">:</span>
        <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4Gi</span>
-    <span class=" -Error"> </span><span class="nt">requests</span><span class="p">:</span>
+    <span class="nt">requests</span><span class="p">:</span>
        <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2Gi</span>
 <span class="hll">  <span class=" -Error"> </span><span class="nt">vcsName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-tutorial</span>

@@ -207,7 +207,7 @@
   <div class="section" id="model-trainings">
 <h1>Model Trainings<a class="headerlink" href="#model-trainings" title="Permalink to this headline">¶</a></h1>
 <p>The Odahu-flow Model Training API provides features to manage remote training jobs.
-A primary goal of API creates a <a class="reference internal" href="gen_glossary.html#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a> for a <a class="reference internal" href="gen_glossary.html#term-packager"><span class="xref std std-term">Packager</span></a>.
+The primary goal of API is to create a <a class="reference internal" href="gen_glossary.html#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a> for a <a class="reference internal" href="gen_glossary.html#term-packager"><span class="xref std std-term">Packager</span></a>.
 The API is pluggable and can be extended for different ML frameworks.</p>
 <p>You can find the list of out-of-the-box trainers below:</p>
 <blockquote>
@@ -220,7 +220,7 @@ The API is pluggable and can be extended for different ML frameworks.</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Training API</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
-<span class="c1"># Some unique value among all trainings</span>
+<span class="c1"># Some unique value among all trainings. if not, the training with the same name will be overwritten.</span>
 <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-12345</span>
 <span class="nt">spec</span><span class="p">:</span>
   <span class="nt">model</span><span class="p">:</span>
@@ -240,13 +240,13 @@ The API is pluggable and can be extended for different ML frameworks.</p>
   <span class="nt">toolchain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow</span>
   <span class="c1"># Mlflow MLProject file can contains the list of entrypoints. You must choose one of these.</span>
   <span class="nt">entrypoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
-  <span class="c1"># Working directory inside a GIT repository</span>
+  <span class="c1"># Working directory inside a training (docker) container, which GIT repository copied in.</span>
   <span class="nt">workDir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">work/dir</span>
-  <span class="c1"># The training data for a ML script. You can find find full description :ref:`here &lt;ref_trainings:Training Data&gt;`.</span>
+  <span class="c1"># The training data for a ML script. You can find full description there: https://docs.odahu.org/ref_trainings.html#training-data</span>
   <span class="nt">data</span><span class="p">:</span>
       <span class="c1"># You can specify a connection name</span>
     <span class="p p-Indicator">-</span> <span class="nt">connName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
-      <span class="c1"># Local path with file or dir</span>
+      <span class="c1"># Path to a file or a dir where data will copy from a bucket.</span>
       <span class="nt">localPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow/wine-quality/</span>
       <span class="c1"># Path to the dir or file in a bucket</span>
       <span class="c1"># Optional. If it is missing then the path from connection will be used.</span>
@@ -357,6 +357,12 @@ You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><sp
 <li>Creating a training from <cite>train.yaml</cite> file:</li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl train create -f train.yaml
+</pre></div>
+</div>
+<ul class="simple">
+<li>Reruning a training from <cite>train.yaml</cite> file:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl train edit -f train.yaml
 </pre></div>
 </div>
 <ul class="simple">
