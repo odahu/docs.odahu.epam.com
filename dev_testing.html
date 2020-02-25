@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Integration Testing &mdash; Odahu 1.0.0-rc27 documentation</title>
+  <title>Integration+ Testing &mdash; Odahu 1.0.0-rc27 documentation</title>
   
 
   
@@ -126,8 +126,9 @@
 <li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#odahu-odahu-infra">odahu/odahu-infra</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Integration Testing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#running-system-integration-tests">Running system/integration tests</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Integration+ Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preparing-for-testing">Preparing for testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running tests</a></li>
 </ul>
 </li>
 </ul>
@@ -175,7 +176,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Integration Testing</li>
+      <li>Integration+ Testing</li>
     
     
 <li class="wy-breadcrumbs-aside">
@@ -191,50 +192,96 @@
            <div itemprop="articleBody">
             
   <div class="section" id="integration-testing">
-<h1>Integration Testing<a class="headerlink" href="#integration-testing" title="Permalink to this headline">¶</a></h1>
-<p>Odahu uses the robotframework for an integration testing.
-System/integration tests located in the following directories:</p>
+<h1>Integration+ Testing<a class="headerlink" href="#integration-testing" title="Permalink to this headline">¶</a></h1>
+<p>This page provides information about testing of ODAHU.
+ODAHU uses <a class="reference external" href="https://robotframework.org/">Robot Framework</a> for an integration, system and end-to-end testings.</p>
+<p>All tests are located in the following directories of the <a class="reference external" href="https://github.com/odahu/odahu-flow">ODAHU project</a>:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">packages/robot</span></code> - a python package with additional Robot libraries. For example: kubernetes, auth_client, feedback, and so on.</li>
-<li><code class="docutils literal notranslate"><span class="pre">packages/tests/stuff</span></code> - artifacts for integration testing. For example: pre-trained ML artifacts, test toolchain integrations, and so on.</li>
-<li><code class="docutils literal notranslate"><span class="pre">packages/tests/e2e</span></code> - directory with the RobotFramework tests.</li>
+<li><code class="docutils literal notranslate"><span class="pre">packages/robot/</span></code> - a python package with additional Robot libraries. For example: kubernetes, auth_client, feedback, and so on.</li>
+<li><code class="docutils literal notranslate"><span class="pre">packages/tests/stuff/</span></code> - artifacts for integration testing. For example: pre-trained ML artifacts, test toolchain integrations, and so on.</li>
+<li><code class="docutils literal notranslate"><span class="pre">packages/tests/e2e/</span></code> - directory with the RobotFramework tests.</li>
 </ul>
-<div class="section" id="running-system-integration-tests">
-<h2>Running system/integration tests<a class="headerlink" href="#running-system-integration-tests" title="Permalink to this headline">¶</a></h2>
-<p>We set up robot tests for <code class="docutils literal notranslate"><span class="pre">gke-odahu-flow-test</span></code> cluster in the example below.
-<em>Do not forget change your cluster url and odahu-flow version.</em></p>
-<p>Export cluster secrets from odahu-flow-profiles directory.</p>
+<div class="section" id="preparing-for-testing">
+<h2>Preparing for testing<a class="headerlink" href="#preparing-for-testing" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<p>It’s expected that you are using POSIX-compliant operating system and have installed Python 3.6.9+ and pip.</p>
+<ol>
+<li><p class="first"><a class="reference external" href="https://github.com/odahu/odahu-flow">Clone</a> ODAHU project from git repository and proceed to main dir – <code class="docutils literal notranslate"><span class="pre">odahu-flow</span></code>.</p>
+</li>
+<li><p class="first"><a class="reference external" href="https://docs.python.org/3/library/venv.html">Create</a> Python virtual environment
+e.g. in the folder <code class="docutils literal notranslate"><span class="pre">./odahu-flow/virtual_environment/</span></code> and activate one.</p>
+</li>
+<li><p class="first"><a class="reference external" href="https://github.com/robotframework/robotframework/blob/master/INSTALL.rst">Install</a> Robot Framework</p>
+</li>
+<li><p class="first">Update and/or install <strong>setuptools</strong> and <strong>pip</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install -U setuptools <span class="o">&amp;&amp;</span> pip install -U pip
+</pre></div>
+</div>
+</li>
+<li><p class="first">Proceed to the <code class="docutils literal notranslate"><span class="pre">odahu-flow</span></code> main directory where the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> is located and run <strong>make</strong> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/odahu-flow$ make install-all 
+</pre></div>
+</div>
+</li>
+<li><p class="first">Check that odahuflowctl works:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/odahu-flow$ odahuflowctl
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="running-tests">
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<p>We set up robot tests for <code class="docutils literal notranslate"><span class="pre">gke-odahu-flow-test</span></code> cluster in the example below.</p>
+<p><strong>NB.</strong> Do not forget change <strong>your cluster url</strong> and <strong>odahu-flow version</strong>.</p>
+<ol>
+<li><p class="first">By default put <code class="docutils literal notranslate"><span class="pre">cluster_profile.json</span></code> file in <code class="docutils literal notranslate"><span class="pre">odahu-flow/.secrets/</span></code> folder (by default) or you can specify another default name of file or directory in <em>‘Makefile’</em> in parameters: <code class="docutils literal notranslate"><span class="pre">SECRET_DIR</span></code> and <code class="docutils literal notranslate"><span class="pre">CLUSTER_PROFILE</span></code>.</p>
+</li>
+<li><p class="first">You can optionally override the following parameters in <code class="docutils literal notranslate"><span class="pre">.env</span></code> file (which by default are taken from <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>).</p>
 <ul class="simple">
-<li>Clones <em>internal</em> odahu-flow-profiles repository. Checkout your or the developer branch.</li>
-<li>Build hiera docker image using the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docker-build-hiera</span></code> command in odahu-flow-profiles directory.</li>
-<li>You can optionally override the following parameters in <code class="docutils literal notranslate"><span class="pre">.env</span></code> file:<ul>
 <li><code class="docutils literal notranslate"><span class="pre">CLUSTER_NAME</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">ROBOT_OPTIONS</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">ROBOT_FILES</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">HIERA_KEYS_DIR</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">SECRET_DIR</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">CLOUD_PROVIDER</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">DOCKER_REGISTRY</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">EXPORT_HIERA_DOCKER_IMAGE</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">ODAHUFLOW_PROFILES_DIR</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">ODAHUFLOW_VERSION</span></code>, etc.</li>
 </ul>
+<p>For that, you should create <code class="docutils literal notranslate"><span class="pre">.env</span></code> file in the main dir of the project (<code class="docutils literal notranslate"><span class="pre">odahu-flow</span></code>).</p>
 </li>
-<li>Executes <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">export-hiera</span></code> command.</li>
-<li>Verify that <code class="docutils literal notranslate"><span class="pre">${SECRET_DIR}/.cluster_profile.json</span></code> file was created.</li>
-</ul>
-<p>Updates the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file when you should override a default Makefile option:</p>
+<li><p class="first">In our example, we will override the parameters of <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> in <code class="docutils literal notranslate"><span class="pre">.env</span></code> file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cluster name</span>
 <span class="nv">CLUSTER_NAME</span><span class="o">=</span>gke-odahu-flow-test
-<span class="c1"># Optionnaly, you can provide RobotFramework settings below.</span>
+<span class="c1"># Optionally, you can provide RobotFramework settings below.</span>
 <span class="c1"># Additional robot parameters. For example, you can specify tags or variables.</span>
 <span class="nv">ROBOT_OPTIONS</span><span class="o">=</span>-e disable
 <span class="c1"># Robot files</span>
 <span class="nv">ROBOT_FILES</span><span class="o">=</span>**/*.robot
+<span class="c1"># Cloud which will be used</span>
+<span class="nv">CLOUD_PROVIDER</span><span class="o">=</span>gcp
+<span class="c1"># Docker registry</span>
+<span class="nv">DOCKER_REGISTRY</span><span class="o">=</span>gcr.io/or2-msq-&lt;myprojectid&gt;-t1iylu/odahu
+<span class="c1"># Version of odahu-flow</span>
+<span class="nv">ODAHUFLOW_VERSION</span><span class="o">=</span><span class="m">1</span>.1.0-rc8
 </pre></div>
 </div>
-<p>Afterward, you should set up a Odahu cluster for RobotFramework tests using the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">setup-e2e-robot</span></code> command.
-You should execute the previous command only once.</p>
-<p>Finally, starts the robot tests:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make e2e-robot
+</li>
+<li><p class="first">Afterwards, you should prepare an Odahu cluster for Robot Framework tests by using the command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span> /odahu-flow$ make setup-e2e-robot
 </pre></div>
 </div>
+<p><strong>NB.</strong> You should execute the previous command only once for a new cluster.</p>
+</li>
+<li><p class="first">Finally, start the robot tests:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/odahu-flow$ make e2e-robot
+</pre></div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 
