@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Security (new) &mdash; Odahu 1.0.0-rc27 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/nav_content_width.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="tutorials_installation.html" />
+    <link rel="prev" title="Security" href="gen_security.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Odahu
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Security (new)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#component-roles">Component roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#odahu-api-http-request-lifecycle">ODAHU API HTTP Request Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#odahu-built-in-roles">ODAHU Built-in Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customize-rbac">Customize RBAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customize-abac">Customize ABAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-configure-keycloak">Example: Configure Keycloak</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Quickstart</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_jupyterlab_extension.html">JupyterLab extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ref_odahuflowctl.html">Odahuflowctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_connections.html">Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#odahu-odahu-infra">odahu/odahu-infra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration+ Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Odahu</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Security (new)</li>
+    
+    
+<li class="wy-breadcrumbs-aside">
+<a href="odahu-docs.pdf">Get PDF version</a>
+</li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="security-new">
+<h1>Security (new)<a class="headerlink" href="#security-new" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
+<p>Prime goals of ODAHU Security system is provide
+<a class="reference external" href="https://en.wikipedia.org/wiki/Authentication">authentication</a> and
+<a class="reference external" href="https://en.wikipedia.org/wiki/Authorization">authorization</a>
+of requests to all system’s components.</p>
+</div>
+<div class="section" id="component-roles">
+<h2>Component roles<a class="headerlink" href="#component-roles" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Identity Provider (idP)</dt>
+<dd>Component that provides information about entity (user or service).</dd>
+</dl>
+<dl class="docutils">
+<dt>Policy Enforcement Point (PEP)</dt>
+<dd>Component located in the middle of party who makes request and protected resource.
+PEP ensures that all requests will be validated by security policy before sent to upstream API.</dd>
+</dl>
+<dl class="docutils">
+<dt>Policy Decision Point (PDP)</dt>
+<dd>Component that makes decision whether request (action in the system) should be permitted or not.</dd>
+</dl>
+</div>
+<div class="section" id="components">
+<h2>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h2>
+<p>What exactly components solve different problems in cluster</p>
+<ul class="simple">
+<li>Any OpenID connect compatible service as an <a href="#id1"><span class="problematic" id="id2">`my-reference-label`_</span></a></li>
+<li><a class="reference external" href="https://www.envoyproxy.io/">Envoy proxy</a> with <a class="reference external" href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/ext_authz_filter#arch-overview-ext-authz">Envoy external authorization</a> as a PEP</li>
+<li><a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> as a PDP</li>
+</ul>
+</div>
+<div class="section" id="odahu-api-http-request-lifecycle">
+<h2>ODAHU API HTTP Request Lifecycle<a class="headerlink" href="#odahu-api-http-request-lifecycle" title="Permalink to this headline">¶</a></h2>
+<p>HTTP request lifecycle to ODAHU API is shown below.
+Such overview helps to understand key phases and components of ODAHU Security system.</p>
+<img alt="img/odahu_security.png" src="img/odahu_security.png" />
+<ol class="arabic simple">
+<li>HTTP Request from outside the cluster perimeter.<ol class="arabic">
+<li>User make request that is intercepted by OAuth2Proxy.</li>
+<li>OAuth2Proxy looks up cookies that contain JWT Token issued by Identity Provider.
+And if there are no such cookies it redirects user to Identity provider Auth url.
+After successful login OAuth2Proxy set issued token to cookies and send request to upstream.
+Before proxying requests to upstream OAuth2Proxy add HTTP Authorization header by setting it from the cookie.</li>
+<li>OAuth2Proxy send request to Up  stream.</li>
+</ol>
+</li>
+<li>HTTP Request from inside the cluster perimeter. Such requests usually made by background processes inside cluster
+on behalf of service accounts.<ol class="arabic">
+<li>Service should previously authenticate in idP using OpenID protocol.
+The most suitable way to authenticate services is <a class="reference external" href="https://tools.ietf.org/html/rfc6749#section-4.4">OAuth2 Client Credentials Grant</a></li>
+<li>Service makes request to API using issued JWT token as HTTP header</li>
+</ol>
+</li>
+<li>Envoy proxy that is configured as sidecar container by Istio Pilot for those ODAHU components that must be
+protected ensures that security policy allows to make this request to ODAHU API</li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Envoy verifies JWT token using filter</li>
+<li>Envoy makes query to <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> to check permissions for request</li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>If request if permitted by <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> it is sent to upstream (ODAHU API)</li>
+</ol>
+</div>
+<div class="section" id="odahu-built-in-roles">
+<h2>ODAHU Built-in Roles<a class="headerlink" href="#odahu-built-in-roles" title="Permalink to this headline">¶</a></h2>
+<p>Describe ODAHU roles</p>
+</div>
+<div class="section" id="customize-rbac">
+<h2>Customize RBAC<a class="headerlink" href="#customize-rbac" title="Permalink to this headline">¶</a></h2>
+<p>Info about how to edit odahu policies to manage RBAC</p>
+</div>
+<div class="section" id="customize-abac">
+<h2>Customize ABAC<a class="headerlink" href="#customize-abac" title="Permalink to this headline">¶</a></h2>
+<p>Info about how to edit odahu policies to manage ABAC</p>
+</div>
+<div class="section" id="example-configure-keycloak">
+<h2>Example: Configure Keycloak<a class="headerlink" href="#example-configure-keycloak" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>How to assign role to existing user?</li>
+<li>How to assign role to all users automatically?</li>
+<li>How to create service account with appropriate role?</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorials_installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gen_security.html" class="btn btn-neutral" title="Security" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Odahu Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0-rc27',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
