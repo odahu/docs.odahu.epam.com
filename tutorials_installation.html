@@ -110,6 +110,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#install-knative">Install Knative</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-tekton-pipelines">Install Tekton Pipelines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-fluentd-with-set-of-cloud-object-storage-plugins">Install Fluentd with set of cloud object storage plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-open-policy-agent-optional">Install Open Policy Agent (optional)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#install-odahu">Install ODAHU</a><ul>
@@ -502,6 +503,54 @@ EOF
 </pre></div>
 </div>
 </div>
+<div class="section" id="install-open-policy-agent-optional">
+<h3>Install <a class="reference external" href="https://www.openpolicyagent.org/">Open Policy Agent</a> (optional)<a class="headerlink" href="#install-open-policy-agent-optional" title="Permalink to this headline">¶</a></h3>
+<p>To activate API authentication and authorization using <a class="reference internal" href="gen_security.html#security"><span class="std std-ref">Security</span></a>
+install OpenPolicyAgent (OPA) helm chart with ODAHU built-in policies.</p>
+<p>Create namespace for OPA</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl create namespace odahu-flow-opa
+</pre></div>
+</div>
+<p>Install OpenPolicyAgent with <a class="reference external" href="https://github.com/odahu/odahu-helm/tree/master/odahu-flow-opa">Helm
+chart</a>
+provided by ODAHU team:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install odahu/odahu-flow-opa --name odahu-flow-opa --namespace odahu-flow-opa
+</pre></div>
+</div>
+<p>You must configure your OpenID provider (to allow envoy JWT token verifying) using next Helm values</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Parameters to configure OpenID provider</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># authn overrides configuration of envoy.filters.http.jwt_authn http filter</span>
+<span class="nt">authn</span><span class="p">:</span>
+  <span class="c1"># enabled activate envoy authn filter that verify jwt token and pass parsed data</span>
+  <span class="c1"># to next filters (particularly to authz)</span>
+  <span class="nt">oidcIssuer</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">oidcJwks</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">oidcHost</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">localJwks</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>For information about <cite>authn</cite> section parameters see
+<a class="reference external" href="https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/filter/http/jwt_authn/v2alpha/config.proto">docs for envoy authentication filter</a></p>
+<p id="how-to-customize-opa-policies">By default chart is delivered with <a class="reference internal" href="gen_security.html#built-in-policies-overview"><span class="std std-ref">built-in policies</span></a>
+that implements Role base access system
+and set of pre-defined roles. To customize some of built-in policies files or define new ones use next Helm values</p>
+<div class="literal-block-wrapper docutils container" id="customize-opa-policies">
+<div class="code-block-caption"><span class="caption-text">Parameters to configure built-in policies</span><a class="headerlink" href="#customize-opa-policies" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">opa</span><span class="p">:</span>
+  <span class="nt">policies</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
+  <span class="c1">#  policies:</span>
+    <span class="c1">#  file1: &quot;.rego policy content encoded as base64&quot;</span>
+    <span class="c1">#  file2: &quot;.rego policy content encoded as base64&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">content of rego files defined in values.yaml should be base64 encoded</p>
+</div>
+</div>
 </div>
 <div class="section" id="install-odahu">
 <span id="tutorials-installation-odahu-svc"></span><h2>Install ODAHU<a class="headerlink" href="#install-odahu" title="Permalink to this headline">¶</a></h2>
@@ -588,6 +637,80 @@ values YAML in advance.</p>
     webUILink: https://console.cloud.google.com/storage/browser/odahu-flow-test-store/output?project=my-gcp-project-id-zzzzz
 </pre></div>
 </div>
+<p>If you install <span class="xref std std-ref">Open Policy Agent</span> for ODAHU then you will need to configure service accounts
+which will be used by ODAHU core background services such as <span class="xref std std-term">&lt;Trainer&gt;</span> or <span class="xref std std-term">&lt;Packager&gt;</span>.</p>
+<p>All service accounts below require <cite>odahu-admin</cite> ODAHU built-in role.
+(see more about built-in roles in <a class="reference internal" href="gen_security.html#pre-defined-roles-overview"><span class="std std-ref">security docs</span></a>)</p>
+<p>Next values with service account credentials are required :</p>
+<div class="literal-block-wrapper docutils container" id="set-credentials-for-core-service-accounts">
+<div class="code-block-caption"><span class="caption-text">values.yaml</span><a class="headerlink" href="#set-credentials-for-core-service-accounts" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">config</span><span class="p">:</span>
+  <span class="nt">operator</span><span class="p">:</span>
+    <span class="c1"># OpenId Provider token url</span>
+    <span class="nt">oauth_oidc_token_endpoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oauth2.googleapis.com/token</span>
+    <span class="c1"># Credentials from OAuth2 client with Client Credentials Grant</span>
+    <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-id</span>
+    <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+
+  <span class="nt">trainer</span><span class="p">:</span>
+    <span class="c1"># OpenId Provider token url</span>
+    <span class="nt">oauth_oidc_token_endpoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oauth2.googleapis.com/token</span>
+    <span class="c1"># Credentials from OAuth2 client with Client Credentials Grant</span>
+    <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-id</span>
+    <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+
+  <span class="nt">packager</span><span class="p">:</span>
+    <span class="c1"># OpenId Provider token url</span>
+    <span class="nt">oauth_oidc_token_endpoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oauth2.googleapis.com/token</span>
+    <span class="c1"># Credentials from OAuth2 client with Client Credentials Grant</span>
+    <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-id</span>
+    <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+
+<span class="c1"># Service account used to upload odahu resources via odahuflowctl</span>
+<span class="nt">resource_uploader_sa</span><span class="p">:</span>
+  <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some-client-id</span>
+  <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+
+<span class="c1"># OpenID provider url</span>
+<span class="nt">oauth_oidc_issuer_url</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>In this file, we:</p>
+<ul class="simple">
+<li>lines 2-7: configure service account for <a class="reference internal" href="gen_glossary.html#term-operator"><span class="xref std std-term">Operator</span></a></li>
+<li>lines 9-14: configure service account for <a class="reference internal" href="gen_glossary.html#term-trainer"><span class="xref std std-term">Trainer</span></a></li>
+<li>lines 16-21: configure service account for <a class="reference internal" href="gen_glossary.html#term-packager"><span class="xref std std-term">Packager</span></a></li>
+<li>lines 24-29: configure service account Kubernetes Job that install some ODAHU Manifests using ODAHU API</li>
+</ul>
 <p>Install odahu-flow core services:</p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install odahu/odahu-flow-core --name odahu-flow --namespace odahu-flow --values ./odahuflow_values.yaml
 </pre></div>
@@ -611,6 +734,28 @@ toolchain_integration:
 EOF
 </pre></div>
 </div>
+<p>If you install <span class="xref std std-ref">Open Policy Agent</span> for ODAHU then you will need to configure service account
+for a Kubernetes Job that install some ODAHU Manifests using ODAHU API. This Service account should have role
+<cite>odahu-admin</cite>.</p>
+<p>Next values with service account credentials are required :</p>
+<div class="literal-block-wrapper docutils container" id="set-credentials-for-core-service-account">
+<div class="code-block-caption"><span class="caption-text">values.yaml</span><a class="headerlink" href="#set-credentials-for-core-service-account" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Service account used to upload odahu resources via odahuflowctl</span>
+<span class="nt">resource_uploader_sa</span><span class="p">:</span>
+  <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some-client-id</span>
+  <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+
+<span class="c1"># OpenID provider url</span>
+<span class="nt">oauth_oidc_issuer_url</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
 <p>Install Helm chart:</p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install odahu/odahu-flow-mlflow --name odahu-flow-mlflow --namespace odahu-flow \
     --values ./mlflow_values.yaml
@@ -619,6 +764,28 @@ EOF
 </div>
 <div class="section" id="packaging-service">
 <h3>Packaging service<a class="headerlink" href="#packaging-service" title="Permalink to this headline">¶</a></h3>
+<p>If you install <span class="xref std std-ref">Open Policy Agent</span> for ODAHU then you will need to configure service account
+for a Kubernetes Job that install some ODAHU Manifests using ODAHU API. This Service account should have role
+<cite>odahu-admin</cite>.</p>
+<p>Next values with service account credentials are required :</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">values.yaml</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Service account used to upload odahu resources via odahuflowctl</span>
+<span class="nt">resource_uploader_sa</span><span class="p">:</span>
+  <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some-client-id</span>
+  <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+
+<span class="c1"># OpenID provider url</span>
+<span class="nt">oauth_oidc_issuer_url</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
 <p>Install <a class="reference external" href="https://github.com/odahu/odahu-packager/tree/develop/helms/odahu-flow-packagers">odahu-flow-packagers</a>
 Helm chart:</p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install odahu/odahu-flow-packagers --name odahu-flow-packagers --namespace odahu-flow
