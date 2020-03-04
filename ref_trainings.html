@@ -96,7 +96,8 @@
 <p class="caption"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Cluster Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_local_wine.html">Local Quickstart</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
@@ -118,6 +119,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Model Trainings</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#general-training-structure">General training structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#training-data">Training data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gpu">GPU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-dependencies-cache">Model Dependencies Cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#trainings-management">Trainings management</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#swagger-ui">Swagger UI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#odahu-flow-cli">Odahu-flow CLI</a></li>
@@ -334,6 +337,88 @@ Data source supports the following types of Odahu-flow connections:</p>
 </div>
 </div>
 </div>
+<div class="section" id="gpu">
+<h2>GPU<a class="headerlink" href="#gpu" title="Permalink to this headline">¶</a></h2>
+<p>Odahu-flow supports model training on GPU nodes.</p>
+<p>You can find more about GPU deployment configuration in the <a class="reference internal" href="tutorials_installation.html#kubernetes-setup"><span class="std std-ref">installation guide</span></a>.</p>
+<p>In order to provision a training container in the GPU node pool,
+you must specify the GPU resource in the model training manifest.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Training on GPU</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
+<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gpu-model</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">resources</span><span class="p">:</span>
+    <span class="nt">limits</span><span class="p">:</span>
+      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+      <span class="nt">gpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">requests</span><span class="p">:</span>
+      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="model-dependencies-cache">
+<h2>Model Dependencies Cache<a class="headerlink" href="#model-dependencies-cache" title="Permalink to this headline">¶</a></h2>
+<p>ODAHU Flow downloads your dependencies on every model training launch.
+You can experience the following troubles with this approach:</p>
+<blockquote>
+<div><ul class="simple">
+<li>downloading and installation of some dependencies can take a long time</li>
+<li>network errors during downloading dependencies due to network errors</li>
+</ul>
+</div></blockquote>
+<p>To overcome these and other problems, ODAHU Flow provides a way to specify
+a prebuilt training Docker image with your dependencies.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you have different versions of a library in your model сonda file and
+cache container, then the model dependency has a priority.
+It will be downloaded during model training.</p>
+</div>
+<p>First of all, you have to describe the Dockerfile:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Inherit from a release version of odahu-flow-mlflow-toolchain</li>
+<li>Optionally, add install dependencies</li>
+<li>Add a model conda file</li>
+<li>Update the <code class="docutils literal notranslate"><span class="pre">odahu_model</span></code> conda environment.</li>
+</ul>
+</div></blockquote>
+<div class="literal-block-wrapper docutils container" id="example-of-dockerfile">
+<div class="code-block-caption"><span class="caption-text">Example of Dockerfile:</span><a class="headerlink" href="#example-of-dockerfile" title="Permalink to this code">¶</a></div>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span> <span class="s">odahu/odahu-flow-mlflow-toolchain:1.1.0-rc11</span>
+
+<span class="c"># Optionally</span>
+<span class="c"># apt-get install -y wget</span>
+
+<span class="k">ADD</span> conda.yaml ./
+<span class="k">RUN</span> conda env update -n <span class="si">${</span><span class="nv">ODAHU_CONDA_ENV_NAME</span><span class="si">}</span> -f conda.yaml
+</pre></div>
+</div>
+</div>
+<p>Build the docker image:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker build -t training-model-cache:1.0.0 .
+</pre></div>
+</div>
+<p>Push the docker image to a registry:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker push training-model-cache:1.0.0
+</pre></div>
+</div>
+<p>Specify the image in a model training:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Training example</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
+<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model-12345</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">training-model-cache:1.0.0</span>
+  <span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="trainings-management">
 <h2>Trainings management<a class="headerlink" href="#trainings-management" title="Permalink to this headline">¶</a></h2>
 <p>Trainings can be managed using the following ways.</p>
@@ -368,9 +453,6 @@ You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><sp
 <ul class="simple">
 <li>All training commands and documentation:</li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl train --help
-</pre></div>
-</div>
 </div>
 <div class="section" id="jupyterlab">
 <h3>JupyterLab<a class="headerlink" href="#jupyterlab" title="Permalink to this headline">¶</a></h3>
@@ -443,8 +525,8 @@ Next, you can find the Model Trainings for the MLProject file.</p>
 <div class="section" id="mlflow-protocol">
 <h3>MLFlow protocol<a class="headerlink" href="#mlflow-protocol" title="Permalink to this headline">¶</a></h3>
 <p>Odahu-flow requires that a model be logged through <a class="reference external" href="https://www.mlflow.org/docs/latest/python_api/mlflow.pyfunc.html#mlflow.pyfunc.log_model">mlflow API</a>.</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Example of sklearn model logging:</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Example of sklearn model logging:</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mlflow</span><span class="o">.</span><span class="n">sklearn</span><span class="o">.</span><span class="n">log_model</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -452,8 +534,8 @@ Next, you can find the Model Trainings for the MLProject file.</p>
 <p>Optionally, you can provide input and output samples for Odahu-flow.
 It allows determining input and output types for Odahu-flow packagers.
 These names must be <cite>head_input.pkl</cite> and <cite>head_output.pkl</cite>, respectively.</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Example of input and output samples logging:</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Example of input and output samples logging:</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">train_x</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="s1">&#39;head_input.pkl&#39;</span><span class="p">)</span>
 <span class="n">mlflow</span><span class="o">.</span><span class="n">log_artifact</span><span class="p">(</span><span class="s1">&#39;head_input.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">)</span>
 <span class="n">train_y</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="s1">&#39;head_output.pkl&#39;</span><span class="p">)</span>

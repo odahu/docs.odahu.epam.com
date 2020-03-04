@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Local Quickstart &mdash; Odahu 1.0.0-rc27 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/nav_content_width.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API" href="comp_api.html" />
+    <link rel="prev" title="Cluster Quickstart" href="tutorials_wine.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Odahu
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorials_installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Cluster Quickstart</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Local Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorial">Tutorial</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_jupyterlab_extension.html">JupyterLab extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ref_odahuflowctl.html">Odahuflowctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_connections.html">Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#odahu-odahu-infra">odahu/odahu-infra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration+ Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Odahu</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Local Quickstart</li>
+    
+    
+<li class="wy-breadcrumbs-aside">
+<a href="odahu-docs.pdf">Get PDF version</a>
+</li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="local-quickstart">
+<h1>Local Quickstart<a class="headerlink" href="#local-quickstart" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we will walk through the training, packaging and serving of
+a machine learning model locally by leveraging ODAHUFlow’s main components.</p>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a></li>
+<li>git</li>
+<li>wget</li>
+</ul>
+</div>
+<div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<p>We will consider the wine model from <a class="reference internal" href="tutorials_wine.html#cluster-quickstart"><span class="std std-ref">Cluster Quickstart</span></a>.
+But now, we will train, package and deploy the model locally.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Code for the tutorial is available on <a class="reference external" href="https://github.com/odahu/odahu-examples/tree/master/mlflow/sklearn/wine">GitHub</a>.</p>
+</div>
+<p><cite>odahuflowctl</cite> has commands for local training and packaging.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl <span class="nb">local</span> --help
+</pre></div>
+</div>
+<p>To train a model locally, you have to provide an ODAHU model training manifest and
+training toolchain. <cite>odahuflowctl</cite> tries to find them on your local filesystem.
+If it can not do it, then the CLI requests to ODAHU API.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Local training arguments:</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  --train-id, --id TEXT        Model training ID  [required]
+  -f, --manifest-file PATH     Path to a ODAHU-flow manifest file
+  -d, --manifest-dir PATH      Path to a directory with ODAHU-flow manifests
+</pre></div>
+</div>
+</div>
+<p>The <cite>mlflow/sklearn/wine/odahuflow</cite> directory already contains training manifest file
+for wine model. If we don’t have a running ODAHUFlow API server, we should create
+toolchain manifest manually.</p>
+<p>Paste the toolchain manifest into the <cite>mlflow/sklearn/wine/odahuflow/toolchain.yaml</cite> file:</p>
+<div class="highlight-yaml notranslate" id="toolchain-integration"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ToolchainIntegration</span>
+<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">defaultImage</span><span class="p">:</span> <span class="s">&quot;odahu/odahu-flow-mlflow-toolchain:1.1.0-rc11&quot;</span>
+  <span class="nt">entrypoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/opt/conda/bin/odahu-flow-mlflow-runner</span>
+</pre></div>
+</div>
+<p>We are ready to launch the local training. Copy, past and execute the following command.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl <span class="nb">local</span> train run -d mlflow/sklearn/wine/odahuflow --id wine
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">MLFlow metrics does not propagate to the tracking server during training.
+This will be implemented in the near future.</p>
+</div>
+<p><cite>odahuflowctl</cite> trains the model, verify that it satisfy the GPPI spec and save
+GPPI binary in the host filesystem. Execute the following command to take a look
+all trained models.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl <span class="nb">local</span> train list
+</pre></div>
+</div>
+<p>Our next step is to package the trained model to a REST service.
+Like for local training, local packaging requires a model packaging and
+packaging integration manifests.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Local packaging arguments:</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  --pack-id, --id TEXT            Model packaging ID  [required]
+  -f, --manifest-file PATH        Path to a ODAHU-flow manifest file
+  -d, --manifest-dir PATH         Path to a directory with ODAHU-flow manifest files
+  --artifact-path PATH            Path to a training artifact
+  -a, --artifact-name TEXT        Override artifact name from file
+</pre></div>
+</div>
+</div>
+<p>Paste the packaging integration manifest into the <cite>mlflow/sklearn/wine/odahuflow/packager.yaml</cite> file:</p>
+<div class="highlight-yaml notranslate" id="packaging-integration"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PackagingIntegration</span>
+<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-rest</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">entrypoint</span><span class="p">:</span> <span class="s">&quot;/usr/local/bin/odahu-flow-pack-to-rest&quot;</span>
+  <span class="nt">defaultImage</span><span class="p">:</span> <span class="s">&quot;odahu/odahu-flow-packagers:1.1.0-rc11&quot;</span>
+  <span class="nt">privileged</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">schema</span><span class="p">:</span>
+    <span class="nt">targets</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-push</span>
+        <span class="nt">connectionTypes</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;docker&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;ecr&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">required</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-pull</span>
+        <span class="nt">connectionTypes</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;docker&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;ecr&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">required</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="nt">arguments</span><span class="p">:</span>
+      <span class="nt">properties</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dockerfileAddCondaInstallation</span>
+          <span class="nt">parameters</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Add conda installation code to training.Dockerfile</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dockerfileBaseImage</span>
+          <span class="nt">parameters</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Base image for training.Dockerfile.</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="s">&#39;odahu/odahu-flow-docker-packager-base:1.1.0-rc11&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dockerfileCondaEnvsLocation</span>
+          <span class="nt">parameters</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Conda env location in training.Dockerfile.</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/opt/conda/envs/</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">host</span>
+          <span class="nt">parameters</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Host to bind.</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0.0.0</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">port</span>
+          <span class="nt">parameters</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Port to bind.</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5000</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">timeout</span>
+          <span class="nt">parameters</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Serving timeout in seconds.</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">workers</span>
+          <span class="nt">parameters</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Count of serving workers.</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">threads</span>
+          <span class="nt">parameters</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Count of serving threads.</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">imageName</span>
+          <span class="nt">parameters</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+                <span class="no">This option provides a way to specify the Docker image name. You can hardcode the full name or specify a template. Available template values:</span>
+                  <span class="no">- Name (Model Name)</span>
+                  <span class="no">- Version (Model Version)</span>
+                  <span class="no">- RandomUUID</span>
+                <span class="no">The default value is &#39;{{ Name }}/{{ Version }}:{{ RandomUUID }}&#39;.</span>
+                <span class="no">Image name examples:</span>
+                  <span class="no">- myservice:123</span>
+                  <span class="no">- {{ Name }}:{{ Version }}</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+              <span class="nt">value</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">Name</span><span class="nv"> </span><span class="s">}}-{{</span><span class="nv"> </span><span class="s">Version</span><span class="nv"> </span><span class="s">}}:{{</span><span class="nv"> </span><span class="s">RandomUUID</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</pre></div>
+</div>
+<p>Choose the name of trained artifact and execute the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl --verbose <span class="nb">local</span> pack run -d mlflow/sklearn/wine/odahuflow --id wine -a wine-1.0-wine-1.0-01-Mar-2020-18-33-35
+</pre></div>
+</div>
+<p>The last lines of output must contains a name of model REST service.</p>
+<p>At the last step, we run our REST service and make a predict.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run -it --rm -p <span class="m">5000</span>:5000 wine-1.0:cbf184d0-4b08-45c4-8efb-17e28a3b537e
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl model invoke --url http://0:5000 --json-file mlflow/sklearn/wine/odahuflow/request.json
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="comp_api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorials_wine.html" class="btn btn-neutral" title="Cluster Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Odahu Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0-rc27',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

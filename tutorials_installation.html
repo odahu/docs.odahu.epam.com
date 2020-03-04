@@ -31,7 +31,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quickstart" href="tutorials_wine.html" />
+    <link rel="next" title="Cluster Quickstart" href="tutorials_wine.html" />
     <link rel="prev" title="Security" href="gen_security.html" /> 
 
   
@@ -124,7 +124,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Cluster Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_local_wine.html">Local Quickstart</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
@@ -254,6 +255,8 @@ to deploy Kubernetes cluster with and use it credentials for access to object st
 <p class="last">Make sure that the disk size on the cluster nodes is sufficient to store images for all services and packaged models.
 We recommend using a disk size of at least 100 GiB.</p>
 </div>
+<p>You can enable the GPU on your Kubernetes cluster, follow the <a class="reference external" href="https://cloud.google.com/kubernetes-engine/docs/how-to/gpus">instructions</a>
+on how to use GPU hardware accelerators in your GKE clusters’ nodes.</p>
 <p>Fetch your Kubernetes credentials for kubectl after cluster is successfully deployed:</p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ gcloud container clusters get-credentials &lt;cluster-name&gt; \
     --zone &lt;cluster-region&gt; \
@@ -608,6 +611,22 @@ It should point to LoadBalancer IP got from <a class="reference internal" href="
 </div>
 <p>In order to setup ODAHU services along with ready-to-use <a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">connections</span></a>, you may add according section to
 values YAML in advance.</p>
+<p>To support training on GPU, you should provide the GPU node selectors and tolerations:</p>
+<p>Example:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Example of Connection GCS:</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">config</span><span class="p">:</span>
+  <span class="nt">training</span><span class="p">:</span>
+    <span class="nt">gpu_toleration</span><span class="p">:</span>
+      <span class="nt">Key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dedicated</span>
+      <span class="nt">Operator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Equal</span>
+      <span class="nt">Value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">training-gpu</span>
+      <span class="nt">Effect</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NO_SCHEDULE</span>
+    <span class="nt">gpu_node_selector</span><span class="p">:</span>
+      <span class="nt">mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-training-gpu</span>
+</pre></div>
+</div>
+</div>
 <p>Examples:</p>
 <ol class="loweralpha simple">
 <li><a class="reference internal" href="ref_connections.html#docker"><span class="std std-ref">Docker registry connection</span></a> is used to pull/push Odahu packager resulting Docker images to a Docker registry</li>
@@ -831,7 +850,7 @@ command:</p>
 </div>
 <div class="section" id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
-<p>After successful deployment of a cluster, you may proceed to <a class="reference internal" href="tutorials_wine.html#quickstart"><span class="std std-ref">Quickstart section</span></a> and learn how to perform base ML operations such as <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">train</span></a>, <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">package</span></a> and <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">deploy</span></a> steps.</p>
+<p>After successful deployment of a cluster, you may proceed to <span class="xref std std-ref">Quickstart section</span> and learn how to perform base ML operations such as <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">train</span></a>, <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">package</span></a> and <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">deploy</span></a> steps.</p>
 </div>
 </div>
 
@@ -843,7 +862,7 @@ command:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tutorials_wine.html" class="btn btn-neutral float-right" title="Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tutorials_wine.html" class="btn btn-neutral float-right" title="Cluster Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="gen_security.html" class="btn btn-neutral" title="Security" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

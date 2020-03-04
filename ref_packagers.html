@@ -96,7 +96,8 @@
 <p class="caption"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials_installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Cluster Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_local_wine.html">Local Quickstart</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
@@ -125,6 +126,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#jupyterlab">JupyterLab</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#model-docker-dependencies-cache">Model Docker Dependencies Cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#docker-rest">Docker REST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#docker-cli">Docker CLI</a></li>
 </ul>
@@ -312,6 +314,66 @@ You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><sp
 <div class="section" id="jupyterlab">
 <h3>JupyterLab<a class="headerlink" href="#jupyterlab" title="Permalink to this headline">¶</a></h3>
 <p>Odahu-flow provides the <a class="reference internal" href="int_jupyterlab_extension.html#jupyterlab-extension"><span class="std std-ref">JupyterLab extension</span></a> for interacting with Packagers API.</p>
+</div>
+</div>
+<div class="section" id="model-docker-dependencies-cache">
+<h2>Model Docker Dependencies Cache<a class="headerlink" href="#model-docker-dependencies-cache" title="Permalink to this headline">¶</a></h2>
+<p>ODAHU Flow downloads your dependencies on every docker model packaging launch.
+You can experience the following troubles with this approach:</p>
+<blockquote>
+<div><ul class="simple">
+<li>downloading and installation of some dependencies can take a long time</li>
+<li>network errors during downloading dependencies due to network errors</li>
+</ul>
+</div></blockquote>
+<p>To overcome these and other problems, ODAHU Flow provides a way to specify
+a prebuilt packaging Docker image with your dependencies.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you have different versions of a library in your model сonda file and
+cache container, then the model dependency has a priority.
+It will be downloaded during model packaging.</p>
+</div>
+<p>First of all, you have to describe the Dockerfile:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Inherit from a release version of odahu-flow-docker-packager-base</li>
+<li>Optionally, add install dependencies</li>
+<li>Add a model conda file</li>
+<li>Update the <code class="docutils literal notranslate"><span class="pre">odahu_model</span></code> conda environment.</li>
+</ul>
+</div></blockquote>
+<div class="literal-block-wrapper docutils container" id="example-of-dockerfile">
+<div class="code-block-caption"><span class="caption-text">Example of Dockerfile:</span><a class="headerlink" href="#example-of-dockerfile" title="Permalink to this code">¶</a></div>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span> <span class="s">odahu/odahu-flow-docker-packager-base:1.1.0-rc11</span>
+
+<span class="c"># Optionally</span>
+<span class="c"># RUN pip install gunicorn[gevent]</span>
+
+<span class="k">ADD</span> conda.yaml ./
+<span class="k">RUN</span> conda env update -n <span class="si">${</span><span class="nv">ODAHU_CONDA_ENV_NAME</span><span class="si">}</span> -f conda.yaml
+</pre></div>
+</div>
+</div>
+<p>Build the docker image:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker build -t packaging-model-cache:1.0.0 .
+</pre></div>
+</div>
+<p>Push the docker image to a registry:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker push packaging-model-cache:1.0.0
+</pre></div>
+</div>
+<p>Specify the image in a model packaging:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Packaging example</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelPackaging</span>
+<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model-12345</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">arguments</span><span class="p">:</span>
+    <span class="nt">dockerfileBaseImage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">packaging-model-cache:1.0.0</span>
+  <span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="docker-rest">
@@ -677,14 +739,14 @@ The following example assumes that you have created a connection with <cite>test
 <li><cite>info</cite> - Show model input/output data schema</li>
 </ul>
 </div></blockquote>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Docker CLI info command</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Docker CLI info command</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -it --rm --net host gcr.io/project/odahuflow/wine-test:prefix-ec1bf1cd-216d-4f0a-a62f-bf084c79c58c info
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Docker CLI info command output</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Docker CLI info command output</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Input schema:
 {
     &quot;columns&quot;: {
@@ -742,8 +804,8 @@ Output schema:
 </div>
 </div>
 <p>Let’s make a batch prediction.</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Create a predict file</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Create a predict file</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir volume
 cat &gt; volume/predicts.json <span class="s">&lt;&lt;EOL</span>
 <span class="s">{</span>
@@ -770,8 +832,8 @@ docker run -it --rm --net -v volume:/volume host gcr.io/project/odahuflow/wine-t
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Result of prediction</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Result of prediction</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat volumes/result.json
 <span class="o">{</span>
   <span class="s2">&quot;prediction&quot;</span>: <span class="o">[</span>
