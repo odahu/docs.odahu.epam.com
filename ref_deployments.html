@@ -226,6 +226,11 @@ Additionally, it provides the following set of features:</p>
 <div class="code-block-caption"><span class="caption-text">Deployment API</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelDeployment</span>
 <span class="c1"># Some unique value among all deployments</span>
+<span class="c1"># Id must:</span>
+<span class="c1">#  * contain at most 63 characters</span>
+<span class="c1">#  * contain only lowercase alphanumeric characters or ‘-’</span>
+<span class="c1">#  * start with an alphanumeric character</span>
+<span class="c1">#  * end with an alphanumeric character</span>
 <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-12345</span>
 <span class="nt">spec</span><span class="p">:</span>
     <span class="c1"># Model image is required value. Change it</span>

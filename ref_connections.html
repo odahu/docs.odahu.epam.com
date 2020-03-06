@@ -219,7 +219,13 @@ You can find the examples of specific type of connection in the id of the <a cla
 Below you can find the description of all fields:</p>
 <div class="literal-block-wrapper docutils container" id="connection-api-file">
 <div class="code-block-caption"><span class="caption-text">Connection API</span><a class="headerlink" href="#connection-api-file" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Unique value among all connections</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Connection</span>
+<span class="c1"># Unique value among all connections</span>
+<span class="c1"># Id must:</span>
+<span class="c1">#  * contain at most 63 characters</span>
+<span class="c1">#  * contain only lowercase alphanumeric characters or ‘-’</span>
+<span class="c1">#  * start with an alphanumeric character</span>
+<span class="c1">#  * end with an alphanumeric character</span>
 <span class="nt">id</span><span class="p">:</span> <span class="s">&quot;id-12345&quot;</span>
 <span class="nt">spec</span><span class="p">:</span>
     <span class="c1"># Optionally description of a connection</span>
