@@ -126,15 +126,14 @@
 <li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#odahu-odahu-infra">odahu/odahu-infra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration+ Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
             
@@ -231,19 +230,23 @@
 <td>odahu/odahu-infra</td>
 <td>Prometheus, grafana and alertmanager</td>
 </tr>
-<tr class="row-even"><td>odahu-flow-tekton</td>
+<tr class="row-even"><td>odahu-flow-opa</td>
+<td>odahu/odahu-infra</td>
+<td>Open Policy Agent</td>
+</tr>
+<tr class="row-odd"><td>odahu-flow-tekton</td>
 <td>odahu/odahu-infra</td>
 <td>Custom tekton chart</td>
 </tr>
-<tr class="row-odd"><td>odahu-flow-core</td>
+<tr class="row-even"><td>odahu-flow-core</td>
 <td>odahu/odahu-flow</td>
 <td>Core Odahu-flow services</td>
 </tr>
-<tr class="row-even"><td>odahu-flow-mlflow</td>
+<tr class="row-odd"><td>odahu-flow-mlflow</td>
 <td>odahu/odahu-trainer</td>
 <td>Odahu-flow mlflow toolchain</td>
 </tr>
-<tr class="row-odd"><td>odahu-flow-packagers</td>
+<tr class="row-even"><td>odahu-flow-packagers</td>
 <td>odahu/odahu-packager</td>
 <td>Odahu-flow REST packager</td>
 </tr>

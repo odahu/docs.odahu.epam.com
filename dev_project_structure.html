@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>A repository directory structure &mdash; Odahu 1.0.0-rc27 documentation</title>
+  <title>Repositories &mdash; Odahu 1.0.0-rc27 documentation</title>
   
 
   
@@ -120,12 +120,13 @@
 <li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">A repository directory structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#repositories">Repositories</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Repositories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a-repository-directory-structure">A repository directory structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-odahu-flow">odahu/odahu-flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-odahu-trainer">odahu/odahu-trainer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-odahu-packager">odahu/odahu-packager</a></li>
@@ -133,11 +134,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#odahu-odahu-airflow-plugin">odahu/odahu-airflow-plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-odahu-docs">odahu/odahu-docs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-odahu-examples">odahu/odahu-examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#odahu-odahu-infra">odahu/odahu-infra</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#odahu-odahu-infra">odahu/odahu-infra</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration+ Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
             
@@ -183,7 +184,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>A repository directory structure</li>
+      <li>Repositories</li>
     
     
 <li class="wy-breadcrumbs-aside">
@@ -198,8 +199,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="a-repository-directory-structure">
-<h1>A repository directory structure<a class="headerlink" href="#a-repository-directory-structure" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="repositories">
+<h1>Repositories<a class="headerlink" href="#repositories" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="a-repository-directory-structure">
+<h2>A repository directory structure<a class="headerlink" href="#a-repository-directory-structure" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">containers</span></code> - docker files</li>
 <li><code class="docutils literal notranslate"><span class="pre">helms</span></code> - core helm chart</li>
@@ -207,8 +210,6 @@
 <li><code class="docutils literal notranslate"><span class="pre">scripts</span></code> - utility scripts for CI/CD process.</li>
 </ul>
 </div>
-<div class="section" id="repositories">
-<h1>Repositories<a class="headerlink" href="#repositories" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="odahu-odahu-flow">
 <h2><a class="reference external" href="https://github.com/odahu/odahu-flow">odahu/odahu-flow</a><a class="headerlink" href="#odahu-odahu-flow" title="Permalink to this headline">¶</a></h2>
 <p>Core services of Odahu-flow project.</p>
@@ -233,6 +234,7 @@
 <p>Collection of model packagers:</p>
 <ul class="simple">
 <li>docker-rest</li>
+<li>docker-cli</li>
 </ul>
 </div>
 <div class="section" id="odahu-odahu-flow-jupyterlab-plugin">
@@ -251,10 +253,10 @@
 <h2><a class="reference external" href="https://github.com/odahu/odahu-examples">odahu/odahu-examples</a><a class="headerlink" href="#odahu-odahu-examples" title="Permalink to this headline">¶</a></h2>
 <p>Examples of ML models.</p>
 </div>
-</div>
 <div class="section" id="odahu-odahu-infra">
-<h1><a class="reference external" href="https://github.com/odahu/odahu-infra">odahu/odahu-infra</a><a class="headerlink" href="#odahu-odahu-infra" title="Permalink to this headline">¶</a></h1>
+<h2><a class="reference external" href="https://github.com/odahu/odahu-infra">odahu/odahu-infra</a><a class="headerlink" href="#odahu-odahu-infra" title="Permalink to this headline">¶</a></h2>
 <p>Docker images and deployments script for third-party services.</p>
+</div>
 </div>
 
 

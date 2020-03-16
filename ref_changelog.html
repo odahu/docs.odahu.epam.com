@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Changelog &mdash; Odahu 1.0.0-rc27 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/nav_content_width.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Development" href="dev_general.html" />
+    <link rel="prev" title="Glossary" href="gen_glossary.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Odahu
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Cluster Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_local_wine.html">Local Quickstart</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_jupyterlab_extension.html">JupyterLab extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ref_odahuflowctl.html">Odahuflowctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_connections.html">Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#odahu-1-1-0-16-march-2020">Odahu 1.1.0, 16 March 2020</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#new-features">New Features:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#misc-internal">Misc/Internal</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Odahu</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Changelog</li>
+    
+    
+<li class="wy-breadcrumbs-aside">
+<a href="odahu-docs.pdf">Get PDF version</a>
+</li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="odahu-1-1-0-16-march-2020">
+<h2>Odahu 1.1.0, 16 March 2020<a class="headerlink" href="#odahu-1-1-0-16-march-2020" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="new-features">
+<h3>New Features:<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Jupyterhub:</dt>
+<dd>Supported the JupyterHub in our deployment scripts.
+JupyterHub allows spawning multiple instances of the JupyterLab server.
+By default, we provide the prebuilt ODAHU JupyterLab plugin in the following Docker images: <a class="reference external" href="https://hub.docker.com/r/odahu/base-notebook">base-notebook</a>, <a class="reference external" href="https://hub.docker.com/r/odahu/datascience-notebook">datascience-notebook</a>, and <a class="reference external" href="https://hub.docker.com/r/odahu/tensorflow-notebook">tensorflow-notebook</a>.
+To build a custom image, you can use <a class="reference external" href="https://github.com/odahu/odahu-flow-jupyterlab-plugin/blob/develop/containers/jupyter-stacks/Dockerfile">our Docker image template</a> or follow the <a class="reference internal" href="int_jupyterlab_extension.html#installation"><span class="std std-ref">instructions</span></a>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>GPU:</dt>
+<dd>Added the ability to deploy a model training on GPU nodes.
+You can find an example of training <a class="reference external" href="https://github.com/odahu/odahu-examples/tree/develop/mlflow/tensorflow/flower_classifier">here</a>.
+This is one of the official MLFlow examples that classifies flower species from photos.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Secuirty:</dt>
+<dd>We integrated our WEB API services with <a class="reference external" href="https://www.openpolicyagent.org/">Open Policy Agent</a> that flexibly allows managing ODAHU RBAC.
+Using <a class="reference external" href="https://istio.io/">Istio</a>, we forbid non-authorize access to our services.
+You can find the ODAHU security documentation <a class="reference internal" href="gen_security.html#security"><span class="std std-ref">here</span></a>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Vault:</dt>
+<dd>ODAHU-Flow has the Connection API that allows managing credentials from Git repositories, cloud storage, docker registries, and so on.
+The default backend for Connection API is Kubernetes.
+We integrated the <a class="reference external" href="https://www.vaultproject.io/">Vault</a> as a storage backend for the backend for Connection API to manage your credentials securely.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Helm 3:</dt>
+<dd>We migrated our Helm charts to the Helm 3 version.
+The main goals were to simplify a deployment process to an Openshift and to get rid of the tiller.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>ODAHU UI:</dt>
+<dd>ODAHU UI provides a user interface for the ODAHU components in a browser.
+It allows you to manage and view ODAHU Connections, Trainings, Deployments, and so on.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Local training and packaging:</dt>
+<dd>You can train and package an ML model with the <cite>odahuflowctl</cite> utility using the same ODAHU manifests, as you use for the cluster training and packaging.
+The whole process is described <a class="reference internal" href="tutorials_local_wine.html#local-quickstart"><span class="std std-ref">here</span></a>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Cache for training and packaging:</dt>
+<dd>ODAHU Flow downloads your dependencies on every model training and packaging launch.
+To avoid this, you can provide a prebuilt Docker image with dependencies.
+Read more for model <a class="reference internal" href="ref_trainings.html#training-model-dependencies-cache"><span class="std std-ref">training</span></a> and <a class="reference internal" href="ref_packagers.html#packaging-model-dependencies-cache"><span class="std std-ref">packagings</span></a>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Performance improvement training and packaging:</dt>
+<dd>We fixed multiple performance issues to speed up the training and packaging processes.
+For our model examples, the duration of training and packaging was reduced by 30%.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Documentation improvement:</dt>
+<dd>We conducted a hard work to improve the documentation.
+For example, the following new sections were added: <a class="reference internal" href="gen_security.html#security"><span class="std std-ref">Security</span></a>, <a class="reference internal" href="tutorials_installation.html#installation"><span class="std std-ref">Installation</span></a>, <a class="reference internal" href="ref_trainings.html#model-trainings"><span class="std std-ref">Training</span></a>, <a class="reference internal" href="ref_packagers.html#model-packagers"><span class="std std-ref">Packager</span></a>, and <a class="reference internal" href="ref_deployments.html#model-deployments"><span class="std std-ref">Model Deployment</span></a>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Odahu-infra:</dt>
+<dd>We created the new <a class="reference external" href="https://github.com/odahu/odahu-infra">odahu-infra</a> Git repository, where we placed the following infra custom helm charts: Fluentd, Knative, monitoring, Open Policy Agent, Tekton.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Preemptible nodes:</dt>
+<dd>Preemptible nodes are priced lower than standard virtual machines of the same types.
+But they provide no availability guarantees.
+We added new deployment options to allow training and packaging pods to be deployed on preemptible nodes.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Third-parties updates:</dt>
+<dd><ul class="first last">
+<li>Istio</li>
+<li>Grafana</li>
+<li>Prometheus</li>
+<li>MLFlow</li>
+<li>Terraform</li>
+<li>Buildah</li>
+<li>Kubernetes</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="misc-internal">
+<h3>Misc/Internal<a class="headerlink" href="#misc-internal" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Google Cloud Registry:</dt>
+<dd>We have experienced multiple problems while using Nexus as a main dev Docker registry.
+This migration also brings us additional advantages, such as in-depth vulnerability scanning.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Terragrunt:</dt>
+<dd>We switched to using Terragrunt for our deployment scripts.
+That allows reducing the complexity of our terraform modules and deployment scripts.</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dev_general.html" class="btn btn-neutral float-right" title="Development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gen_glossary.html" class="btn btn-neutral" title="Glossary" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Odahu Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0-rc27',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

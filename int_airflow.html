@@ -139,15 +139,14 @@
 <li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">A repository directory structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#repositories">Repositories</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html#odahu-odahu-infra">odahu/odahu-infra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration+ Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
 </ul>
 
             
@@ -758,7 +757,7 @@ relative path:</p>
     <span class="nb">id</span><span class="o">=</span><span class="n">wine_conn_id</span><span class="p">,</span>
     <span class="n">spec</span><span class="o">=</span><span class="n">ConnectionSpec</span><span class="p">(</span>
         <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;gcs&quot;</span><span class="p">,</span>
-        <span class="n">uri</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;gs://</span><span class="si">{wine_bucket}</span><span class="s1">/data/wine-quality.csv&#39;</span><span class="p">,</span>
+        <span class="n">uri</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;gs://</span><span class="si">{</span><span class="n">wine_bucket</span><span class="si">}</span><span class="s1">/data/wine-quality.csv&#39;</span><span class="p">,</span>
         <span class="n">region</span><span class="o">=</span><span class="n">gcp_project</span><span class="p">,</span>
     <span class="p">)</span>
 <span class="p">)</span>
