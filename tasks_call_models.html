@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Invoke ODAHU models for prediction &mdash; Odahu 1.0.0-rc27 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/nav_content_width.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API" href="comp_api.html" />
+    <link rel="prev" title="Local Quickstart" href="tutorials_local_wine.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Odahu
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Cluster Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_local_wine.html">Local Quickstart</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tasks</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Invoke ODAHU models for prediction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-sdk">Python SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rest">REST</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_jupyterlab_extension.html">JupyterLab extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ref_odahuflowctl.html">Odahuflowctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_connections.html">Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Odahu</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Invoke ODAHU models for prediction</li>
+    
+    
+<li class="wy-breadcrumbs-aside">
+<a href="odahu-docs.pdf">Get PDF version</a>
+</li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="invoke-odahu-models-for-prediction">
+<h1>Invoke ODAHU models for prediction<a class="headerlink" href="#invoke-odahu-models-for-prediction" title="Permalink to this headline">¶</a></h1>
+<p>You want to call the model that was deployed on ODAHU programmatically</p>
+<p>You can call ODAHU models using <cite>REST API</cite> or using <cite>Python SDK</cite></p>
+<div class="section" id="python-sdk">
+<h2>Python SDK<a class="headerlink" href="#python-sdk" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Install python SDK</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install odahu-flow-sdk
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Configure SDK</li>
+</ol>
+<p>By default SDK config is located in ~/.odahuflow/config</p>
+<p>But you can override it location using <cite>ODAHUFLOW_CONFIG</cite> environment variable</p>
+<p>Configure next values in the config</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[general]</span>
+<span class="na">api_url</span> <span class="o">=</span> <span class="s">https://replace.your.models.host</span>
+<span class="na">api_issuing_url</span> <span class="o">=</span> <span class="s">https://replace.your.oauth2.token.url</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>In python use ModelClient to invoke models</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>from odahuflow.sdk.clients.model import ModelClient, calculate_url
+from odahuflow.sdk.clients.api import RemoteAPIClient
+from odahuflow.sdk import config
+
+<span class="c1"># Change model deployment name to model name which you want to invoke</span>
+<span class="nv">MODEL_DEPLOYMENT_NAME</span> <span class="o">=</span> <span class="s2">&quot;&lt;model-deployment-name&gt;&quot;</span>
+
+<span class="c1"># Get api token using client credentials flow via Remote client</span>
+<span class="nv">remote_api</span> <span class="o">=</span> RemoteAPIClient<span class="o">(</span><span class="nv">client_id</span><span class="o">=</span><span class="s1">&#39;&lt;your-client-id&gt;&#39;</span>, <span class="nv">client_secret</span><span class="o">=</span><span class="s1">&#39;&lt;your-secret&gt;&#39;</span><span class="o">)</span>
+remote_api.info<span class="o">()</span>
+
+<span class="c1"># Build model client and invoke models</span>
+<span class="nv">client</span> <span class="o">=</span> ModelClient<span class="o">(</span>
+    calculate_url<span class="o">(</span>config.API_URL, <span class="nv">model_deployment</span><span class="o">=</span>MODEL_DEPLOYMENT_NAME<span class="o">)</span>,
+    remote_api._token
+<span class="o">)</span>
+
+<span class="c1"># Get swagger specification of model service</span>
+print<span class="o">(</span>client.info<span class="o">())</span>
+
+<span class="c1"># Invoke model</span>
+print<span class="o">(</span>client.invoke<span class="o">(</span><span class="nv">columns</span><span class="o">=[</span><span class="s1">&#39;col1&#39;</span>, <span class="s1">&#39;col2&#39;</span><span class="o">]</span>, <span class="nv">data</span><span class="o">=[</span>
+    <span class="o">[</span><span class="s1">&#39;row1_at1&#39;</span>, <span class="s1">&#39;row1_at2&#39;</span><span class="o">]</span>,
+    <span class="o">[</span><span class="s1">&#39;row2_at1&#39;</span>, <span class="s1">&#39;row2_at2&#39;</span><span class="o">]</span>,
+<span class="o">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rest">
+<h2>REST<a class="headerlink" href="#rest" title="Permalink to this headline">¶</a></h2>
+<p>If you use another language you can use pure REST to invoke models</p>
+<p>You should get token by yourself using OpenID provider and <a class="reference external" href="https://tools.ietf.org/html/rfc6749#section-4.4">OAuth2 Client Credentials Grant</a></p>
+<p>Then call ODAHU next way</p>
+<p>To get the swagger definition of model service</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;https://replace.your.models.host/model/</span><span class="si">${</span><span class="nv">MODEL_DEPLOYMENT_NAME</span><span class="si">}</span><span class="s2">/api/model/info&quot;</span> <span class="se">\</span>
+            -H <span class="s2">&quot;accept: application/json&quot;</span> <span class="se">\</span>
+            -H <span class="s2">&quot;Authorization: Bearer &lt;token&gt;&quot;</span>
+</pre></div>
+</div>
+<p>To invoke the model</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="s2">&quot;https://replace.your.models.host/model/</span><span class="si">${</span><span class="nv">MODEL_DEPLOYMENT_NAME</span><span class="si">}</span><span class="s2">/api/model/invoke&quot;</span> <span class="se">\</span>
+            -H <span class="s2">&quot;accept: application/json&quot;</span> <span class="se">\</span>
+            -H <span class="s2">&quot;Authorization: Bearer &lt;token&gt;&quot;</span> <span class="se">\</span>
+            -d @body.json
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="comp_api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorials_local_wine.html" class="btn btn-neutral" title="Local Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Odahu Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0-rc27',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
