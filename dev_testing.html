@@ -208,7 +208,7 @@ ODAHU uses <a class="reference external" href="https://robotframework.org/">Robo
 <div class="section" id="preparing-for-testing">
 <h2>Preparing for testing<a class="headerlink" href="#preparing-for-testing" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>It’s expected that you are using POSIX-compliant operating system and have installed Python 3.6.9+ and pip.</p>
+<p>It’s expected that you are using Unix-like operating system and have installed Python 3.6.9+ and pip.</p>
 <ol>
 <li><p class="first"><a class="reference external" href="https://github.com/odahu/odahu-flow">Clone</a> ODAHU project from git repository and proceed to main dir – <code class="docutils literal notranslate"><span class="pre">odahu-flow</span></code>.</p>
 </li>
@@ -217,8 +217,8 @@ e.g. in the folder <code class="docutils literal notranslate"><span class="pre">
 </li>
 <li><p class="first"><a class="reference external" href="https://github.com/robotframework/robotframework/blob/master/INSTALL.rst">Install</a> Robot Framework</p>
 </li>
-<li><p class="first">Update and/or install <strong>setuptools</strong> and <strong>pip</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install -U setuptools <span class="o">&amp;&amp;</span> pip install -U pip
+<li><p class="first">Update and/or install <strong>pip</strong> and <strong>setuptools</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install -U pip setuptools
 </pre></div>
 </div>
 </li>
@@ -231,6 +231,8 @@ e.g. in the folder <code class="docutils literal notranslate"><span class="pre">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/odahu-flow$ odahuflowctl
 </pre></div>
 </div>
+</li>
+<li><p class="first">Also, you should have installed <a class="reference external" href="https://stedolan.github.io/jq/">jq</a> and <a class="reference external" href="https://rclone.org/downloads/">rclone</a> packages.</p>
 </li>
 </ol>
 </div>
