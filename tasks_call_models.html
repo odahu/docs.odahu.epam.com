@@ -236,7 +236,7 @@ remote_api.info<span class="o">()</span>
 <span class="c1"># Build model client and invoke models</span>
 <span class="nv">client</span> <span class="o">=</span> ModelClient<span class="o">(</span>
     calculate_url<span class="o">(</span>config.API_URL, <span class="nv">model_deployment</span><span class="o">=</span>MODEL_DEPLOYMENT_NAME<span class="o">)</span>,
-    remote_api._token
+    remote_api.authenticator.token
 <span class="o">)</span>
 
 <span class="c1"># Get swagger specification of model service</span>
