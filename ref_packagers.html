@@ -262,14 +262,14 @@ You can find the description of all fields below:</p>
       <span class="nt">requests</span><span class="p">:</span>
         <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
         <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-    <span class="c1"># List of arguments. Depends of a Model Packaging integration.</span>
+    <span class="c1"># List of arguments. Depends on a Model Packaging integration.</span>
     <span class="c1"># You can find specific values in the sections below.</span>
-    <span class="c1"># This parameter is used for customizing of a packaging process.</span>
+    <span class="c1"># This parameter is used for customizing a packaging process.</span>
     <span class="nt">arguments</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
-    <span class="c1"># List of targets. Depends of a Model Packaging integration.</span>
+    <span class="c1"># List of targets. Depends on a Model Packaging integration.</span>
     <span class="c1"># You can find specific values in the sections below.</span>
     <span class="c1"># A packager can interact with a Docker registry, PyPi repository, and so on.</span>
-    <span class="c1"># You should provide a list of connections for a packager can get access to them.</span>
+    <span class="c1"># You should provide a list of connections for a packager to get access to them.</span>
     <span class="nt">targets</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
     <span class="c1"># You can set connection which points to some bucket where the Trained Model Binary is stored</span>
     <span class="c1"># then packager will extract your binary from this connection</span>
@@ -341,7 +341,7 @@ You can experience the following troubles with this approach:</p>
 <blockquote>
 <div><ul class="simple">
 <li>downloading and installation of some dependencies can take a long time</li>
-<li>network errors during downloading dependencies due to network errors</li>
+<li>network errors during downloading dependencies</li>
 </ul>
 </div></blockquote>
 <p>To overcome these and other problems, ODAHU Flow provides a way to specify

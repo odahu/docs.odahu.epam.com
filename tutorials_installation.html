@@ -239,7 +239,7 @@ To be able to use ODAHU services, minimum version of your Kubernetes cluster mus
 <ul class="simple">
 <li><a class="reference external" href="https://cloud.google.com/compute/docs/access/service-accounts">GCP service
 account</a>
-to deploy Kubernetes cluster with and use it credentials for access to object storage and Google Cloud Registry</li>
+to deploy Kubernetes cluster with and use its credentials for access to object storage and Google Cloud Registry</li>
 <li>Google Cloud Storage bucket (<code class="docutils literal notranslate"><span class="pre">odahu-flow-test-store</span></code> in examples below) to store models output data</li>
 </ul>
 <p>Run deploy of a new Kubernetes cluster:</p>
@@ -540,7 +540,7 @@ provided by ODAHU team:</p>
 <p>For information about <cite>authn</cite> section parameters see
 <a class="reference external" href="https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/filter/http/jwt_authn/v2alpha/config.proto">docs for envoy authentication filter</a></p>
 <p id="how-to-customize-opa-policies">By default chart is delivered with <a class="reference internal" href="gen_security.html#built-in-policies-overview"><span class="std std-ref">built-in policies</span></a>
-that implements Role base access system
+that implements Role based access system
 and set of pre-defined roles. To customize some of built-in policies files or define new ones use next Helm values</p>
 <div class="literal-block-wrapper docutils container" id="customize-opa-policies">
 <div class="code-block-caption"><span class="caption-text">Parameters to configure built-in policies</span><a class="headerlink" href="#customize-opa-policies" title="Permalink to this code">¶</a></div>
@@ -554,7 +554,7 @@ and set of pre-defined roles. To customize some of built-in policies files or de
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">content of rego files defined in values.yaml should be base64 encoded</p>
+<p class="last">Content of rego files defined in values.yaml should be base64 encoded</p>
 </div>
 </div>
 </div>

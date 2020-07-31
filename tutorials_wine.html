@@ -686,7 +686,7 @@ we will just use this repository. But feel free to create and use a new reposito
 <p>In this file, we:</p>
 <ul class="simple">
 <li>line 7: Set Odahu toolchain’s name to <a class="reference internal" href="comp_mlflow_trainer.html#mod-dev-using-mlflow-section"><span class="std std-ref">mlflow</span></a></li>
-<li>line 8: Reference <code class="docutils literal notranslate"><span class="pre">main</span></code> method in <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> (which is defined for <a class="reference internal" href="#mlproject-file"><span class="std std-ref">MLproject files</span></a>.</li>
+<li>line 8: Reference <code class="docutils literal notranslate"><span class="pre">main</span></code> method in <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> (which is defined for <a class="reference internal" href="#mlproject-file"><span class="std std-ref">MLproject files</span></a>)</li>
 <li>line 9: Point <code class="docutils literal notranslate"><span class="pre">workDir</span></code> to the MLFlow project directory. (This is the directory that has the <a class="reference internal" href="#mlproject-file"><span class="std std-ref">MLproject</span></a> in it.)</li>
 <li>line 10: A section defining input data</li>
 <li>line 11: <code class="docutils literal notranslate"><span class="pre">connName</span></code> id of the <a class="reference internal" href="#wine-connection"><span class="std std-ref">wine_connection.odahu.yaml</span></a> (created in the previous step)</li>
@@ -897,7 +897,7 @@ We can download it from storage defined in the <code class="docutils literal not
 </tbody>
 </table>
 <p>After the model is deployed, you can check its API in Swagger:</p>
-<p>Open <code class="docutils literal notranslate"><span class="pre">&lt;your-odahu-platform-host&gt;/swagger/index.html</span></code> and look and the endpoints:</p>
+<p>Open <code class="docutils literal notranslate"><span class="pre">&lt;your-odahu-platform-host&gt;/service-catalog/swagger/index.html</span></code> and look and the endpoints:</p>
 <ol class="arabic simple">
 <li><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/model/wine-tutorial/api/model/info</span></code> – OpenAPI model specification;</li>
 <li><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/model/wine-tutorial/api/model/invoke</span></code> – Endpoint to do predictions;</li>

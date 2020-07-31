@@ -249,7 +249,7 @@ The API is pluggable and can be extended for different ML frameworks.</p>
   <span class="c1"># The toolchain parameter is a point of extension for different ML frameworks.</span>
   <span class="c1"># For now, we only support the Mlfow toolchain</span>
   <span class="nt">toolchain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow</span>
-  <span class="c1"># Mlflow MLProject file can contains the list of entrypoints. You must choose one of these.</span>
+  <span class="c1"># Mlflow MLProject file contains the list of entrypoints. You must choose one of those.</span>
   <span class="nt">entrypoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
   <span class="c1"># Working directory inside a training (docker) container, which GIT repository copied in.</span>
   <span class="nt">workDir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">work/dir</span>
@@ -378,7 +378,7 @@ You can experience the following troubles with this approach:</p>
 <blockquote>
 <div><ul class="simple">
 <li>downloading and installation of some dependencies can take a long time</li>
-<li>network errors during downloading dependencies due to network errors</li>
+<li>network errors during downloading dependencies</li>
 </ul>
 </div></blockquote>
 <p>To overcome these and other problems, ODAHU Flow provides a way to specify
@@ -488,7 +488,7 @@ You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><sp
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
 <p>The most straightforward way to install the MLFlow trainer on an Odahu Cluster is to deploy the <cite>odahu-flow-mlflow</cite> helm chart.
-The helm chart registers the trainer in the API Odahu and deploys an <a class="reference external" href="https://www.mlflow.org/docs/latest/tracking.html#mlflow-tracking-servers">a MLflow Tracking Server</a>.
+The helm chart registers the trainer in the API Odahu and deploys an <a class="reference external" href="https://www.mlflow.org/docs/latest/tracking.html#mlflow-tracking-servers">MLflow Tracking Server</a>.
 By default, the deployed MLflow Tracking Server is available at <cite>https://cluster-url/mlflow</cite> address.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add the odahu-flow helm repository</span>
 helm repo add odahu-flow <span class="s1">&#39;https://raw.githubusercontent.com/odahu/odahu-helm/master/&#39;</span>
@@ -547,7 +547,7 @@ Next, you can find the Model Trainings for the MLProject file.</p>
 </div>
 <div class="section" id="mlflow-protocol">
 <h3>MLFlow protocol<a class="headerlink" href="#mlflow-protocol" title="Permalink to this headline">¶</a></h3>
-<p>Odahu-flow requires that a model be logged through <a class="reference external" href="https://www.mlflow.org/docs/latest/python_api/mlflow.pyfunc.html#mlflow.pyfunc.log_model">mlflow API</a>.</p>
+<p>Odahu-flow requires that a model is logged through <a class="reference external" href="https://www.mlflow.org/docs/latest/python_api/mlflow.pyfunc.html#mlflow.pyfunc.log_model">mlflow API</a>.</p>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Example of sklearn model logging:</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mlflow</span><span class="o">.</span><span class="n">sklearn</span><span class="o">.</span><span class="n">log_model</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">)</span>
