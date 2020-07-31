@@ -126,6 +126,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#sign-in-interactively">Sign in interactively</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#completion">Completion</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
@@ -251,6 +252,22 @@ Copy and paste provided command into your shell.</p>
 </pre></div>
 </div>
 <p>Odahu CLI will open an IAM server in your default browser. Sign in with your account credentials.</p>
+<br></div>
+</div>
+<div class="section" id="completion">
+<h2>Completion<a class="headerlink" href="#completion" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">odahuflowctl</span></code> cli supports completion for following shells: bash, zsh, fish, PowerShell.</p>
+<p>To activate it evaluate the output of <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span> <span class="pre">completion</span> <span class="pre">&lt;YOUR_SHELL&gt;</span></code>.</p>
+<p>Bash example:</p>
+<div class="highlight-shell script notranslate"><div class="highlight"><pre><span></span>source &lt;(odahuflowctl completion bash)
+</pre></div>
+</div>
+<br><p>To activate completion automatically in any new shell, you can save the completion code to a file
+and add it to your shell profile.</p>
+<p>Bash example:</p>
+<div class="highlight-shell script notranslate"><div class="highlight"><pre><span></span>odahuflowctl completion bash &gt; ${HOME}/.odahuflow/odahuflowctl_completion.sh
+(echo &quot;&quot;; echo &quot;source ${HOME}/.odahuflow/odahuflowctl_completion.sh&quot;; echo &quot;&quot;) &gt;&gt; ${HOME}/.bashrc
+</pre></div>
 </div>
 </div>
 </div>
