@@ -125,6 +125,12 @@
 <li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#odahu-1-2-0-26-june-2020">Odahu 1.2.0, 26 June 2020</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#features">Features:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updates">Updates:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bug-fixes">Bug Fixes:</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-1-1-0-16-march-2020">Odahu 1.1.0, 16 March 2020</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#new-features">New Features:</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#misc-internal">Misc/Internal</a></li>
@@ -201,6 +207,85 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="odahu-1-2-0-26-june-2020">
+<h2>Odahu 1.2.0, 26 June 2020<a class="headerlink" href="#odahu-1-2-0-26-june-2020" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="features">
+<h3>Features:<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Core:</dt>
+<dd><ul class="first last">
+<li>PostgreSQL became main database backend as part of increasing project maturity (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/175">#175</a>). You can find additional documentation in <a class="reference internal" href="tutorials_installation.html#install-base-kubernetes-services"><span class="std std-ref">instructions</span></a>.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>ODAHU CLI:</dt>
+<dd><ul class="first last">
+<li>Option <cite>–ignore-if-exist</cite> added for entities creation (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/199">#199</a>).</li>
+<li>Descriptions updated for commands &amp; options (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/160">#160</a>, <a class="reference external" href="https://github.com/odahu/odahu-flow/issues/197">#197</a>, <a class="reference external" href="https://github.com/odahu/odahu-flow/issues/209">#209</a>).</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>ODAHU UI:</dt>
+<dd><ul class="first last">
+<li>ODAHU UI turned into open-source software and now available on <a class="reference external" href="https://github.com/odahu/odahu-ui/">github</a> under Apache License Version 2.0. UDAHU UI is an WEB-interface for ODAHU based on React and TypeScript. It provides ODAHU workflows overview and controls, log browsing and entity management.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="updates">
+<h3>Updates:<a class="headerlink" href="#updates" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Knative updated to version 0.15.0. That makes it possible to deploy model services to different node pools (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/123">#123</a>).</li>
+<li>Go dependencies was globally updated to migrate from GOPATH to go modules (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/32">#32</a>).</li>
+</ul>
+</div>
+<div class="section" id="bug-fixes">
+<h3>Bug Fixes:<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Core:</dt>
+<dd><ul class="first last">
+<li>Training now will fail if wrong data path or unexisted storage bucket name is provided (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/229">#229</a>).</li>
+<li>Training log streaming is now working on log view when using native log viewer (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/234">#234</a>).</li>
+<li>ODAHU pods now redeploying during helm chart upgrade (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/111">#111</a>).</li>
+<li>ODAHU docker connection now can be created with blank username &amp; password to install from docker public repo (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/184">#184</a>).</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>ODAHU CLI:</dt>
+<dd><ul class="first last">
+<li>Return training artifacts list sorted by name (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/165">#165</a>).</li>
+<li>Don’t output logs for bulk command (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/200">#200</a>).</li>
+<li>Fix <cite>local pack cleanup-containers</cite> command (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/204">#204</a>).</li>
+<li>Return correct message if entity not found (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/210">#210</a>).</li>
+<li>Return correct message if no options provided (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/211">#211</a>).</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>ODAHU UI:</dt>
+<dd><ul class="first last">
+<li>Fix description of replicas of Model Deployment.</li>
+<li>Trim spaces for input values.</li>
+<li>Fix incorrect selection of VCS connection.</li>
+<li>Close ‘ODAHU components’ menu after opening link in it.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="odahu-1-1-0-16-march-2020">
 <h2>Odahu 1.1.0, 16 March 2020<a class="headerlink" href="#odahu-1-1-0-16-march-2020" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="new-features">

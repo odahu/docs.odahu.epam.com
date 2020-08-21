@@ -103,13 +103,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#install-base-kubernetes-services">Install base Kubernetes services</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#install-helm-and-tiller-version-2-14-3">Install Helm and Tiller (version 2.14.3)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-helm-version-3-1-2">Install Helm (version 3.1.2)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-nginx-ingress">Install Nginx Ingress</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-istio-with-helm-and-tiller">Install Istio (with Helm and Tiller)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#add-odahu-helm-charts-repository">Add ODAHU Helm charts repository</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-knative">Install Knative</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-tekton-pipelines">Install Tekton Pipelines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-fluentd-with-set-of-cloud-object-storage-plugins">Install Fluentd with set of cloud object storage plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-postgresql-optional">Install PostgreSQL (optional)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-open-policy-agent-optional">Install Open Policy Agent (optional)</a></li>
 </ul>
 </li>
@@ -227,7 +228,7 @@
 <ul class="simple">
 <li>Python 3.6 or higher; to install <a class="reference internal" href="int_jupyterlab_extension.html#jupyterlab-extension"><span class="std std-ref">JupyterLab extension</span></a> or <a class="reference internal" href="ref_odahuflowctl.html#odahuflowctl"><span class="std std-ref">Odahuflowctl</span></a> which are interfaces for interacting with Odahu-flow cluster.</li>
 <li>Kubernetes cluster to perform base and accessory ODAHU services in it, as well as models training, packaging and deployment processes.
-To be able to use ODAHU services, minimum version of your Kubernetes cluster must be at least <a class="reference external" href="https://v1-13.docs.kubernetes.io/docs/setup/release/notes/">1.13</a>.</li>
+To be able to use ODAHU services, minimum version of your Kubernetes cluster must be at least <a class="reference external" href="https://v1-16.docs.kubernetes.io/docs/setup/release/notes/">1.16</a>.</li>
 <li>object storage to store models training artifacts and get input data for models (<a class="reference internal" href="ref_connections.html#s3"><span class="std std-ref">S3</span></a>, <a class="reference internal" href="ref_connections.html#google-cloud-storage"><span class="std std-ref">Google Cloud Storage</span></a>, <a class="reference internal" href="ref_connections.html#azure-blob-storage"><span class="std std-ref">Azure Blob storage</span></a> are supported)</li>
 <li><a class="reference internal" href="ref_connections.html#docker"><span class="std std-ref">Docker registry</span></a> (to store resulting Docker images from <a class="reference internal" href="ref_packagers.html#model-packagers"><span class="std std-ref">packagers</span></a>)</li>
 </ul>
@@ -318,46 +319,8 @@ create a Kubernetes cluster with following command:</p>
 </div>
 <div class="section" id="install-base-kubernetes-services">
 <span id="installation-base-svc"></span><h2>Install base Kubernetes services<a class="headerlink" href="#install-base-kubernetes-services" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="install-helm-and-tiller-version-2-14-3">
-<h3>Install Helm and Tiller (<a class="reference external" href="https://v2-14-0.helm.sh/docs/using_helm/#installing-helm">version 2.14.3</a>)<a class="headerlink" href="#install-helm-and-tiller-version-2-14-3" title="Permalink to this headline">¶</a></h3>
-<p>Make sure you have a Kubernetes service account with the <code class="docutils literal notranslate"><span class="pre">cluster-admin</span></code> role defined for Tiller.
-If not already defined, create one using following commands:</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat &lt;&lt; EOF &gt; tiller_sa.yaml
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: tiller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-- kind: ServiceAccount
-  name: tiller
-  namespace: kube-system
-EOF
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl apply -f ./tiller_sa.yaml
-</pre></div>
-</div>
-<p>Install Tiller in your cluster with created service account:</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm init --service-account=tiller
-</pre></div>
-</div>
-<p>Ensure that Tiller is installed:</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl -n kube-system get pods --selector=app=helm
-NAME                            READY   STATUS    RESTARTS   AGE
-tiller-deploy-57f498469-r5cmv   1/1     Running   0          16s
-</pre></div>
-</div>
+<div class="section" id="install-helm-version-3-1-2">
+<h3>Install Helm (<a class="reference external" href="https://helm.sh/docs/intro/install/">version 3.1.2</a>)<a class="headerlink" href="#install-helm-version-3-1-2" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="install-nginx-ingress">
 <span id="installation-nginx-ingress"></span><h3>Install <a class="reference external" href="https://kubernetes.github.io/ingress-nginx/">Nginx Ingress</a><a class="headerlink" href="#install-nginx-ingress" title="Permalink to this headline">¶</a></h3>
@@ -509,6 +472,70 @@ EOF
 </pre></div>
 </div>
 </div>
+<div class="section" id="install-postgresql-optional">
+<h3>Install <a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a> (optional)<a class="headerlink" href="#install-postgresql-optional" title="Permalink to this headline">¶</a></h3>
+<p>Create namespace for PostgreSQL:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl create namespace postgresql
+</pre></div>
+</div>
+<p>Install PostgreSQL Operator with <a class="reference external" href="https://github.com/zalando/postgres-operator/tree/master/charts/postgres-operator">Helm
+chart</a>:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install postgres-operator/postgres-operator --name odahu-db --namespace postgresql
+</pre></div>
+</div>
+<p>You must configure your PostgreSQL operator using next values</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Parameters to configure PostgreSQL Provider:</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$  cat &lt;&lt; EOF &gt; postgres.yaml</span>
+<span class="l l-Scalar l-Scalar-Plain">apiVersion</span><span class="p p-Indicator">:</span> <span class="s">&quot;acid.zalan.do/v1&quot;</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgresql</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">teamId</span><span class="p">:</span> <span class="s">&quot;postgres&quot;</span>
+  <span class="nt">volume</span><span class="p">:</span>
+    <span class="nt">size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10Gi</span>
+  <span class="nt">numberOfInstances</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+  <span class="nt">users</span><span class="p">:</span>
+    <span class="nt">mlflow</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+    <span class="nt">jupyterhub</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+    <span class="nt">odahu</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+  <span class="nt">databases</span><span class="p">:</span>
+    <span class="nt">mlflow</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow,</span>
+    <span class="nt">jupyterhub</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jupyterhub,</span>
+    <span class="nt">odahu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu</span>
+  <span class="nt">postgresql</span><span class="p">:</span>
+    <span class="nt">version</span><span class="p">:</span> <span class="s">&quot;12&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">---</span>
+  <span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Secret</span>
+  <span class="nt">metadata</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jupyterhub.odahu-db.credentials.postgresql.acid.zalan.do</span>
+    <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgres</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Opaque</span>
+  <span class="l l-Scalar l-Scalar-Plain">---</span>
+  <span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Secret</span>
+  <span class="nt">metadata</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow.odahu-db.credentials.postgresql.acid.zalan.do</span>
+    <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgres</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Opaque</span>
+  <span class="l l-Scalar l-Scalar-Plain">---</span>
+  <span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Secret</span>
+  <span class="nt">metadata</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu.odahu-db.credentials.postgresql.acid.zalan.do</span>
+    <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgres</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Opaque</span>
+</pre></div>
+</div>
+</div>
+<p>Apply configuration to kubernetes:
+.. code:: bash</p>
+<blockquote>
+<div>kubectl apply -f postgres.yaml</div></blockquote>
+</div>
 <div class="section" id="install-open-policy-agent-optional">
 <h3>Install <a class="reference external" href="https://www.openpolicyagent.org/">Open Policy Agent</a> (optional)<a class="headerlink" href="#install-open-policy-agent-optional" title="Permalink to this headline">¶</a></h3>
 <p>To activate API authentication and authorization using <a class="reference internal" href="gen_security.html#security"><span class="std std-ref">Security</span></a>
@@ -524,8 +551,8 @@ provided by ODAHU team:</p>
 </pre></div>
 </div>
 <p>You must configure your OpenID provider (to allow envoy JWT token verifying) using next Helm values</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Parameters to configure OpenID provider</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Parameters to configure OpenID provider</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># authn overrides configuration of envoy.filters.http.jwt_authn http filter</span>
 <span class="nt">authn</span><span class="p">:</span>
   <span class="c1"># enabled activate envoy authn filter that verify jwt token and pass parsed data</span>
@@ -597,6 +624,7 @@ config:
     external_urls:
     - name: Documentation
       url: https://docs.odahu.org
+    databaseConnectionString: postgresql://odahu:PASSWORD@odahu-db.postgresql/odahu
   connection:
     enabled: true
     decrypt_token: somenotemptystring
@@ -616,8 +644,8 @@ It should point to LoadBalancer IP got from <a class="reference internal" href="
 values YAML in advance.</p>
 <p>To support training on GPU, you should provide the GPU node selectors and tolerations:</p>
 <p>Example:</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Example of Connection GCS:</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Example of Connection GCS:</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">config</span><span class="p">:</span>
   <span class="nt">training</span><span class="p">:</span>
     <span class="nt">gpu_toleration</span><span class="p">:</span>
