@@ -457,9 +457,9 @@ The key has the following format: “&lt;primary_blob_endpoint&gt;/&lt;sas_token
 <li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>git</strong>.</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - a base64 encoded SSH private key.</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> -  GIT SSH URL, for example <a class="reference external" href="mailto:git&#37;&#52;&#48;github&#46;com">git<span>&#64;</span>github<span>&#46;</span>com</a>:odahu/odahu-examples.git</li>
-<li><code class="docutils literal notranslate"><span class="pre">spec.reference</span></code> -  a branch, tag, or commit.</li>
 </ul>
 </div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">spec.reference</span></code> must be provided either in a connection OR in a model training object (<a class="reference internal" href="ref_trainings.html#general-training-structure"><span class="std std-ref">General training structure</span></a>).</p>
 <p>Example of command to encode ssh key:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat ~/.ssh/id_rsa <span class="p">|</span> base64 -w0
 </pre></div>

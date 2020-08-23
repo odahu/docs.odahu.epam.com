@@ -285,6 +285,9 @@ The API is pluggable and can be extended for different ML frameworks.</p>
   <span class="c1"># image: python:3.8</span>
   <span class="c1"># A connection which describes credentials to a GIT repository</span>
   <span class="nt">vcsName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;git-connection&gt;</span>
+  <span class="c1"># Git reference (branch or tag)</span>
+  <span class="c1"># This must be specified here OR in Git connection itself</span>
+  <span class="nt">reference</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
 <span class="nt">status</span><span class="p">:</span>
   <span class="c1"># One of the following states: scheduling, running, succeeded, failed, unknown</span>
   <span class="nt">state</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">running</span>
