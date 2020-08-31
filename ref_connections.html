@@ -129,7 +129,6 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#connection-types">Connection types</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#s3">S3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#google-cloud-storage">Google Cloud Storage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#azure-blob-storage">Azure Blob storage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#git">GIT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker">Docker</a></li>
@@ -241,7 +240,7 @@ Below you can find the description of all fields:</p>
     <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3</span>
     <span class="c1"># Username</span>
     <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">admin</span>
-    <span class="c1"># Password</span>
+    <span class="c1"># Password, must be base64-encoded</span>
     <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">admin</span>
     <span class="c1"># Service account role</span>
     <span class="nt">role</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some-role</span>
@@ -249,11 +248,11 @@ Below you can find the description of all fields:</p>
     <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some region</span>
     <span class="c1"># VCS reference</span>
     <span class="nt">reference</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">develop</span>
-    <span class="c1"># Key ID</span>
+    <span class="c1"># Key ID, must be base64-encoded</span>
     <span class="nt">keyID</span><span class="p">:</span> <span class="s">&quot;1234567890&quot;</span>
-    <span class="c1"># SSH or service account secret</span>
+    <span class="c1"># SSH or service account secret, must be base64-encoded</span>
     <span class="nt">keySecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">b2RhaHUK</span>
-    <span class="c1"># SSH public key</span>
+    <span class="c1"># SSH public key, must be base64-encoded</span>
     <span class="nt">publicKey</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">b2RhaHUK</span>
 </pre></div>
 </div>
@@ -306,7 +305,7 @@ You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><sp
 <blockquote>
 <div><ul class="simple">
 <li><a class="reference internal" href="#s3"><span class="std std-ref">S3</span></a></li>
-<li><a class="reference internal" href="#google-cloud-storage"><span class="std std-ref">Google Cloud Storage</span></a></li>
+<li><span class="xref std std-ref">ref_connections:Google Cloud Storage</span></li>
 <li><a class="reference internal" href="#azure-blob-storage"><span class="std std-ref">Azure Blob storage</span></a></li>
 <li><a class="reference internal" href="#git"><span class="std std-ref">GIT</span></a></li>
 <li><a class="reference internal" href="#docker"><span class="std std-ref">Docker</span></a></li>
@@ -344,8 +343,8 @@ We will support AWS service role and authorization using temporary credentials i
 <blockquote>
 <div><ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>s3</strong>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">spec.keyID</span></code> - an access key ID (for example, <code class="docutils literal notranslate"><span class="pre">AKIAIOSFODNN7EXAMPLE</span></code>).</li>
-<li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - a secret access key (for example, <code class="docutils literal notranslate"><span class="pre">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span></code>).</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keyID</span></code> - <strong>base64-encoded</strong> access key ID (for example, <code class="docutils literal notranslate"><span class="pre">AKIAIOSFODNN7EXAMPLE</span></code>).</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - <strong>base64-encoded</strong> secret access key (for example, <code class="docutils literal notranslate"><span class="pre">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span></code>).</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> -  S3 compatible URI, for example s3://&lt;bucket-name&gt;/dir1/dir2/</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.region</span></code> - <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">AWS Region</a>, where a bucket was created.</li>
 </ul>
@@ -356,16 +355,17 @@ We will support AWS service role and authorization using temporary credentials i
 <span class="nt">spec</span><span class="p">:</span>
     <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3</span>
     <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3://raw-data/model/input</span>
-    <span class="nt">keyID</span><span class="p">:</span> <span class="s">&quot;AKIAIOSFODNN7EXAMPLE&quot;</span>
-    <span class="nt">keySecret</span><span class="p">:</span> <span class="s">&quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&quot;</span>
+    <span class="c1"># keyID before base64-encoding: AKIAIOSFODNN7EXAMPLE</span>
+    <span class="nt">keyID</span><span class="p">:</span> <span class="s">&quot;QUtJQUlPU0ZPRE5ON0VYQU1QTEU=&quot;</span>
+    <span class="c1"># keySecret before base64 encoding: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span>
+    <span class="nt">keySecret</span><span class="p">:</span> <span class="s">&quot;d0phbHJYVXRuRkVNSS9LN01ERU5HL2JQeFJmaUNZRVhBTVBMRUtFWQ==&quot;</span>
     <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Training</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">model&quot;</span>
     <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-central-1</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="google-cloud-storage">
-<h3>Google Cloud Storage<a class="headerlink" href="#google-cloud-storage" title="Permalink to this headline">¶</a></h3>
+<p>Google Cloud Storage
+——————–&gt;</p>
 <p><a class="reference external" href="https://cloud.google.com/storage/docs/">Google Cloud Storage</a> allows storing and accessing data on Google Cloud Platform infrastructure.
 This type of connection is used as storage of:</p>
 <blockquote>
@@ -392,7 +392,7 @@ We will support the Workload Identity in the near future.</p>
 <blockquote>
 <div><ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>gcs</strong>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - a service account key in json format.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - <strong>base64-encoded</strong> service account key in json format.</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> -  GCS compatible URI, for example gcs://&lt;bucket-name&gt;/dir1/dir2/</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.region</span></code> - <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones">GCP Region</a>, where a bucket was created.</li>
 </ul>
@@ -403,9 +403,26 @@ We will support the Workload Identity in the near future.</p>
 <span class="nt">spec</span><span class="p">:</span>
     <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcs</span>
     <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gsc://raw-data/model/input</span>
-    <span class="nt">keySecret</span><span class="p">:</span> <span class="s">&#39;{&quot;type&quot;:</span><span class="nv"> </span><span class="s">&quot;service_account&quot;,</span><span class="nv"> </span><span class="s">&quot;project_id&quot;:</span><span class="nv"> </span><span class="s">&quot;project_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;:</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key&quot;:</span><span class="nv"> </span><span class="s">&quot;-----BEGIN</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\nprivate_key\n-----END</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\n&quot;,</span><span class="nv"> </span><span class="s">&quot;client_email&quot;:</span><span class="nv"> </span><span class="s">&quot;test@project_id.iam.gserviceaccount.com&quot;,</span><span class="nv"> </span><span class="s">&quot;client_id&quot;:</span><span class="nv"> </span><span class="s">&quot;123455678&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://accounts.google.com/o/oauth2/auth&quot;,</span><span class="nv"> </span><span class="s">&quot;token_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://oauth2.googleapis.com/token&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_provider_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/oauth2/v1/certs&quot;,</span><span class="nv"> </span><span class="s">&quot;client_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/robot/v1/metadata/x509/test@project_id.iam.gserviceaccount.com&quot;}&#39;</span>
+    <span class="nt">keySecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ewogICAgInR5cGUiOiAic2VydmljZV9hY2NvdW50IiwKICAgICJwcm9qZWN0X2lkIjogInByb2plY3RfaWQiLAogICAgInByaXZhdGVfa2V5X2lkIjogInByaXZhdGVfa2V5X2lkIiwKICAgICJwcml2YXRlX2tleSI6ICItLS0tLUJFR0lOIFBSSVZBVEUgS0VZLS0tLS1cbnByaXZhdGVfa2V5XG4tLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tXG4iLAogICAgImNsaWVudF9lbWFpbCI6ICJ0ZXN0QHByb2plY3RfaWQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLAogICAgImNsaWVudF9pZCI6ICIxMjM0NTU2NzgiLAogICAgImF1dGhfdXJpIjogImh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRoIiwKICAgICJ0b2tlbl91cmkiOiAiaHR0cHM6Ly9vYXV0aDIuZ29vZ2xlYXBpcy5jb20vdG9rZW4iLAogICAgImF1dGhfcHJvdmlkZXJfeDUwOV9jZXJ0X3VybCI6ICJodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS9vYXV0aDIvdjEvY2VydHMiLAogICAgImNsaWVudF94NTA5X2NlcnRfdXJsIjogImh0dHBzOi8vd3d3Lmdvb2dsZWFwaXMuY29tL3JvYm90L3YxL21ldGFkYXRhL3g1MDkvdGVzdEBwcm9qZWN0X2lkLmlhbS5nc2VydmljZWFjY291bnQuY29tIgp9</span>
     <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Training</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">model&quot;</span>
     <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">us-central2</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="gcs-service-account-key">
+<div class="code-block-caption"><span class="caption-text">Original service account JSON key, that is used in the example above, before base64-encoding:</span><a class="headerlink" href="#gcs-service-account-key" title="Permalink to this code">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;service_account&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;project_id&quot;</span><span class="p">:</span> <span class="s2">&quot;project_id&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;private_key_id&quot;</span><span class="p">:</span> <span class="s2">&quot;private_key_id&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;private_key&quot;</span><span class="p">:</span> <span class="s2">&quot;-----BEGIN PRIVATE KEY-----\nprivate_key\n-----END PRIVATE KEY-----\n&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_email&quot;</span><span class="p">:</span> <span class="s2">&quot;test@project_id.iam.gserviceaccount.com&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;123455678&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;auth_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://accounts.google.com/o/oauth2/auth&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;token_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://oauth2.googleapis.com/token&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;auth_provider_x509_cert_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.googleapis.com/oauth2/v1/certs&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_x509_cert_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.googleapis.com/robot/v1/metadata/x509/test@project_id.iam.gserviceaccount.com&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -432,7 +449,7 @@ We will support the Workload Identity in the near future.</p>
 <div><ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>azureblob</strong>.</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - Odahu-flow uses the <a class="reference external" href="https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview">shared access signatures</a> to authorize in Azure.
-The key has the following format: “&lt;primary_blob_endpoint&gt;/&lt;sas_token&gt;”.</li>
+The key has the following format: “&lt;primary_blob_endpoint&gt;/&lt;sas_token&gt;” and must be <strong>base64-encoded</strong>.</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> -  Azure storage compatible URI, for example &lt;bucket-name&gt;/dir1/dir2/</li>
 </ul>
 </div></blockquote>
@@ -442,7 +459,8 @@ The key has the following format: “&lt;primary_blob_endpoint&gt;/&lt;sas_token
 <span class="nt">spec</span><span class="p">:</span>
     <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azureblob</span>
     <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">raw-data/model/input</span>
-    <span class="nt">keySecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://myaccount.blob.core.windows.net/?restype=service&amp;comp=properties&amp;sv=2019-02-02&amp;ss=bf&amp;srt=s&amp;st=2019-08-01T22%3A18%3A26Z&amp;se=2019-08-10T02%3A23%3A26Z&amp;sr=b&amp;sp=rw&amp;sip=168.1.5.60-168.1.5.70&amp;spr=https&amp;sig=F%6GRVAZ5Cdj2Pw4tgU7IlSTkWgn7bUkkAg8P6HESXwmf%4B</span>
+    <span class="c1"># keySecret before base64-encoding: https://myaccount.blob.core.windows.net/?restype=service&amp;comp=properties&amp;sv=2019-02-02&amp;ss=bf&amp;srt=s&amp;st=2019-08-01T22%3A18%3A26Z&amp;se=2019-08-10T02%3A23%3A26Z&amp;sr=b&amp;sp=rw&amp;sip=168.1.5.60-168.1.5.70&amp;spr=https&amp;sig=F%6GRVAZ5Cdj2Pw4tgU7IlSTkWgn7bUkkAg8P6HESXwmf%4B</span>
+    <span class="nt">keySecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">aHR0cHM6Ly9teWFjY291bnQuYmxvYi5jb3JlLndpbmRvd3MubmV0Lz9yZXN0eXBlPXNlcnZpY2UmY29tcD1wcm9wZXJ0aWVzJnN2PTIwMTktMDItMDImc3M9YmYmc3J0PXMmc3Q9MjAxOS0wOC0wMVQyMiUzQTE4JTNBMjZaJnNlPTIwMTktMDgtMTBUMDIlM0EyMyUzQTI2WiZzcj1iJnNwPXJ3JnNpcD0xNjguMS41LjYwLTE2OC4xLjUuNzAmc3ByPWh0dHBzJnNpZz1GJTZHUlZBWjVDZGoyUHc0dGdVN0lsU1RrV2duN2JVa2tBZzhQNkhFU1h3bWYlNEI=</span>
     <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Training</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">model&quot;</span>
 </pre></div>
 </div>
@@ -514,7 +532,7 @@ But you must be able to authorize by a username and password. Read the documenta
 <div><ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>docker</strong>.</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.username</span></code> - docker registry username.</li>
-<li><code class="docutils literal notranslate"><span class="pre">spec.password</span></code> - docker registry password.</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.password</span></code> - <strong>base64-encoded</strong> docker registry password.</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> - docker registry host.</li>
 </ul>
 </div></blockquote>
@@ -529,7 +547,24 @@ But you must be able to authorize by a username and password. Read the documenta
     <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
     <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcr.io/project/odahuflow</span>
     <span class="nt">username</span><span class="p">:</span> <span class="s">&quot;_json&quot;</span>
-    <span class="nt">password</span><span class="p">:</span> <span class="s">&#39;{&quot;type&quot;:</span><span class="nv"> </span><span class="s">&quot;service_account&quot;,</span><span class="nv"> </span><span class="s">&quot;project_id&quot;:</span><span class="nv"> </span><span class="s">&quot;project_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;:</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key&quot;:</span><span class="nv"> </span><span class="s">&quot;-----BEGIN</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\nprivate_key\n-----END</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\n&quot;,</span><span class="nv"> </span><span class="s">&quot;client_email&quot;:</span><span class="nv"> </span><span class="s">&quot;test@project_id.iam.gserviceaccount.com&quot;,</span><span class="nv"> </span><span class="s">&quot;client_id&quot;:</span><span class="nv"> </span><span class="s">&quot;123455678&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://accounts.google.com/o/oauth2/auth&quot;,</span><span class="nv"> </span><span class="s">&quot;token_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://oauth2.googleapis.com/token&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_provider_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/oauth2/v1/certs&quot;,</span><span class="nv"> </span><span class="s">&quot;client_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/robot/v1/metadata/x509/test@project_id.iam.gserviceaccount.com&quot;}&#39;</span>
+    <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ewogICAgInR5cGUiOiAic2VydmljZV9hY2NvdW50IiwKICAgICJwcm9qZWN0X2lkIjogInByb2plY3RfaWQiLAogICAgInByaXZhdGVfa2V5X2lkIjogInByaXZhdGVfa2V5X2lkIiwKICAgICJwcml2YXRlX2tleSI6ICItLS0tLUJFR0lOIFBSSVZBVEUgS0VZLS0tLS1cbnByaXZhdGVfa2V5XG4tLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tXG4iLAogICAgImNsaWVudF9lbWFpbCI6ICJ0ZXN0QHByb2plY3RfaWQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLAogICAgImNsaWVudF9pZCI6ICIxMjM0NTU2NzgiLAogICAgImF1dGhfdXJpIjogImh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9vL29hdXRoMi9hdXRoIiwKICAgICJ0b2tlbl91cmkiOiAiaHR0cHM6Ly9vYXV0aDIuZ29vZ2xlYXBpcy5jb20vdG9rZW4iLAogICAgImF1dGhfcHJvdmlkZXJfeDUwOV9jZXJ0X3VybCI6ICJodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS9vYXV0aDIvdjEvY2VydHMiLAogICAgImNsaWVudF94NTA5X2NlcnRfdXJsIjogImh0dHBzOi8vd3d3Lmdvb2dsZWFwaXMuY29tL3JvYm90L3YxL21ldGFkYXRhL3g1MDkvdGVzdEBwcm9qZWN0X2lkLmlhbS5nc2VydmljZWFjY291bnQuY29tIgp9</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Original service account JSON key, that is used in the example above, before base64-encoding:</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;service_account&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;project_id&quot;</span><span class="p">:</span> <span class="s2">&quot;project_id&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;private_key_id&quot;</span><span class="p">:</span> <span class="s2">&quot;private_key_id&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;private_key&quot;</span><span class="p">:</span> <span class="s2">&quot;-----BEGIN PRIVATE KEY-----\nprivate_key\n-----END PRIVATE KEY-----\n&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_email&quot;</span><span class="p">:</span> <span class="s2">&quot;test@project_id.iam.gserviceaccount.com&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;123455678&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;auth_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://accounts.google.com/o/oauth2/auth&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;token_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://oauth2.googleapis.com/token&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;auth_provider_x509_cert_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.googleapis.com/oauth2/v1/certs&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_x509_cert_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.googleapis.com/robot/v1/metadata/x509/test@project_id.iam.gserviceaccount.com&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -539,8 +574,9 @@ But you must be able to authorize by a username and password. Read the documenta
 <span class="nt">spec</span><span class="p">:</span>
     <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
     <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker.io/odahu/</span>
-    <span class="nt">username</span><span class="p">:</span> <span class="s">&quot;username&quot;</span>
-    <span class="nt">password</span><span class="p">:</span> <span class="s">&quot;password&quot;</span>
+    <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">username</span>
+    <span class="c1"># password before encoding: mypassword</span>
+    <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bXlwYXNzd29yZA===</span>
 </pre></div>
 </div>
 </div>
@@ -566,8 +602,8 @@ These are the reasons why we create a dedicated type of connection for the ECR.<
 <blockquote>
 <div><ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">spec.type</span></code> - It must be equal <strong>ecr</strong>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">spec.keyID</span></code> - an access key ID (for example, <code class="docutils literal notranslate"><span class="pre">AKIAIOSFODNN7EXAMPLE</span></code>).</li>
-<li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - a secret access key (for example, <code class="docutils literal notranslate"><span class="pre">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span></code>).</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keyID</span></code> - <strong>base64-encoded</strong> access key ID (for example, <code class="docutils literal notranslate"><span class="pre">AKIAIOSFODNN7EXAMPLE</span></code>).</li>
+<li><code class="docutils literal notranslate"><span class="pre">spec.keySecret</span></code> - <strong>base64-encoded</strong> secret access key (for example, <code class="docutils literal notranslate"><span class="pre">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span></code>).</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.uri</span></code> -  The url must have the following format, <cite>aws_account_id</cite>.dkr.ecr.`region`.amazonaws.com/<cite>some-prefix</cite>.</li>
 <li><code class="docutils literal notranslate"><span class="pre">spec.region</span></code> - <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">AWS Region</a>, where a docker registry was created.</li>
 </ul>
@@ -578,8 +614,10 @@ These are the reasons why we create a dedicated type of connection for the ECR.<
 <span class="nt">spec</span><span class="p">:</span>
     <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ecr</span>
     <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5555555555.dkr.ecr.eu-central-1.amazonaws.com/odahuflow</span>
-    <span class="nt">keyID</span><span class="p">:</span> <span class="s">&quot;AKIAIOSFODNN7EXAMPLE&quot;</span>
-    <span class="nt">keySecret</span><span class="p">:</span> <span class="s">&quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&quot;</span>
+    <span class="c1"># keyID before base64-encoding: &quot;AKIAIOSFODNN7EXAMPLE&quot;</span>
+    <span class="nt">keyID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">QUtJQUlPU0ZPRE5ON0VYQU1QTEU=</span>
+    <span class="c1"># keySecret before base64-encoding: &quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&quot;</span>
+    <span class="nt">keySecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">d0phbHJYVXRuRkVNSS9LN01ERU5HL2JQeFJmaUNZRVhBTVBMRUtFWQ==</span>
     <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Packager</span><span class="nv"> </span><span class="s">registry&quot;</span>
     <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-central-1</span>
 </pre></div>
