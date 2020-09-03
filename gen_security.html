@@ -308,8 +308,51 @@ protected ensures that security policy allows making this request to ODAHU API<o
 <li>Envoy makes a query to <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> as <a class="reference internal" href="#pdp">PDP</a> using <a class="reference external" href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/ext_authz_filter">External Authorization</a> filter passing parsed JWT token from the previous step</li>
 </ol>
 </li>
-<li>If request if permitted by <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> it is sent to upstream (ODAHU API)</li>
+<li>If a request is permitted by <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a>, it is sent to upstream (ODAHU API)</li>
 </ol>
+<p>UML sequence diagram of successful API request described above is shown on image:</p>
+<p class="plantuml">
+<a href="_images/plantuml-834e1cc4786570052b36fe0a8decd4f587d4f75e.png"><img src="_images/plantuml-834e1cc4786570052b36fe0a8decd4f587d4f75e.png" alt="&#64;startuml
+
+participant Client order 10
+participant Nginx order 20
+participant Auth2Proxy order 30
+
+box &quot;Envoy Sidecar&quot;
+participant &quot;Proxy&quot; order 40
+participant &quot;Authn Filter&quot; order 40
+participant &quot;Authz Filter&quot; order 50
+endbox
+
+participant &quot;Open Policy Agent&quot; order 60
+participant &quot;API Server&quot; order 70
+
+title Odahu Request Lifecycle
+
+== Cluster ingress processing ==
+
+Client -&gt; Nginx: HTTP Request\n + JWT in cookie\nor in Header
+Nginx --&gt; Auth2Proxy: Authenticated?
+note over Auth2Proxy: 1. Verify token in\nOpenID Provider
+note over Auth2Proxy: 2. Set token from \ncookie to header\nif header is empty
+Auth2Proxy --&gt; Nginx: Yes
+== In a Cluster processing ==
+Nginx -&gt; Proxy: HTTP Request\n + JWT in Header
+Proxy --&gt; &quot;Authn Filter&quot;: Authenticated?
+note over &quot;Authn Filter&quot;: 1. Verify JWT
+note over &quot;Authn Filter&quot;: 2. Parse JWT Claims
+&quot;Authn Filter&quot; --&gt; Proxy: Yes + Parsed Claims
+Proxy --&gt; &quot;Authz Filter&quot;: Authorized? + Claims
+&quot;Authz Filter&quot; --&gt; &quot;Open Policy Agent&quot;: Authorized? + Claims + \nHTTP Request Info
+&quot;Open Policy Agent&quot; --&gt; &quot;Authz Filter&quot;: Yes
+&quot;Authz Filter&quot; --&gt; Proxy: Yes
+Proxy -&gt; &quot;API Server&quot;: HTTP Request
+&quot;API Server&quot; -&gt; Proxy: HTTP Response
+Proxy -&gt; Nginx: HTTP Response
+Nginx -&gt; Client: HTTP Response
+
+&#64;enduml" style="width: 695.8px; height: 642.6px"/></a>
+</p>
 </div>
 </div>
 <div class="section" id="use-built-in-policies">
