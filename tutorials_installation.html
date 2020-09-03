@@ -600,6 +600,12 @@ and set of pre-defined roles. To customize some of built-in policies files or de
     kubectl label namespace odahu-flow-${i} project=odahu-flow; done
 </pre></div>
 </div>
+<p>To provision pods in the deployment namespace according to node selectors and
+toleration from the config you need to label the namespace so the model deployment
+webhook use it as a target</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl label namespace odahu-flow-deployment odahu/node-selector-webhook=enabled
+</pre></div>
+</div>
 <p>Deployment namespace should be also labeled for Istio injection.</p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl label namespace odahu-flow-deployment istio-injection=enabled
 </pre></div>
