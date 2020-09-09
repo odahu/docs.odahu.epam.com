@@ -250,36 +250,41 @@ You can find the description of all fields below:</p>
 <span class="c1">#  * end with an alphanumeric character</span>
 <span class="nt">id</span><span class="p">:</span> <span class="s">&quot;id-12345&quot;</span>
 <span class="nt">spec</span><span class="p">:</span>
-    <span class="c1"># Type of a packager. Available values: docker-rest, docker-cli.</span>
-    <span class="nt">integrationName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-rest</span>
-    <span class="c1"># Training output artifact name</span>
-    <span class="nt">artifactName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span>
-    <span class="c1"># Compute resources</span>
-    <span class="nt">resources</span><span class="p">:</span>
-      <span class="nt">limits</span><span class="p">:</span>
-        <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-      <span class="nt">requests</span><span class="p">:</span>
-        <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-    <span class="c1"># List of arguments. Depends on a Model Packaging integration.</span>
-    <span class="c1"># You can find specific values in the sections below.</span>
-    <span class="c1"># This parameter is used for customizing a packaging process.</span>
-    <span class="nt">arguments</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
-    <span class="c1"># List of targets. Depends on a Model Packaging integration.</span>
-    <span class="c1"># You can find specific values in the sections below.</span>
-    <span class="c1"># A packager can interact with a Docker registry, PyPi repository, and so on.</span>
-    <span class="c1"># You should provide a list of connections for a packager to get access to them.</span>
-    <span class="nt">targets</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
-    <span class="c1"># You can set connection which points to some bucket where the Trained Model Binary is stored</span>
-    <span class="c1"># then packager will extract your binary from this connection</span>
-    <span class="nt">outputConnection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">custom-connection</span>
+  <span class="c1"># Type of a packager. Available values: docker-rest, docker-cli.</span>
+  <span class="nt">integrationName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-rest</span>
+  <span class="c1"># Training output artifact name</span>
+  <span class="nt">artifactName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span>
+  <span class="c1"># Compute resources</span>
+  <span class="nt">resources</span><span class="p">:</span>
+    <span class="nt">limits</span><span class="p">:</span>
+      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+    <span class="nt">requests</span><span class="p">:</span>
+      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+  <span class="c1"># List of arguments. Depends on a Model Packaging integration.</span>
+  <span class="c1"># You can find specific values in the sections below.</span>
+  <span class="c1"># This parameter is used for customizing a packaging process.</span>
+  <span class="nt">arguments</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
+  <span class="c1"># List of targets. Depends on a Model Packaging integration.</span>
+  <span class="c1"># You can find specific values in the sections below.</span>
+  <span class="c1"># A packager can interact with a Docker registry, PyPi repository, and so on.</span>
+  <span class="c1"># You should provide a list of connections for a packager to get access to them.</span>
+  <span class="nt">targets</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+  <span class="c1"># You can set connection which points to some bucket where the Trained Model Binary is stored</span>
+  <span class="c1"># then packager will extract your binary from this connection</span>
+  <span class="nt">outputConnection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">custom-connection</span>
+  <span class="c1"># Node selector that exactly matches a node pool from ODAHU config</span>
+  <span class="c1"># This is optional; when omitted, ODAHU uses any of available packaging node pools</span>
+  <span class="c1"># Read more about node selector: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/</span>
+  <span class="nt">nodeSelector</span><span class="p">:</span>
+    <span class="nt">label</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
 <span class="c1"># Every packager saves its results into status field.</span>
 <span class="c1"># Example of fields: docker image or python packager name.</span>
 <span class="nt">status</span><span class="p">:</span>
-    <span class="nt">results</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_param</span>
-          <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_value</span>
+  <span class="nt">results</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_param</span>
+      <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_value</span>
 </pre></div>
 </div>
 </div>

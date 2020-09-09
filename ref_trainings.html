@@ -288,6 +288,11 @@ The API is pluggable and can be extended for different ML frameworks.</p>
   <span class="c1"># Git reference (branch or tag)</span>
   <span class="c1"># This must be specified here OR in Git connection itself</span>
   <span class="nt">reference</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+  <span class="c1"># Node selector that exactly matches a node pool from ODAHU config</span>
+  <span class="c1"># This is optional; when omitted, ODAHU uses any of available training node pools</span>
+  <span class="c1"># Read more about node selector: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/</span>
+  <span class="nt">nodeSelector</span><span class="p">:</span>
+    <span class="nt">label</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
 <span class="nt">status</span><span class="p">:</span>
   <span class="c1"># One of the following states: scheduling, running, succeeded, failed, unknown</span>
   <span class="nt">state</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">running</span>
