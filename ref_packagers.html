@@ -402,7 +402,7 @@ It will be downloaded during model packaging.</p>
 <div class="section" id="docker-rest">
 <h2>Docker REST<a class="headerlink" href="#docker-rest" title="Permalink to this headline">¶</a></h2>
 <p>The Docker REST packager wraps an ML model into the REST service inside a Docker image.
-The resulting service can be used for point prediction thorough HTTP.</p>
+The resulting service can be used for point prediction through HTTP.</p>
 <p>The packager provides the following list of targets:</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -490,18 +490,6 @@ The resulting service can be used for point prediction thorough HTTP.</p>
 <td>python:3.6</td>
 <td>False</td>
 <td>Base image for Dockerfile</td>
-</tr>
-<tr class="row-odd"><td>dockerfileAddCondaInstallation</td>
-<td>boolean</td>
-<td>True</td>
-<td>False</td>
-<td>Add conda installation code to Dockerfile</td>
-</tr>
-<tr class="row-even"><td>dockerfileCondaEnvsLocation</td>
-<td>boolean</td>
-<td>/opt/conda/envs/</td>
-<td>False</td>
-<td>Conda env location in Dockerfile</td>
 </tr>
 </tbody>
 </table>
@@ -641,8 +629,8 @@ The resulting service can be used for batch prediction.</p>
 <tbody valign="top">
 <tr class="row-even"><td>docker-push</td>
 <td><a class="reference internal" href="ref_connections.html#docker"><span class="std std-ref">docker</span></a>, <a class="reference internal" href="ref_connections.html#amazon-elastic-container-registry"><span class="std std-ref">ecr</span></a></td>
+<td>True</td>
 <td>The packager will use the connection for pushing a Docker image result</td>
-<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>docker-pull</td>
 <td><a class="reference internal" href="ref_connections.html#docker"><span class="std std-ref">docker</span></a>, <a class="reference internal" href="ref_connections.html#amazon-elastic-container-registry"><span class="std std-ref">ecr</span></a></td>
@@ -680,18 +668,6 @@ The resulting service can be used for batch prediction.</p>
 <td>python:3.6</td>
 <td>False</td>
 <td>Base image for Dockerfile</td>
-</tr>
-<tr class="row-even"><td>dockerfileAddCondaInstallation</td>
-<td>boolean</td>
-<td>True</td>
-<td>False</td>
-<td>Add conda installation code to Dockerfile</td>
-</tr>
-<tr class="row-odd"><td>dockerfileCondaEnvsLocation</td>
-<td>string</td>
-<td>/opt/conda/envs/</td>
-<td>False</td>
-<td>Conda env location in Dockerfile</td>
 </tr>
 </tbody>
 </table>

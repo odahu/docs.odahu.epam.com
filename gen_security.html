@@ -648,8 +648,8 @@ use more general <a class="reference external" href="https://en.wikipedia.org/wi
 <span class="nx">allow</span> <span class="p">{</span>
   <span class="nx">any_user_role</span> <span class="o">:=</span> <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">roles</span><span class="p">[</span><span class="nx">_</span><span class="p">]</span>
     <span class="nx">any_permission_of_user_role</span> <span class="o">:=</span> <span class="nx">permissions</span><span class="p">[</span><span class="nx">any_user_role</span><span class="p">][</span><span class="nx">_</span><span class="p">]</span>
-    <span class="nx">action</span> <span class="o">:=</span> <span class="nx">any_permission_of_user_role</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="nx">resource</span> <span class="o">:=</span> <span class="nx">any_permission_of_user_role</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="nx">action</span> <span class="o">:=</span> <span class="nx">any_permission_of_user_role</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span>
+    <span class="nx">resource</span> <span class="o">:=</span> <span class="nx">any_permission_of_user_role</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span>
 
     <span class="nx">re_match</span><span class="p">(</span><span class="nx">action</span><span class="p">,</span> <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">action</span><span class="p">)</span>
     <span class="nx">re_match</span><span class="p">(</span><span class="nx">resource</span><span class="p">,</span> <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">resource</span><span class="p">)</span>

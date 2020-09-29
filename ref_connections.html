@@ -129,6 +129,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#connection-types">Connection types</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#s3">S3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#google-cloud-storage">Google Cloud Storage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#azure-blob-storage">Azure Blob storage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#git">GIT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker">Docker</a></li>
@@ -305,7 +306,7 @@ You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><sp
 <blockquote>
 <div><ul class="simple">
 <li><a class="reference internal" href="#s3"><span class="std std-ref">S3</span></a></li>
-<li><span class="xref std std-ref">ref_connections:Google Cloud Storage</span></li>
+<li><a class="reference internal" href="#google-cloud-storage"><span class="std std-ref">Google Cloud Storage</span></a></li>
 <li><a class="reference internal" href="#azure-blob-storage"><span class="std std-ref">Azure Blob storage</span></a></li>
 <li><a class="reference internal" href="#git"><span class="std std-ref">GIT</span></a></li>
 <li><a class="reference internal" href="#docker"><span class="std std-ref">Docker</span></a></li>
@@ -364,8 +365,9 @@ We will support AWS service role and authorization using temporary credentials i
 </pre></div>
 </div>
 </div>
-<p>Google Cloud Storage
-——————–&gt;</p>
+</div>
+<div class="section" id="google-cloud-storage">
+<h3>Google Cloud Storage<a class="headerlink" href="#google-cloud-storage" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://cloud.google.com/storage/docs/">Google Cloud Storage</a> allows storing and accessing data on Google Cloud Platform infrastructure.
 This type of connection is used as storage of:</p>
 <blockquote>
@@ -551,8 +553,8 @@ But you must be able to authorize by a username and password. Read the documenta
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Original service account JSON key, that is used in the example above, before base64-encoding:</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Original service account JSON key, that is used in the example above, before base64-encoding:</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;service_account&quot;</span><span class="p">,</span>
     <span class="nt">&quot;project_id&quot;</span><span class="p">:</span> <span class="s2">&quot;project_id&quot;</span><span class="p">,</span>
