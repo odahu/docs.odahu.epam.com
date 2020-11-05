@@ -31,7 +31,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Operator" href="comp_operator.html" />
+    <link rel="next" title="Feedback aggregator" href="comp_feedback.html" />
     <link rel="prev" title="Invoke ODAHU models for prediction" href="tasks_call_models.html" /> 
 
   
@@ -111,8 +111,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#implementation-details">Implementation details</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="comp_feedback.html">Feedback aggregator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_security.html">Security subsystem</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Integrations</span></p>
 <ul>
@@ -219,8 +221,10 @@ You can read all of the up-to-date documentation and invoke all methods (allowed
 </div>
 <div class="section" id="authentication-and-authorization">
 <h2>Authentication and authorization<a class="headerlink" href="#authentication-and-authorization" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="gen_glossary.html#term-api-service"><span class="xref std std-term">API service</span></a> analyzes incoming HTTP headers for JWT token, extracts client’s scopes from this token and approves / declines incoming requests based on these (provided in JWT) scopes.</p>
-<span class="target" id="api-server-auth"></span></div>
+<p><a class="reference internal" href="gen_glossary.html#term-api-service"><span class="xref std std-term">API service</span></a> distributed in <a class="reference internal" href="gen_distros.html#distributions"><span class="std std-ref">odahu-flow-core helm chart</span></a> with enabled authorization
+and pre-defined OPA policies. If <span class="xref std std-ref">Security Subsystem</span> is installed, then all requests to API service will be
+enforced using <a class="reference internal" href="gen_security.html#odahu-api-and-feedback-aggregator-policies"><span class="std std-ref">pre-defined OPA policies</span></a>.</p>
+</div>
 <div class="section" id="implementation-details">
 <h2>Implementation details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="gen_glossary.html#term-api-service"><span class="xref std std-term">API service</span></a> is a REST server, written in GoLang. For easy integration, it provides a Swagger endpoint with up-to-date protocol information.</p>
@@ -264,7 +268,7 @@ You can read all of the up-to-date documentation and invoke all methods (allowed
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="comp_operator.html" class="btn btn-neutral float-right" title="Operator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="comp_feedback.html" class="btn btn-neutral float-right" title="Feedback aggregator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="tasks_call_models.html" class="btn btn-neutral" title="Invoke ODAHU models for prediction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

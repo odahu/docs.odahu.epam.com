@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Security subsystem &mdash; Odahu 1.0.0-rc27 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/nav_content_width.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Metrics" href="int_metrics.html" />
+    <link rel="prev" title="MLFlow Trainer" href="comp_mlflow_trainer.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Odahu
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_security.html">Security</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_wine.html">Cluster Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials_local_wine.html">Local Quickstart</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tasks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tasks_call_models.html">Invoke ODAHU models for prediction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Components</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_feedback.html">Feedback aggregator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Security subsystem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#implementation-details">Implementation details</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="int_metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_airflow.html">Airflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="int_jupyterlab_extension.html">JupyterLab extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ref_odahuflowctl.html">Odahuflowctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_model_format.html">Model Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_connections.html">Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_general.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_project_structure.html">Repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_hints.html">Development hints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_testing.html">Integration Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Odahu</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Security subsystem</li>
+    
+    
+<li class="wy-breadcrumbs-aside">
+<a href="odahu-docs.pdf">Get PDF version</a>
+</li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="security-subsystem">
+<h1>Security subsystem<a class="headerlink" href="#security-subsystem" title="Permalink to this headline">¶</a></h1>
+<p>Security subsystem is distributed as a helm chart and relies on <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> to make decisions about authorization
+and <a class="reference external" href="https://istio.io">Istio</a> to enforce authorization for requests to the protected services.</p>
+<p>You can read about ODAHU security concepts in <a class="reference internal" href="gen_security.html#security"><span class="std std-ref">an appropriate docs section</span></a></p>
+<div class="section" id="implementation-details">
+<h2>Implementation details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="_images/security_comp_impl.png"><img alt="_images/security_comp_impl.png" src="_images/security_comp_impl.png" style="width: 871.2px; height: 489.6px;" /></a>
+<p>Helm chart deploys</p>
+<ul class="simple">
+<li>Webhook server that injects <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> sidecars into pods that labeled by <code class="docutils literal notranslate"><span class="pre">odahu-flow-authorization=enabled</span></code></li>
+<li>EnvoyFilter that configures Istio-proxy sidecars located in pods labeled by <code class="docutils literal notranslate"><span class="pre">odahu-flow-authorization=enabled</span></code>
+to force authentication and authorization for all incoming http requests</li>
+<li>ConfigMap with common policy that included into all <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> sidecars and implements masking of a sensitive data</li>
+<li>ConfigMap with default policy that included into <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> sidecars when pod does not specify ConfigMap with its polices</li>
+</ul>
+<p>When the webhook server deploys <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> sidecar, it attaches policies from ConfigMap. ConfigMap can be found by
+the value of the pod label <code class="docutils literal notranslate"><span class="pre">opa-policy-config-map-name</span></code>. If this label is missed, then the default policy will be used.
+Default policy – reject all requests.</p>
+<p>Different ODAHU components such as <a class="reference internal" href="comp_api.html#api"><span class="std std-ref">API</span></a> and <a class="reference internal" href="comp_feedback.html#feedback-aggregator"><span class="std std-ref">Feedback aggregator</span></a>
+are distributed with a pre-defined set of <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> policies. They create ConfigMap with their policies during the deployment process.</p>
+<p>If you change ConfigMap with policies then the appropriate pod must be restarted to refresh its policies.</p>
+<table border="1" class="docutils" style="width: 100%">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub">Technologies used</th>
+<td>OpenPolicyAgent, Istio</td>
+</tr>
+<tr class="row-even"><th class="stub">Distribution representation</th>
+<td>Helm chart</td>
+</tr>
+<tr class="row-odd"><th class="stub">Source code location</th>
+<td><a class="reference external" href="https://github.com/odahu/odahu-flow/tree/develop/packages/feedback">packages/operator</a></td>
+</tr>
+<tr class="row-even"><th class="stub">Can be used w/o Odahu Platform?</th>
+<td>No</td>
+</tr>
+<tr class="row-odd"><th class="stub">Does it connect to other services?</th>
+<td>Yes (Kubernetes, OpenPolicyAgent, Istio)</td>
+</tr>
+<tr class="row-even"><th class="stub">Can it be deployed locally?</th>
+<td>If a local Kubernetes cluster is present</td>
+</tr>
+<tr class="row-odd"><th class="stub">Does it provide any interface?</th>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="int_metrics.html" class="btn btn-neutral float-right" title="Metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="comp_mlflow_trainer.html" class="btn btn-neutral" title="MLFlow Trainer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Odahu Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0-rc27',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
