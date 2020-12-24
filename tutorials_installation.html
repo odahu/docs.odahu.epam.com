@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                latest
+                1.3.0
               </div>
             
           
@@ -135,10 +135,8 @@
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="comp_feedback.html">Feedback aggregator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="comp_security.html">Security subsystem</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Integrations</span></p>
 <ul>
@@ -568,7 +566,7 @@ provided by ODAHU team:</p>
 </div>
 <p>For information about <cite>authn</cite> section parameters see
 <a class="reference external" href="https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/filter/http/jwt_authn/v2alpha/config.proto">docs for envoy authentication filter</a></p>
-<p id="how-to-customize-opa-policies">By default chart is delivered with <span class="xref std std-ref">built-in policies</span>
+<p id="how-to-customize-opa-policies">By default chart is delivered with <a class="reference internal" href="gen_security.html#built-in-policies-overview"><span class="std std-ref">built-in policies</span></a>
 that implements Role based access system
 and set of pre-defined roles. To customize some of built-in policies files or define new ones use next Helm values</p>
 <div class="literal-block-wrapper docutils container" id="customize-opa-policies">
@@ -698,7 +696,7 @@ values YAML in advance.</p>
 <p>If you install <span class="xref std std-ref">Open Policy Agent</span> for ODAHU then you will need to configure service accounts
 which will be used by ODAHU core background services such as <span class="xref std std-term">&lt;Trainer&gt;</span> or <span class="xref std std-term">&lt;Packager&gt;</span>.</p>
 <p>All service accounts below require <cite>odahu-admin</cite> ODAHU built-in role.
-(see more about built-in roles in <span class="xref std std-ref">security docs</span>)</p>
+(see more about built-in roles in <a class="reference internal" href="gen_security.html#pre-defined-roles-overview"><span class="std std-ref">security docs</span></a>)</p>
 <p>Next values with service account credentials are required :</p>
 <div class="literal-block-wrapper docutils container" id="set-credentials-for-core-service-accounts">
 <div class="code-block-caption"><span class="caption-text">values.yaml</span><a class="headerlink" href="#set-credentials-for-core-service-accounts" title="Permalink to this code">¶</a></div>
