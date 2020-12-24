@@ -132,9 +132,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-1-2-0-26-june-2020">Odahu 1.2.0, 26 June 2020</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Features:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Updates:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">Bug Fixes:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">Features:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">Updates:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id32">Bug Fixes:</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-1-1-0-16-march-2020">Odahu 1.1.0, 16 March 2020</a><ul>
@@ -221,9 +221,9 @@
 <li><dl class="first docutils">
 <dt>Core:</dt>
 <dd><ul class="first last">
-<li>Persistence Agent added to synchronize k8s CRDS into main storage (<cite>#268 &lt;https://github.com/odahu/odahu-flow/issues/268&gt;`_</cite>).</li>
-<li>All secrets passed to ODAHU API now should be base64 encoded. Decrypted secrets retrieved from ODAHU API via <cite>/connection/:id/decrypted</cite> are now also base64 encoded. (<cite>#181 &lt;https://github.com/odahu/odahu-flow/issues/181&gt;`_</cite>, <cite>#308 &lt;https://github.com/odahu/odahu-flow/issues/308&gt;`_</cite>).</li>
-<li>Positive and negative (for 404 &amp; 409 status codes) API tests via odahuflow SDK added (<cite>#247 &lt;https://github.com/odahu/odahu-flow/issues/247&gt;`_</cite>).</li>
+<li>Persistence Agent added to synchronize k8s CRDS into main storage (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/268">#268</a>).</li>
+<li>All secrets passed to ODAHU API now should be base64 encoded. Decrypted secrets retrieved from ODAHU API via <cite>/connection/:id/decrypted</cite> are now also base64 encoded. (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/181">#181</a>, <a class="reference external" href="https://github.com/odahu/odahu-flow/issues/308">#308</a>).</li>
+<li>Positive and negative (for 404 &amp; 409 status codes) API tests via odahuflow SDK added (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/247">#247</a>).</li>
 </ul>
 </dd>
 </dl>
@@ -252,10 +252,10 @@
 <li>Refactoring: some abstractions &amp; components were renamed and moved to separate packages to facilitate future development.</li>
 <li>For connection create/update operations ODAHU API will mask secrets in response body.</li>
 <li>Rclone output will not reveal secrets on unit test setup stage anymore.</li>
-<li><cite>Output-dir</cite> option path is now absolute (<cite>#208 &lt;https://github.com/odahu/odahu-flow/issues/208&gt;`_</cite>).</li>
-<li>Respect <cite>artifactNameTemplate</cite> for local training result directory name (<cite>#193 &lt;https://github.com/odahu/odahu-flow/issues/193&gt;`_</cite>).</li>
-<li>Allow to pass Azure BLOB URI without schema on connection creation (<cite>#345 &lt;https://github.com/odahu/odahu-flow/issues/345&gt;_</cite>)</li>
-<li>Validate model deployment ID to ensure it starts with alphabetic character (<cite>#294 &lt;https://github.com/odahu/odahu-flow/issues/294&gt;_</cite>)</li>
+<li><cite>Output-dir</cite> option path is now absolute (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/208">#208</a>).</li>
+<li>Respect <cite>artifactNameTemplate</cite> for local training result directory name (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/193">#193</a>).</li>
+<li>Allow to pass Azure BLOB URI without schema on connection creation (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/345">#345</a>)</li>
+<li>Validate model deployment ID to ensure it starts with alphabetic character (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/294">#294</a>)</li>
 </ul>
 </dd>
 </dl>
@@ -263,14 +263,14 @@
 <li><dl class="first docutils">
 <dt>UI:</dt>
 <dd><ul class="first last">
-<li>State of resources now updates correctly after changing in UI (<cite>#11 &lt;https://github.com/odahu/odahu-ui/issues/11&gt;_</cite>).</li>
-<li>User aren’t able to submit training when resource request is bigger than limit ‘(<cite>#355 &lt;https://github.com/odahu/odahu-flow/pull/355&gt;_</cite>).</li>
-<li>Mask secrets on review page during conenction creation process (<cite>#42 &lt;https://github.com/odahu/odahu-ui/issues/42&gt;_</cite>)</li>
-<li>UI now responds correct in case of concurrent deletion of entities (<cite>#44 &lt;https://github.com/odahu/odahu-ui/issues/44&gt;_</cite>).</li>
-<li>Additional validation added to prevent creation of resources with unsupported names (<cite>#342 &lt;https://github.com/odahu/odahu-flow/issues/342&gt;_</cite>, <cite>#34 &lt;https://github.com/odahu/odahu-ui/issues/34&gt;_</cite>).</li>
-<li>Sorting added for training &amp; packaging views (<cite>#13 &lt;https://github.com/odahu/odahu-ui/issues/13&gt;_</cite>,`#48 &lt;<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/48">https://github.com/odahu/odahu-ui/issues/48</a>&gt;_`).</li>
-<li><cite>reference</cite> field become optional for VCS connection (<cite>#50 &lt;https://github.com/odahu/odahu-ui/issues/50&gt;_</cite>).</li>
-<li>Git connection hint fixed (<cite>#7 &lt;https://github.com/odahu/odahu-ui/issues/7&gt;_</cite>).</li>
+<li>State of resources now updates correctly after changing in UI (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/11">#11</a>).</li>
+<li>User aren’t able to submit training when resource request is bigger than limit ‘(<a class="reference external" href="https://github.com/odahu/odahu-flow/pull/355">#355</a>).</li>
+<li>Mask secrets on review page during conenction creation process (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/42">#42</a>)</li>
+<li>UI now responds correct in case of concurrent deletion of entities (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/44">#44</a>).</li>
+<li>Additional validation added to prevent creation of resources with unsupported names (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/342">#342</a>, <a class="reference external" href="https://github.com/odahu/odahu-ui/issues/34">#34</a>).</li>
+<li>Sorting added for training &amp; packaging views (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/13">#13</a>, <a class="reference external" href="https://github.com/odahu/odahu-ui/issues/48">#48</a>).</li>
+<li><cite>reference</cite> field become optional for VCS connection (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/50">#50</a>).</li>
+<li>Git connection hint fixed (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/7">#7</a>).</li>
 </ul>
 </dd>
 </dl>
@@ -278,10 +278,10 @@
 <li><dl class="first docutils">
 <dt>CLI:</dt>
 <dd><ul class="first last">
-<li>Configuration secrets is now masked in config output (<cite>#307 &lt;https://github.com/odahu/odahu-flow/issues/307&gt;_</cite>).</li>
-<li>Local model output path will now display correctly (<cite>#371 &lt;https://github.com/odahu/odahu-flow/issues/371&gt;_</cite>).</li>
-<li>Local training output will now print only local training results (<cite>#370 &lt;https://github.com/odahu/odahu-flow/issues/370&gt;_</cite>)..</li>
-<li>Help message fixed for <cite>odahuflowctl gppi</cite> command (<cite>#375 &lt;https://github.com/odahu/odahu-flow/issues/375&gt;_</cite>).</li>
+<li>Configuration secrets is now masked in config output (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/307">#307</a>).</li>
+<li>Local model output path will now display correctly (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/371">#371</a>).</li>
+<li>Local training output will now print only local training results (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/370">#370</a>).</li>
+<li>Help message fixed for <cite>odahuflowctl gppi</cite> command (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/375">#375</a>).</li>
 </ul>
 </dd>
 </dl>
@@ -299,8 +299,8 @@
 </div>
 <div class="section" id="odahu-1-2-0-26-june-2020">
 <h2>Odahu 1.2.0, 26 June 2020<a class="headerlink" href="#odahu-1-2-0-26-june-2020" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>Features:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id23">
+<h3>Features:<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -329,15 +329,15 @@
 </li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h3>Updates:<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id29">
+<h3>Updates:<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Knative updated to version 0.15.0. That makes it possible to deploy model services to different node pools (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/123">#123</a>).</li>
 <li>Go dependencies was globally updated to migrate from GOPATH to go modules (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/32">#32</a>).</li>
 </ul>
 </div>
-<div class="section" id="id10">
-<h3>Bug Fixes:<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id32">
+<h3>Bug Fixes:<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
