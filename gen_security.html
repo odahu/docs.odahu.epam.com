@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.3.0
+                1.4.0-rc1
               </div>
             
           
@@ -97,22 +97,13 @@
 <li class="toctree-l3"><a class="reference internal" href="#api-request-lifecycle">API Request lifecycle</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#use-built-in-policies">Use built-in policies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pre-defined-roles-overview">Pre-defined roles overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#example-of-role-management-with-keycloak">Example of role management with Keycloak</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#create-odahu-pre-defined-roles-in-your-idp">Create ODAHU pre-defined roles in your idP</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#set-user-role-manually">Set user role manually</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#set-user-role-automatically">Set user role automatically</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#create-a-service-account-with-some-roles">Create a service account with some roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#policies">Policies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#odahu-api-and-feedback-aggregator-policies">ODAHU API and Feedback aggregator policies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#customize">Customize</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#configure-built-in-policies">Configure built-in policies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#built-in-policies-overview">Built-in policies overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#extend-roles">Extend roles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#customize-default-mapper">Customize default mapper</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#create-custom-policies">Create custom policies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#odahu-ml-models-pods-policies">ODAHU ML Models pods policies</a></li>
 </ul>
 </li>
 </ul>
@@ -131,8 +122,10 @@
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_feedback.html">Feedback aggregator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_security.html">Security subsystem</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Integrations</span></p>
 <ul>
@@ -225,11 +218,9 @@
 and give users a flexible access control management solution.</p>
 <p>The first section <a class="reference internal" href="#security-overview">Security overview</a>  shows the general design of authentication and authorization is described.
 Look at this section to have a deep understanding of how ODAHU security works under the hood or to learn basic concepts.</p>
-<p>The second section <a class="reference internal" href="#use-built-in-policies">Use built-in policies</a> describes how to add users permissions to use ODAHU via your <a class="reference internal" href="#idp">idP</a>
-and ODAHU pre-defined roles</p>
-<p>The third section <a class="reference internal" href="#configure-built-in-policies">Configure built-in policies</a> describes how you can get more flexibility
-such as adding new roles, map attributes for ODAHU RBAC from <a class="reference external" href="https://tools.ietf.org/html/rfc7519#section-4">JWT claims</a>
-or writing your policy that could be more generic than RBAC like <a class="reference external" href="https://en.wikipedia.org/wiki/Attribute-based_access_control">Access based access control</a>.</p>
+<p>The second section <a class="reference internal" href="#policies">Policies</a> describes default security policies for different ODAHU services and how to
+configure them</p>
+<p>Implementation details of ODAHU Security system could be found <a class="reference internal" href="comp_security.html#implementation-details"><span class="std std-ref">here</span></a></p>
 <div class="contents local topic" id="content-table">
 <p class="topic-title">Content table</p>
 <ul class="simple">
@@ -238,22 +229,18 @@ or writing your policy that could be more generic than RBAC like <a class="refer
 <li><a class="reference internal" href="#api-request-lifecycle" id="id3">API Request lifecycle</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#use-built-in-policies" id="id4">Use built-in policies</a><ul>
-<li><a class="reference internal" href="#pre-defined-roles-overview" id="id5">Pre-defined roles overview</a></li>
-<li><a class="reference internal" href="#example-of-role-management-with-keycloak" id="id6">Example of role management with Keycloak</a><ul>
-<li><a class="reference internal" href="#create-odahu-pre-defined-roles-in-your-idp" id="id7">Create ODAHU pre-defined roles in your idP</a></li>
-<li><a class="reference internal" href="#set-user-role-manually" id="id8">Set user role manually</a></li>
-<li><a class="reference internal" href="#set-user-role-automatically" id="id9">Set user role automatically</a></li>
-<li><a class="reference internal" href="#create-a-service-account-with-some-roles" id="id10">Create a service account with some roles</a></li>
+<li><a class="reference internal" href="#policies" id="id4">Policies</a><ul>
+<li><a class="reference internal" href="#odahu-api-and-feedback-aggregator-policies" id="id5">ODAHU API and Feedback aggregator policies</a><ul>
+<li><a class="reference internal" href="#overview" id="id6">Overview</a></li>
+<li><a class="reference internal" href="#customize" id="id7">Customize</a><ul>
+<li><a class="reference internal" href="#extend-roles" id="id8">Extend roles</a></li>
+<li><a class="reference internal" href="#customize-default-mapper" id="id9">Customize default mapper</a></li>
+<li><a class="reference internal" href="#create-custom-policies" id="id10">Create custom policies</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#configure-built-in-policies" id="id11">Configure built-in policies</a><ul>
-<li><a class="reference internal" href="#built-in-policies-overview" id="id12">Built-in policies overview</a></li>
-<li><a class="reference internal" href="#extend-roles" id="id13">Extend roles</a></li>
-<li><a class="reference internal" href="#customize-default-mapper" id="id14">Customize default mapper</a></li>
-<li><a class="reference internal" href="#create-custom-policies" id="id15">Create custom policies</a></li>
+<li><a class="reference internal" href="#odahu-ml-models-pods-policies" id="id11">ODAHU ML Models pods policies</a></li>
 </ul>
 </li>
 </ul>
@@ -305,27 +292,29 @@ The most suitable way to authenticate services is <a class="reference external" 
 <li>Envoy proxy as <a class="reference internal" href="#pep">PEP</a> that is configured as sidecar container by <a class="reference external" href="https://istio.io/docs/ops/deployment/architecture/#pilot">Istio Pilot</a> for those ODAHU components that must be
 protected ensures that security policy allows making this request to ODAHU API<ol class="arabic">
 <li>Envoy verifies JWT token in <a class="reference external" href="https://tools.ietf.org/html/rfc6750#section-2.1">Authorization Request Header Field</a>  using <a class="reference external" href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/jwt_authn_filter">JSON Web Token (JWT) Authentication</a> filter</li>
-<li>Envoy makes a query to <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> as <a class="reference internal" href="#pdp">PDP</a> using <a class="reference external" href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/ext_authz_filter">External Authorization</a> filter passing parsed JWT token from the previous step</li>
+<li>Envoy makes a query to <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> sidecar as <a class="reference internal" href="#pdp">PDP</a> using <a class="reference external" href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/ext_authz_filter">External Authorization</a> filter passing parsed JWT token
+from the previous step. <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> sidecars are injected for all pods that have
+<cite>odahu-flow-authorization=enabled</cite> label</li>
 </ol>
 </li>
 <li>If a request is permitted by <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a>, it is sent to upstream (ODAHU API)</li>
 </ol>
-<p>UML sequence diagram of successful API request described above is shown on image:</p>
+<p>UML sequence diagram of a successful API request described above is shown in the image:</p>
 <p class="plantuml">
-<a href="_images/plantuml-834e1cc4786570052b36fe0a8decd4f587d4f75e.png"><img src="_images/plantuml-834e1cc4786570052b36fe0a8decd4f587d4f75e.png" alt="&#64;startuml
+<a href="_images/plantuml-1dbb9cd0a5355803a1289e3d799c2482182b248c.png"><img src="_images/plantuml-1dbb9cd0a5355803a1289e3d799c2482182b248c.png" alt="&#64;startuml
 
 participant Client order 10
 participant Nginx order 20
 participant Auth2Proxy order 30
 
-box &quot;Envoy Sidecar&quot;
-participant &quot;Proxy&quot; order 40
-participant &quot;Authn Filter&quot; order 40
-participant &quot;Authz Filter&quot; order 50
-endbox
+box &quot;App Pod&quot;
+participant &quot;Envoy Proxy\nsidecar&quot; order 40
+participant &quot;Authn Filter&quot; order 40 #EEEBDC
+participant &quot;Authz Filter&quot; order 50 #EEEBDC
 
-participant &quot;Open Policy Agent&quot; order 60
-participant &quot;API Server&quot; order 70
+participant &quot;Open Policy Agent\nsidecar&quot; order 60
+participant &quot;App Container&quot; order 70
+endbox
 
 title Odahu Request Lifecycle
 
@@ -337,104 +326,46 @@ note over Auth2Proxy: 1. Verify token in\nOpenID Provider
 note over Auth2Proxy: 2. Set token from \ncookie to header\nif header is empty
 Auth2Proxy --&gt; Nginx: Yes
 == In a Cluster processing ==
-Nginx -&gt; Proxy: HTTP Request\n + JWT in Header
-Proxy --&gt; &quot;Authn Filter&quot;: Authenticated?
+Nginx -&gt; &quot;Envoy Proxy\nsidecar&quot;: HTTP Request\n + JWT in Header
+
+group envoy sidecar forces authentication and authorization
+&quot;Envoy Proxy\nsidecar&quot; --&gt; &quot;Authn Filter&quot;: Authenticated?
 note over &quot;Authn Filter&quot;: 1. Verify JWT
 note over &quot;Authn Filter&quot;: 2. Parse JWT Claims
-&quot;Authn Filter&quot; --&gt; Proxy: Yes + Parsed Claims
-Proxy --&gt; &quot;Authz Filter&quot;: Authorized? + Claims
-&quot;Authz Filter&quot; --&gt; &quot;Open Policy Agent&quot;: Authorized? + Claims + \nHTTP Request Info
-&quot;Open Policy Agent&quot; --&gt; &quot;Authz Filter&quot;: Yes
-&quot;Authz Filter&quot; --&gt; Proxy: Yes
-Proxy -&gt; &quot;API Server&quot;: HTTP Request
-&quot;API Server&quot; -&gt; Proxy: HTTP Response
-Proxy -&gt; Nginx: HTTP Response
+&quot;Authn Filter&quot; --&gt; &quot;Envoy Proxy\nsidecar&quot;: Yes + Parsed Claims
+&quot;Envoy Proxy\nsidecar&quot; --&gt; &quot;Authz Filter&quot;: Authorized? + Claims
+&quot;Authz Filter&quot; --&gt; &quot;Open Policy Agent\nsidecar&quot;: Authorized? + Claims + \nHTTP Request Info
+&quot;Open Policy Agent\nsidecar&quot; --&gt; &quot;Authz Filter&quot;: Yes
+&quot;Authz Filter&quot; --&gt; &quot;Envoy Proxy\nsidecar&quot;: Yes
+end
+&quot;Envoy Proxy\nsidecar&quot; -&gt; &quot;App Container&quot;: HTTP Request
+&quot;App Container&quot; -&gt; &quot;Envoy Proxy\nsidecar&quot;: HTTP Response
+&quot;Envoy Proxy\nsidecar&quot; -&gt; Nginx: HTTP Response
 Nginx -&gt; Client: HTTP Response
 
-&#64;enduml" style="width: 690.2px; height: 640.5px"/></a>
+&#64;enduml" style="width: 934.2px; height: 880.2px"/></a>
 </p>
 </div>
 </div>
-<div class="section" id="use-built-in-policies">
-<h2><a class="toc-backref" href="#id4">Use built-in policies</a><a class="headerlink" href="#use-built-in-policies" title="Permalink to this headline">¶</a></h2>
-<p>ODAHU is distributed with build-in policies that are written on <a class="reference external" href="https://www.openpolicyagent.org/docs/latest/policy-language/">Rego policy language</a>.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Role-based_access_control">Role based access control</a> is implemented by default.
-But there is nothing you need to know about rego policies language as long as
-the set of pre-defined roles fits your needs. In this section, you can see such roles and how to manage them
-using Keycloak as an example of <a class="reference internal" href="#idp">idP</a></p>
-<div class="section" id="pre-defined-roles-overview">
-<h3><a class="toc-backref" href="#id5">Pre-defined roles overview</a><a class="headerlink" href="#pre-defined-roles-overview" title="Permalink to this headline">¶</a></h3>
-<p>ODAHU has next predefined roles:</p>
+<div class="section" id="policies">
+<h2><a class="toc-backref" href="#id4">Policies</a><a class="headerlink" href="#policies" title="Permalink to this headline">¶</a></h2>
+<p>ODAHU is distributed with build-in policies that are written on <a class="reference external" href="https://www.openpolicyagent.org/docs/latest/policy-language/">Rego policy language</a> and included into helm charts
+of appropriate services.</p>
+<p><a href="#id12"><span class="problematic" id="id13">`Role-based access control`_</span></a> is implemented by default for next services</p>
 <blockquote>
-<div><ol class="arabic simple">
-<li>‘odahu_viewer’ – can do any GET requests to any API resources</li>
-<li>‘odahu_data_scientist’ – allowed requests:<ol class="arabic">
-<li>Action: GET, Resource pattern: api/v1/connection</li>
-<li>Action: GET, Resource pattern: api/v1/packaging/integration</li>
-<li>Action: GET, Resource pattern: api/v1/toolchain/integration</li>
-<li>Action pattern: ALL, Resource pattern:  api/v1/model/training</li>
-<li>Action pattern: ALL, Resource pattern:  api/v1/model/packaging</li>
-<li>Action pattern: ALL, Resource pattern:  api/v1/model/deployment</li>
-</ol>
-</li>
-<li>‘odahu_admin’ – can do any requests to any API resources</li>
-</ol>
+<div><ul class="simple">
+<li><a class="reference internal" href="comp_api.html#api"><span class="std std-ref">API</span></a></li>
+<li><a class="reference internal" href="comp_feedback.html#feedback-aggregator"><span class="std std-ref">Feedback aggregator</span></a></li>
+<li><cite>ODAHU deployed ML Models</cite></li>
+</ul>
 </div></blockquote>
-</div>
-<div class="section" id="example-of-role-management-with-keycloak">
-<h3><a class="toc-backref" href="#id6">Example of role management with Keycloak</a><a class="headerlink" href="#example-of-role-management-with-keycloak" title="Permalink to this headline">¶</a></h3>
-<p>Because of ODAHU relies on any <a class="reference external" href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect</a> provider as <a class="reference internal" href="#idp">idP</a> user roles are expected to be set as <a class="reference external" href="https://tools.ietf.org/html/rfc7519#section-4">JWT Claims</a>.
-How to assign roles of the user as JWT Claims depends on certain OpenID provider, but almost all of them provide such a feature.
-By default, ODAHU expects a list of roles in ‘realm_access.roles’ claim inside JWT token. (This is default roles location for Keycloak).
-But if you have another <a class="reference internal" href="#idp">idP</a> and can not configure it to pass roles in that claim you can configure mapper
-(see more in <a class="reference internal" href="#customize-default-mapper">Customize default mapper</a>).
-In this section we show how to (using Keycloak as <a class="reference internal" href="#idp">idP</a>):</p>
-<div class="section" id="create-odahu-pre-defined-roles-in-your-idp">
-<h4>Create ODAHU pre-defined roles in your <a class="reference internal" href="#idp">idP</a><a class="headerlink" href="#create-odahu-pre-defined-roles-in-your-idp" title="Permalink to this headline">¶</a></h4>
-<p>Create roles from section <a class="reference internal" href="#pre-defined-roles-overview">Pre-defined roles overview</a> in your Keycloak as
-<a class="reference external" href="https://www.keycloak.org/docs/latest/server_admin/#realm-roles">Realm Specific Roles</a>.</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Select appropriate Keycloak realm</li>
-<li>Add clients from <a class="reference internal" href="#pre-defined-roles-overview">Pre-defined roles overview</a>:<ol class="arabic">
-<li>odahu_viewer</li>
-<li>odahu_data_scientist</li>
-<li>odahu_admin</li>
-</ol>
-</li>
-</ol>
-</div></blockquote>
-</div>
-<div class="section" id="set-user-role-manually">
-<h4><a class="toc-backref" href="#id8">Set user role manually</a><a class="headerlink" href="#set-user-role-manually" title="Permalink to this headline">¶</a></h4>
-<p>To manually set up created role use <a class="reference external" href="https://www.keycloak.org/docs/latest/server_admin/#user-role-mappings">User Role Mapping</a></p>
-</div>
-<div class="section" id="set-user-role-automatically">
-<h4><a class="toc-backref" href="#id9">Set user role automatically</a><a class="headerlink" href="#set-user-role-automatically" title="Permalink to this headline">¶</a></h4>
-<p>If you don’t create and manage users in your realm manually but rather use
-<a class="reference external" href="https://www.keycloak.org/docs/latest/server_admin/#_identity_broker">Identity Broker</a> then you can configure
-that all new users that will be exported from the broker will have certain ODAHU role by default.</p>
-<p>To set default role create mapper with type ‘Hardcoded Role’ in broker settings as described in
-<a class="reference external" href="https://www.keycloak.org/docs/latest/server_admin/#_mappers">Keycloak Mapping Claims and Assertions</a>.</p>
-</div>
-<div class="section" id="create-a-service-account-with-some-roles">
-<h4><a class="toc-backref" href="#id10">Create a service account with some roles</a><a class="headerlink" href="#create-a-service-account-with-some-roles" title="Permalink to this headline">¶</a></h4>
-<p>If you are going to use ODAHU API from bot or service (not human) then you should use
-<a class="reference external" href="https://www.keycloak.org/docs/latest/server_admin/#_service_accounts">Service account</a>.</p>
-<p>Create OIDC client with access type
-<a class="reference external" href="https://www.keycloak.org/docs/latest/server_admin/#_client-credentials">Confidential Client Credentials</a>
-and add some ODAHU roles to its service account as described in
-<a class="reference external" href="https://www.keycloak.org/docs/latest/server_admin/#adding-or-removing-roles-for-client-s-service-account">Adding or removing roles for client’s service account</a>.</p>
-</div>
-</div>
-</div>
-<div class="section" id="configure-built-in-policies">
-<h2><a class="toc-backref" href="#id11">Configure built-in policies</a><a class="headerlink" href="#configure-built-in-policies" title="Permalink to this headline">¶</a></h2>
-<p>In this section, different ways to manage access control in ODAHU is described</p>
-<div class="section" id="built-in-policies-overview">
-<h3><a class="toc-backref" href="#id12">Built-in policies overview</a><a class="headerlink" href="#built-in-policies-overview" title="Permalink to this headline">¶</a></h3>
-<p>ODAHU is distributed with a pre-defined set of <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> policies. These policies implement  simple
-<a class="reference external" href="https://en.wikipedia.org/wiki/Role-based_access_control">Role based access control</a> (RBAC).</p>
+<div class="section" id="odahu-api-and-feedback-aggregator-policies">
+<h3><a class="toc-backref" href="#id5">ODAHU API and Feedback aggregator policies</a><a class="headerlink" href="#odahu-api-and-feedback-aggregator-policies" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="overview">
+<h4><a class="toc-backref" href="#id6">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="comp_api.html#api"><span class="std std-ref">API</span></a> and <a class="reference internal" href="comp_feedback.html#feedback-aggregator"><span class="std std-ref">Feedback aggregator</span></a> are distributed
+with a pre-defined set of <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> policies. These policies implement  simple
+<a href="#id14"><span class="problematic" id="id15">`Role-based access control`_</span></a> (RBAC).</p>
 <p>Next features are implemented using <a class="reference external" href="https://www.openpolicyagent.org/docs/latest/policy-language/">Rego policy language</a>:</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -460,9 +391,12 @@ and add some ODAHU roles to its service account as described in
 <p>All policies customization can be done on the stage of system configuration as described in
 <a class="reference internal" href="tutorials_installation.html#installation"><span class="std std-ref">installation guide</span></a></p>
 </div>
+<div class="section" id="customize">
+<h4><a class="toc-backref" href="#id7">Customize</a><a class="headerlink" href="#customize" title="Permalink to this headline">¶</a></h4>
+<p>In this section, different ways to customize pre-defined policies</p>
 <div class="section" id="extend-roles">
-<h3><a class="toc-backref" href="#id13">Extend roles</a><a class="headerlink" href="#extend-roles" title="Permalink to this headline">¶</a></h3>
-<p>To define new custom roles you should just add it as a variable in file <cite>roles.rego</cite></p>
+<h5><a class="toc-backref" href="#id8">Extend roles</a><a class="headerlink" href="#extend-roles" title="Permalink to this headline">¶</a></h5>
+<p>To define new custom roles, you should add them as a variable in the <cite>roles.rego</cite> file</p>
 <div class="literal-block-wrapper docutils container" id="add-new-role">
 <div class="code-block-caption"><span class="caption-text">roles.rego</span><a class="headerlink" href="#add-new-role" title="Permalink to this code">¶</a></div>
 <div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -540,7 +474,7 @@ and add some ODAHU roles to its service account as described in
 </ul>
 </div>
 <div class="section" id="customize-default-mapper">
-<h3><a class="toc-backref" href="#id14">Customize default mapper</a><a class="headerlink" href="#customize-default-mapper" title="Permalink to this headline">¶</a></h3>
+<h5><a class="toc-backref" href="#id9">Customize default mapper</a><a class="headerlink" href="#customize-default-mapper" title="Permalink to this headline">¶</a></h5>
 <p>You can configure <cite>mapper.rego</cite> to extend input that is passed to <cite>core.rego</cite> file with RBAC implementation</p>
 <div class="literal-block-wrapper docutils container" id="configure-mapper">
 <div class="code-block-caption"><span class="caption-text">mapper.rego</span><a class="headerlink" href="#configure-mapper" title="Permalink to this code">¶</a></div>
@@ -608,9 +542,10 @@ and add some ODAHU roles to its service account as described in
 </ul>
 </div>
 <div class="section" id="create-custom-policies">
-<h3><a class="toc-backref" href="#id15">Create custom policies</a><a class="headerlink" href="#create-custom-policies" title="Permalink to this headline">¶</a></h3>
-<p>If <a class="reference external" href="https://en.wikipedia.org/wiki/Role-based_access_control">Role based access control</a> is not enough for your purposes you can customize policies to
-use more general <a class="reference external" href="https://en.wikipedia.org/wiki/Attribute-based_access_control">Access based access control</a>. For this rewrite <cite>core.rego</cite> file or create your own rego policies</p>
+<h5><a class="toc-backref" href="#id10">Create custom policies</a><a class="headerlink" href="#create-custom-policies" title="Permalink to this headline">¶</a></h5>
+<p>If <a href="#id16"><span class="problematic" id="id17">`Role-based access control`_</span></a> is not enough for your purposes you can customize policies to
+use more general <a href="#id18"><span class="problematic" id="id19">`Attribute-based access control`_</span></a>. For this purpose, rewrite <cite>core.rego</cite> file or create your own rego policies
+from scratch</p>
 <div class="literal-block-wrapper docutils container" id="odahu-role-based-access-implementation">
 <div class="code-block-caption"><span class="caption-text">core.rego</span><a class="headerlink" href="#odahu-role-based-access-implementation" title="Permalink to this code">¶</a></div>
 <div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -656,13 +591,13 @@ use more general <a class="reference external" href="https://en.wikipedia.org/wi
 <span class="p">}</span>
 
 <span class="nx">allow</span> <span class="p">{</span>
-   <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">action</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span>
-  <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">resource</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span>
+    <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">action</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span>
+    <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">resource</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span>
 <span class="p">}</span>
 
 <span class="nx">allow</span> <span class="p">{</span>
-  <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">action</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span>
- <span class="nx">re_match</span><span class="p">(</span><span class="s2">&quot;/swagger*&quot;</span><span class="p">,</span> <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">resource</span><span class="p">)</span>
+    <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">action</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span>
+    <span class="nx">re_match</span><span class="p">(</span><span class="s2">&quot;/swagger*&quot;</span><span class="p">,</span> <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">resource</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
@@ -670,9 +605,18 @@ use more general <a class="reference external" href="https://en.wikipedia.org/wi
 <p>In this file, we:</p>
 <ul class="simple">
 <li>lines 8-16: allow access if there are required permissions for action and resource for at least one user’s roles</li>
-<li>lines 12-21: allow access to root for any user</li>
+<li>lines 18-21: allow access to root for any user</li>
 <li>lines 23-26: allow access to swagger docs to any user</li>
 </ul>
+</div>
+</div>
+</div>
+<div class="section" id="odahu-ml-models-pods-policies">
+<h3><a class="toc-backref" href="#id11">ODAHU ML Models pods policies</a><a class="headerlink" href="#odahu-ml-models-pods-policies" title="Permalink to this headline">¶</a></h3>
+<p>All deployed models contain default policies that permit requests to them for all users
+that have <a class="reference internal" href="gen_glossary.html#term-model-deployment-access-role-name"><span class="xref std std-term">Model Deployment Access Role Name</span></a>. This role can be set at the model deployment stage using
+.Spec.roleName key of the ModelDeployment manifest and also statically configured in policies
+during ODAHU deployment.</p>
 </div>
 </div>
 </div>

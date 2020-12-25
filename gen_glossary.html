@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.3.0
+                1.4.0-rc1
               </div>
             
           
@@ -106,8 +106,10 @@
 <p class="caption"><span class="caption-text">Components</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="comp_api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_feedback.html">Feedback aggregator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_operator.html">Operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp_mlflow_trainer.html">MLFlow Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp_security.html">Security subsystem</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Integrations</span></p>
 <ul>
@@ -232,7 +234,7 @@ and converts them into a target Archive. Typically this is a Docker image with R
 <dd>Containerized application that uses the results of a <a class="reference internal" href="#term-package"><span class="xref std std-term">Package</span></a> process and
 <a class="reference internal" href="#term-connection"><span class="xref std std-term">Connections</span></a> to deploy a packaged model on a Kubernetes cluster.</dd>
 <dt id="term-deploy">Deploy</dt>
-<dd>Containerized process that <cite>Deploys &lt;Deploy&gt;`results of a :term:`Package</cite> operation to Kubernetes cluster with
+<dd>Containerized process that deploys results of a <a class="reference internal" href="#term-package"><span class="xref std std-term">Package</span></a> operation to Kubernetes cluster with
 a REST web service.</dd>
 <dt id="term-trainer-metrics">Trainer Metrics</dt>
 <dd>Metrics set by <cite>Trainer</cite> code during <cite>Train</cite> (e.g. accuracy of model). These metrics can be used for
