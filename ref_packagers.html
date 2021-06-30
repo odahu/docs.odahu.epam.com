@@ -60,10 +60,6 @@
           
             
             
-              <div class="version">
-                1.4.0-rc1
-              </div>
-            
           
 
           
@@ -87,7 +83,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About ODAHU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -128,16 +124,24 @@
 <li class="toctree-l2"><a class="reference internal" href="#general-packager-structure">General packager structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#packagers-management">Packagers management</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#swagger-ui">Swagger UI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#odahu-flow-cli">Odahu-flow CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#odahu-cli">ODAHU CLI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#jupyterlab">JupyterLab</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#model-docker-dependencies-cache">Model Docker Dependencies Cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#docker-rest">Docker REST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#docker-cli">Docker CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nvidia-triton-packager">Nvidia Triton Packager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#required-files">Required files:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optional-files">Optional files:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#targets-arguments-and-results">Targets, Arguments and Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_batch.html">Batch Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
 </ul>
@@ -209,7 +213,8 @@
             
   <div class="section" id="model-packagers">
 <h1>Model Packagers<a class="headerlink" href="#model-packagers" title="Permalink to this headline">¶</a></h1>
-<p>Odahu-flow packagers turn a <a class="reference internal" href="gen_glossary.html#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a> artifact into a specific application.
+<img alt="_images/packaging.png" src="_images/packaging.png" />
+<p>ODAHU packaging component helps to wrap a <a class="reference internal" href="gen_glossary.html#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a> artifact into a inference service, batch job or command line tool.
 You can find the list of out-of-the-box packagers below:</p>
 <blockquote>
 <div><ul class="simple">
@@ -302,8 +307,8 @@ You can find the description of all fields below:</p>
 <h3>Swagger UI<a class="headerlink" href="#swagger-ui" title="Permalink to this headline">¶</a></h3>
 <p>ModelPackaging and PackagingIntegration are available on the Swagger UI at <a class="reference external" href="http://api-service/swagger/index.html">http://api-service/swagger/index.html</a> URL.</p>
 </div>
-<div class="section" id="odahu-flow-cli">
-<h3>Odahu-flow CLI<a class="headerlink" href="#odahu-flow-cli" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="odahu-cli">
+<h3>ODAHU CLI<a class="headerlink" href="#odahu-cli" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="ref_odahuflowctl.html#odahuflowctl"><span class="std std-ref">Odahuflowctl</span></a> supports the Packagers API.
 You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><span class="std std-ref">logged in</span></a> if you want to get access to the API.</p>
 <p>Getting all packaging in json format:</p>
@@ -853,6 +858,161 @@ docker run -it --rm --net -v volume:/volume host gcr.io/project/odahuflow/wine-t
 </div>
 </div>
 </div>
+<div class="section" id="nvidia-triton-packager">
+<h2>Nvidia Triton Packager<a class="headerlink" href="#nvidia-triton-packager" title="Permalink to this headline">¶</a></h2>
+<p>Triton Packager wraps model with <a class="reference external" href="https://github.com/triton-inference-server/server">Triton Inference Server</a>.
+The server supports multiple ML frameworks. Depending on the framework the packager expects different input.</p>
+<div class="section" id="required-files">
+<h3>Required files:<a class="headerlink" href="#required-files" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">model file/directory with fixed naming. Refer to
+<a class="reference external" href="https://github.com/triton-inference-server/backend/blob/main/README.md">Triton Backend Docs</a>
+to find more specific information on particular Triton backend.</p>
+<blockquote>
+<div><ul class="simple">
+<li>TensorRT: <code class="code docutils literal notranslate"><span class="pre">model.plan</span></code></li>
+<li>TensorFlow SavedModel: <code class="code docutils literal notranslate"><span class="pre">model.savedmodel/...</span></code></li>
+<li>TensorFlow Grafdef: <code class="code docutils literal notranslate"><span class="pre">model.graphdef</span></code></li>
+<li>ONNX: <code class="code docutils literal notranslate"><span class="pre">model.onnx</span></code> file or directory</li>
+<li>TorchScript: <code class="code docutils literal notranslate"><span class="pre">model.pt</span></code></li>
+<li>Caffe 2 Netdef: <code class="code docutils literal notranslate"><span class="pre">model.netdef</span></code> + <code class="code docutils literal notranslate"><span class="pre">init_model.netdef</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="code docutils literal notranslate"><span class="pre">config.pbtxt</span></code>, Triton config file
+(<a class="reference external" href="https://github.com/triton-inference-server/server/blob/master/docs/model_configuration.md">Triton Model Configuration Docs</a>).
+Optional for the following backends:</p>
+<blockquote>
+<div><ul class="simple">
+<li>TensorRT</li>
+<li>TF SavedModel</li>
+<li>ONNX</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="optional-files">
+<h3>Optional files:<a class="headerlink" href="#optional-files" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="code docutils literal notranslate"><span class="pre">odahuflow.model.yaml</span></code> in the following format.
+When omitted defaults to model <code class="code docutils literal notranslate"><span class="pre">model</span></code> of version <code class="code docutils literal notranslate"><span class="pre">1</span></code>;</li>
+</ul>
+<div class="highlight-yaml notranslate" id="example-odahuflow-model-yaml-file"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model</span>
+<span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="code docutils literal notranslate"><span class="pre">conda.yaml</span></code> for Python backend. If conda-file detected new conda env is created and used for run model.</li>
+<li>Any other arbitrary files will be copied and put next to model file.</li>
+</ul>
+</div>
+<div class="section" id="targets-arguments-and-results">
+<h3>Targets, Arguments and Results<a class="headerlink" href="#targets-arguments-and-results" title="Permalink to this headline">¶</a></h3>
+<p>Triton Packager Targets:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="7%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Target Name</th>
+<th class="head">Connection Types</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>docker-push</td>
+<td><a class="reference internal" href="ref_connections.html#docker"><span class="std std-ref">docker</span></a>, <a class="reference internal" href="ref_connections.html#amazon-elastic-container-registry"><span class="std std-ref">ecr</span></a></td>
+<td>True</td>
+<td>The packager will use the connection for pushing a Docker image result</td>
+</tr>
+</tbody>
+</table>
+<p>Triton Packager Arguments:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="6%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Argument Name</th>
+<th class="head">Type</th>
+<th class="head">Default</th>
+<th class="head">Required</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>imageName</td>
+<td>string</td>
+<td>{{ Name }}-{{ Version }}:{{ RandomUUID }}</td>
+<td>False</td>
+<td>This option provides a way to specify the Docker image name. You can hardcode the full name or specify a template. Available template values: Name (Model Name), Version (Model Version), RandomUUID. Examples: myservice:123, {{ Name }}:{{ Version }}</td>
+</tr>
+<tr class="row-odd"><td>triton_base_image_tag</td>
+<td>string</td>
+<td>20.11-py3</td>
+<td>False</td>
+<td>Triton Base image tag for Dockerfile</td>
+</tr>
+</tbody>
+</table>
+<p>Triton Packager Results:</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="14%" />
+<col width="14%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>image</td>
+<td>string</td>
+<td>The full name of a built Docker image</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>Example input file structure for Python Backend:</p>
+<ul class="simple">
+<li><code class="code docutils literal notranslate"><span class="pre">model.py</span></code> - the Python module that implements
+<a class="reference external" href="https://github.com/triton-inference-server/python_backend#usage">interface expected by Triton</a>;</li>
+<li><code class="code docutils literal notranslate"><span class="pre">odahuflow.model.yaml</span></code> - simple manifest with model name and version</li>
+<li><code class="code docutils literal notranslate"><span class="pre">conda.yaml</span></code> - describes Conda environment for model</li>
+<li><code class="code docutils literal notranslate"><span class="pre">config.pbtxt</span></code> - Triton Model config file
+(<a class="reference external" href="https://github.com/triton-inference-server/server/blob/master/docs/model_configuration.md">specification</a>)</li>
+<li><code class="code docutils literal notranslate"><span class="pre">data.json</span></code>… - arbitrary file(s) that will be put next to model file</li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="triton-packaging-with-custom-arguments">
+<div class="code-block-caption"><span class="caption-text">Triton packaging with custom arguments</span><a class="headerlink" href="#triton-packaging-with-custom-arguments" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;triton-packager-example&quot;</span>
+<span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">integrationName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-triton</span>
+    <span class="nt">artifactName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model-123456789.tar</span>
+    <span class="nt">targets</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">connectionName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-docker-registry</span>
+          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-push</span>
+    <span class="nt">arguments</span><span class="p">:</span>
+        <span class="nt">imageName</span><span class="p">:</span> <span class="s">&quot;triton-model:prefix-{{</span><span class="nv"> </span><span class="s">RandomUUID</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -875,7 +1035,7 @@ docker run -it --rm --net -v volume:/volume host gcr.io/project/odahuflow/wine-t
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Odahu Team.
+        &copy; Copyright 2021, Odahu Team.
 
     </p>
   </div>

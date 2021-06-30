@@ -60,10 +60,6 @@
           
             
             
-              <div class="version">
-                1.4.0-rc1
-              </div>
-            
           
 
           
@@ -87,7 +83,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About ODAHU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -141,6 +137,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_batch.html">Batch Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
 </ul>
@@ -399,14 +396,14 @@ with a pre-defined set of <a class="reference external" href="https://www.openpo
 <p>To define new custom roles, you should add them as a variable in the <cite>roles.rego</cite> file</p>
 <div class="literal-block-wrapper docutils container" id="add-new-role">
 <div class="code-block-caption"><span class="caption-text">roles.rego</span><a class="headerlink" href="#add-new-role" title="Permalink to this code">¶</a></div>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="hll"> package odahu.roles
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="hll"> package odahu.roles
 </span>
  admin := &quot;admin&quot;
  data_scientist := &quot;data_scientist&quot;
@@ -420,31 +417,31 @@ with a pre-defined set of <a class="reference external" href="https://www.openpo
 <p>Then you need to set permissions to that role in file <cite>permissions.rego</cite></p>
 <div class="literal-block-wrapper docutils container" id="set-permissions-for-a-new-role">
 <div class="code-block-caption"><span class="caption-text">permissions.rego</span><a class="headerlink" href="#set-permissions-for-a-new-role" title="Permalink to this code">¶</a></div>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kr">package</span> <span class="nx">odahu</span><span class="p">.</span><span class="nx">permissions</span>
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kr">package</span> <span class="nx">odahu</span><span class="p">.</span><span class="nx">permissions</span>
 
- <span class="kr">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">roles</span>
+ <span class="k">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">roles</span>
 
  <span class="nx">permissions</span> <span class="o">:=</span> <span class="p">{</span>
    <span class="nx">roles</span><span class="p">.</span><span class="nx">data_scientist</span><span class="o">:</span> <span class="p">[</span>
@@ -478,35 +475,35 @@ with a pre-defined set of <a class="reference external" href="https://www.openpo
 <p>You can configure <cite>mapper.rego</cite> to extend input that is passed to <cite>core.rego</cite> file with RBAC implementation</p>
 <div class="literal-block-wrapper docutils container" id="configure-mapper">
 <div class="code-block-caption"><span class="caption-text">mapper.rego</span><a class="headerlink" href="#configure-mapper" title="Permalink to this code">¶</a></div>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">package</span> <span class="nx">odahu</span><span class="p">.</span><span class="nx">mapper</span>
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">package</span> <span class="nx">odahu</span><span class="p">.</span><span class="nx">mapper</span>
 
-<span class="kr">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">roles</span>
+<span class="k">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">roles</span>
 
 <span class="nx">roles_map</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s2">&quot;odahu_admin&quot;</span><span class="o">:</span> <span class="nx">roles</span><span class="p">.</span><span class="nx">admin</span><span class="p">,</span>
@@ -548,35 +545,35 @@ use more general <a href="#id18"><span class="problematic" id="id19">`Attribute-
 from scratch</p>
 <div class="literal-block-wrapper docutils container" id="odahu-role-based-access-implementation">
 <div class="code-block-caption"><span class="caption-text">core.rego</span><a class="headerlink" href="#odahu-role-based-access-implementation" title="Permalink to this code">¶</a></div>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">package</span> <span class="nx">odahu</span><span class="p">.</span><span class="nx">core</span>
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">package</span> <span class="nx">odahu</span><span class="p">.</span><span class="nx">core</span>
 
-<span class="kr">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">mapper</span><span class="p">.</span><span class="nx">parsed_input</span>
-<span class="kr">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">permissions</span><span class="p">.</span><span class="nx">permissions</span>
+<span class="k">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">mapper</span><span class="p">.</span><span class="nx">parsed_input</span>
+<span class="k">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">permissions</span><span class="p">.</span><span class="nx">permissions</span>
 
 <span class="k">default</span> <span class="nx">allow</span> <span class="o">=</span> <span class="kc">false</span>
 
@@ -641,7 +638,7 @@ during ODAHU deployment.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Odahu Team.
+        &copy; Copyright 2021, Odahu Team.
 
     </p>
   </div>

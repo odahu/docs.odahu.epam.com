@@ -60,10 +60,6 @@
           
             
             
-              <div class="version">
-                1.4.0-rc1
-              </div>
-            
           
 
           
@@ -87,7 +83,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About ODAHU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -125,24 +121,29 @@
 <li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_batch.html">Batch Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#odahu-1-4-0">Odahu 1.4.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#odahu-1-5-0">Odahu 1.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#updates">Updates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#odahu-1-4-0-26-february-2021">Odahu 1.4.0, 26 February 2021</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#features">Features:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#updates">Updates:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Updates:</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bug-fixes">Bug Fixes:</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-1-3-0-07-october-2020">Odahu 1.3.0, 07 October 2020</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Features:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">Updates:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Bug Fixes:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id25">Features:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Updates:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id31">Bug Fixes:</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-1-2-0-26-june-2020">Odahu 1.2.0, 26 June 2020</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id26">Features:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id32">Updates:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id35">Bug Fixes:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id50">Features:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id56">Updates:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id59">Bug Fixes:</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-1-1-0-16-march-2020">Odahu 1.1.0, 16 March 2020</a><ul>
@@ -221,22 +222,72 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="odahu-1-4-0">
-<h2>Odahu 1.4.0<a class="headerlink" href="#odahu-1-4-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="odahu-1-5-0">
+<h2>Odahu 1.5.0<a class="headerlink" href="#odahu-1-5-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="updates">
+<h3>Updates<a class="headerlink" href="#updates" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Aiflow plugin:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Airflow plugin operators expect a service account’s <code class="docutils literal notranslate"><span class="pre">client_secret</span></code> in a <code class="docutils literal notranslate"><span class="pre">password</span></code> field of <cite>Airflow Connection</cite> now.
+previously it expects <code class="docutils literal notranslate"><span class="pre">client_secret</span></code> in <code class="docutils literal notranslate"><span class="pre">extra</span></code> field. (<a class="reference external" href="https://github.com/odahu/odahu-airflow-plugin/issues/29">#29</a>).
+<cite>Breaking change!</cite>: You should recreate all Airflow connections for ODAHU server by moving the <code class="docutils literal notranslate"><span class="pre">client_secret</span></code>
+from the <code class="docutils literal notranslate"><span class="pre">extra</span></code> field into the <code class="docutils literal notranslate"><span class="pre">password</span></code> field. Please do not forget to remove your <code class="docutils literal notranslate"><span class="pre">client_secret</span></code> from
+the <code class="docutils literal notranslate"><span class="pre">extra</span></code> field for security reasons.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="odahu-1-4-0-26-february-2021">
+<h2>Odahu 1.4.0, 26 February 2021<a class="headerlink" href="#odahu-1-4-0-26-february-2021" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="features">
 <h3>Features:<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="updates">
-<h3>Updates:<a class="headerlink" href="#updates" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
+<li><dl class="first docutils">
+<dt>Core:</dt>
+<dd><ul class="first last">
+<li>Triton Packaging Integration (<a class="reference internal" href="ref_packagers.html#nvidia-triton-packager"><span class="std std-ref">Nvidia Triton Packager</span></a>) added as a part of Triton pipeline (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/437">#437</a>).</li>
+<li>Local training &amp; packaging now covered with tests (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/157">#157</a>).</li>
+<li>MLflow toolchain with custom format for model training artifact (<a class="reference external" href="https://github.com/odahu/odahu-trainer/issues/31">#31</a>).</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>UI:</dt>
+<dd><ul class="first last">
+<li>New <cite>Play</cite> tab on Deployment page provides a way to get deployed model metadata and make inference requests
+from the UI (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/61">#61</a>).</li>
+<li>New <cite>Logs</cite> tab on Deployment page provides a way to browse logs of deployed model (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/45">#45</a>).</li>
+<li>User now can create packaging and deployments based on finished trainings and packagings (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/38">#38</a>).</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>Updates:<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Core:</dt>
+<dd><ul class="first last">
+<li>Service catalog is rewritten (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/457">#457</a>).</li>
+<li>Deployed ML models performance optimized (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/357">#357</a>).</li>
+<li>OpenPolicyAgent-based RBAC for deployed models are implemented (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/238">#238</a>).</li>
+</ul>
+</dd>
+</dl>
+</li>
 <li><dl class="first docutils">
 <dt>CLI:</dt>
 <dd><ul class="first last">
-<li>We added <code class="docutils literal notranslate"><span class="pre">--disable-target</span></code> option for <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span> <span class="pre">local</span> <span class="pre">pack</span> <span class="pre">run</span></code> command that allows you disable targets
-which will be passed to packager process. You can use multiple options at once. For example:
+<li>Option <code class="docutils literal notranslate"><span class="pre">--disable-target</span></code> for <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span> <span class="pre">local</span> <span class="pre">pack</span> <span class="pre">run</span></code> command added. It allows you disable targets which will be passed to packager process. You can use multiple options at once. For example:
 <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span> <span class="pre">local</span> <span class="pre">pack</span> <span class="pre">run</span> <span class="pre">...</span> <span class="pre">--disable-target=docker-pull</span> <span class="pre">--disable-target=docker-push</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">odahuflowctl</span> <span class="pre">local</span> <span class="pre">pack</span> <span class="pre">run</span></code> command’s options <code class="docutils literal notranslate"><span class="pre">--disable-package-targets/--no-disable-package-targets</span></code> are
-deprecated.</li>
+<li>Options <code class="docutils literal notranslate"><span class="pre">--disable-package-targets/--no-disable-package-targets</span></code> for <code class="docutils literal notranslate"><span class="pre">odahuflowctl</span> <span class="pre">local</span> <span class="pre">pack</span> <span class="pre">run</span></code> command are deprecated.</li>
 <li><code class="docutils literal notranslate"><span class="pre">odahuflowctl</span> <span class="pre">local</span> <span class="pre">pack</span> <span class="pre">run</span></code> behavior that implicitly disables all targets by default is deprecated.</li>
 </ul>
 </dd>
@@ -246,12 +297,41 @@ deprecated.</li>
 </div>
 <div class="section" id="bug-fixes">
 <h3>Bug Fixes:<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Core:</dt>
+<dd><ul class="first last">
+<li>Knative doesn’t create multiple releases anymore when using multiple node pools (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/434">#434</a>).</li>
+<li>Liveness &amp; readiness probes lowest values are now 0 instead of 1 (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/442">#442</a>).</li>
+<li>Correct error code now returned on failed deployment validation (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/441">#441</a>).</li>
+<li>Empty <cite>uri</cite> param is not longer validated for <cite>ecr</cite> connection type (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/440">#440</a>).</li>
+<li>Return correct error when missed <cite>uri</cite> param passed for <cite>git</cite> connection type (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/436">#436</a>).</li>
+<li>Return correct error when user has insufficient privileges (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/444">#444</a>).</li>
+<li>Default branch is now taken for VCS connection if it’s not provided by user (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/148">#148</a>).</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>UI:</dt>
+<dd><ul class="first last">
+<li>Auto-generated predictor value doesn’t show warning on deploy creation (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/80">#80</a>).</li>
+<li>Default deploy liveness &amp; readiness delays are unified with server values (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/74">#74</a>).</li>
+<li>Deployment doesn’t raise error when valid predictor value passed (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/46">#46</a>).</li>
+<li>Sorting for some columns fixed (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/48">#48</a>).</li>
+<li>Secrets are now masked on review stage of connection creation (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/42">#42</a>).</li>
+<li>Interface is now works as expected with long fields on edit connection page (<a class="reference external" href="https://github.com/odahu/odahu-ui/issues/65">#65</a>)</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 </div>
 </div>
 <div class="section" id="odahu-1-3-0-07-october-2020">
 <h2>Odahu 1.3.0, 07 October 2020<a class="headerlink" href="#odahu-1-3-0-07-october-2020" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>Features:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id25">
+<h3>Features:<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -265,8 +345,8 @@ deprecated.</li>
 </li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h3>Updates:<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id30">
+<h3>Updates:<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -278,8 +358,8 @@ deprecated.</li>
 </li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h3>Bug Fixes:<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id31">
+<h3>Bug Fixes:<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -334,8 +414,8 @@ deprecated.</li>
 </div>
 <div class="section" id="odahu-1-2-0-26-june-2020">
 <h2>Odahu 1.2.0, 26 June 2020<a class="headerlink" href="#odahu-1-2-0-26-june-2020" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id26">
-<h3>Features:<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id50">
+<h3>Features:<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -364,15 +444,15 @@ deprecated.</li>
 </li>
 </ul>
 </div>
-<div class="section" id="id32">
-<h3>Updates:<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id56">
+<h3>Updates:<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Knative updated to version 0.15.0. That makes it possible to deploy model services to different node pools (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/123">#123</a>).</li>
 <li>Go dependencies was globally updated to migrate from GOPATH to go modules (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/32">#32</a>).</li>
 </ul>
 </div>
-<div class="section" id="id35">
-<h3>Bug Fixes:<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id59">
+<h3>Bug Fixes:<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -550,7 +630,7 @@ That allows reducing the complexity of our terraform modules and deployment scri
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Odahu Team.
+        &copy; Copyright 2021, Odahu Team.
 
     </p>
   </div>

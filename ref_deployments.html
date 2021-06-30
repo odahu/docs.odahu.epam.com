@@ -31,7 +31,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Glossary" href="gen_glossary.html" />
+    <link rel="next" title="Batch Inference" href="ref_batch.html" />
     <link rel="prev" title="Model Packagers" href="ref_packagers.html" /> 
 
   
@@ -60,10 +60,6 @@
           
             
             
-              <div class="version">
-                1.4.0-rc1
-              </div>
-            
           
 
           
@@ -87,7 +83,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About ODAHU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -125,25 +121,19 @@
 <li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Model Deployments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#general-deployment-structure">General deployment structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#model-deployment-management">Model Deployment management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#swagger-ui">Swagger UI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#odahu-flow-cli">Odahu-flow CLI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#jupyterlab">JupyterLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inference-servers">Inference Servers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#odahu-inference-server">ODAHU Inference Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nvidia-triton-inference-server">NVIDIA Triton Inference Server</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#general-deployment-manifest-structure">General Deployment Manifest Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-deployment-management">Model Deployment management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#service-catalog">Service Catalog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#grafana-dashboard">Grafana Dashboard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#feedback">Feedback</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#protocol">Protocol</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#working-example">Working example</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#working-example-send-feedback-as-payload">Working Example - Send Feedback as Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feedback">Feedback</a></li>
 </ul>
 </li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="ref_batch.html">Batch Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
 </ul>
@@ -215,22 +205,47 @@
             
   <div class="section" id="model-deployments">
 <h1>Model Deployments<a class="headerlink" href="#model-deployments" title="Permalink to this headline">¶</a></h1>
-<p>Odahu-flow Model Deployment API allows deploy of ML models in a Kubernetes cluster.
-Additionally, it provides the following set of features:</p>
+<img alt="_images/deployment.png" src="_images/deployment.png" />
+<p>ODAHU model deployment component allows to deploy ML models as an inference online services or batch jobs in a Kubernetes cluster.</p>
+<p>Features:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Feedback loop</li>
-<li>Scale to zero</li>
-<li>Dynamic Model swagger</li>
-<li>Monitoring of Model Deployment</li>
+<li>Automatic scaling of deployed inference service instances.</li>
+<li>Monitoring of deployed inference services.</li>
+<li>Various API traffic routing polices (A/B, Canary).</li>
+<li>Inference request and response logging in a structured form with unique id to be used in feedback loop.</li>
+<li>Dynamic OpenAPI/Swagger for deployed inference service APIs.</li>
+<li>Inference service API secured with JWT and access control polices.</li>
 </ul>
 </div></blockquote>
-<div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">Model could be deployed only if docker image was packaged through Docker REST packager.</p>
+<div class="section" id="inference-servers">
+<h2>Inference Servers<a class="headerlink" href="#inference-servers" title="Permalink to this headline">¶</a></h2>
+<p>A model can be deployed in ODAHU if only it is packed with a supported Inference Server.
+Inference Server is typically a web service that “wraps” an ML model and lets remote clients to invoke
+the model via HTTP (or any other protocol).</p>
+<p>An Inference Servers that wraps the model has to be indicated in <code class="code docutils literal notranslate"><span class="pre">predictor</span></code> field of a Model Deployment.</p>
+<p>ODAHU currently supports several Inference Servers:</p>
+<ul class="simple">
+<li>ODAHU Inference Server: <code class="code docutils literal notranslate"><span class="pre">predictor:</span> <span class="pre">odahu-ml-server</span></code></li>
+<li>NVIDIA Triton Inference Server: <code class="code docutils literal notranslate"><span class="pre">predictor:</span> <span class="pre">triton</span></code></li>
+</ul>
+<div class="section" id="odahu-inference-server">
+<h3>ODAHU Inference Server<a class="headerlink" href="#odahu-inference-server" title="Permalink to this headline">¶</a></h3>
+<p>Value for “predictor” field of Model Deployment: <code class="code docutils literal notranslate"><span class="pre">predictor:</span> <span class="pre">odahu-ml-server</span></code></p>
+<p>ODAHU Inference Server is an inference server that builds a simple HTTP layer on top of any
+<a class="reference external" href="https://www.mlflow.org/docs/latest/models.html">MLFlow model</a> with an HTTP layer.</p>
+<p>To pack a model into ODAHU Inference Server <a class="reference internal" href="ref_packagers.html#docker-rest"><span class="std std-ref">Docker REST</span></a> packager has to be used.</p>
 </div>
-<div class="section" id="general-deployment-structure">
-<h2>General deployment structure<a class="headerlink" href="#general-deployment-structure" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="nvidia-triton-inference-server">
+<h3>NVIDIA Triton Inference Server<a class="headerlink" href="#nvidia-triton-inference-server" title="Permalink to this headline">¶</a></h3>
+<p>Value for “predictor” field of Model Deployment: <code class="code docutils literal notranslate"><span class="pre">predictor:</span> <span class="pre">triton</span></code></p>
+<p><a class="reference external" href="https://github.com/triton-inference-server/server">Triton Server</a> is a feature-rich inference server.
+To pack a model into a Triton Server, <a class="reference internal" href="ref_packagers.html#nvidia-triton-packager"><span class="std std-ref">Triton Packager</span></a> has to be used.</p>
+<p>Triton Server uses <a class="reference external" href="https://github.com/kubeflow/kfserving/blob/master/docs/predict-api/v2/required_api.md">KFServing Inference Protocol</a>.</p>
+</div>
+</div>
+<div class="section" id="general-deployment-manifest-structure">
+<h2>General Deployment Manifest Structure<a class="headerlink" href="#general-deployment-manifest-structure" title="Permalink to this headline">¶</a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Deployment API</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelDeployment</span>
@@ -242,6 +257,10 @@ Additionally, it provides the following set of features:</p>
 <span class="c1">#  * end with an alphanumeric character</span>
 <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-12345</span>
 <span class="nt">spec</span><span class="p">:</span>
+    <span class="c1"># Predictor is an inference backend name; required field</span>
+    <span class="c1"># Possible values are: odahu-ml-server, triton</span>
+    <span class="nt">predictor</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-ml-server</span>
+
     <span class="c1"># Model image is required value. Change it</span>
     <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcr.io/project/test-e2e-wine-1.0:b591c752-43d4-43e0-8392-9a5715b67573</span>
     <span class="c1"># If the Docker image is pulled from a private Docker repository then</span>
@@ -268,12 +287,7 @@ Additionally, it provides the following set of features:</p>
 <div class="section" id="model-deployment-management">
 <h2>Model Deployment management<a class="headerlink" href="#model-deployment-management" title="Permalink to this headline">¶</a></h2>
 <p>Model Deployments can be managed using the following ways.</p>
-<div class="section" id="swagger-ui">
-<h3>Swagger UI<a class="headerlink" href="#swagger-ui" title="Permalink to this headline">¶</a></h3>
 <p>ModelDeployments are available in the Swagger UI at <a class="reference external" href="http://api-service/swagger/index.html">http://api-service/swagger/index.html</a> URL.</p>
-</div>
-<div class="section" id="odahu-flow-cli">
-<h3>Odahu-flow CLI<a class="headerlink" href="#odahu-flow-cli" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="ref_odahuflowctl.html#odahuflowctl"><span class="std std-ref">Odahuflowctl</span></a> supports the Model Deployment API.
 You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><span class="std std-ref">logged in</span></a> if you want to access the API.</p>
 <p>Getting all model deployments in json format:</p>
@@ -314,11 +328,7 @@ You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><sp
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>odahuflowctl model invoke --md wine --file request.json
 </pre></div>
 </div>
-</div>
-<div class="section" id="jupyterlab">
-<h3>JupyterLab<a class="headerlink" href="#jupyterlab" title="Permalink to this headline">¶</a></h3>
 <p>Odahu-flow provides the <a class="reference internal" href="int_jupyterlab_extension.html#jupyterlab-extension"><span class="std std-ref">JupyterLab extension</span></a> for interacting with Model Deployments API.</p>
-</div>
 </div>
 <div class="section" id="service-catalog">
 <h2>Service Catalog<a class="headerlink" href="#service-catalog" title="Permalink to this headline">¶</a></h2>
@@ -363,16 +373,12 @@ It contains the charts with following system metrics:</p>
 <p class="first admonition-title">Important</p>
 <p class="last">This flow requires <code class="docutils literal notranslate"><span class="pre">feedback</span></code> to be enabled in <code class="docutils literal notranslate"><span class="pre">values.yaml</span></code> during Helm chart installation</p>
 </div>
-<div class="section" id="protocol">
-<h3>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>If prediction is requested without Request-ID: <code class="docutils literal notranslate"><span class="pre">Request-ID</span></code> header with random ID is added to the request. Otherwise, Request-ID is not generated.</li>
 <li>Request and response are stored on configured external storage (eg. S3, GCS)</li>
 </ol>
 <p>3. User sends Model Feedback as an argument to the feedback endpoint. (Feedback can be arbitrary JSON.)
 5. All Feedback is persisted on external storage and can be used by models during subsequent Trains.</p>
-<div class="section" id="working-example">
-<h4>Working example<a class="headerlink" href="#working-example" title="Permalink to this headline">¶</a></h4>
 <p>Making a prediction request:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST -vv <span class="s2">&quot;https://``cluster-url``/model/``model-deployment-id``/api/model/invoke&quot;</span> <span class="se">\</span>
 -H <span class="s2">&quot;Authorization: Bearer ``JWT`` \</span>
@@ -461,9 +467,6 @@ strict-transport-security: max-age=15724800; includeSubDomains
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="working-example-send-feedback-as-payload">
-<h4>Working Example - Send Feedback as Payload<a class="headerlink" href="#working-example-send-feedback-as-payload" title="Permalink to this headline">¶</a></h4>
 <p>Send Model Feedback request:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST -vv <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/feedback/model/&quot;</span> <span class="se">\</span>
 -H <span class="s2">&quot;Authorization: Bearer </span><span class="si">${</span><span class="nv">JWT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
@@ -516,8 +519,6 @@ with feedback stored in the <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 </div>
-</div>
-</div>
 
 
            </div>
@@ -527,7 +528,7 @@ with feedback stored in the <code class="docutils literal notranslate"><span cla
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="gen_glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ref_batch.html" class="btn btn-neutral float-right" title="Batch Inference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="ref_packagers.html" class="btn btn-neutral" title="Model Packagers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -539,7 +540,7 @@ with feedback stored in the <code class="docutils literal notranslate"><span cla
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Odahu Team.
+        &copy; Copyright 2021, Odahu Team.
 
     </p>
   </div>

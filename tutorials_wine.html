@@ -60,10 +60,6 @@
           
             
             
-              <div class="version">
-                1.4.0-rc1
-              </div>
-            
           
 
           
@@ -87,7 +83,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About ODAHU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -142,6 +138,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_batch.html">Batch Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
 </ul>
@@ -257,88 +254,88 @@ like the wine’s <em>fixed acidity</em>, <em>pH</em>, <em>residual sugar</em>, 
 </tbody>
 </table>
 <p>Create a new project folder:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> mkdir wine <span class="o">&amp;&amp;</span> <span class="nb">cd</span> wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir wine <span class="o">&amp;&amp;</span> <span class="nb">cd</span> wine
 </pre></div>
 </div>
 <p>Create a training script:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch train.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>touch train.py
 </pre></div>
 </div>
 <p>Paste code into the file:</p>
 <div class="literal-block-wrapper docutils container" id="train-script">
 <div class="code-block-caption"><span class="caption-text">train.py</span><a class="headerlink" href="#train-script" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
@@ -422,7 +419,7 @@ like the wine’s <em>fixed acidity</em>, <em>pH</em>, <em>residual sugar</em>, 
 <li>Save input and output samples (for persisting information about input and output column names) on lines 69-72</li>
 </ul>
 <p>Create an MLproject file:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch MLproject
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>touch MLproject
 </pre></div>
 </div>
 <p>Paste code into the file:</p>
@@ -444,7 +441,7 @@ like the wine’s <em>fixed acidity</em>, <em>pH</em>, <em>residual sugar</em>, 
 <p class="last"><em>Read more about MLproject structure on the</em> <a class="reference external" href="https://www.mlflow.org/docs/latest/projects.html">official MLFlow docs</a>.</p>
 </div>
 <p>Create a conda environment file:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch conda.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>touch conda.yaml
 </pre></div>
 </div>
 <p>Paste code to the created file:</p>
@@ -469,8 +466,8 @@ like the wine’s <em>fixed acidity</em>, <em>pH</em>, <em>residual sugar</em>, 
 <p class="last"><em>Read more about conda environment on the</em> <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">official conda docs</a>.</p>
 </div>
 <p>Make directory “data” and download the wine data set:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> mkdir ./data
-<span class="gp">$</span> wget https://raw.githubusercontent.com/odahu/odahu-examples/develop/mlflow/sklearn/wine/data/wine-quality.csv -O ./data/wine-quality.csv
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir ./data
+<span class="gp">$ </span>wget https://raw.githubusercontent.com/odahu/odahu-examples/develop/mlflow/sklearn/wine/data/wine-quality.csv -O ./data/wine-quality.csv
 </pre></div>
 </div>
 <p>After this step the project folder should look like this:</p>
@@ -512,11 +509,11 @@ like the wine’s <em>fixed acidity</em>, <em>pH</em>, <em>residual sugar</em>, 
 <p>Because <a class="reference external" href="https://github.com/odahu/odahu-examples">odahu-examples</a> repository already contains the required code
 we will just use this repository. But feel free to create and use a new repository if you want.</p>
 <p>Odahu is REST-powered, and so we encode the REST “payloads” in this tutorial in YAML files. Create a directory where payloads files will be staged:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> mkdir ./odahu-flow
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir ./odahu-flow
 </pre></div>
 </div>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/vcs_connection.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>touch ./odahu-flow/vcs_connection.odahu.yaml
 </pre></div>
 </div>
 <p>Paste code into the created file:</p>
@@ -539,7 +536,7 @@ we will just use this repository. But feel free to create and use a new reposito
 <p class="last">Read more about <a class="reference external" href="https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh">GitHub ssh keys</a></p>
 </div>
 <p>Create a Connection using the <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl conn create -f ./odahu-flow/vcs_connection.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl conn create -f ./odahu-flow/vcs_connection.odahu.yaml
 </pre></div>
 </div>
 <p>Or create a Connection using <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a>:</p>
@@ -552,7 +549,7 @@ we will just use this repository. But feel free to create and use a new reposito
 <div class="section" id="create-connection-to-wine-quality-csv-object-storage">
 <h4>Create <a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">Connection</span></a> to wine-quality.csv object storage<a class="headerlink" href="#create-connection-to-wine-quality-csv-object-storage" title="Permalink to this headline">¶</a></h4>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/wine_connection.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>touch ./odahu-flow/wine_connection.odahu.yaml
 </pre></div>
 </div>
 <p>Paste this code into the file:</p>
@@ -571,14 +568,14 @@ we will just use this repository. But feel free to create and use a new reposito
 </div>
 <p>Create a connection using the <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a> or <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a>, as in the previous example.</p>
 <p>If wine-quality.csv is not in the GCS bucket yet, use this command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> gsutil cp ./data/wine-quality.csv gs://&lt;bucket-name&gt;/data-tutorial/
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gsutil cp ./data/wine-quality.csv gs://&lt;bucket-name&gt;/data-tutorial/
 </pre></div>
 </div>
 </div>
 <div class="section" id="create-a-connection-to-a-docker-registry">
 <h4>Create a <a class="reference internal" href="gen_glossary.html#term-connection"><span class="xref std std-term">Connection</span></a> to a docker registry<a class="headerlink" href="#create-a-connection-to-a-docker-registry" title="Permalink to this headline">¶</a></h4>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/docker_connection.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>touch ./odahu-flow/docker_connection.odahu.yaml
 </pre></div>
 </div>
 <p>Paste this code into the file:</p>
@@ -631,35 +628,37 @@ we will just use this repository. But feel free to create and use a new reposito
 </tbody>
 </table>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/training.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>touch ./odahu-flow/training.odahu.yaml
 </pre></div>
 </div>
 <p>Paste code into the file:</p>
 <div class="literal-block-wrapper docutils container" id="modeltraining">
 <div class="code-block-caption"><span class="caption-text">./odahu-flow/training.odahu.yaml</span><a class="headerlink" href="#modeltraining" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
+<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
 <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
 <span class="nt">spec</span><span class="p">:</span>
   <span class="nt">model</span><span class="p">:</span>
@@ -669,7 +668,7 @@ we will just use this repository. But feel free to create and use a new reposito
 </span><span class="hll">  <span class="nt">entrypoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
 </span><span class="hll">  <span class="nt">workDir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow/sklearn/wine</span>  <span class="c1"># MLproject location (in GitHub)</span>
 </span><span class="hll">  <span class="nt">data</span><span class="p">:</span>
-</span><span class="hll">    <span class="p p-Indicator">-</span> <span class="nt">connName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
+</span><span class="hll">    <span class="p p-Indicator">-</span> <span class="nt">connection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
 </span><span class="hll">      <span class="c1"># Where to save a local copy of wine-quality.csv from wine-tutorial GCP connection</span>
 </span><span class="hll">      <span class="nt">localPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow/sklearn/wine/wine-quality.csv</span>
 </span><span class="hll">  <span class="nt">hyperParameters</span><span class="p">:</span>
@@ -681,7 +680,9 @@ we will just use this repository. But feel free to create and use a new reposito
     <span class="nt">requests</span><span class="p">:</span>
        <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
 <span class="hll">       <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2Gi</span>
-</span>  <span class=" -Error"> </span><span class="nt">vcsName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-tutorial</span>
+</span>  <span class=" -Error"> </span><span class="nt">algorithmSource</span><span class="p">:</span>
+     <span class="nt">vcs</span><span class="p">:</span>
+       <span class="nt">connection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-tutorial</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -691,22 +692,24 @@ we will just use this repository. But feel free to create and use a new reposito
 <li>line 8: Reference <code class="docutils literal notranslate"><span class="pre">main</span></code> method in <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> (which is defined for <a class="reference internal" href="#mlproject-file"><span class="std std-ref">MLproject files</span></a>)</li>
 <li>line 9: Point <code class="docutils literal notranslate"><span class="pre">workDir</span></code> to the MLFlow project directory. (This is the directory that has the <a class="reference internal" href="#mlproject-file"><span class="std std-ref">MLproject</span></a> in it.)</li>
 <li>line 10: A section defining input data</li>
-<li>line 11: <code class="docutils literal notranslate"><span class="pre">connName</span></code> id of the <a class="reference internal" href="#wine-connection"><span class="std std-ref">wine_connection.odahu.yaml</span></a> (created in the previous step)</li>
-<li>line 12: <code class="docutils literal notranslate"><span class="pre">localPath</span></code> relative (to Git repository root) path of the data file at the training (docker) container where data were put</li>
-<li>lines 13-14: Input hyperparameters, defined in MLProject file, and passed to <code class="docutils literal notranslate"><span class="pre">main</span></code> method</li>
-<li>line 22: <code class="docutils literal notranslate"><span class="pre">vcsName</span></code> id of the <a class="reference internal" href="#vcs-connection"><span class="std std-ref">vcs_connection.odahu.yaml</span></a> (created in the previous step)</li>
+<li>line 11: <code class="docutils literal notranslate"><span class="pre">connection</span></code> id of the <a class="reference internal" href="#wine-connection"><span class="std std-ref">wine_connection.odahu.yaml</span></a> (created in the previous step)</li>
+<li>line 13: <code class="docutils literal notranslate"><span class="pre">localPath</span></code> relative (to Git repository root) path of the data file at the training (docker) container where data were put</li>
+<li>lines 14-15: Input hyperparameters, defined in MLProject file, and passed to <code class="docutils literal notranslate"><span class="pre">main</span></code> method</li>
+<li>line 23: A section defining training source code</li>
+<li>line 24: <code class="docutils literal notranslate"><span class="pre">vcs</span></code> if source code located in a repository and <code class="docutils literal notranslate"><span class="pre">objectStorage</span></code> if in a storage. Should not use both</li>
+<li>line 25: id of the <a class="reference internal" href="#vcs-connection"><span class="std std-ref">vcs_connection.odahu.yaml</span></a> (created in the previous step)</li>
 </ul>
 <p><a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> using <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl training create -f ./odahu-flow/training.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl training create -f ./odahu-flow/training.odahu.yaml
 </pre></div>
 </div>
 <p>Check <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> logs:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl training logs --id wine-tutorial
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl training logs --id wine-tutorial
 </pre></div>
 </div>
 <p>The <a class="reference internal" href="gen_glossary.html#term-train"><span class="xref std std-term">Train</span></a> process will finish after some time.</p>
 <p>To check the status run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl training get --id wine-tutorial
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl training get --id wine-tutorial
 </pre></div>
 </div>
 <p>When the Train process finishes, the command will output this YAML:</p>
@@ -753,20 +756,20 @@ We can download it from storage defined in the <code class="docutils literal not
 </tbody>
 </table>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/packaging.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>touch ./odahu-flow/packaging.odahu.yaml
 </pre></div>
 </div>
 <p>Paste code into the file:</p>
 <div class="literal-block-wrapper docutils container" id="modelpackaging">
 <div class="code-block-caption"><span class="caption-text">./odahu-flow/packaging.odahu.yaml</span><a class="headerlink" href="#modelpackaging" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
+<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
 <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelPackaging</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="hll">  <span class="nt">artifactName</span><span class="p">:</span> <span class="s">&quot;&lt;fill-in&gt;&quot;</span>  <span class="c1"># Use artifact name from Train step</span>
@@ -785,16 +788,16 @@ We can download it from storage defined in the <code class="docutils literal not
 <li>line 8: id of the <a class="reference internal" href="gen_glossary.html#term-rest-api-packager"><span class="xref std std-term">REST API Packager</span></a></li>
 </ul>
 <p>Create a <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> using <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl packaging create -f ./odahu-flow/packaging.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl packaging create -f ./odahu-flow/packaging.odahu.yaml
 </pre></div>
 </div>
 <p>Check the <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> logs:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl packaging logs --id wine-tutorial
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl packaging logs --id wine-tutorial
 </pre></div>
 </div>
 <p>After some time, the <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> process will finish.</p>
 <p>To check the status, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl packaging get --id wine-tutorial
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl packaging get --id wine-tutorial
 </pre></div>
 </div>
 <p>You will see YAML with updated <a class="reference internal" href="gen_glossary.html#term-package"><span class="xref std std-term">Package</span></a> resource. Look at the status section. You can see:</p>
@@ -837,38 +840,41 @@ We can download it from storage defined in the <code class="docutils literal not
 </tbody>
 </table>
 <p>Create payload:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/deployment.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>touch ./odahu-flow/deployment.odahu.yaml
 </pre></div>
 </div>
 <p>Paste code into the file:</p>
 <div class="literal-block-wrapper docutils container" id="modeldeployment">
 <div class="code-block-caption"><span class="caption-text">./odahu-flow/deployment.odahu.yaml</span><a class="headerlink" href="#modeldeployment" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
+<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-tutorial</span>
 <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelDeployment</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="hll">  <span class="nt">image</span><span class="p">:</span> <span class="s">&quot;&lt;fill-in&gt;&quot;</span>
-</span>  <span class="nt">minReplicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="hll">  <span class="nt">imagePullConnectionID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-tutorial</span>
+</span>  <span class="nt">predictor</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-ml-server</span>
+<span class="hll">  <span class="nt">minReplicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span class="hll">  <span class="nt">imagePullConnectionID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-tutorial</span>
 </span></pre></div>
 </td></tr></table></div>
 </div>
 <p>In this file, we:</p>
 <ul class="simple">
 <li>line 4: Set the <code class="docutils literal notranslate"><span class="pre">image</span></code> that was created in the Package step</li>
-<li>line 6: Set the id of the <a class="reference internal" href="gen_glossary.html#term-rest-api-packager"><span class="xref std std-term">REST API Packager</span></a></li>
+<li>line 5: Set the <code class="docutils literal notranslate"><span class="pre">predictor</span></code> that indicates what Inference Server is used in the image; Check <a href="#id1"><span class="problematic" id="id2">`Predictors`_</span></a> for more;</li>
+<li>line 7: Set the connection ID to access the container registry where the image lives</li>
 </ul>
 <p>Create a <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">Deploy</span></a> using the <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl deployment create -f ./odahu-flow/deployment.odahu.yaml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl deployment create -f ./odahu-flow/deployment.odahu.yaml
 </pre></div>
 </div>
 <p>After some time, the <a class="reference internal" href="gen_glossary.html#term-deploy"><span class="xref std std-term">Deploy</span></a> process will finish.</p>
 <p>To check its status, run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl deployment get --id wine-tutorial
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl deployment get --id wine-tutorial
 </pre></div>
 </div>
 <p>Or create a <cite>Deploy</cite> using the <a class="reference internal" href="gen_glossary.html#term-plugin-for-jupyterlab"><span class="xref std std-term">Plugin for JupyterLab</span></a>:</p>
@@ -906,7 +912,7 @@ We can download it from storage defined in the <code class="docutils literal not
 </ol>
 <p>But you can also do predictions using the <a class="reference internal" href="gen_glossary.html#term-odahu-flow-cli"><span class="xref std std-term">Odahu-flow CLI</span></a>.</p>
 <p>Create a payload file:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> touch ./odahu-flow/r.json
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>touch ./odahu-flow/r.json
 </pre></div>
 </div>
 <p>Add payload for <code class="docutils literal notranslate"><span class="pre">/model/wine-tutorial/api/model/invoke</span></code> according to the OpenAPI schema. In this payload we provide values for model input variables:</p>
@@ -946,7 +952,7 @@ We can download it from storage defined in the <code class="docutils literal not
 </div>
 </div>
 <p>Invoke the model to make a prediction:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl model invoke --mr wine-tutorial --json-file r.json
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl model invoke --mr wine-tutorial --json-file r.json
 </pre></div>
 </div>
 <div class="literal-block-wrapper docutils container" id="model-invoke-output">
@@ -980,7 +986,7 @@ We can download it from storage defined in the <code class="docutils literal not
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Odahu Team.
+        &copy; Copyright 2021, Odahu Team.
 
     </p>
   </div>

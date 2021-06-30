@@ -60,10 +60,6 @@
           
             
             
-              <div class="version">
-                1.4.0-rc1
-              </div>
-            
           
 
           
@@ -87,7 +83,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About ODAHU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -133,16 +129,23 @@
 <li class="toctree-l3"><a class="reference internal" href="#jupyterlab">JupyterLab</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#mlflow">MLFlow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mlflow-toolchain">MLFlow toolchain</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mlproject-file">MLProject file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mlflow-protocol">MLFlow protocol</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mlflow-project-toolchain">MLFlow Project toolchain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">MLProject file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#storing-training-artifacts">Storing training artifacts</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_batch.html">Batch Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
 </ul>
@@ -214,19 +217,21 @@
             
   <div class="section" id="model-trainings">
 <h1>Model Trainings<a class="headerlink" href="#model-trainings" title="Permalink to this headline">¶</a></h1>
-<p>The Odahu-flow Model Training API provides features to manage remote training jobs.
-The primary goal of API is to create a <a class="reference internal" href="gen_glossary.html#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a> for a <a class="reference internal" href="gen_glossary.html#term-packager"><span class="xref std std-term">Packager</span></a>.
+<img alt="_images/training.png" src="_images/training.png" />
+<p>ODAHU model training component helps to automate ML model training jobs execution in K8S.
+The primary goal of model training component is to create a <a class="reference internal" href="gen_glossary.html#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a> for a <a class="reference internal" href="gen_glossary.html#term-packager"><span class="xref std std-term">Packager</span></a>.
 The API is pluggable and can be extended for different ML frameworks.</p>
 <p>You can find the list of out-of-the-box trainers below:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="#mlflow"><span class="std std-ref">MLFlow</span></a></li>
+<li><a class="reference internal" href="#mlflow-toolchain"><span class="std std-ref">MLFlow toolchain</span></a></li>
+<li><a class="reference internal" href="#mlflow-project-toolchain"><span class="std std-ref">MLFlow Project toolchain</span></a></li>
 </ul>
 </div></blockquote>
 <div class="section" id="general-training-structure">
 <h2>General training structure<a class="headerlink" href="#general-training-structure" title="Permalink to this headline">¶</a></h2>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Training API</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<span id="training-api"></span><div class="code-block-caption"><span class="caption-text">Training API</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
 <span class="c1"># Some unique value among all trainings. if not, the training with the same name will be overwritten.</span>
 <span class="c1"># Id must:</span>
@@ -258,7 +263,7 @@ The API is pluggable and can be extended for different ML frameworks.</p>
   <span class="c1"># The training data for a ML script. You can find full description there: https://docs.odahu.org/ref_trainings.html#training-data</span>
   <span class="nt">data</span><span class="p">:</span>
       <span class="c1"># You can specify a connection name</span>
-    <span class="p p-Indicator">-</span> <span class="nt">connName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
+    <span class="p p-Indicator">-</span> <span class="nt">connection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
       <span class="c1"># Path to a file or a dir where data will copy from a bucket; relative to your Git repository root derictory.</span>
       <span class="nt">localPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow/wine-quality/</span>
       <span class="c1"># Path to the dir or file in a bucket</span>
@@ -285,11 +290,16 @@ The API is pluggable and can be extended for different ML frameworks.</p>
   <span class="c1"># A Docker image where the training will be launched.</span>
   <span class="c1"># By default, the image from a toolchain is used.</span>
   <span class="c1"># image: python:3.8</span>
-  <span class="c1"># A connection which describes credentials to a GIT repository</span>
-  <span class="nt">vcsName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;git-connection&gt;</span>
-  <span class="c1"># Git reference (branch or tag)</span>
-  <span class="c1"># This must be specified here OR in Git connection itself</span>
-  <span class="nt">reference</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+  <span class="c1"># A section defining training source code</span>
+  <span class="nt">algorithmSource</span><span class="p">:</span>
+    <span class="c1"># Use vcs if source code located in a repository and objectStorage if in a storage. Should not use both</span>
+    <span class="nt">vcs</span><span class="p">:</span>
+      <span class="c1"># A connection which describes credentials to a GIT repository or to a bucket if using objectStorage</span>
+      <span class="nt">connection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;git-connection&gt;</span>
+      <span class="c1"># Git reference (branch or tag)</span>
+      <span class="c1"># This must be specified here OR in Git connection itself</span>
+      <span class="c1"># In case of using objectStorage, specify path: &lt;remote path&gt; instead of reference</span>
+      <span class="nt">reference</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
   <span class="c1"># Node selector that exactly matches a node pool from ODAHU config</span>
   <span class="c1"># This is optional; when omitted, ODAHU uses any of available training node pools</span>
   <span class="c1"># Read more about node selector: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/</span>
@@ -331,8 +341,8 @@ Data source supports the following types of Odahu-flow connections:</p>
 </dd>
 </dl>
 <p>First of all, we should create an <a class="reference internal" href="ref_connections.html#google-cloud-storage"><span class="std std-ref">Odahu-flow GCS connection</span></a>.</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Training Data GCS:</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Training Data GCS:</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;wine-training-data-conn&quot;</span>
 <span class="nt">spec</span><span class="p">:</span>
     <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcs</span>
@@ -348,7 +358,7 @@ Data source supports the following types of Odahu-flow connections:</p>
 <div class="code-block-caption"><span class="caption-text">Example of Connection GCS:</span><a class="headerlink" href="#connection-gcs-file" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spec</span><span class="p">:</span>
   <span class="nt">data</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">connName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-training-data-conn</span>
+    <span class="p p-Indicator">-</span> <span class="nt">connection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-training-data-conn</span>
       <span class="nt">localPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data/</span>
       <span class="nt">remotePath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine/11-11-2011/</span>
 </pre></div>
@@ -361,8 +371,8 @@ Data source supports the following types of Odahu-flow connections:</p>
 <p>You can find more about GPU deployment configuration in the <a class="reference internal" href="tutorials_installation.html#kubernetes-setup"><span class="std std-ref">installation guide</span></a>.</p>
 <p>In order to provision a training container in the GPU node pool,
 you must specify the GPU resource in the model training manifest.</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Training on GPU</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Training on GPU</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
 <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gpu-model</span>
 <span class="nt">spec</span><span class="p">:</span>
@@ -429,8 +439,8 @@ It will be downloaded during model training.</p>
 </pre></div>
 </div>
 <p>Specify the image in a model training:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Training example</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Training example</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
 <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model-12345</span>
 <span class="nt">spec</span><span class="p">:</span>
@@ -492,11 +502,11 @@ You must be <a class="reference internal" href="ref_odahuflowctl.html#login"><sp
 <p>Odahu-flow provides the <a class="reference internal" href="int_jupyterlab_extension.html#jupyterlab-extension"><span class="std std-ref">JupyterLab extension</span></a> for interacting with Training API.</p>
 </div>
 </div>
-<div class="section" id="mlflow">
-<h2>MLFlow<a class="headerlink" href="#mlflow" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mlflow-toolchain">
+<h2>MLFlow toolchain<a class="headerlink" href="#mlflow-toolchain" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://mlflow.org/docs/latest/index.html">MLflow</a> is library-agnostic. You can use it with any machine learning library, and in any programming language, since all functions are accessible through a REST API and CLI.</p>
 <div class="section" id="installation">
-<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
+<span id="mlflow-toolchain-installation"></span><h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
 <p>The most straightforward way to install the MLFlow trainer on an Odahu Cluster is to deploy the <cite>odahu-flow-mlflow</cite> helm chart.
 The helm chart registers the trainer in the API Odahu and deploys an <a class="reference external" href="https://www.mlflow.org/docs/latest/tracking.html#mlflow-tracking-servers">MLflow Tracking Server</a>.
 By default, the deployed MLflow Tracking Server is available at <cite>https://cluster-url/mlflow</cite> address.</p>
@@ -516,7 +526,7 @@ helm install odahu-flow/odahu-flow-mlflow --name odahu-flow-mlflow --namespace o
 </div>
 </div>
 <div class="section" id="mlproject-file">
-<h3>MLProject file<a class="headerlink" href="#mlproject-file" title="Permalink to this headline">¶</a></h3>
+<span id="mlproject-description"></span><h3>MLProject file<a class="headerlink" href="#mlproject-file" title="Permalink to this headline">¶</a></h3>
 <p>Let’s look at how the MLProject file is related to Model Training API.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>name: My Project
 
@@ -558,8 +568,8 @@ Next, you can find the Model Trainings for the MLProject file.</p>
 <div class="section" id="mlflow-protocol">
 <h3>MLFlow protocol<a class="headerlink" href="#mlflow-protocol" title="Permalink to this headline">¶</a></h3>
 <p>Odahu-flow requires that a model is logged through <a class="reference external" href="https://www.mlflow.org/docs/latest/python_api/mlflow.pyfunc.html#mlflow.pyfunc.log_model">mlflow API</a>.</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Example of sklearn model logging:</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Example of sklearn model logging:</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mlflow</span><span class="o">.</span><span class="n">sklearn</span><span class="o">.</span><span class="n">log_model</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -567,8 +577,8 @@ Next, you can find the Model Trainings for the MLProject file.</p>
 <p>Optionally, you can provide input and output samples for Odahu-flow.
 It allows determining input and output types for Odahu-flow packagers.
 These names must be <cite>head_input.pkl</cite> and <cite>head_output.pkl</cite>, respectively.</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Example of input and output samples logging:</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Example of input and output samples logging:</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">train_x</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="s1">&#39;head_input.pkl&#39;</span><span class="p">)</span>
 <span class="n">mlflow</span><span class="o">.</span><span class="n">log_artifact</span><span class="p">(</span><span class="s1">&#39;head_input.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">)</span>
 <span class="n">train_y</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="s1">&#39;head_output.pkl&#39;</span><span class="p">)</span>
@@ -576,6 +586,47 @@ These names must be <cite>head_input.pkl</cite> and <cite>head_output.pkl</cite>
 </pre></div>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="mlflow-project-toolchain">
+<h2>MLFlow Project toolchain<a class="headerlink" href="#mlflow-project-toolchain" title="Permalink to this headline">¶</a></h2>
+<p>MLFlow Project toolchain is a lightweight version of <span class="xref std std-ref">MLFlow toolchain</span>.</p>
+<p>The main difference is that MLFlow Project toolchain does not require user to store models using
+<a class="reference external" href="https://www.mlflow.org/docs/latest/tracking.html">MLFlow Tracking API</a>
+and therefore does not require models stored in MLFlow format as a resulted artifact.</p>
+<p>Instead, MLFlow Project toolchain relies only on
+<a class="reference external" href="https://www.mlflow.org/docs/latest/projects.html">MLFlow Project functionality</a>  to run training script
+and manage dependencies. User can store result artifacts in any format as they wish.</p>
+<div class="section" id="id1">
+<h3>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Installation of MLFlow Project toolchain is identical to <a class="reference internal" href="#mlflow-toolchain-installation"><span class="std std-ref">MLFlow installation</span></a></p>
+</div>
+<div class="section" id="id2">
+<h3>MLProject file<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>MLFlow Project toolchain runs training script using MLProject specification. Please refer to
+<a class="reference internal" href="#mlproject-description"><span class="std std-ref">previous section</span></a>
+or <a class="reference external" href="https://www.mlflow.org/docs/latest/projects.html#mlproject-file">official MLFlow documentation</a>
+to learn more about MLProject file.</p>
+</div>
+<div class="section" id="storing-training-artifacts">
+<h3>Storing training artifacts<a class="headerlink" href="#storing-training-artifacts" title="Permalink to this headline">¶</a></h3>
+<p>You can store any artifacts during script execution in a special directory. To get a path to output directory read value
+of <code class="docutils literal notranslate"><span class="pre">$ODAHUFLOW_OUTPUT_DIR</span></code> environment variable.</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">output_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ODAHUFLOW_OUTPUT_DIR&quot;</span><span class="p">)</span>
+
+<span class="n">train_x</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s1">&#39;head_input.pkl&#39;</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>Additionally, to manually store artifacts all content from <code class="docutils literal notranslate"><span class="pre">$WORK_DIR/data</span></code> folder will be automatically copied to
+<code class="docutils literal notranslate"><span class="pre">$ODAHUFLOW_OUTPUT_DIR</span></code>, where <code class="docutils literal notranslate"><span class="pre">$WORK_DIR</span></code> is a <a class="reference internal" href="#training-api"><span class="std std-ref">workDir parameter</span></a> value
+from training spec.</p>
+<p>You can use this feature if you have some file(s) that are required by further steps and can be defined statically before script execution. For example,
+some python wrapper scripts to deploy a model into a specific ML Server in the future.</p>
 </div>
 </div>
 </div>
@@ -600,7 +651,7 @@ These names must be <cite>head_input.pkl</cite> and <cite>head_output.pkl</cite>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Odahu Team.
+        &copy; Copyright 2021, Odahu Team.
 
     </p>
   </div>

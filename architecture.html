@@ -60,10 +60,6 @@
           
             
             
-              <div class="version">
-                1.4.0-rc1
-              </div>
-            
           
 
           
@@ -87,7 +83,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About ODAHU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -125,6 +121,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_batch.html">Batch Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
 </ul>
@@ -196,23 +193,34 @@
             
   <div class="section" id="architecture">
 <h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
-<p>The following diagram shows the high level architecture of Odahu-flow project.</p>
-<img alt="_images/architecture.png" src="_images/architecture.png" />
-<p>Odahu-flow applications:</p>
+<p>The components diagram below shows high level architecture of ODAHU project.</p>
+<img alt="_images/odahu_high_level.png" src="_images/odahu_high_level.png" />
+<p>Core components:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="ref_odahuflowctl.html#odahuflowctl"><span class="std std-ref">Odahu-flow CLI</span></a> is a command-line interface for interacting with Odahu-flow API service.</li>
-<li>The Odahu-flow Swagger UI provides swagger interface for Odahu-flow REST API.</li>
-<li><a class="reference internal" href="int_airflow.html#airflow"><span class="std std-ref">Odahu-flow Airflow plugin</span></a> provides a set of custom operators that allow you to interact with a Odahu cluster using <a class="reference external" href="https://airflow.apache.org/">Apache Airflow</a></li>
-<li>The MLflow Tracking component is an API and UI for logging parameters, code versions, and metrics when running your machine learning code and for later visualizing the results.</li>
-<li><a class="reference internal" href="int_jupyterlab_extension.html#jupyterlab-extension"><span class="std std-ref">JupyterLab extension</span></a> allows you to interact with an Odahu cluster from JupyterLab web-based IDEs.</li>
-<li>API service manages Odahu Platform entities: <a class="reference internal" href="ref_connections.html#connections"><span class="std std-ref">Connections</span></a>, <a class="reference internal" href="ref_trainings.html#model-trainings"><span class="std std-ref">Trainings</span></a>, <a class="reference internal" href="ref_packagers.html#model-packagers"><span class="std std-ref">Packaging</span></a>, <a class="reference internal" href="ref_deployments.html#model-deployments"><span class="std std-ref">Deployments</span></a>.</li>
-<li><a class="reference internal" href="ref_deployments.html#service-catalog"><span class="std std-ref">Service catalog</span></a> provides a Swagger UI for Model Deployments.</li>
-<li>TektonCD is an open source implementation to configure and run CI/CD style pipelines for your Kubernetes application.</li>
-<li>Knative Serving builds on Kubernetes and Istio to support deploying and serving of serverless applications and functions.</li>
-<li>Odahu-flow Model Training API provides features to manage remote training jobs.</li>
-<li>Odahu-flow packagers turn a <a class="reference internal" href="gen_glossary.html#term-trained-model-binary"><span class="xref std std-term">Trained Model Binary</span></a> artifact into a specific application.</li>
-<li>Odahu-flow Model Deployment API allows deploy ML models in a Kubernetes cluster.</li>
+<li>Training component for executing ML model training jobs in K8S.</li>
+<li>Packaging component for wrapping up ML model binary to an online service, batch job, library or command line tool.</li>
+<li>Deployment component for deploying ML model as a service or batch job.</li>
+<li>Feedback Loop component for collecting prediction feedback and linking it with actual prediction request and response.</li>
+<li>Connections component for managing credentials for external systems (data storages, code repositories, package repositories, docker registries, etc.) in a secure way. It uses HashiCorp Vault under the hood.</li>
+<li>Deployment automation scripts for deploying ODAHU components to major cloud providers AWS, Azure, GCP.</li>
+</ul>
+</div></blockquote>
+<p>Interfaces:</p>
+<blockquote>
+<div><ul class="simple">
+<li>RESTful API</li>
+<li>SDK for ODAHU components API generated from OpenAPI/Swagger specification.</li>
+<li>Web ontrol panel based on ODAHU SDK for interacting with ODAHU components via Web UI.</li>
+<li><a class="reference internal" href="ref_odahuflowctl.html#odahuflowctl"><span class="std std-ref">Command line interface</span></a> based on ODAHU SDK for interacting with ODAHU components via terminal commands.</li>
+</ul>
+</div></blockquote>
+<p>Extensions for external workflow engines:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Argo Workflow templates based on ODAHU SDK and CLI provide Argo Workflow steps for ODAHU Training, Packaging and Deployment APIs <a class="reference external" href="https://argoproj.github.io/argo-workflows/">Argo Workflow</a></li>
+<li><a class="reference internal" href="int_airflow.html#airflow"><span class="std std-ref">ODAHU Airflow plugin</span></a> based on SDK provides Airflow operators for ODAHU Training, Packaging and Deployment APIs <a class="reference external" href="https://airflow.apache.org/">Apache Airflow</a></li>
+<li><a class="reference internal" href="int_jupyterlab_extension.html#jupyterlab-extension"><span class="std std-ref">JupyterLab extension</span></a> adds UI features to JupyterLab for interacting with ODAHU components.</li>
 </ul>
 </div></blockquote>
 </div>
@@ -237,7 +245,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Odahu Team.
+        &copy; Copyright 2021, Odahu Team.
 
     </p>
   </div>

@@ -60,10 +60,6 @@
           
             
             
-              <div class="version">
-                1.4.0-rc1
-              </div>
-            
           
 
           
@@ -87,7 +83,7 @@
             
               <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About Open Data Analytics Hub (ODAHU)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About ODAHU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_distros.html">Distributions</a></li>
@@ -129,6 +125,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ref_trainings.html">Model Trainings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_packagers.html">Model Packagers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_deployments.html">Model Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ref_batch.html">Batch Inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ref_changelog.html">Changelog</a></li>
 </ul>
@@ -220,7 +217,7 @@ But now, we will train, package and deploy the model locally.</p>
 <p class="last">Code for the tutorial is available on <a class="reference external" href="https://github.com/odahu/odahu-examples/tree/master/mlflow/sklearn/wine">GitHub</a>.</p>
 </div>
 <p><cite>odahuflowctl</cite> has commands for local training and packaging.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl <span class="nb">local</span> --help
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl <span class="nb">local</span> --help
 </pre></div>
 </div>
 <p>To train a model locally, you have to provide an ODAHU model training manifest and
@@ -246,7 +243,7 @@ toolchain manifest manually.</p>
 </pre></div>
 </div>
 <p>We are ready to launch the local training. Copy, past and execute the following command.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl <span class="nb">local</span> train run -d mlflow/sklearn/wine/odahuflow --id wine
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl <span class="nb">local</span> train run -d mlflow/sklearn/wine/odahuflow --id wine
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -257,7 +254,7 @@ This will be implemented in the near future.</p>
 <p><cite>odahuflowctl</cite> trains the model, verify that it satisfy the GPPI spec and save
 GPPI binary in the host filesystem. Execute the following command to take a look
 all trained models.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl <span class="nb">local</span> train list
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl <span class="nb">local</span> train list
 </pre></div>
 </div>
 <p>Our next step is to package the trained model to a REST service.
@@ -373,15 +370,15 @@ packaging integration manifests.</p>
 </pre></div>
 </div>
 <p>Choose the name of trained artifact and execute the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl --verbose <span class="nb">local</span> pack run -d mlflow/sklearn/wine/odahuflow --id wine -a wine-1.0-wine-1.0-01-Mar-2020-18-33-35
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl --verbose <span class="nb">local</span> pack run -d mlflow/sklearn/wine/odahuflow --id wine -a wine-1.0-wine-1.0-01-Mar-2020-18-33-35
 </pre></div>
 </div>
 <p>The last lines of output must contains a name of model REST service.</p>
 <p>At the last step, we run our REST service and make a predict.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> docker run -it --rm -p <span class="m">5000</span>:5000 wine-1.0:cbf184d0-4b08-45c4-8efb-17e28a3b537e
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker run -it --rm -p <span class="m">5000</span>:5000 wine-1.0:cbf184d0-4b08-45c4-8efb-17e28a3b537e
 </pre></div>
 </div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> odahuflowctl model invoke --url http://0:5000 --json-file mlflow/sklearn/wine/odahuflow/request.json
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl model invoke --url http://0:5000 --json-file mlflow/sklearn/wine/odahuflow/request.json
 </pre></div>
 </div>
 </div>
@@ -407,7 +404,7 @@ packaging integration manifests.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Odahu Team.
+        &copy; Copyright 2021, Odahu Team.
 
     </p>
   </div>
