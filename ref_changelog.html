@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; Odahu 1.5.0-rc6 documentation</title>
+  <title>Changelog &mdash; Odahu  documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.5.0-rc6
+                1.5.0
               </div>
             
           
@@ -129,25 +129,27 @@
 <li class="toctree-l1"><a class="reference internal" href="gen_glossary.html">Glossary</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-1-5-0">Odahu 1.5.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#updates">Updates</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#odahu-1-4-0-26-february-2021">Odahu 1.4.0, 26 February 2021</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#features">Features:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">Updates:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updates">Updates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bug-fixes">Bug Fixes:</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#odahu-1-4-0-26-february-2021">Odahu 1.4.0, 26 February 2021</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Features:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">Updates:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id33">Bug Fixes:</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-1-3-0-07-october-2020">Odahu 1.3.0, 07 October 2020</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id25">Features:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id30">Updates:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id31">Bug Fixes:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id47">Features:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id52">Updates:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id53">Bug Fixes:</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-1-2-0-26-june-2020">Odahu 1.2.0, 26 June 2020</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id50">Features:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id56">Updates:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id59">Bug Fixes:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id72">Features:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id78">Updates:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id81">Bug Fixes:</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#odahu-1-1-0-16-march-2020">Odahu 1.1.0, 16 March 2020</a><ul>
@@ -228,27 +230,89 @@
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="odahu-1-5-0">
 <h2>Odahu 1.5.0<a class="headerlink" href="#odahu-1-5-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="features">
+<h3>Features:<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Core:</dt>
+<dd><ul class="first last">
+<li><a class="reference external" href="https://docs.odahu.org/ref_batch.html">New Batch Inference API</a> (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/500">#500</a>, <a class="reference external" href="https://github.com/odahu/odahu-flow/issues/537">#537</a>).</li>
+<li>Object storage added as an option of ML project source code repository (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/360">#360</a>).</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Python SDK:</dt>
+<dd><ul class="first last">
+<li>Add clients to work with User and Feedback entities (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/295">#295</a>).</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
 <div class="section" id="updates">
 <h3>Updates<a class="headerlink" href="#updates" title="Permalink to this headline">¶</a></h3>
 <ul>
+<li><dl class="first docutils">
+<dt>Core:</dt>
+<dd><ul class="first last simple">
+<li>Set <cite>model-name</cite>/<cite>model-version</cite> headers on service mesh level (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/496">#496</a>). That looses the requirements to inference servers.
+Previously any inference server (typically a model is packed into one on Packaging stage) was obligated to include the headers into response for feedback loop to work properly. That rule restricts from using any third-party inference servers (such as NVIDIA Triton), because we cannot control the response headers.</li>
+<li>Removed deprecated fields <cite>updateAt</cite>/<cite>createdAt</cite> from core API entities (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/394">#394</a>).</li>
+<li>Move to recommended and more high-level way of using Knative which under-the-hood is responsible for a big part of <cite>ModelDeployment</cite> functionality (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/347">#347</a>).</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>CLI:</dt>
+<dd><ul class="first last simple">
+<li>Model <cite>info</cite> and <cite>invoke</cite> parameter <cite>JWT</cite> renamed to <cite>token</cite> (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/577">#577</a>).</li>
+<li>Usage descriptions updated (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/577">#577</a>).</li>
+<li>Auth tokens are automatically refreshing (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/509">#509</a>).</li>
+</ul>
+</dd>
+</dl>
+</li>
 <li><p class="first">Aiflow plugin:</p>
 <blockquote>
-<div><ul class="simple">
-<li>Airflow plugin operators expect a service account’s <code class="docutils literal notranslate"><span class="pre">client_secret</span></code> in a <code class="docutils literal notranslate"><span class="pre">password</span></code> field of <cite>Airflow Connection</cite> now.
-previously it expects <code class="docutils literal notranslate"><span class="pre">client_secret</span></code> in <code class="docutils literal notranslate"><span class="pre">extra</span></code> field. (<a class="reference external" href="https://github.com/odahu/odahu-airflow-plugin/issues/29">#29</a>).
-<cite>Breaking change!</cite>: You should recreate all Airflow connections for ODAHU server by moving the <code class="docutils literal notranslate"><span class="pre">client_secret</span></code>
-from the <code class="docutils literal notranslate"><span class="pre">extra</span></code> field into the <code class="docutils literal notranslate"><span class="pre">password</span></code> field. Please do not forget to remove your <code class="docutils literal notranslate"><span class="pre">client_secret</span></code> from
-the <code class="docutils literal notranslate"><span class="pre">extra</span></code> field for security reasons.</li>
+<div><ul>
+<li><p class="first">Airflow plugin operators expect a service account’s <code class="docutils literal notranslate"><span class="pre">client_secret</span></code> in a <code class="docutils literal notranslate"><span class="pre">password</span></code> field of <cite>Airflow Connection</cite> now.
+previously it expects <code class="docutils literal notranslate"><span class="pre">client_secret</span></code> in <code class="docutils literal notranslate"><span class="pre">extra</span></code> field. (<a class="reference external" href="https://github.com/odahu/odahu-airflow-plugin/issues/29">#29</a>).</p>
+<p><strong>`Breaking change!`</strong>: You should recreate all Airflow connections for ODAHU server by moving the <code class="docutils literal notranslate"><span class="pre">client_secret</span></code> from the <code class="docutils literal notranslate"><span class="pre">extra</span></code> field into the <code class="docutils literal notranslate"><span class="pre">password</span></code> field.</p>
+<p><strong>Please do not forget</strong> to remove your <code class="docutils literal notranslate"><span class="pre">client_secret</span></code> from the <code class="docutils literal notranslate"><span class="pre">extra</span></code> field <strong>for security reasons</strong>.</p>
+</li>
 </ul>
 </div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="bug-fixes">
+<h3>Bug Fixes:<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Core:</dt>
+<dd><ul class="first last">
+<li>Fix &amp; add missing updatedAT/createdAT (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/583">#583</a>, <a class="reference external" href="https://github.com/odahu/odahu-flow/issues/600">#600</a>, <a class="reference external" href="https://github.com/odahu/odahu-flow/issues/601">#601</a>, <a class="reference external" href="https://github.com/odahu/odahu-flow/issues/602">#602</a>).</li>
+<li>Training result doesn’t contain commit ID when using object storage as algorythm source (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/584">#584</a>).</li>
+<li>RunID is now present for model training with mlflow toolchain (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/581">#581</a>).</li>
+<li>InferenceJob objects can now be deleted correctly (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/555">#555</a>).</li>
+<li>Deployment <cite>roleName</cite> changes now applies correctly (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/533">#533</a>).</li>
+<li>X-REQUEST-ID header are now correctly handled on service mesh layer to support third-party inference servers (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/525">#525</a>).</li>
+<li>Fix packaging deletion via <cite>bulk delete</cite> command (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/416">#416</a>).</li>
+</ul>
+</dd>
+</dl>
 </li>
 </ul>
 </div>
 </div>
 <div class="section" id="odahu-1-4-0-26-february-2021">
 <h2>Odahu 1.4.0, 26 February 2021<a class="headerlink" href="#odahu-1-4-0-26-february-2021" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="features">
-<h3>Features:<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id22">
+<h3>Features:<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -273,8 +337,8 @@ from the UI (<a class="reference external" href="https://github.com/odahu/odahu-
 </li>
 </ul>
 </div>
-<div class="section" id="id8">
-<h3>Updates:<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id29">
+<h3>Updates:<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -299,8 +363,8 @@ from the UI (<a class="reference external" href="https://github.com/odahu/odahu-
 </li>
 </ul>
 </div>
-<div class="section" id="bug-fixes">
-<h3>Bug Fixes:<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id33">
+<h3>Bug Fixes:<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -334,8 +398,8 @@ from the UI (<a class="reference external" href="https://github.com/odahu/odahu-
 </div>
 <div class="section" id="odahu-1-3-0-07-october-2020">
 <h2>Odahu 1.3.0, 07 October 2020<a class="headerlink" href="#odahu-1-3-0-07-october-2020" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id25">
-<h3>Features:<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id47">
+<h3>Features:<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -349,8 +413,8 @@ from the UI (<a class="reference external" href="https://github.com/odahu/odahu-
 </li>
 </ul>
 </div>
-<div class="section" id="id30">
-<h3>Updates:<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id52">
+<h3>Updates:<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -362,8 +426,8 @@ from the UI (<a class="reference external" href="https://github.com/odahu/odahu-
 </li>
 </ul>
 </div>
-<div class="section" id="id31">
-<h3>Bug Fixes:<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id53">
+<h3>Bug Fixes:<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -418,8 +482,8 @@ from the UI (<a class="reference external" href="https://github.com/odahu/odahu-
 </div>
 <div class="section" id="odahu-1-2-0-26-june-2020">
 <h2>Odahu 1.2.0, 26 June 2020<a class="headerlink" href="#odahu-1-2-0-26-june-2020" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id50">
-<h3>Features:<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id72">
+<h3>Features:<a class="headerlink" href="#id72" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -448,15 +512,15 @@ from the UI (<a class="reference external" href="https://github.com/odahu/odahu-
 </li>
 </ul>
 </div>
-<div class="section" id="id56">
-<h3>Updates:<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id78">
+<h3>Updates:<a class="headerlink" href="#id78" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Knative updated to version 0.15.0. That makes it possible to deploy model services to different node pools (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/123">#123</a>).</li>
 <li>Go dependencies was globally updated to migrate from GOPATH to go modules (<a class="reference external" href="https://github.com/odahu/odahu-flow/issues/32">#32</a>).</li>
 </ul>
 </div>
-<div class="section" id="id59">
-<h3>Bug Fixes:<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id81">
+<h3>Bug Fixes:<a class="headerlink" href="#id81" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Core:</dt>
@@ -656,7 +720,7 @@ That allows reducing the complexity of our terraform modules and deployment scri
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.0-rc6',
+            VERSION:'',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
