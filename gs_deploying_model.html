@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>================ Deploying models &mdash; Odahu  documentation</title>
+  <title>================ Deploying models &mdash; Odahu release/1.6.1 documentation</title>
   
 
   
@@ -57,6 +57,10 @@
 
           
             
+            
+              <div class="version">
+                release/1.6.1
+              </div>
             
           
 
@@ -235,8 +239,8 @@ Deploying models<a class="headerlink" href="#deploying-models" title="Permalink 
 </div>
 <div class="section" id="examples-of-training-management">
 <h2>Examples of training management<a class="headerlink" href="#examples-of-training-management" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>Using <code class="docutils literal notranslate"><span class="pre">kubectl</span></code><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="using-kubectl-1">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">kubectl</span></code><a class="headerlink" href="#using-kubectl-1" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl create -f - <span class="s">&lt;&lt;EOF</span>
 <span class="s">kind: ModelDeployment</span>
 <span class="s">id: deployment-example</span>
@@ -247,8 +251,8 @@ Deploying models<a class="headerlink" href="#deploying-models" title="Permalink 
 </pre></div>
 </div>
 </div>
-<div class="section" id="id2">
-<h3>Using Plain HTTP<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="using-plain-http-1">
+<h3>Using Plain HTTP<a class="headerlink" href="#using-plain-http-1" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="s2">&quot;https://&lt;api-url&gt;/api/v1/model/deployment&quot;</span> <span class="se">\</span>
      -H <span class="s2">&quot;accept: application/json&quot;</span> <span class="se">\</span>
      -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
@@ -270,7 +274,7 @@ Deploying models<a class="headerlink" href="#deploying-models" title="Permalink 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Odahu Team.
+        &copy; Copyright 2022, Odahu Team.
 
     </p>
   </div>
@@ -292,7 +296,7 @@ Deploying models<a class="headerlink" href="#deploying-models" title="Permalink 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'release/1.6.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Local Quickstart &mdash; Odahu  documentation</title>
+  <title>Local Quickstart &mdash; Odahu release/1.6.1 documentation</title>
   
 
   
@@ -59,6 +59,10 @@
 
           
             
+            
+              <div class="version">
+                release/1.6.1
+              </div>
             
           
 
@@ -223,8 +227,8 @@ But now, we will train, package and deploy the model locally.</p>
 <p>To train a model locally, you have to provide an ODAHU model training manifest and
 training toolchain. <cite>odahuflowctl</cite> tries to find them on your local filesystem.
 If it can not do it, then the CLI requests to ODAHU API.</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Local training arguments:</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="container-1">
+<div class="code-block-caption"><span class="caption-text">Local training arguments:</span><a class="headerlink" href="#container-1" title="Permalink to this code">¶</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  --train-id, --id TEXT        Model training ID  [required]
   -f, --manifest-file PATH     Path to a ODAHU-flow manifest file
   -d, --manifest-dir PATH      Path to a directory with ODAHU-flow manifests
@@ -235,11 +239,11 @@ If it can not do it, then the CLI requests to ODAHU API.</p>
 for wine model. If we don’t have a running ODAHUFlow API server, we should create
 toolchain manifest manually.</p>
 <p>Paste the toolchain manifest into the <cite>mlflow/sklearn/wine/odahuflow/toolchain.yaml</cite> file:</p>
-<div class="highlight-yaml notranslate" id="toolchain-integration"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ToolchainIntegration</span>
-<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow</span>
-<span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">defaultImage</span><span class="p">:</span> <span class="s">&quot;odahu/odahu-flow-mlflow-toolchain:1.1.0-rc11&quot;</span>
-  <span class="nt">entrypoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/opt/conda/bin/odahu-flow-mlflow-runner</span>
+<div class="highlight-yaml notranslate" id="toolchain-integration"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ToolchainIntegration</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mlflow</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">defaultImage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;odahu/odahu-flow-mlflow-toolchain:1.1.0-rc11&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/conda/bin/odahu-flow-mlflow-runner</span><span class="w"></span>
 </pre></div>
 </div>
 <p>We are ready to launch the local training. Copy, past and execute the following command.</p>
@@ -251,17 +255,17 @@ toolchain manifest manually.</p>
 <p class="last">MLFlow metrics does not propagate to the tracking server during training.
 This will be implemented in the near future.</p>
 </div>
-<p><cite>odahuflowctl</cite> trains the model, verify that it satisfy the GPPI spec and save
-GPPI binary in the host filesystem. Execute the following command to take a look
-all trained models.</p>
+<p><cite>odahuflowctl</cite> trains the model, verify that it satisfy the GPPI spec and save GPPI binary
+in the host filesystem. Execute the following command to take a look at all trained models
+in the default output directory.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>odahuflowctl <span class="nb">local</span> train list
 </pre></div>
 </div>
 <p>Our next step is to package the trained model to a REST service.
 Like for local training, local packaging requires a model packaging and
 packaging integration manifests.</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Local packaging arguments:</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="container-2">
+<div class="code-block-caption"><span class="caption-text">Local packaging arguments:</span><a class="headerlink" href="#container-2" title="Permalink to this code">¶</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  --pack-id, --id TEXT            Model packaging ID  [required]
   -f, --manifest-file PATH        Path to a ODAHU-flow manifest file
   -d, --manifest-dir PATH         Path to a directory with ODAHU-flow manifest files
@@ -271,102 +275,102 @@ packaging integration manifests.</p>
 </div>
 </div>
 <p>Paste the packaging integration manifest into the <cite>mlflow/sklearn/wine/odahuflow/packager.yaml</cite> file:</p>
-<div class="highlight-yaml notranslate" id="packaging-integration"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PackagingIntegration</span>
-<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-rest</span>
-<span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">entrypoint</span><span class="p">:</span> <span class="s">&quot;/usr/local/bin/odahu-flow-pack-to-rest&quot;</span>
-  <span class="nt">defaultImage</span><span class="p">:</span> <span class="s">&quot;odahu/odahu-flow-packagers:1.1.0-rc11&quot;</span>
-  <span class="nt">privileged</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="nt">schema</span><span class="p">:</span>
-    <span class="nt">targets</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-push</span>
-        <span class="nt">connectionTypes</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;docker&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;ecr&quot;</span><span class="p p-Indicator">]</span>
-        <span class="nt">required</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-pull</span>
-        <span class="nt">connectionTypes</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;docker&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;ecr&quot;</span><span class="p p-Indicator">]</span>
-        <span class="nt">required</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-    <span class="nt">arguments</span><span class="p">:</span>
-      <span class="nt">properties</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dockerfileAddCondaInstallation</span>
-          <span class="nt">parameters</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Add conda installation code to training.Dockerfile</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dockerfileBaseImage</span>
-          <span class="nt">parameters</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Base image for training.Dockerfile.</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="s">&#39;odahu/odahu-flow-docker-packager-base:1.1.0-rc11&#39;</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dockerfileCondaEnvsLocation</span>
-          <span class="nt">parameters</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Conda env location in training.Dockerfile.</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/opt/conda/envs/</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">host</span>
-          <span class="nt">parameters</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Host to bind.</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0.0.0</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">port</span>
-          <span class="nt">parameters</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Port to bind.</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5000</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">timeout</span>
-          <span class="nt">parameters</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Serving timeout in seconds.</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">workers</span>
-          <span class="nt">parameters</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Count of serving workers.</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">threads</span>
-          <span class="nt">parameters</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Count of serving threads.</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">imageName</span>
-          <span class="nt">parameters</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">description</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-                <span class="no">This option provides a way to specify the Docker image name. You can hardcode the full name or specify a template. Available template values:</span>
-                  <span class="no">- Name (Model Name)</span>
-                  <span class="no">- Version (Model Version)</span>
-                  <span class="no">- RandomUUID</span>
-                <span class="no">The default value is &#39;{{ Name }}/{{ Version }}:{{ RandomUUID }}&#39;.</span>
-                <span class="no">Image name examples:</span>
-                  <span class="no">- myservice:123</span>
-                  <span class="no">- {{ Name }}:{{ Version }}</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
-              <span class="nt">value</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">Name</span><span class="nv"> </span><span class="s">}}-{{</span><span class="nv"> </span><span class="s">Version</span><span class="nv"> </span><span class="s">}}:{{</span><span class="nv"> </span><span class="s">RandomUUID</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<div class="highlight-yaml notranslate" id="packaging-integration"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PackagingIntegration</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-rest</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/usr/local/bin/odahu-flow-pack-to-rest&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">defaultImage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;odahu/odahu-flow-packagers:1.1.0-rc11&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">privileged</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">  </span><span class="nt">schema</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">targets</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-push</span><span class="w"></span>
+<span class="w">        </span><span class="nt">connectionTypes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;docker&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ecr&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">        </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-pull</span><span class="w"></span>
+<span class="w">        </span><span class="nt">connectionTypes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;docker&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ecr&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">        </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dockerfileAddCondaInstallation</span><span class="w"></span>
+<span class="w">          </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Add conda installation code to training.Dockerfile</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dockerfileBaseImage</span><span class="w"></span>
+<span class="w">          </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Base image for training.Dockerfile.</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;odahu/odahu-flow-docker-packager-base:1.1.0-rc11&#39;</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dockerfileCondaEnvsLocation</span><span class="w"></span>
+<span class="w">          </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Conda env location in training.Dockerfile.</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/conda/envs/</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span><span class="w"></span>
+<span class="w">          </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Host to bind.</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0.0.0</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">port</span><span class="w"></span>
+<span class="w">          </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Port to bind.</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeout</span><span class="w"></span>
+<span class="w">          </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Serving timeout in seconds.</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">workers</span><span class="w"></span>
+<span class="w">          </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Count of serving workers.</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">threads</span><span class="w"></span>
+<span class="w">          </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Count of serving threads.</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imageName</span><span class="w"></span>
+<span class="w">          </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">                </span><span class="no">This option provides a way to specify the Docker image name. You can hardcode the full name or specify a template. Available template values:</span><span class="w"></span>
+<span class="w">                  </span><span class="no">- Name (Model Name)</span><span class="w"></span>
+<span class="w">                  </span><span class="no">- Version (Model Version)</span><span class="w"></span>
+<span class="w">                  </span><span class="no">- RandomUUID</span><span class="w"></span>
+<span class="w">                </span><span class="no">The default value is &#39;{{ Name }}/{{ Version }}:{{ RandomUUID }}&#39;.</span><span class="w"></span>
+<span class="w">                </span><span class="no">Image name examples:</span><span class="w"></span>
+<span class="w">                  </span><span class="no">- myservice:123</span><span class="w"></span>
+<span class="w">                  </span><span class="no">- {{ Name }}:{{ Version }}</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span><span class="w"></span>
+<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">Name</span><span class="nv"> </span><span class="s">}}-{{</span><span class="nv"> </span><span class="s">Version</span><span class="nv"> </span><span class="s">}}:{{</span><span class="nv"> </span><span class="s">RandomUUID</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Choose the name of trained artifact and execute the following command:</p>
@@ -404,7 +408,7 @@ packaging integration manifests.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Odahu Team.
+        &copy; Copyright 2022, Odahu Team.
 
     </p>
   </div>
@@ -426,7 +430,7 @@ packaging integration manifests.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'release/1.6.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

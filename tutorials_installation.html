@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; Odahu  documentation</title>
+  <title>Installation &mdash; Odahu release/1.6.1 documentation</title>
   
 
   
@@ -59,6 +59,10 @@
 
           
             
+            
+              <div class="version">
+                release/1.6.1
+              </div>
             
           
 
@@ -472,7 +476,7 @@ EOF
 </div>
 </div>
 <div class="section" id="install-postgresql-optional">
-<h3>Install <a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a> (optional)<a class="headerlink" href="#install-postgresql-optional" title="Permalink to this headline">¶</a></h3>
+<span id="postgres-installation"></span><h3>Install <a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a> (optional)<a class="headerlink" href="#install-postgresql-optional" title="Permalink to this headline">¶</a></h3>
 <p>Create namespace for PostgreSQL:</p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ kubectl create namespace postgresql
 </pre></div>
@@ -483,50 +487,50 @@ chart</a>:</p>
 </pre></div>
 </div>
 <p>You must configure your PostgreSQL operator using next values</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Parameters to configure PostgreSQL Provider:</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$  cat &lt;&lt; EOF &gt; postgres.yaml</span>
-<span class="l l-Scalar l-Scalar-Plain">apiVersion</span><span class="p p-Indicator">:</span> <span class="s">&quot;acid.zalan.do/v1&quot;</span>
-<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgresql</span>
-<span class="nt">metadata</span><span class="p">:</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu</span>
-  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgres</span>
-<span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">teamId</span><span class="p">:</span> <span class="s">&quot;postgres&quot;</span>
-  <span class="nt">volume</span><span class="p">:</span>
-    <span class="nt">size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10Gi</span>
-  <span class="nt">numberOfInstances</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-  <span class="nt">users</span><span class="p">:</span>
-    <span class="nt">mlflow</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
-    <span class="nt">jupyterhub</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
-    <span class="nt">odahu</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
-  <span class="nt">databases</span><span class="p">:</span>
-    <span class="nt">mlflow</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow,</span>
-    <span class="nt">jupyterhub</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jupyterhub,</span>
-    <span class="nt">odahu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu</span>
-  <span class="nt">postgresql</span><span class="p">:</span>
-    <span class="nt">version</span><span class="p">:</span> <span class="s">&quot;12&quot;</span>
-  <span class="l l-Scalar l-Scalar-Plain">---</span>
-  <span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
-  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Secret</span>
-  <span class="nt">metadata</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jupyterhub.odahu-db.credentials.postgresql.acid.zalan.do</span>
-    <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgres</span>
-  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Opaque</span>
-  <span class="l l-Scalar l-Scalar-Plain">---</span>
-  <span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
-  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Secret</span>
-  <span class="nt">metadata</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow.odahu-db.credentials.postgresql.acid.zalan.do</span>
-    <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgres</span>
-  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Opaque</span>
-  <span class="l l-Scalar l-Scalar-Plain">---</span>
-  <span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
-  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Secret</span>
-  <span class="nt">metadata</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu.odahu-db.credentials.postgresql.acid.zalan.do</span>
-    <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgres</span>
-  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Opaque</span>
+<div class="literal-block-wrapper docutils container" id="container-1">
+<div class="code-block-caption"><span class="caption-text">Parameters to configure PostgreSQL Provider:</span><a class="headerlink" href="#container-1" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$  cat &lt;&lt; EOF &gt; postgres.yaml</span><span class="w"></span>
+<span class="l l-Scalar l-Scalar-Plain">apiVersion</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;acid.zalan.do/v1&quot;</span><span class="w"></span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql</span><span class="w"></span>
+<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">odahu</span><span class="w"></span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">teamId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgres&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">volume</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10Gi</span><span class="w"></span>
+<span class="w">  </span><span class="nt">numberOfInstances</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">  </span><span class="nt">users</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">mlflow</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
+<span class="w">    </span><span class="nt">jupyterhub</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
+<span class="w">    </span><span class="nt">odahu</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">databases</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">mlflow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mlflow,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">jupyterhub</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jupyterhub,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">odahu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">odahu</span><span class="w"></span>
+<span class="w">  </span><span class="nt">postgresql</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;12&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">---</span><span class="w"></span>
+<span class="w">  </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span><span class="w"></span>
+<span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jupyterhub.odahu-db.credentials.postgresql.acid.zalan.do</span><span class="w"></span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">---</span><span class="w"></span>
+<span class="w">  </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span><span class="w"></span>
+<span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mlflow.odahu-db.credentials.postgresql.acid.zalan.do</span><span class="w"></span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">---</span><span class="w"></span>
+<span class="w">  </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span><span class="w"></span>
+<span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">odahu.odahu-db.credentials.postgresql.acid.zalan.do</span><span class="w"></span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -536,7 +540,7 @@ chart</a>:</p>
 <div>kubectl apply -f postgres.yaml</div></blockquote>
 </div>
 <div class="section" id="install-open-policy-agent-optional">
-<h3>Install <a class="reference external" href="https://www.openpolicyagent.org/">Open Policy Agent</a> (optional)<a class="headerlink" href="#install-open-policy-agent-optional" title="Permalink to this headline">¶</a></h3>
+<span id="opa-installation"></span><h3>Install <a class="reference external" href="https://www.openpolicyagent.org/">Open Policy Agent</a> (optional)<a class="headerlink" href="#install-open-policy-agent-optional" title="Permalink to this headline">¶</a></h3>
 <p>To activate API authentication and authorization using <a class="reference internal" href="gen_security.html#security"><span class="std std-ref">Security</span></a>
 install OpenPolicyAgent (OPA) helm chart with ODAHU built-in policies.</p>
 <p>Create namespace for OPA</p>
@@ -550,16 +554,16 @@ provided by ODAHU team:</p>
 </pre></div>
 </div>
 <p>You must configure your OpenID provider (to allow envoy JWT token verifying) using next Helm values</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Parameters to configure OpenID provider</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># authn overrides configuration of envoy.filters.http.jwt_authn http filter</span>
-<span class="nt">authn</span><span class="p">:</span>
-  <span class="c1"># enabled activate envoy authn filter that verify jwt token and pass parsed data</span>
-  <span class="c1"># to next filters (particularly to authz)</span>
-  <span class="nt">oidcIssuer</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
-  <span class="nt">oidcJwks</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
-  <span class="nt">oidcHost</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
-  <span class="nt">localJwks</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<div class="literal-block-wrapper docutils container" id="container-2">
+<div class="code-block-caption"><span class="caption-text">Parameters to configure OpenID provider</span><a class="headerlink" href="#container-2" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># authn overrides configuration of envoy.filters.http.jwt_authn http filter</span><span class="w"></span>
+<span class="nt">authn</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># enabled activate envoy authn filter that verify jwt token and pass parsed data</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># to next filters (particularly to authz)</span><span class="w"></span>
+<span class="w">  </span><span class="nt">oidcIssuer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">oidcJwks</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">oidcHost</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">localJwks</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -570,11 +574,11 @@ that implements Role based access system
 and set of pre-defined roles. To customize some of built-in policies files or define new ones use next Helm values</p>
 <div class="literal-block-wrapper docutils container" id="customize-opa-policies">
 <div class="code-block-caption"><span class="caption-text">Parameters to configure built-in policies</span><a class="headerlink" href="#customize-opa-policies" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">opa</span><span class="p">:</span>
-  <span class="nt">policies</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
-  <span class="c1">#  policies:</span>
-    <span class="c1">#  file1: &quot;.rego policy content encoded as base64&quot;</span>
-    <span class="c1">#  file2: &quot;.rego policy content encoded as base64&quot;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">opa</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">policies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
+<span class="w">  </span><span class="c1">#  policies:</span><span class="w"></span>
+<span class="w">    </span><span class="c1">#  file1: &quot;.rego policy content encoded as base64&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">#  file2: &quot;.rego policy content encoded as base64&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -628,7 +632,7 @@ config:
   common:
     external_urls:
     - name: Documentation
-      url: https://docs.odahu.org
+      url: https://docs.odahu.epam.com
     databaseConnectionString: postgresql://odahu:PASSWORD@odahu-db.postgresql/odahu
   connection:
     enabled: true
@@ -649,17 +653,17 @@ It should point to LoadBalancer IP got from <a class="reference internal" href="
 values YAML in advance.</p>
 <p>To support training on GPU, you should provide the GPU node selectors and tolerations:</p>
 <p>Example:</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Example of Connection GCS:</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">config</span><span class="p">:</span>
-  <span class="nt">training</span><span class="p">:</span>
-    <span class="nt">gpu_toleration</span><span class="p">:</span>
-      <span class="nt">Key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dedicated</span>
-      <span class="nt">Operator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Equal</span>
-      <span class="nt">Value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">training-gpu</span>
-      <span class="nt">Effect</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NO_SCHEDULE</span>
-    <span class="nt">gpu_node_selector</span><span class="p">:</span>
-      <span class="nt">mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-flow-training-gpu</span>
+<div class="literal-block-wrapper docutils container" id="container-3">
+<div class="code-block-caption"><span class="caption-text">Example of Connection GCS:</span><a class="headerlink" href="#container-3" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">training</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">gpu_toleration</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">Key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dedicated</span><span class="w"></span>
+<span class="w">      </span><span class="nt">Operator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Equal</span><span class="w"></span>
+<span class="w">      </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">training-gpu</span><span class="w"></span>
+<span class="w">      </span><span class="nt">Effect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NO_SCHEDULE</span><span class="w"></span>
+<span class="w">    </span><span class="nt">gpu_node_selector</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">odahu-flow-training-gpu</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -676,6 +680,7 @@ values YAML in advance.</p>
     <span class="nb">type</span><span class="p">:</span> <span class="n">docker</span>
     <span class="n">uri</span><span class="p">:</span> <span class="n">docker</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">odahu</span><span class="o">-</span><span class="n">models</span><span class="o">-</span><span class="n">repo</span>
     <span class="n">webUILink</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">hub</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">r</span><span class="o">/</span><span class="n">odahu</span><span class="o">-</span><span class="n">models</span><span class="o">-</span><span class="n">repo</span>
+    <span class="n">vital</span><span class="p">:</span> <span class="n">true</span>
 </pre></div>
 </div>
 <ol class="loweralpha simple" start="2">
@@ -690,6 +695,7 @@ values YAML in advance.</p>
     type: gcs
     uri: gs://odahu-flow-test-store/output
     webUILink: https://console.cloud.google.com/storage/browser/odahu-flow-test-store/output?project=my-gcp-project-id-zzzzz
+    vital: true
 </pre></div>
 </div>
 <p>If you install <span class="xref std std-ref">Open Policy Agent</span> for ODAHU then you will need to configure service accounts
@@ -699,7 +705,7 @@ which will be used by ODAHU core background services such as <span class="xref s
 <p>Next values with service account credentials are required :</p>
 <div class="literal-block-wrapper docutils container" id="set-credentials-for-core-service-accounts">
 <div class="code-block-caption"><span class="caption-text">values.yaml</span><a class="headerlink" href="#set-credentials-for-core-service-accounts" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -727,37 +733,37 @@ which will be used by ODAHU core background services such as <span class="xref s
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">config</span><span class="p">:</span>
-  <span class="nt">operator</span><span class="p">:</span>
-    <span class="c1"># OpenId Provider token url</span>
-    <span class="nt">oauth_oidc_token_endpoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oauth2.googleapis.com/token</span>
-    <span class="c1"># Credentials from OAuth2 client with Client Credentials Grant</span>
-    <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-id</span>
-    <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">operator</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># OpenId Provider token url</span><span class="w"></span>
+<span class="w">    </span><span class="nt">oauth_oidc_token_endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://oauth2.googleapis.com/token</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Credentials from OAuth2 client with Client Credentials Grant</span><span class="w"></span>
+<span class="w">    </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-id</span><span class="w"></span>
+<span class="w">    </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-secret</span><span class="w"></span>
 
-  <span class="nt">trainer</span><span class="p">:</span>
-    <span class="c1"># OpenId Provider token url</span>
-    <span class="nt">oauth_oidc_token_endpoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oauth2.googleapis.com/token</span>
-    <span class="c1"># Credentials from OAuth2 client with Client Credentials Grant</span>
-    <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-id</span>
-    <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># OpenId Provider token url</span><span class="w"></span>
+<span class="w">    </span><span class="nt">oauth_oidc_token_endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://oauth2.googleapis.com/token</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Credentials from OAuth2 client with Client Credentials Grant</span><span class="w"></span>
+<span class="w">    </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-id</span><span class="w"></span>
+<span class="w">    </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-secret</span><span class="w"></span>
 
-  <span class="nt">packager</span><span class="p">:</span>
-    <span class="c1"># OpenId Provider token url</span>
-    <span class="nt">oauth_oidc_token_endpoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oauth2.googleapis.com/token</span>
-    <span class="c1"># Credentials from OAuth2 client with Client Credentials Grant</span>
-    <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-id</span>
-    <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+<span class="w">  </span><span class="nt">packager</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># OpenId Provider token url</span><span class="w"></span>
+<span class="w">    </span><span class="nt">oauth_oidc_token_endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://oauth2.googleapis.com/token</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Credentials from OAuth2 client with Client Credentials Grant</span><span class="w"></span>
+<span class="w">    </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-id</span><span class="w"></span>
+<span class="w">    </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-secret</span><span class="w"></span>
 
-<span class="c1"># Service account used to upload odahu resources via odahuflowctl</span>
-<span class="nt">resource_uploader_sa</span><span class="p">:</span>
-  <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some-client-id</span>
-  <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+<span class="c1"># Service account used to upload odahu resources via odahuflowctl</span><span class="w"></span>
+<span class="nt">resource_uploader_sa</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some-client-id</span><span class="w"></span>
+<span class="w">  </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-secret</span><span class="w"></span>
 
-<span class="c1"># OpenID provider url</span>
-<span class="nt">oauth_oidc_issuer_url</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
-</pre></div>
-</td></tr></table></div>
+<span class="c1"># OpenID provider url</span><span class="w"></span>
+<span class="nt">oauth_oidc_issuer_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div>
 </div>
 <p>In this file, we:</p>
 <ul class="simple">
@@ -795,21 +801,21 @@ for a Kubernetes Job that install some ODAHU Manifests using ODAHU API. This Ser
 <p>Next values with service account credentials are required :</p>
 <div class="literal-block-wrapper docutils container" id="set-credentials-for-core-service-account">
 <div class="code-block-caption"><span class="caption-text">values.yaml</span><a class="headerlink" href="#set-credentials-for-core-service-account" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Service account used to upload odahu resources via odahuflowctl</span>
-<span class="nt">resource_uploader_sa</span><span class="p">:</span>
-  <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some-client-id</span>
-  <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># Service account used to upload odahu resources via odahuflowctl</span><span class="w"></span>
+<span class="nt">resource_uploader_sa</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some-client-id</span><span class="w"></span>
+<span class="w">  </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-secret</span><span class="w"></span>
 
-<span class="c1"># OpenID provider url</span>
-<span class="nt">oauth_oidc_issuer_url</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
-</pre></div>
-</td></tr></table></div>
+<span class="c1"># OpenID provider url</span><span class="w"></span>
+<span class="nt">oauth_oidc_issuer_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div>
 </div>
 <p>Install Helm chart:</p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ helm install odahu/odahu-flow-mlflow --name odahu-flow-mlflow --namespace odahu-flow \
@@ -823,23 +829,23 @@ for a Kubernetes Job that install some ODAHU Manifests using ODAHU API. This Ser
 for a Kubernetes Job that install some ODAHU Manifests using ODAHU API. This Service account should have role
 <cite>odahu-admin</cite>.</p>
 <p>Next values with service account credentials are required :</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">values.yaml</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<div class="literal-block-wrapper docutils container" id="set-credentials-for-core-service-account-1">
+<div class="code-block-caption"><span class="caption-text">values.yaml</span><a class="headerlink" href="#set-credentials-for-core-service-account-1" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Service account used to upload odahu resources via odahuflowctl</span>
-<span class="nt">resource_uploader_sa</span><span class="p">:</span>
-  <span class="nt">client_id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some-client-id</span>
-  <span class="nt">client_secret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-secret</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># Service account used to upload odahu resources via odahuflowctl</span><span class="w"></span>
+<span class="nt">resource_uploader_sa</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some-client-id</span><span class="w"></span>
+<span class="w">  </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-secret</span><span class="w"></span>
 
-<span class="c1"># OpenID provider url</span>
-<span class="nt">oauth_oidc_issuer_url</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
-</pre></div>
-</td></tr></table></div>
+<span class="c1"># OpenID provider url</span><span class="w"></span>
+<span class="nt">oauth_oidc_issuer_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div>
 </div>
 <p>Install <a class="reference external" href="https://github.com/odahu/odahu-packager/tree/develop/helms/odahu-flow-packagers">odahu-flow-packagers</a>
 Helm chart:</p>
@@ -910,7 +916,7 @@ command:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Odahu Team.
+        &copy; Copyright 2022, Odahu Team.
 
     </p>
   </div>
@@ -932,7 +938,7 @@ command:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'release/1.6.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

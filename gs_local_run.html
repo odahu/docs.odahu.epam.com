@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Local run (local model execution) &mdash; Odahu  documentation</title>
+  <title>Local run (local model execution) &mdash; Odahu release/1.6.1 documentation</title>
   
 
   
@@ -57,6 +57,10 @@
 
           
             
+            
+              <div class="version">
+                release/1.6.1
+              </div>
             
           
 
@@ -292,20 +296,20 @@
 <li>Click on gear icon</li>
 <li>Add next configuration</li>
 </ol>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
-    &quot;name&quot;: &quot;Attach &quot;,
-    &quot;type&quot;: &quot;python&quot;,
-    &quot;request&quot;: &quot;attach&quot;,
-    &quot;port&quot;: 8000, // Actual debugging port from bootup configuration
-    &quot;host&quot;: &quot;localhost&quot;,
-    &quot;pathMappings&quot;: [
-        {
-            &quot;localRoot&quot;: &quot;${workspaceFolder}&quot;,
-            &quot;remoteRoot&quot;: &quot;/work-directory&quot;
-        }
-    ],
-    &quot;redirectOutput&quot;: false
-},
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Attach &quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;attach&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8000</span><span class="p">,</span><span class="w"> </span><span class="c1">// Actual debugging port from bootup configuration</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;pathMappings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;localRoot&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceFolder}&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;remoteRoot&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/work-directory&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;redirectOutput&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="p">},</span><span class="w"></span>
 </pre></div>
 </div>
 <ol class="simple">
@@ -346,7 +350,7 @@ sandbox&gt; jupyter lab
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Odahu Team.
+        &copy; Copyright 2022, Odahu Team.
 
     </p>
   </div>
@@ -368,7 +372,7 @@ sandbox&gt; jupyter lab
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'release/1.6.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

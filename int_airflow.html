@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Airflow &mdash; Odahu  documentation</title>
+  <title>Airflow &mdash; Odahu release/1.6.1 documentation</title>
   
 
   
@@ -59,6 +59,10 @@
 
           
             
+            
+              <div class="version">
+                release/1.6.1
+              </div>
             
           
 
@@ -243,11 +247,11 @@ connection. Because Odahu uses OpenID authorization, additional OpenID/OAuth 2.0
 <li><strong>scope</strong>: <a class="reference external" href="https://tools.ietf.org/html/rfc6749#section-3.3">Access Token Scope</a></li>
 </ul>
 <p>Example “extras” field:</p>
-<div class="last highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-   <span class="nt">&quot;auth_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://keycloak.&lt;my-app-domain&gt;&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;my-app&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;openid profile email offline_access groups&quot;</span><span class="p">,</span>
-<span class="p">}</span>
+<div class="last highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;auth_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://keycloak.&lt;my-app-domain&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-app&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;openid profile email offline_access groups&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </dd>
@@ -455,8 +459,8 @@ connection. Because Odahu uses OpenID authorization, additional OpenID/OAuth 2.0
 <code class="docutils literal notranslate"><span class="pre">DeploymentOperator</span></code> you should pass odahu resource payload as a parameter.</p>
 <p>Actually, this is a payload that describes a resource that will be created at Odahu-flow cluster. You should describe
 such payloads using odahuflow.sdk models</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Creating training payload</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="container-1">
+<div class="code-block-caption"><span class="caption-text">Creating training payload</span><a class="headerlink" href="#container-1" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">training</span> <span class="o">=</span> <span class="n">ModelTraining</span><span class="p">(</span>
     <span class="nb">id</span><span class="o">=</span><span class="n">training_id</span><span class="p">,</span>
     <span class="n">spec</span><span class="o">=</span><span class="n">ModelTrainingSpec</span><span class="p">(</span>
@@ -494,8 +498,8 @@ such payloads using odahuflow.sdk models</p>
 </div>
 <p>But if you did some RnD work with Odahu-flow previously, it’s likely that you already have yaml/json files that
 describe the same payloads. You can reuse them to create odahuflow.sdk models automatically</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Using plain yaml/json text</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="container-2">
+<div class="code-block-caption"><span class="caption-text">Using plain yaml/json text</span><a class="headerlink" href="#container-2" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">odahuflow.airflow.resources</span> <span class="kn">import</span> <span class="n">resource</span>
 
 <span class="n">packaging_id</span><span class="p">,</span> <span class="n">packaging</span> <span class="o">=</span> <span class="n">resource</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
@@ -513,8 +517,8 @@ describe the same payloads. You can reuse them to create odahuflow.sdk models au
 </div>
 <p>Or refer to yaml/json files that must be located at Airflow DAGs folder or Airflow Home folder (these folders are
 configured at airflow.cfg file)</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Creating training payload</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="container-3">
+<div class="code-block-caption"><span class="caption-text">Creating training payload</span><a class="headerlink" href="#container-3" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">odahuflow.airflow.resources</span> <span class="kn">import</span> <span class="n">resource</span>
 <span class="n">training_id</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="n">resource</span><span class="p">(</span><span class="s1">&#39;training.odahuflow.yaml&#39;</span><span class="p">)</span>
 </pre></div>
@@ -531,7 +535,7 @@ relative path:</p>
 <p>The example of the DAG that uses custom Odahu-flow operators is shown below. Four DAGs are described.</p>
 <div class="literal-block-wrapper docutils container" id="usage-example">
 <div class="code-block-caption"><span class="caption-text">dag.py</span><a class="headerlink" href="#usage-example" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">  1</span>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">  1</span>
 <span class="normal">  2</span>
 <span class="normal">  3</span>
 <span class="normal">  4</span>
@@ -723,7 +727,7 @@ relative path:</p>
 <span class="normal">190</span>
 <span class="normal">191</span>
 <span class="normal">192</span>
-<span class="normal">193</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="normal">193</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">airflow</span> <span class="kn">import</span> <span class="n">DAG</span>
 <span class="kn">from</span> <span class="nn">airflow.contrib.operators.gcs_to_gcs</span> <span class="kn">import</span> <span class="n">GoogleCloudStorageToGoogleCloudStorageOperator</span>
 <span class="kn">from</span> <span class="nn">airflow.models</span> <span class="kn">import</span> <span class="n">Variable</span>
@@ -916,8 +920,8 @@ relative path:</p>
 </span><span class="hll">    <span class="n">train</span> <span class="o">&gt;&gt;</span> <span class="n">wait_for_train</span> <span class="o">&gt;&gt;</span> <span class="n">pack</span> <span class="o">&gt;&gt;</span> <span class="n">wait_for_pack</span> <span class="o">&gt;&gt;</span> <span class="n">dep</span> <span class="o">&gt;&gt;</span> <span class="n">wait_for_dep</span>
 </span><span class="hll">    <span class="n">wait_for_dep</span> <span class="o">&gt;&gt;</span> <span class="n">model_info_request</span>
 </span><span class="hll">    <span class="n">wait_for_dep</span> <span class="o">&gt;&gt;</span> <span class="n">model_predict_request</span>
-</span></pre></div>
-</td></tr></table></div>
+</span></pre></div></td></tr></table></div>
+</div>
 </div>
 <p>In this file, we create four dags:</p>
 <ul class="simple">
@@ -950,7 +954,7 @@ relative path:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Odahu Team.
+        &copy; Copyright 2022, Odahu Team.
 
     </p>
   </div>
@@ -972,7 +976,7 @@ relative path:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'release/1.6.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Model Packagers &mdash; Odahu  documentation</title>
+  <title>Model Packagers &mdash; Odahu release/1.6.1 documentation</title>
   
 
   
@@ -59,6 +59,10 @@
 
           
             
+            
+              <div class="version">
+                release/1.6.1
+              </div>
             
           
 
@@ -248,50 +252,51 @@ But different packagers provide a different set of arguments and targets.
 You can find the description of all fields below:</p>
 <div class="literal-block-wrapper docutils container" id="packager-api-file">
 <div class="code-block-caption"><span class="caption-text">Packager API</span><a class="headerlink" href="#packager-api-file" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelPackaging</span>
-<span class="c1"># Unique value among all packagers</span>
-<span class="c1"># Id must:</span>
-<span class="c1">#  * contain at most 63 characters</span>
-<span class="c1">#  * contain only lowercase alphanumeric characters or ‘-’</span>
-<span class="c1">#  * start with an alphanumeric character</span>
-<span class="c1">#  * end with an alphanumeric character</span>
-<span class="nt">id</span><span class="p">:</span> <span class="s">&quot;id-12345&quot;</span>
-<span class="nt">spec</span><span class="p">:</span>
-  <span class="c1"># Type of a packager. Available values: docker-rest, docker-cli.</span>
-  <span class="nt">integrationName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-rest</span>
-  <span class="c1"># Training output artifact name</span>
-  <span class="nt">artifactName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span>
-  <span class="c1"># Compute resources</span>
-  <span class="nt">resources</span><span class="p">:</span>
-    <span class="nt">limits</span><span class="p">:</span>
-      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-    <span class="nt">requests</span><span class="p">:</span>
-      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-  <span class="c1"># List of arguments. Depends on a Model Packaging integration.</span>
-  <span class="c1"># You can find specific values in the sections below.</span>
-  <span class="c1"># This parameter is used for customizing a packaging process.</span>
-  <span class="nt">arguments</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
-  <span class="c1"># List of targets. Depends on a Model Packaging integration.</span>
-  <span class="c1"># You can find specific values in the sections below.</span>
-  <span class="c1"># A packager can interact with a Docker registry, PyPi repository, and so on.</span>
-  <span class="c1"># You should provide a list of connections for a packager to get access to them.</span>
-  <span class="nt">targets</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
-  <span class="c1"># You can set connection which points to some bucket where the Trained Model Binary is stored</span>
-  <span class="c1"># then packager will extract your binary from this connection</span>
-  <span class="nt">outputConnection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">custom-connection</span>
-  <span class="c1"># Node selector that exactly matches a node pool from ODAHU config</span>
-  <span class="c1"># This is optional; when omitted, ODAHU uses any of available packaging node pools</span>
-  <span class="c1"># Read more about node selector: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/</span>
-  <span class="nt">nodeSelector</span><span class="p">:</span>
-    <span class="nt">label</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
-<span class="c1"># Every packager saves its results into status field.</span>
-<span class="c1"># Example of fields: docker image or python packager name.</span>
-<span class="nt">status</span><span class="p">:</span>
-  <span class="nt">results</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_param</span>
-      <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_value</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ModelPackaging</span><span class="w"></span>
+<span class="c1"># Unique value among all packagers</span><span class="w"></span>
+<span class="c1"># Id must:</span><span class="w"></span>
+<span class="c1">#  * contain at most 63 characters</span><span class="w"></span>
+<span class="c1">#  * contain only lowercase alphanumeric characters or ‘-’</span><span class="w"></span>
+<span class="c1">#  * start with an alphanumeric character</span><span class="w"></span>
+<span class="c1">#  * end with an alphanumeric character</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;id-12345&quot;</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Type of a packager. Available values: docker-rest, docker-cli.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">integrationName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-rest</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Training output artifact name</span><span class="w"></span>
+<span class="w">  </span><span class="nt">artifactName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Compute resources</span><span class="w"></span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">limits</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span><span class="w"></span>
+<span class="w">    </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># List of arguments. Depends on a Model Packaging integration.</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># You can find specific values in the sections below.</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># This parameter is used for customizing a packaging process.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># List of targets. Depends on a Model Packaging integration.</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># You can find specific values in the sections below.</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># A packager can interact with a Docker registry, PyPi repository, and so on.</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># You should provide a list of connections for a packager to get access to them.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># You can set connection which points to some bucket where the Trained Model Binary is stored</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># then packager will extract your binary from this connection.</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Optional. Default value is taken from the ODAHU cluster configuration.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">outputConnection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom-connection</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Node selector that exactly matches a node pool from ODAHU config</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># This is optional; when omitted, ODAHU uses any of available packaging node pools</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Read more about node selector: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/</span><span class="w"></span>
+<span class="w">  </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
+<span class="c1"># Every packager saves its results into status field.</span><span class="w"></span>
+<span class="c1"># Example of fields: docker image or python packager name.</span><span class="w"></span>
+<span class="nt">status</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">results</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some_param</span><span class="w"></span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some_value</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -375,13 +380,13 @@ It will be downloaded during model packaging.</p>
 </div></blockquote>
 <div class="literal-block-wrapper docutils container" id="example-of-dockerfile">
 <div class="code-block-caption"><span class="caption-text">Example of Dockerfile:</span><a class="headerlink" href="#example-of-dockerfile" title="Permalink to this code">¶</a></div>
-<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span> <span class="s">odahu/odahu-flow-docker-packager-base:1.1.0-rc11</span>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">odahu/odahu-flow-docker-packager-base:1.1.0-rc11</span>
 
 <span class="c"># Optionally</span>
 <span class="c"># RUN pip install gunicorn[gevent]</span>
 
-<span class="k">ADD</span> conda.yaml ./
-<span class="k">RUN</span> conda env update -n <span class="si">${</span><span class="nv">ODAHU_CONDA_ENV_NAME</span><span class="si">}</span> -f conda.yaml
+<span class="k">ADD</span><span class="w"> </span>conda.yaml ./
+<span class="k">RUN</span><span class="w"> </span>conda env update -n <span class="si">${</span><span class="nv">ODAHU_CONDA_ENV_NAME</span><span class="si">}</span> -f conda.yaml
 </pre></div>
 </div>
 </div>
@@ -394,14 +399,14 @@ It will be downloaded during model packaging.</p>
 </pre></div>
 </div>
 <p>Specify the image in a model packaging:</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Packaging example</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelPackaging</span>
-<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model-12345</span>
-<span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">arguments</span><span class="p">:</span>
-    <span class="nt">dockerfileBaseImage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">packaging-model-cache:1.0.0</span>
-  <span class="l l-Scalar l-Scalar-Plain">...</span>
+<div class="literal-block-wrapper docutils container" id="container-1">
+<div class="code-block-caption"><span class="caption-text">Packaging example</span><a class="headerlink" href="#container-1" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ModelPackaging</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">model-12345</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">dockerfileBaseImage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">packaging-model-cache:1.0.0</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -411,7 +416,7 @@ It will be downloaded during model packaging.</p>
 <p>The Docker REST packager wraps an ML model into the REST service inside a Docker image.
 The resulting service can be used for point prediction through HTTP.</p>
 <p>The packager provides the following list of targets:</p>
-<table border="1" class="colwidths-given docutils">
+<table border="1" class="docutils">
 <colgroup>
 <col width="13%" />
 <col width="13%" />
@@ -439,7 +444,7 @@ The resulting service can be used for point prediction through HTTP.</p>
 </tbody>
 </table>
 <p>The packager provides the following list of arguments:</p>
-<table border="1" class="colwidths-given docutils">
+<table border="1" class="docutils">
 <colgroup>
 <col width="12%" />
 <col width="12%" />
@@ -501,7 +506,7 @@ The resulting service can be used for point prediction through HTTP.</p>
 </tbody>
 </table>
 <p>The packager provides the following list of result fields:</p>
-<table border="1" class="colwidths-given docutils">
+<table border="1" class="docutils">
 <colgroup>
 <col width="14%" />
 <col width="14%" />
@@ -525,13 +530,14 @@ The packager requires <a class="reference internal" href="ref_connections.html#d
 The following example assumes that you have created a connection with <cite>test-docker-registry</cite> id and <cite>gcr.io/project/odahuflow</cite> URI.</p>
 <div class="literal-block-wrapper docutils container" id="minimal-example-of-docker-rest-packager-file">
 <div class="code-block-caption"><span class="caption-text">Minimal Example of Docker REST packager</span><a class="headerlink" href="#minimal-example-of-docker-rest-packager-file" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;docker-rest-packager-example&quot;</span>
-<span class="nt">spec</span><span class="p">:</span>
-    <span class="nt">integrationName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-rest</span>
-    <span class="nt">artifactName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span>
-    <span class="nt">targets</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="nt">connectionName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-docker-registry</span>
-          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-push</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ModelPackaging</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;docker-rest-packager-example&quot;</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">integrationName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-rest</span><span class="w"></span>
+<span class="w">    </span><span class="nt">artifactName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span><span class="w"></span>
+<span class="w">    </span><span class="nt">targets</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">connectionName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-docker-registry</span><span class="w"></span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-push</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -539,16 +545,17 @@ The following example assumes that you have created a connection with <cite>test
 <p>Now, let’s try to change the docker image name and number of workers.</p>
 <div class="literal-block-wrapper docutils container" id="docker-rest-packager-with-custom-arguments-file">
 <div class="code-block-caption"><span class="caption-text">Docker REST packager with custom arguments</span><a class="headerlink" href="#docker-rest-packager-with-custom-arguments-file" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;docker-rest-packager-example&quot;</span>
-<span class="nt">spec</span><span class="p">:</span>
-    <span class="nt">integrationName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-rest</span>
-    <span class="nt">artifactName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span>
-    <span class="nt">targets</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="nt">connectionName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-docker-registry</span>
-          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-push</span>
-    <span class="nt">arguments</span><span class="p">:</span>
-        <span class="nt">imageName</span><span class="p">:</span> <span class="s">&quot;wine-test:prefix-{{</span><span class="nv"> </span><span class="s">RandomUUID</span><span class="nv"> </span><span class="s">}}&quot;</span>
-        <span class="nt">workers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ModelPackaging</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;docker-rest-packager-example&quot;</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">integrationName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-rest</span><span class="w"></span>
+<span class="w">    </span><span class="nt">artifactName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span><span class="w"></span>
+<span class="w">    </span><span class="nt">targets</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">connectionName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-docker-registry</span><span class="w"></span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-push</span><span class="w"></span>
+<span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">imageName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;wine-test:prefix-{{</span><span class="nv"> </span><span class="s">RandomUUID</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="nt">workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -573,43 +580,43 @@ curl -X POST -d <span class="s1">&#39;{&quot;columns&quot;: [&quot;features&quot
 </div>
 <div class="literal-block-wrapper docutils container" id="docker-rest-predict-api-file">
 <div class="code-block-caption"><span class="caption-text">Docker REST predict API</span><a class="headerlink" href="#docker-rest-predict-api-file" title="Permalink to this code">¶</a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;columns&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&quot;features&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;features&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;features&quot;</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">[</span>
-      <span class="mi">1</span><span class="p">,</span>
-      <span class="mi">2</span><span class="p">,</span>
-      <span class="mi">3</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="p">[</span>
-      <span class="mi">4</span><span class="p">,</span>
-      <span class="mi">5</span><span class="p">,</span>
-      <span class="mi">6</span><span class="p">,</span>
-    <span class="p">]</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;features&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;features&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;features&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">],</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="mi">5</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="mi">6</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="docker-rest-prediction-result-file">
 <div class="code-block-caption"><span class="caption-text">Docker REST prediction result</span><a class="headerlink" href="#docker-rest-prediction-result-file" title="Permalink to this code">¶</a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;prediction&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">[</span>
-      <span class="mf">0.09405578672885895</span>
-    <span class="p">],</span>
-    <span class="p">[</span>
-      <span class="mf">0.01238546592343845</span>
-    <span class="p">]</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;columns&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&quot;predictions&quot;</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;prediction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="mf">0.09405578672885895</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="mf">0.01238546592343845</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">],</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;predictions&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -619,7 +626,7 @@ curl -X POST -d <span class="s1">&#39;{&quot;columns&quot;: [&quot;features&quot
 <p>The Docker CLI packager wraps an ML model into the CLI inside a Docker image.
 The resulting service can be used for batch prediction.</p>
 <p>The packager provides the following list of targets:</p>
-<table border="1" class="colwidths-given docutils">
+<table border="1" class="docutils">
 <colgroup>
 <col width="13%" />
 <col width="13%" />
@@ -647,7 +654,7 @@ The resulting service can be used for batch prediction.</p>
 </tbody>
 </table>
 <p>The packager provides the following list of arguments:</p>
-<table border="1" class="colwidths-given docutils">
+<table border="1" class="docutils">
 <colgroup>
 <col width="12%" />
 <col width="12%" />
@@ -679,7 +686,7 @@ The resulting service can be used for batch prediction.</p>
 </tbody>
 </table>
 <p>The packager provides the following list of result fields:</p>
-<table border="1" class="colwidths-given docutils">
+<table border="1" class="docutils">
 <colgroup>
 <col width="14%" />
 <col width="14%" />
@@ -703,13 +710,14 @@ The packager requires <a class="reference internal" href="ref_connections.html#d
 The following example assumes that you have created a connection with <cite>test-docker-registry</cite> id and <cite>gcr.io/project/odahuflow</cite> URI.</p>
 <div class="literal-block-wrapper docutils container" id="minimal-example-of-docker-cli-packager-file">
 <div class="code-block-caption"><span class="caption-text">Minimal Example of Docker CLI packager</span><a class="headerlink" href="#minimal-example-of-docker-cli-packager-file" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;docker-cli-packager-example&quot;</span>
-<span class="nt">spec</span><span class="p">:</span>
-    <span class="nt">integrationName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-cli</span>
-    <span class="nt">artifactName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span>
-    <span class="nt">targets</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="nt">connectionName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-docker-registry</span>
-          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-push</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ModelPackaging</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;docker-cli-packager-example&quot;</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">integrationName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-cli</span><span class="w"></span>
+<span class="w">    </span><span class="nt">artifactName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span><span class="w"></span>
+<span class="w">    </span><span class="nt">targets</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">connectionName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-docker-registry</span><span class="w"></span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-push</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -717,16 +725,17 @@ The following example assumes that you have created a connection with <cite>test
 <p>Now, let’s try to change the docker image name and the base image.</p>
 <div class="literal-block-wrapper docutils container" id="docker-cli-packager-with-custom-arguments-file">
 <div class="code-block-caption"><span class="caption-text">Docker CLI packager with custom arguments</span><a class="headerlink" href="#docker-cli-packager-with-custom-arguments-file" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;docker-cli-packager-example&quot;</span>
-<span class="nt">spec</span><span class="p">:</span>
-    <span class="nt">integrationName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-cli</span>
-    <span class="nt">artifactName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span>
-    <span class="nt">targets</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="nt">connectionName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-docker-registry</span>
-          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-push</span>
-    <span class="nt">arguments</span><span class="p">:</span>
-        <span class="nt">imageName</span><span class="p">:</span> <span class="s">&quot;wine-test:prefix-{{</span><span class="nv"> </span><span class="s">RandomUUID</span><span class="nv"> </span><span class="s">}}&quot;</span>
-        <span class="nt">dockerfileBaseImage</span><span class="p">:</span> <span class="s">&quot;python:3.7&quot;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ModelPackaging</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;docker-cli-packager-example&quot;</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">integrationName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-cli</span><span class="w"></span>
+<span class="w">    </span><span class="nt">artifactName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine-model-123456789.zip</span><span class="w"></span>
+<span class="w">    </span><span class="nt">targets</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">connectionName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-docker-registry</span><span class="w"></span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-push</span><span class="w"></span>
+<span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">imageName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;wine-test:prefix-{{</span><span class="nv"> </span><span class="s">RandomUUID</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="nt">dockerfileBaseImage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;python:3.7&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -745,14 +754,14 @@ The following example assumes that you have created a connection with <cite>test
 <li><cite>info</cite> - Show model input/output data schema</li>
 </ul>
 </div></blockquote>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Docker CLI info command</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="container-2">
+<div class="code-block-caption"><span class="caption-text">Docker CLI info command</span><a class="headerlink" href="#container-2" title="Permalink to this code">¶</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -it --rm --net host gcr.io/project/odahuflow/wine-test:prefix-ec1bf1cd-216d-4f0a-a62f-bf084c79c58c info
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Docker CLI info command output</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="container-3">
+<div class="code-block-caption"><span class="caption-text">Docker CLI info command output</span><a class="headerlink" href="#container-3" title="Permalink to this code">¶</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Input schema:
 {
     &quot;columns&quot;: {
@@ -810,8 +819,8 @@ Output schema:
 </div>
 </div>
 <p>Let’s make a batch prediction.</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Create a predict file</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="container-4">
+<div class="code-block-caption"><span class="caption-text">Create a predict file</span><a class="headerlink" href="#container-4" title="Permalink to this code">¶</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir volume
 cat &gt; volume/predicts.json <span class="s">&lt;&lt;EOL</span>
 <span class="s">{</span>
@@ -838,8 +847,8 @@ docker run -it --rm --net -v volume:/volume host gcr.io/project/odahuflow/wine-t
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Result of prediction</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="container-5">
+<div class="code-block-caption"><span class="caption-text">Result of prediction</span><a class="headerlink" href="#container-5" title="Permalink to this code">¶</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat volumes/result.json
 <span class="o">{</span>
   <span class="s2">&quot;prediction&quot;</span>: <span class="o">[</span>
@@ -898,8 +907,8 @@ Optional for the following backends:</p>
 <li><code class="code docutils literal notranslate"><span class="pre">odahuflow.model.yaml</span></code> in the following format.
 When omitted defaults to model <code class="code docutils literal notranslate"><span class="pre">model</span></code> of version <code class="code docutils literal notranslate"><span class="pre">1</span></code>;</li>
 </ul>
-<div class="highlight-yaml notranslate" id="example-odahuflow-model-yaml-file"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model</span>
-<span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+<div class="highlight-yaml notranslate" id="example-odahuflow-model-yaml-file"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">model</span><span class="w"></span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -910,7 +919,7 @@ When omitted defaults to model <code class="code docutils literal notranslate"><
 <div class="section" id="targets-arguments-and-results">
 <h3>Targets, Arguments and Results<a class="headerlink" href="#targets-arguments-and-results" title="Permalink to this headline">¶</a></h3>
 <p>Triton Packager Targets:</p>
-<table border="1" class="colwidths-given docutils">
+<table border="1" class="docutils">
 <colgroup>
 <col width="13%" />
 <col width="13%" />
@@ -933,7 +942,7 @@ When omitted defaults to model <code class="code docutils literal notranslate"><
 </tbody>
 </table>
 <p>Triton Packager Arguments:</p>
-<table border="1" class="colwidths-given docutils">
+<table border="1" class="docutils">
 <colgroup>
 <col width="12%" />
 <col width="12%" />
@@ -965,7 +974,7 @@ When omitted defaults to model <code class="code docutils literal notranslate"><
 </tbody>
 </table>
 <p>Triton Packager Results:</p>
-<table border="1" class="colwidths-given docutils">
+<table border="1" class="docutils">
 <colgroup>
 <col width="14%" />
 <col width="14%" />
@@ -999,15 +1008,15 @@ When omitted defaults to model <code class="code docutils literal notranslate"><
 </ul>
 <div class="literal-block-wrapper docutils container" id="triton-packaging-with-custom-arguments">
 <div class="code-block-caption"><span class="caption-text">Triton packaging with custom arguments</span><a class="headerlink" href="#triton-packaging-with-custom-arguments" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;triton-packager-example&quot;</span>
-<span class="nt">spec</span><span class="p">:</span>
-    <span class="nt">integrationName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-triton</span>
-    <span class="nt">artifactName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model-123456789.tar</span>
-    <span class="nt">targets</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="nt">connectionName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-docker-registry</span>
-          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-push</span>
-    <span class="nt">arguments</span><span class="p">:</span>
-        <span class="nt">imageName</span><span class="p">:</span> <span class="s">&quot;triton-model:prefix-{{</span><span class="nv"> </span><span class="s">RandomUUID</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;triton-packager-example&quot;</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">integrationName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-triton</span><span class="w"></span>
+<span class="w">    </span><span class="nt">artifactName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">model-123456789.tar</span><span class="w"></span>
+<span class="w">    </span><span class="nt">targets</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">connectionName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-docker-registry</span><span class="w"></span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-push</span><span class="w"></span>
+<span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">imageName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;triton-model:prefix-{{</span><span class="nv"> </span><span class="s">RandomUUID</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -1035,7 +1044,7 @@ When omitted defaults to model <code class="code docutils literal notranslate"><
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Odahu Team.
+        &copy; Copyright 2022, Odahu Team.
 
     </p>
   </div>
@@ -1057,7 +1066,7 @@ When omitted defaults to model <code class="code docutils literal notranslate"><
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'release/1.6.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

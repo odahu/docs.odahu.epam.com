@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Integration Testing &mdash; Odahu  documentation</title>
+  <title>Integration Testing &mdash; Odahu release/1.6.1 documentation</title>
   
 
   
@@ -58,6 +58,10 @@
 
           
             
+            
+              <div class="version">
+                release/1.6.1
+              </div>
             
           
 
@@ -201,20 +205,17 @@ ODAHU uses <a class="reference external" href="https://robotframework.org/">Robo
 <p>All tests are located in the following directories of the <a class="reference external" href="https://github.com/odahu/odahu-flow">ODAHU project</a>:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">packages/robot/</span></code> - a python package with additional Robot libraries. For example: kubernetes, auth_client, feedback, and so on.</li>
-<li><code class="docutils literal notranslate"><span class="pre">packages/tests/stuff/</span></code> - artifacts for integration testing. For example: pre-trained ML artifacts, test toolchain integrations, and so on.</li>
-<li><code class="docutils literal notranslate"><span class="pre">packages/tests/e2e/</span></code> - directory with the RobotFramework tests.</li>
+<li><code class="docutils literal notranslate"><span class="pre">packages/tests/stuff/</span></code> - setup, cleanup scripts and artifacts for integration testing. For example: pre-trained ML artifacts, test toolchain integrations, and so on.</li>
+<li><code class="docutils literal notranslate"><span class="pre">packages/tests/e2e/</span></code> - directory with the Robot Framework tests.</li>
 </ul>
 <div class="section" id="preparing-for-testing">
 <h2>Preparing for testing<a class="headerlink" href="#preparing-for-testing" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>It’s expected that you are using Unix-like operating system and have installed Python 3.6.9+ and pip.</p>
+<p>It’s expected that you are using a Unix-like operating system and have installed conda (4.10+), preferably <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a>.</p>
 <ol>
 <li><p class="first"><a class="reference external" href="https://github.com/odahu/odahu-flow">Clone</a> ODAHU project from git repository and proceed to main dir – <code class="docutils literal notranslate"><span class="pre">odahu-flow</span></code>.</p>
 </li>
-<li><p class="first"><a class="reference external" href="https://docs.python.org/3/library/venv.html">Create</a> Python virtual environment
-e.g. in the folder <code class="docutils literal notranslate"><span class="pre">./odahu-flow/virtual_environment/</span></code> and activate one.</p>
-</li>
-<li><p class="first"><a class="reference external" href="https://github.com/robotframework/robotframework/blob/master/INSTALL.rst">Install</a> Robot Framework</p>
+<li><p class="first"><a class="reference external" href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands">Create</a> Conda virtual environment with python version 3.6+.</p>
 </li>
 <li><p class="first">Update and/or install <strong>pip</strong> and <strong>setuptools</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install -U pip setuptools
@@ -279,12 +280,18 @@ e.g. in the folder <code class="docutils literal notranslate"><span class="pre">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span> /odahu-flow$ make setup-e2e-robot
 </pre></div>
 </div>
-<p><strong>NB.</strong> You should execute the previous command only once for a new cluster.</p>
+<p><strong>NB.</strong> You should execute the <code class="docutils literal notranslate"><span class="pre">setup</span></code> command only once for a new cluster.</p>
 </li>
-<li><p class="first">Finally, start the robot tests:</p>
+<li><p class="first">The next step is to run the Robot Framework tests:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/odahu-flow$ make e2e-robot
 </pre></div>
 </div>
+</li>
+<li><p class="first">Finally, cleanup the cluster after testing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/odahu-flow$ make cleanup-e2e-robot
+</pre></div>
+</div>
+<p><strong>NB.</strong> You should run the <code class="docutils literal notranslate"><span class="pre">cleanup</span></code> command only once, after all testing has been completed.</p>
 </li>
 </ol>
 </div>
@@ -308,7 +315,7 @@ e.g. in the folder <code class="docutils literal notranslate"><span class="pre">
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Odahu Team.
+        &copy; Copyright 2022, Odahu Team.
 
     </p>
   </div>
@@ -330,7 +337,7 @@ e.g. in the folder <code class="docutils literal notranslate"><span class="pre">
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'release/1.6.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

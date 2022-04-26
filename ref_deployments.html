@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Model Deployments &mdash; Odahu  documentation</title>
+  <title>Model Deployments &mdash; Odahu release/1.6.1 documentation</title>
   
 
   
@@ -59,6 +59,10 @@
 
           
             
+            
+              <div class="version">
+                release/1.6.1
+              </div>
             
           
 
@@ -246,40 +250,40 @@ To pack a model into a Triton Server, <a class="reference internal" href="ref_pa
 </div>
 <div class="section" id="general-deployment-manifest-structure">
 <h2>General Deployment Manifest Structure<a class="headerlink" href="#general-deployment-manifest-structure" title="Permalink to this headline">¶</a></h2>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Deployment API</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelDeployment</span>
-<span class="c1"># Some unique value among all deployments</span>
-<span class="c1"># Id must:</span>
-<span class="c1">#  * contain at most 63 characters</span>
-<span class="c1">#  * contain only lowercase alphanumeric characters or ‘-’</span>
-<span class="c1">#  * start with an alphabetic character</span>
-<span class="c1">#  * end with an alphanumeric character</span>
-<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-12345</span>
-<span class="nt">spec</span><span class="p">:</span>
-    <span class="c1"># Predictor is an inference backend name; required field</span>
-    <span class="c1"># Possible values are: odahu-ml-server, triton</span>
-    <span class="nt">predictor</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">odahu-ml-server</span>
+<div class="literal-block-wrapper docutils container" id="container-1">
+<div class="code-block-caption"><span class="caption-text">Deployment API</span><a class="headerlink" href="#container-1" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ModelDeployment</span><span class="w"></span>
+<span class="c1"># Some unique value among all deployments</span><span class="w"></span>
+<span class="c1"># Id must:</span><span class="w"></span>
+<span class="c1">#  * contain at most 63 characters</span><span class="w"></span>
+<span class="c1">#  * contain only lowercase alphanumeric characters or ‘-’</span><span class="w"></span>
+<span class="c1">#  * start with an alphabetic character</span><span class="w"></span>
+<span class="c1">#  * end with an alphanumeric character</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine-12345</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Predictor is an inference backend name; required field</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Possible values are: odahu-ml-server, triton</span><span class="w"></span>
+<span class="w">    </span><span class="nt">predictor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">odahu-ml-server</span><span class="w"></span>
 
-    <span class="c1"># Model image is required value. Change it</span>
-    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcr.io/project/test-e2e-wine-1.0:b591c752-43d4-43e0-8392-9a5715b67573</span>
-    <span class="c1"># If the Docker image is pulled from a private Docker repository then</span>
-    <span class="c1"># you have to create a Odahu-flow connecton and specify its id here.</span>
-    <span class="c1"># imagePullConnID: test</span>
+<span class="w">    </span><span class="c1"># Model image is required value. Change it</span><span class="w"></span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/project/test-e2e-wine-1.0:b591c752-43d4-43e0-8392-9a5715b67573</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># If the Docker image is pulled from a private Docker repository then</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># you have to create a Odahu-flow connecton and specify its id here.</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># imagePullConnID: test</span><span class="w"></span>
 
-    <span class="c1"># Compute resources for the deployment job.</span>
-    <span class="nt">resources</span><span class="p">:</span>
-      <span class="nt">limits</span><span class="p">:</span>
-        <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-      <span class="nt">requests</span><span class="p">:</span>
-        <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+<span class="w">    </span><span class="c1"># Compute resources for the deployment job.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span><span class="w"></span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span><span class="w"></span>
 
-    <span class="c1"># Minimum number of replicas</span>
-    <span class="nt">minReplicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
-    <span class="c1"># Maximum number of replicas</span>
-    <span class="nt">maxReplicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="c1"># Minimum number of replicas</span><span class="w"></span>
+<span class="w">    </span><span class="nt">minReplicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Maximum number of replicas</span><span class="w"></span>
+<span class="w">    </span><span class="nt">maxReplicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -404,67 +408,67 @@ strict-transport-security: max-age=15724800; includeSubDomains
 </div>
 <p>Requests and responses are persisted in a bucket. (File name ~= <code class="docutils literal notranslate"><span class="pre">/request_response/income/1.1/year=2019/month=07/day=24/2019072414_4.json</span></code>)</p>
 <p>The first file contains meta-information about request and response:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6fa1f636-fb80-9979-b8c6-d78f5e90f0c1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;request_content&quot;</span><span class="p">:</span> <span class="s2">&quot;{\&quot;columns\&quot;: [\&quot;alcohol\&quot;, \&quot;chlorides\&quot;, \&quot;citric acid\&quot;, \&quot;density\&quot;, \&quot;fixed acidity\&quot;, \&quot;free sulfur dioxide\&quot;, \&quot;pH\&quot;, \&quot;residual sugar\&quot;, \&quot;sulphates\&quot;, \&quot;total sulfur dioxide\&quot;, \&quot;volatile acidity\&quot;], \&quot;data\&quot;: [[12.8, 0.029, 0.48, 0.98, 6.2, 29, 3.33, 1.2, 0.39, 75, 0.66]]}&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;request_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;/model/test-e2e-wine/api/model/invoke&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;response_http_headers&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;:status&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;Tue, 17 Dec 2019 08:46:40 GMT&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;model-name&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;model-version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="s2">&quot;istio-envoy&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;connection&quot;</span><span class="p">:</span> <span class="s2">&quot;close&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;content-length&quot;</span><span class="p">:</span> <span class="s2">&quot;45&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;request-id&quot;</span><span class="p">:</span> <span class="s2">&quot;12dcddd5-771d-9fc0-b326-816211cf8172&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-envoy-upstream-service-time&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;model_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;request_http_headers&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;:method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-scheme&quot;</span><span class="p">:</span> <span class="s2">&quot;https&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;accept&quot;</span><span class="p">:</span> <span class="s2">&quot;*/*&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-istio-attributes&quot;</span><span class="p">:</span> <span class="s2">&quot;ClEKF2Rlc3RpbmF0aW9uLnNlcnZpY2UudWlkEjYSNGlzdGlvOi8vb2RhaHUtZmxvdy1kZXBsb3ltZW50L3NlcnZpY2VzL3Rlc3QtZTJlLXdpbmUKUwoYZGVzdGluYXRpb24uc2VydmljZS5ob3N0EjcSNXRlc3QtZTJlLXdpbmUub2RhaHUtZmxvdy1kZXBsb3ltZW50LnN2Yy5jbHVzdGVyLmxvY2FsCisKGGRlc3RpbmF0aW9uLnNlcnZpY2UubmFtZRIPEg10ZXN0LWUyZS13aW5lCjgKHWRlc3RpbmF0aW9uLnNlcnZpY2UubmFtZXNwYWNlEhcSFW9kYWh1LWZsb3ctZGVwbG95bWVudApPCgpzb3VyY2UudWlkEkESP2t1YmVybmV0ZXM6Ly9pc3Rpby1pbmdyZXNzZ2F0ZXdheS04NjlkYjdkOWJiLWpsemtyLmlzdGlvLXN5c3RlbQ==&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;knative-serving-namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;odahu-flow-deployment&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-envoy-original-path&quot;</span><span class="p">:</span> <span class="s2">&quot;/model/test-e2e-wine/api/model/invoke&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;:scheme&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-forwarded-host&quot;</span><span class="p">:</span> <span class="s2">&quot;odahu.example.com&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-original-uri&quot;</span><span class="p">:</span> <span class="s2">&quot;/model/test-e2e-wine/api/model/invoke&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;user-agent&quot;</span><span class="p">:</span> <span class="s2">&quot;python-requests/2.22.0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-forwarded-port&quot;</span><span class="p">:</span> <span class="s2">&quot;443&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-b3-sampled&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;content-length&quot;</span><span class="p">:</span> <span class="s2">&quot;257&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-real-ip&quot;</span><span class="p">:</span> <span class="s2">&quot;10.4.0.11&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-forwarded-for&quot;</span><span class="p">:</span> <span class="s2">&quot;10.4.0.11,10.44.0.10&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-envoy-external-address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.44.0.10&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-request-id&quot;</span><span class="p">:</span> <span class="s2">&quot;12dcddd5-771d-9fc0-b326-816211cf8172&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-forwarded-proto&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;:authority&quot;</span><span class="p">:</span> <span class="s2">&quot;odahu.example.com&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-b3-traceid&quot;</span><span class="p">:</span> <span class="s2">&quot;488abe197a652c2ce80e6b848a4c56e6&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;:path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/model/invoke&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;accept-encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;gzip, deflate&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-envoy-decorator-operation&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine.odahu-flow-deployment.svc.cluster.local:80/model/test-e2e-wine/api*&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;x-b3-spanid&quot;</span><span class="p">:</span> <span class="s2">&quot;e80e6b848a4c56e6&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;knative-serving-revision&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine-l4xt7&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;response_status&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;request_host&quot;</span><span class="p">:</span> <span class="s2">&quot;odahu.example.com&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;request_http_method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-17 08:46:40 +0000&quot;</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6fa1f636-fb80-9979-b8c6-d78f5e90f0c1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;request_content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;columns\&quot;: [\&quot;alcohol\&quot;, \&quot;chlorides\&quot;, \&quot;citric acid\&quot;, \&quot;density\&quot;, \&quot;fixed acidity\&quot;, \&quot;free sulfur dioxide\&quot;, \&quot;pH\&quot;, \&quot;residual sugar\&quot;, \&quot;sulphates\&quot;, \&quot;total sulfur dioxide\&quot;, \&quot;volatile acidity\&quot;], \&quot;data\&quot;: [[12.8, 0.029, 0.48, 0.98, 6.2, 29, 3.33, 1.2, 0.39, 75, 0.66]]}&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;request_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/model/test-e2e-wine/api/model/invoke&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;response_http_headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;:status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tue, 17 Dec 2019 08:46:40 GMT&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;model-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;model-version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;istio-envoy&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;connection&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;close&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;content-length&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;45&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;content-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/json&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;request-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12dcddd5-771d-9fc0-b326-816211cf8172&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-envoy-upstream-service-time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;model_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;request_http_headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;:method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-scheme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;accept&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*/*&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-istio-attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ClEKF2Rlc3RpbmF0aW9uLnNlcnZpY2UudWlkEjYSNGlzdGlvOi8vb2RhaHUtZmxvdy1kZXBsb3ltZW50L3NlcnZpY2VzL3Rlc3QtZTJlLXdpbmUKUwoYZGVzdGluYXRpb24uc2VydmljZS5ob3N0EjcSNXRlc3QtZTJlLXdpbmUub2RhaHUtZmxvdy1kZXBsb3ltZW50LnN2Yy5jbHVzdGVyLmxvY2FsCisKGGRlc3RpbmF0aW9uLnNlcnZpY2UubmFtZRIPEg10ZXN0LWUyZS13aW5lCjgKHWRlc3RpbmF0aW9uLnNlcnZpY2UubmFtZXNwYWNlEhcSFW9kYWh1LWZsb3ctZGVwbG95bWVudApPCgpzb3VyY2UudWlkEkESP2t1YmVybmV0ZXM6Ly9pc3Rpby1pbmdyZXNzZ2F0ZXdheS04NjlkYjdkOWJiLWpsemtyLmlzdGlvLXN5c3RlbQ==&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;knative-serving-namespace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;odahu-flow-deployment&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-envoy-original-path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/model/test-e2e-wine/api/model/invoke&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;:scheme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-forwarded-host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;odahu.example.com&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-original-uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/model/test-e2e-wine/api/model/invoke&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;user-agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python-requests/2.22.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-forwarded-port&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;443&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;content-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/json&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-b3-sampled&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;content-length&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;257&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-real-ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.4.0.11&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-forwarded-for&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.4.0.11,10.44.0.10&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-envoy-external-address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.44.0.10&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-request-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12dcddd5-771d-9fc0-b326-816211cf8172&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-forwarded-proto&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;:authority&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;odahu.example.com&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-b3-traceid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;488abe197a652c2ce80e6b848a4c56e6&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;:path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/model/invoke&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;accept-encoding&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gzip, deflate&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-envoy-decorator-operation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test-e2e-wine.odahu-flow-deployment.svc.cluster.local:80/model/test-e2e-wine/api*&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;x-b3-spanid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;e80e6b848a4c56e6&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;knative-serving-revision&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test-e2e-wine-l4xt7&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;response_status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;request_host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;odahu.example.com&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;model_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;request_http_method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2019-12-17 08:46:40 +0000&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The second file contains the response body with the same <code class="docutils literal notranslate"><span class="pre">Request-Id</span></code> (File name ~= <code class="docutils literal notranslate"><span class="pre">/response_body/income/1.1/year=2019/month=07/day=24/2019072414_1.json</span></code>)</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6fa1f636-fb80-9979-b8c6-d78f5e90f0c1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;model_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;response_content&quot;</span><span class="p">:</span> <span class="s2">&quot;{\&quot;prediction\&quot;: [6.0], \&quot;columns\&quot;: [\&quot;quality\&quot;]}&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-17 08:46:40 +0000&quot;</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6fa1f636-fb80-9979-b8c6-d78f5e90f0c1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;model_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;model_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;response_content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;prediction\&quot;: [6.0], \&quot;columns\&quot;: [\&quot;quality\&quot;]}&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2019-12-17 08:46:40 +0000&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Send Model Feedback request:</p>
@@ -485,36 +489,36 @@ strict-transport-security: max-age=15724800; includeSubDomains
 <li>Response field <code class="docutils literal notranslate"><span class="pre">registered</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</li>
 <li>Response field <code class="docutils literal notranslate"><span class="pre">message</span></code> is what was sent to storage.</li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Example response</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;RequestID&quot;</span><span class="p">:</span> <span class="s2">&quot;previous-prediction-id&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;ModelVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;ModelName&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;Payload&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;json&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;truthful&quot;</span><span class="p">:</span> <span class="mi">1</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="literal-block-wrapper docutils container" id="container-2">
+<div class="code-block-caption"><span class="caption-text">Example response</span><a class="headerlink" href="#container-2" title="Permalink to this code">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;RequestID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;previous-prediction-id&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;ModelVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;ModelName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;Payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;json&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;truthful&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p>File name ~= <code class="docutils literal notranslate"><span class="pre">/feedback/test-e2e-wine/1.0/year=2019/month=11/day=23/2019072311_2.json</span></code> will have a format like this,
 with feedback stored in the <code class="docutils literal notranslate"><span class="pre">payload</span></code> field:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;previous-prediction-id&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;model_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;payload&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;json&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;truthful&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-17 20:08:05 +0000&quot;</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;previous-prediction-id&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;model_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;model_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test-e2e-wine&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;json&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;truthful&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2019-12-17 20:08:05 +0000&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -540,7 +544,7 @@ with feedback stored in the <code class="docutils literal notranslate"><span cla
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Odahu Team.
+        &copy; Copyright 2022, Odahu Team.
 
     </p>
   </div>
@@ -562,7 +566,7 @@ with feedback stored in the <code class="docutils literal notranslate"><span cla
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'release/1.6.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Model Trainings &mdash; Odahu  documentation</title>
+  <title>Model Trainings &mdash; Odahu release/1.6.1 documentation</title>
   
 
   
@@ -59,6 +59,10 @@
 
           
             
+            
+              <div class="version">
+                release/1.6.1
+              </div>
             
           
 
@@ -136,8 +140,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#mlflow-project-toolchain">MLFlow Project toolchain</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">MLProject file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation-1">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mlproject-file-1">MLProject file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#storing-training-artifacts">Storing training artifacts</a></li>
 </ul>
 </li>
@@ -230,92 +234,96 @@ The API is pluggable and can be extended for different ML frameworks.</p>
 </div></blockquote>
 <div class="section" id="general-training-structure">
 <h2>General training structure<a class="headerlink" href="#general-training-structure" title="Permalink to this headline">¶</a></h2>
-<div class="literal-block-wrapper docutils container" id="id3">
-<span id="training-api"></span><div class="code-block-caption"><span class="caption-text">Training API</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
-<span class="c1"># Some unique value among all trainings. if not, the training with the same name will be overwritten.</span>
-<span class="c1"># Id must:</span>
-<span class="c1">#  * contain at most 63 characters</span>
-<span class="c1">#  * contain only lowercase alphanumeric characters or ‘-’</span>
-<span class="c1">#  * start with an alphanumeric character</span>
-<span class="c1">#  * end with an alphanumeric character</span>
-<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-12345</span>
-<span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">model</span><span class="p">:</span>
-    <span class="c1"># Human-readable model name</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
-    <span class="c1"># Human-readable model version</span>
-    <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3.0</span>
-    <span class="c1"># Optionally, you can specify template for output artifact</span>
-    <span class="c1"># The default value is {{ .Name }}-{{ .Version }}-{{ .RandomUUID }}.zip</span>
-    <span class="c1"># where:</span>
-    <span class="c1">#   Name - spec.model.name</span>
-    <span class="c1">#   Version - spec.model.version</span>
-    <span class="c1">#   RandomUUID - a random UUID v4, for example be17d12d-df43-4588-99e7-56a0db3cad77</span>
-    <span class="nt">artifactNameTemplate</span><span class="p">:</span> <span class="p p-Indicator">{{</span> <span class="nv">.Name</span> <span class="p p-Indicator">}}</span><span class="l l-Scalar l-Scalar-Plain">-{{ .Version }}-{{ .RandomUUID }}.zip</span>
-  <span class="c1"># The toolchain parameter is a point of extension for different ML frameworks.</span>
-  <span class="c1"># For now, we only support the Mlfow toolchain</span>
-  <span class="nt">toolchain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow</span>
-  <span class="c1"># Mlflow MLProject file contains the list of entrypoints. You must choose one of those.</span>
-  <span class="nt">entrypoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
-  <span class="c1"># Working directory inside a training (docker) container, which GIT repository copied in.</span>
-  <span class="nt">workDir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">work/dir</span>
-  <span class="c1"># The training data for a ML script. You can find full description there: https://docs.odahu.org/ref_trainings.html#training-data</span>
-  <span class="nt">data</span><span class="p">:</span>
-      <span class="c1"># You can specify a connection name</span>
-    <span class="p p-Indicator">-</span> <span class="nt">connection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine</span>
-      <span class="c1"># Path to a file or a dir where data will copy from a bucket; relative to your Git repository root derictory.</span>
-      <span class="nt">localPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlflow/wine-quality/</span>
-      <span class="c1"># Path to the dir or file in a bucket</span>
-      <span class="c1"># Optional. If it is missing then the path from connection will be used.</span>
-      <span class="nt">remotePath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">training-data/</span>
-  <span class="c1"># You can specify the map of hyperparameters</span>
-  <span class="nt">hyperParameters</span><span class="p">:</span>
-    <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
-    <span class="nt">var2</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
-  <span class="c1"># Compute resources for the training job.</span>
-  <span class="nt">resources</span><span class="p">:</span>
-    <span class="nt">limits</span><span class="p">:</span>
-      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-    <span class="nt">requests</span><span class="p">:</span>
-      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-  <span class="c1"># Custom environment variables that should be set before entrypoint invocation.</span>
-  <span class="nt">envs</span><span class="p">:</span>
-      <span class="c1"># The name of variable</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TEST_ENV_KEY</span>
-      <span class="c1"># The value of variable</span>
-      <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TEST_ENV_VALUE</span>
-  <span class="c1"># A Docker image where the training will be launched.</span>
-  <span class="c1"># By default, the image from a toolchain is used.</span>
-  <span class="c1"># image: python:3.8</span>
-  <span class="c1"># A section defining training source code</span>
-  <span class="nt">algorithmSource</span><span class="p">:</span>
-    <span class="c1"># Use vcs if source code located in a repository and objectStorage if in a storage. Should not use both</span>
-    <span class="nt">vcs</span><span class="p">:</span>
-      <span class="c1"># A connection which describes credentials to a GIT repository or to a bucket if using objectStorage</span>
-      <span class="nt">connection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;git-connection&gt;</span>
-      <span class="c1"># Git reference (branch or tag)</span>
-      <span class="c1"># This must be specified here OR in Git connection itself</span>
-      <span class="c1"># In case of using objectStorage, specify path: &lt;remote path&gt; instead of reference</span>
-      <span class="nt">reference</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
-  <span class="c1"># Node selector that exactly matches a node pool from ODAHU config</span>
-  <span class="c1"># This is optional; when omitted, ODAHU uses any of available training node pools</span>
-  <span class="c1"># Read more about node selector: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/</span>
-  <span class="nt">nodeSelector</span><span class="p">:</span>
-    <span class="nt">label</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
-<span class="nt">status</span><span class="p">:</span>
-  <span class="c1"># One of the following states: scheduling, running, succeeded, failed, unknown</span>
-  <span class="nt">state</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">running</span>
-  <span class="c1"># List of training results</span>
-  <span class="nt">artifacts</span><span class="p">:</span>
-      <span class="c1"># Mlflow run ID</span>
-    <span class="p p-Indicator">-</span> <span class="nt">runId</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">12345678</span>
-      <span class="c1"># Trained artifact name</span>
-      <span class="nt">artifactName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-10.zip</span>
-      <span class="c1"># VCS commit ID</span>
-      <span class="nt">commitID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">d3d6e8ed776ed37fd2efd7a1b8d5fabdd7e3eea5</span>
+<div class="literal-block-wrapper docutils container" id="container-1">
+<span id="training-api"></span><div class="code-block-caption"><span class="caption-text">Training API</span><a class="headerlink" href="#container-1" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ModelTraining</span><span class="w"></span>
+<span class="c1"># Some unique value among all trainings. if not, the training with the same name will be overwritten.</span><span class="w"></span>
+<span class="c1"># Id must:</span><span class="w"></span>
+<span class="c1">#  * contain at most 63 characters</span><span class="w"></span>
+<span class="c1">#  * contain only lowercase alphanumeric characters or ‘-’</span><span class="w"></span>
+<span class="c1">#  * start with an alphanumeric character</span><span class="w"></span>
+<span class="c1">#  * end with an alphanumeric character</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine-12345</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Human-readable model name</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Human-readable model version</span><span class="w"></span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.0</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Optionally, you can specify template for output artifact</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># The default value is {{ .Name }}-{{ .Version }}-{{ .RandomUUID }}.zip</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># where:</span><span class="w"></span>
+<span class="w">    </span><span class="c1">#   Name - spec.model.name</span><span class="w"></span>
+<span class="w">    </span><span class="c1">#   Version - spec.model.version</span><span class="w"></span>
+<span class="w">    </span><span class="c1">#   RandomUUID - a random UUID v4, for example be17d12d-df43-4588-99e7-56a0db3cad77</span><span class="w"></span>
+<span class="w">    </span><span class="nt">artifactNameTemplate</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Name</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="l l-Scalar l-Scalar-Plain">-{{ .Version }}-{{ .RandomUUID }}.zip</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># The toolchain parameter is a point of extension for different ML frameworks.</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># For now, we only support the Mlfow toolchain</span><span class="w"></span>
+<span class="w">  </span><span class="nt">toolchain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mlflow</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Mlflow MLProject file contains the list of entrypoints. You must choose one of those.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Working directory inside a training (docker) container, which GIT repository copied in.</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Optional. The default directory is &quot;./&quot;.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">workDir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">work/dir</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># The training data for a ML script. You can find full description there: https://docs.odahu.epam.com/ref_trainings.html#training-data</span><span class="w"></span>
+<span class="w">  </span><span class="nt">data</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># You can specify a connection name</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Path to a file or a dir where data will copy from a bucket; relative to your Git repository root derictory.</span><span class="w"></span>
+<span class="w">      </span><span class="nt">localPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mlflow/wine-quality/</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Path to the dir or file in a bucket</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Optional. If it is missing then the path from connection will be used.</span><span class="w"></span>
+<span class="w">      </span><span class="nt">remotePath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">training-data/</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># You can specify the map of hyperparameters</span><span class="w"></span>
+<span class="w">  </span><span class="nt">hyperParameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
+<span class="w">    </span><span class="nt">var2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Compute resources for the training job.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">limits</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span><span class="w"></span>
+<span class="w">    </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Custom environment variables that should be set before entrypoint invocation.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">envs</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># The name of variable</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TEST_ENV_KEY</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># The value of variable</span><span class="w"></span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TEST_ENV_VALUE</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># A Docker image where the training will be launched.</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># By default, the image from a toolchain is used.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python:3.8</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># A section defining training source code</span><span class="w"></span>
+<span class="w">  </span><span class="nt">algorithmSource</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Use vcs if source code located in a repository and objectStorage if in a storage. Should not use both</span><span class="w"></span>
+<span class="w">    </span><span class="nt">vcs</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># A connection which describes credentials to a GIT repository or to a bucket if using objectStorage</span><span class="w"></span>
+<span class="w">      </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;git-connection&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Git reference (branch or tag)</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># This must be specified here OR in Git connection itself</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># In case of using objectStorage, specify path: &lt;remote path&gt; instead of reference</span><span class="w"></span>
+<span class="w">      </span><span class="nt">reference</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># You can set a connection that points where the Trained Model Binary will be stored.</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Optional. Default value is taken from the ODAHU cluster configuration.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">outputConnection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom-connection</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Node selector that exactly matches a node pool from ODAHU config</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># This is optional; when omitted, ODAHU uses any of available training node pools</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Read more about node selector: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/</span><span class="w"></span>
+<span class="w">  </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
+<span class="nt">status</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># One of the following states: scheduling, running, succeeded, failed, unknown</span><span class="w"></span>
+<span class="w">  </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">running</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># List of training results</span><span class="w"></span>
+<span class="w">  </span><span class="nt">artifacts</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Mlflow run ID</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">runId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12345678</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Trained artifact name</span><span class="w"></span>
+<span class="w">      </span><span class="nt">artifactName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine-10.zip</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># VCS commit ID</span><span class="w"></span>
+<span class="w">      </span><span class="nt">commitID</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">d3d6e8ed776ed37fd2efd7a1b8d5fabdd7e3eea5</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -341,26 +349,27 @@ Data source supports the following types of Odahu-flow connections:</p>
 </dd>
 </dl>
 <p>First of all, we should create an <a class="reference internal" href="ref_connections.html#google-cloud-storage"><span class="std std-ref">Odahu-flow GCS connection</span></a>.</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Training Data GCS:</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">id</span><span class="p">:</span> <span class="s">&quot;wine-training-data-conn&quot;</span>
-<span class="nt">spec</span><span class="p">:</span>
-    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcs</span>
-    <span class="nt">uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gsc://wine-training-data/</span>
-    <span class="nt">keySecret</span><span class="p">:</span> <span class="s">&#39;{&quot;type&quot;:</span><span class="nv"> </span><span class="s">&quot;service_account&quot;,</span><span class="nv"> </span><span class="s">&quot;project_id&quot;:</span><span class="nv"> </span><span class="s">&quot;project_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;:</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key&quot;:</span><span class="nv"> </span><span class="s">&quot;-----BEGIN</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\nprivate_key\n-----END</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\n&quot;,</span><span class="nv"> </span><span class="s">&quot;client_email&quot;:</span><span class="nv"> </span><span class="s">&quot;test@project_id.iam.gserviceaccount.com&quot;,</span><span class="nv"> </span><span class="s">&quot;client_id&quot;:</span><span class="nv"> </span><span class="s">&quot;123455678&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://accounts.google.com/o/oauth2/auth&quot;,</span><span class="nv"> </span><span class="s">&quot;token_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://oauth2.googleapis.com/token&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_provider_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/oauth2/v1/certs&quot;,</span><span class="nv"> </span><span class="s">&quot;client_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/robot/v1/metadata/x509/test@project_id.iam.gserviceaccount.com&quot;}&#39;</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Training</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">model&quot;</span>
-    <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">us-central2</span>
+<div class="literal-block-wrapper docutils container" id="container-2">
+<div class="code-block-caption"><span class="caption-text">Training Data GCS:</span><a class="headerlink" href="#container-2" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ModelTraining</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;wine-training-data-conn&quot;</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcs</span><span class="w"></span>
+<span class="w">    </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gsc://wine-training-data/</span><span class="w"></span>
+<span class="w">    </span><span class="nt">keySecret</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{&quot;type&quot;:</span><span class="nv"> </span><span class="s">&quot;service_account&quot;,</span><span class="nv"> </span><span class="s">&quot;project_id&quot;:</span><span class="nv"> </span><span class="s">&quot;project_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;:</span><span class="nv"> </span><span class="s">&quot;private_key_id&quot;,</span><span class="nv"> </span><span class="s">&quot;private_key&quot;:</span><span class="nv"> </span><span class="s">&quot;-----BEGIN</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\nprivate_key\n-----END</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\n&quot;,</span><span class="nv"> </span><span class="s">&quot;client_email&quot;:</span><span class="nv"> </span><span class="s">&quot;test@project_id.iam.gserviceaccount.com&quot;,</span><span class="nv"> </span><span class="s">&quot;client_id&quot;:</span><span class="nv"> </span><span class="s">&quot;123455678&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://accounts.google.com/o/oauth2/auth&quot;,</span><span class="nv"> </span><span class="s">&quot;token_uri&quot;:</span><span class="nv"> </span><span class="s">&quot;https://oauth2.googleapis.com/token&quot;,</span><span class="nv"> </span><span class="s">&quot;auth_provider_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/oauth2/v1/certs&quot;,</span><span class="nv"> </span><span class="s">&quot;client_x509_cert_url&quot;:</span><span class="nv"> </span><span class="s">&quot;https://www.googleapis.com/robot/v1/metadata/x509/test@project_id.iam.gserviceaccount.com&quot;}&#39;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Training</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">model&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-central2</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p>Finally, we provide a data section of Model Training.</p>
 <div class="literal-block-wrapper docutils container" id="connection-gcs-file">
 <div class="code-block-caption"><span class="caption-text">Example of Connection GCS:</span><a class="headerlink" href="#connection-gcs-file" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">data</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">connection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine-training-data-conn</span>
-      <span class="nt">localPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data/</span>
-      <span class="nt">remotePath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wine/11-11-2011/</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">data</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine-training-data-conn</span><span class="w"></span>
+<span class="w">      </span><span class="nt">localPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/</span><span class="w"></span>
+<span class="w">      </span><span class="nt">remotePath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wine/11-11-2011/</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -371,19 +380,19 @@ Data source supports the following types of Odahu-flow connections:</p>
 <p>You can find more about GPU deployment configuration in the <a class="reference internal" href="tutorials_installation.html#kubernetes-setup"><span class="std std-ref">installation guide</span></a>.</p>
 <p>In order to provision a training container in the GPU node pool,
 you must specify the GPU resource in the model training manifest.</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Training on GPU</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
-<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gpu-model</span>
-<span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">resources</span><span class="p">:</span>
-    <span class="nt">limits</span><span class="p">:</span>
-      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-      <span class="nt">gpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class="nt">requests</span><span class="p">:</span>
-      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+<div class="literal-block-wrapper docutils container" id="container-3">
+<div class="code-block-caption"><span class="caption-text">Training on GPU</span><a class="headerlink" href="#container-3" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ModelTraining</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpu-model</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">limits</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span><span class="w"></span>
+<span class="w">      </span><span class="nt">gpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">    </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -420,13 +429,13 @@ It will be downloaded during model training.</p>
 </div></blockquote>
 <div class="literal-block-wrapper docutils container" id="example-of-dockerfile">
 <div class="code-block-caption"><span class="caption-text">Example of Dockerfile:</span><a class="headerlink" href="#example-of-dockerfile" title="Permalink to this code">¶</a></div>
-<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span> <span class="s">odahu/odahu-flow-mlflow-toolchain:1.1.0-rc11</span>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">odahu/odahu-flow-mlflow-toolchain:1.1.0-rc11</span>
 
 <span class="c"># Optionally</span>
 <span class="c"># apt-get install -y wget</span>
 
-<span class="k">ADD</span> conda.yaml ./
-<span class="k">RUN</span> conda env update -n <span class="si">${</span><span class="nv">ODAHU_CONDA_ENV_NAME</span><span class="si">}</span> -f conda.yaml
+<span class="k">ADD</span><span class="w"> </span>conda.yaml ./
+<span class="k">RUN</span><span class="w"> </span>conda env update -n <span class="si">${</span><span class="nv">ODAHU_CONDA_ENV_NAME</span><span class="si">}</span> -f conda.yaml
 </pre></div>
 </div>
 </div>
@@ -439,13 +448,13 @@ It will be downloaded during model training.</p>
 </pre></div>
 </div>
 <p>Specify the image in a model training:</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Training example</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ModelTraining</span>
-<span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">model-12345</span>
-<span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">training-model-cache:1.0.0</span>
-  <span class="l l-Scalar l-Scalar-Plain">...</span>
+<div class="literal-block-wrapper docutils container" id="container-4">
+<div class="code-block-caption"><span class="caption-text">Training example</span><a class="headerlink" href="#container-4" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ModelTraining</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">model-12345</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">training-model-cache:1.0.0</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -545,31 +554,31 @@ entry_points:
 <p>Model Training API can contain only one entry point.
 You have to add all hyperparameters, which do not have a default value, to a Model Training.
 Next, you can find the Model Trainings for the MLProject file.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">entrypoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
-  <span class="nt">hyperParameters</span><span class="p">:</span>
-    <span class="nt">data_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test/123.txt</span>
-    <span class="nt">regularization</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"></span>
+<span class="w">  </span><span class="nt">hyperParameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">data_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test/123.txt</span><span class="w"></span>
+<span class="w">    </span><span class="nt">regularization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">entrypoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
-  <span class="nt">hyperParameters</span><span class="p">:</span>
-    <span class="nt">data_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test/456.txt</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"></span>
+<span class="w">  </span><span class="nt">hyperParameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">data_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test/456.txt</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">entrypoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
-  <span class="nt">hyperParameters</span><span class="p">:</span>
-    <span class="nt">data_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test/123.txt</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w"></span>
+<span class="w">  </span><span class="nt">hyperParameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">data_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test/123.txt</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="mlflow-protocol">
 <h3>MLFlow protocol<a class="headerlink" href="#mlflow-protocol" title="Permalink to this headline">¶</a></h3>
 <p>Odahu-flow requires that a model is logged through <a class="reference external" href="https://www.mlflow.org/docs/latest/python_api/mlflow.pyfunc.html#mlflow.pyfunc.log_model">mlflow API</a>.</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Example of sklearn model logging:</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="container-5">
+<div class="code-block-caption"><span class="caption-text">Example of sklearn model logging:</span><a class="headerlink" href="#container-5" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mlflow</span><span class="o">.</span><span class="n">sklearn</span><span class="o">.</span><span class="n">log_model</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -577,8 +586,8 @@ Next, you can find the Model Trainings for the MLProject file.</p>
 <p>Optionally, you can provide input and output samples for Odahu-flow.
 It allows determining input and output types for Odahu-flow packagers.
 These names must be <cite>head_input.pkl</cite> and <cite>head_output.pkl</cite>, respectively.</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Example of input and output samples logging:</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="container-6">
+<div class="code-block-caption"><span class="caption-text">Example of input and output samples logging:</span><a class="headerlink" href="#container-6" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">train_x</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="s1">&#39;head_input.pkl&#39;</span><span class="p">)</span>
 <span class="n">mlflow</span><span class="o">.</span><span class="n">log_artifact</span><span class="p">(</span><span class="s1">&#39;head_input.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">)</span>
 <span class="n">train_y</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="s1">&#39;head_output.pkl&#39;</span><span class="p">)</span>
@@ -597,12 +606,12 @@ and therefore does not require models stored in MLFlow format as a resulted arti
 <p>Instead, MLFlow Project toolchain relies only on
 <a class="reference external" href="https://www.mlflow.org/docs/latest/projects.html">MLFlow Project functionality</a>  to run training script
 and manage dependencies. User can store result artifacts in any format as they wish.</p>
-<div class="section" id="id1">
-<h3>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="installation-1">
+<h3>Installation<a class="headerlink" href="#installation-1" title="Permalink to this headline">¶</a></h3>
 <p>Installation of MLFlow Project toolchain is identical to <a class="reference internal" href="#mlflow-toolchain-installation"><span class="std std-ref">MLFlow installation</span></a></p>
 </div>
-<div class="section" id="id2">
-<h3>MLProject file<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="mlproject-file-1">
+<h3>MLProject file<a class="headerlink" href="#mlproject-file-1" title="Permalink to this headline">¶</a></h3>
 <p>MLFlow Project toolchain runs training script using MLProject specification. Please refer to
 <a class="reference internal" href="#mlproject-description"><span class="std std-ref">previous section</span></a>
 or <a class="reference external" href="https://www.mlflow.org/docs/latest/projects.html#mlproject-file">official MLFlow documentation</a>
@@ -612,15 +621,15 @@ to learn more about MLProject file.</p>
 <h3>Storing training artifacts<a class="headerlink" href="#storing-training-artifacts" title="Permalink to this headline">¶</a></h3>
 <p>You can store any artifacts during script execution in a special directory. To get a path to output directory read value
 of <code class="docutils literal notranslate"><span class="pre">$ODAHUFLOW_OUTPUT_DIR</span></code> environment variable.</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></div>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<div class="literal-block-wrapper docutils container" id="container-7">
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#container-7" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">output_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ODAHUFLOW_OUTPUT_DIR&quot;</span><span class="p">)</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><span class="n">output_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ODAHUFLOW_OUTPUT_DIR&quot;</span><span class="p">)</span>
 
 <span class="n">train_x</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s1">&#39;head_input.pkl&#39;</span><span class="p">))</span>
-</pre></div>
-</td></tr></table></div>
+</pre></div></td></tr></table></div>
+</div>
 </div>
 <p>Additionally, if <code class="docutils literal notranslate"><span class="pre">$STATIC_ARTIFACTS_DIR</span></code> variable is specified with a path to directory, all the contents
 is copied to final artifact. Path must be relative to working directory.</p>
@@ -651,7 +660,7 @@ some python wrapper scripts to deploy a model into a specific ML Server in the f
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Odahu Team.
+        &copy; Copyright 2022, Odahu Team.
 
     </p>
   </div>
@@ -673,7 +682,7 @@ some python wrapper scripts to deploy a model into a specific ML Server in the f
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'release/1.6.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

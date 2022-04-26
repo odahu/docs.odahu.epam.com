@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Security &mdash; Odahu  documentation</title>
+  <title>Security &mdash; Odahu release/1.6.1 documentation</title>
   
 
   
@@ -59,6 +59,10 @@
 
           
             
+            
+              <div class="version">
+                release/1.6.1
+              </div>
             
           
 
@@ -221,31 +225,31 @@ configure them</p>
 <div class="contents local topic" id="content-table">
 <p class="topic-title">Content table</p>
 <ul class="simple">
-<li><a class="reference internal" href="#security-overview" id="id1">Security overview</a><ul>
-<li><a class="reference internal" href="#component-roles" id="id2">Component roles</a></li>
-<li><a class="reference internal" href="#api-request-lifecycle" id="id3">API Request lifecycle</a></li>
+<li><a class="reference internal" href="#security-overview" id="toc-entry-1">Security overview</a><ul>
+<li><a class="reference internal" href="#component-roles" id="toc-entry-2">Component roles</a></li>
+<li><a class="reference internal" href="#api-request-lifecycle" id="toc-entry-3">API Request lifecycle</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#policies" id="id4">Policies</a><ul>
-<li><a class="reference internal" href="#odahu-api-and-feedback-aggregator-policies" id="id5">ODAHU API and Feedback aggregator policies</a><ul>
-<li><a class="reference internal" href="#overview" id="id6">Overview</a></li>
-<li><a class="reference internal" href="#customize" id="id7">Customize</a><ul>
-<li><a class="reference internal" href="#extend-roles" id="id8">Extend roles</a></li>
-<li><a class="reference internal" href="#customize-default-mapper" id="id9">Customize default mapper</a></li>
-<li><a class="reference internal" href="#create-custom-policies" id="id10">Create custom policies</a></li>
+<li><a class="reference internal" href="#policies" id="toc-entry-4">Policies</a><ul>
+<li><a class="reference internal" href="#odahu-api-and-feedback-aggregator-policies" id="toc-entry-5">ODAHU API and Feedback aggregator policies</a><ul>
+<li><a class="reference internal" href="#overview" id="toc-entry-6">Overview</a></li>
+<li><a class="reference internal" href="#customize" id="toc-entry-7">Customize</a><ul>
+<li><a class="reference internal" href="#extend-roles" id="toc-entry-8">Extend roles</a></li>
+<li><a class="reference internal" href="#customize-default-mapper" id="toc-entry-9">Customize default mapper</a></li>
+<li><a class="reference internal" href="#create-custom-policies" id="toc-entry-10">Create custom policies</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#odahu-ml-models-pods-policies" id="id11">ODAHU ML Models pods policies</a></li>
+<li><a class="reference internal" href="#odahu-ml-models-pods-policies" id="toc-entry-11">ODAHU ML Models pods policies</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="security-overview">
-<h2><a class="toc-backref" href="#id1">Security overview</a><a class="headerlink" href="#security-overview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">Security overview</a><a class="headerlink" href="#security-overview" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="component-roles">
-<h3><a class="toc-backref" href="#id2">Component roles</a><a class="headerlink" href="#component-roles" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-2">Component roles</a><a class="headerlink" href="#component-roles" title="Permalink to this headline">¶</a></h3>
 <p>There are some common terms related to access control management systems.
 In this documentation, the next ones are commonly used.</p>
 <dl class="docutils" id="idp">
@@ -265,7 +269,7 @@ In ODAHU role of PDP plays <a class="reference external" href="https://www.openp
 </dl>
 </div>
 <div class="section" id="api-request-lifecycle">
-<h3><a class="toc-backref" href="#id3">API Request lifecycle</a><a class="headerlink" href="#api-request-lifecycle" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-3">API Request lifecycle</a><a class="headerlink" href="#api-request-lifecycle" title="Permalink to this headline">¶</a></h3>
 <p>To have a better understanding of how all ODAHU security components work together
 let’s review the API request lifecycle and describe what is happened for each HTTP request.</p>
 <img alt="_images/odahu_security.png" src="_images/odahu_security.png" />
@@ -340,15 +344,15 @@ end
 &quot;Envoy Proxy\nsidecar&quot; -&gt; Nginx: HTTP Response
 Nginx -&gt; Client: HTTP Response
 
-&#64;enduml" style="width: 934.2px; height: 880.2px"/></a>
+&#64;enduml" style="width: 919.8px; height: 861.3px"/></a>
 </p>
 </div>
 </div>
 <div class="section" id="policies">
-<h2><a class="toc-backref" href="#id4">Policies</a><a class="headerlink" href="#policies" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-4">Policies</a><a class="headerlink" href="#policies" title="Permalink to this headline">¶</a></h2>
 <p>ODAHU is distributed with build-in policies that are written on <a class="reference external" href="https://www.openpolicyagent.org/docs/latest/policy-language/">Rego policy language</a> and included into helm charts
 of appropriate services.</p>
-<p><a href="#id12"><span class="problematic" id="id13">`Role-based access control`_</span></a> is implemented by default for next services</p>
+<p><a href="#system-message-1"><span class="problematic" id="problematic-1">`Role-based access control`_</span></a> is implemented by default for next services</p>
 <blockquote>
 <div><ul class="simple">
 <li><a class="reference internal" href="comp_api.html#api"><span class="std std-ref">API</span></a></li>
@@ -357,12 +361,12 @@ of appropriate services.</p>
 </ul>
 </div></blockquote>
 <div class="section" id="odahu-api-and-feedback-aggregator-policies">
-<h3><a class="toc-backref" href="#id5">ODAHU API and Feedback aggregator policies</a><a class="headerlink" href="#odahu-api-and-feedback-aggregator-policies" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-5">ODAHU API and Feedback aggregator policies</a><a class="headerlink" href="#odahu-api-and-feedback-aggregator-policies" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="overview">
-<h4><a class="toc-backref" href="#id6">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-6">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h4>
 <p><a class="reference internal" href="comp_api.html#api"><span class="std std-ref">API</span></a> and <a class="reference internal" href="comp_feedback.html#feedback-aggregator"><span class="std std-ref">Feedback aggregator</span></a> are distributed
 with a pre-defined set of <a class="reference external" href="https://www.openpolicyagent.org/">OpenPolicyAgent</a> policies. These policies implement  simple
-<a href="#id14"><span class="problematic" id="id15">`Role-based access control`_</span></a> (RBAC).</p>
+<a href="#system-message-2"><span class="problematic" id="problematic-2">`Role-based access control`_</span></a> (RBAC).</p>
 <p>Next features are implemented using <a class="reference external" href="https://www.openpolicyagent.org/docs/latest/policy-language/">Rego policy language</a>:</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -389,21 +393,21 @@ with a pre-defined set of <a class="reference external" href="https://www.openpo
 <a class="reference internal" href="tutorials_installation.html#installation"><span class="std std-ref">installation guide</span></a></p>
 </div>
 <div class="section" id="customize">
-<h4><a class="toc-backref" href="#id7">Customize</a><a class="headerlink" href="#customize" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#toc-entry-7">Customize</a><a class="headerlink" href="#customize" title="Permalink to this headline">¶</a></h4>
 <p>In this section, different ways to customize pre-defined policies</p>
 <div class="section" id="extend-roles">
-<h5><a class="toc-backref" href="#id8">Extend roles</a><a class="headerlink" href="#extend-roles" title="Permalink to this headline">¶</a></h5>
+<h5><a class="toc-backref" href="#toc-entry-8">Extend roles</a><a class="headerlink" href="#extend-roles" title="Permalink to this headline">¶</a></h5>
 <p>To define new custom roles, you should add them as a variable in the <cite>roles.rego</cite> file</p>
 <div class="literal-block-wrapper docutils container" id="add-new-role">
 <div class="code-block-caption"><span class="caption-text">roles.rego</span><a class="headerlink" href="#add-new-role" title="Permalink to this code">¶</a></div>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
 <span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="hll"> package odahu.roles
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><span class="hll"> package odahu.roles
 </span>
  admin := &quot;admin&quot;
  data_scientist := &quot;data_scientist&quot;
@@ -411,13 +415,13 @@ with a pre-defined set of <a class="reference external" href="https://www.openpo
 
  # new role
  connection_manager := &quot;connection_manager&quot;
-</pre></div>
-</td></tr></table></div>
+</pre></div></td></tr></table></div>
+</div>
 </div>
 <p>Then you need to set permissions to that role in file <cite>permissions.rego</cite></p>
 <div class="literal-block-wrapper docutils container" id="set-permissions-for-a-new-role">
 <div class="code-block-caption"><span class="caption-text">permissions.rego</span><a class="headerlink" href="#set-permissions-for-a-new-role" title="Permalink to this code">¶</a></div>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -439,31 +443,31 @@ with a pre-defined set of <a class="reference external" href="https://www.openpo
 <span class="normal">20</span>
 <span class="normal">21</span>
 <span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kr">package</span> <span class="nx">odahu</span><span class="p">.</span><span class="nx">permissions</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><span class="w"> </span><span class="kr">package</span><span class="w"> </span><span class="nx">odahu</span><span class="p">.</span><span class="nx">permissions</span><span class="w"></span>
 
- <span class="k">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">roles</span>
+<span class="w"> </span><span class="k">import</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">roles</span><span class="w"></span>
 
- <span class="nx">permissions</span> <span class="o">:=</span> <span class="p">{</span>
-   <span class="nx">roles</span><span class="p">.</span><span class="nx">data_scientist</span><span class="o">:</span> <span class="p">[</span>
-       <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span> <span class="s2">&quot;api/v1/model/deployment.*&quot;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span> <span class="s2">&quot;api/v1/model/packaging.*&quot;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span> <span class="s2">&quot;api/v1/model/training.*&quot;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;api/v1/connection.*&quot;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;api/v1/packaging/integration.*&quot;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;api/v1/toolchain/integration.*&quot;</span><span class="p">]</span>
-     <span class="p">],</span>
-   <span class="nx">roles</span><span class="p">.</span><span class="nx">admin</span> <span class="o">:</span> <span class="p">[</span>
-       <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span> <span class="s2">&quot;.*&quot;</span><span class="p">]</span>
-   <span class="p">],</span>
-   <span class="nx">roles</span><span class="p">.</span><span class="nx">viewer</span> <span class="o">:</span> <span class="p">[</span>
-       <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;.*&quot;</span><span class="p">]</span>
-   <span class="p">],</span>
-<span class="hll">   <span class="nx">roles</span><span class="p">.</span><span class="nx">connection_manager</span> <span class="o">:</span> <span class="p">[</span>
-</span><span class="hll">       <span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span> <span class="s2">&quot;api/v1/connection.*&quot;</span><span class="p">]</span>
-</span><span class="hll">   <span class="p">],</span>
-</span> <span class="p">}</span>
-</pre></div>
-</td></tr></table></div>
+<span class="w"> </span><span class="nx">permissions</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nx">roles</span><span class="p">.</span><span class="nx">data_scientist</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">       </span><span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;api/v1/model/deployment.*&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">       </span><span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;api/v1/model/packaging.*&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">       </span><span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;api/v1/model/training.*&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">       </span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;api/v1/connection.*&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">       </span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;api/v1/packaging/integration.*&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">       </span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;api/v1/toolchain/integration.*&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="w">     </span><span class="p">],</span><span class="w"></span>
+<span class="w">   </span><span class="nx">roles</span><span class="p">.</span><span class="nx">admin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">       </span><span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;.*&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="w">   </span><span class="p">],</span><span class="w"></span>
+<span class="w">   </span><span class="nx">roles</span><span class="p">.</span><span class="nx">viewer</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">       </span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;.*&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="w">   </span><span class="p">],</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="nx">roles</span><span class="p">.</span><span class="nx">connection_manager</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+</span><span class="hll"><span class="w">       </span><span class="p">[</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;api/v1/connection.*&quot;</span><span class="p">]</span><span class="w"></span>
+</span><span class="hll"><span class="w">   </span><span class="p">],</span><span class="w"></span>
+</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div>
 </div>
 <p>In this file, we:</p>
 <ul class="simple">
@@ -471,11 +475,11 @@ with a pre-defined set of <a class="reference external" href="https://www.openpo
 </ul>
 </div>
 <div class="section" id="customize-default-mapper">
-<h5><a class="toc-backref" href="#id9">Customize default mapper</a><a class="headerlink" href="#customize-default-mapper" title="Permalink to this headline">¶</a></h5>
+<h5><a class="toc-backref" href="#toc-entry-9">Customize default mapper</a><a class="headerlink" href="#customize-default-mapper" title="Permalink to this headline">¶</a></h5>
 <p>You can configure <cite>mapper.rego</cite> to extend input that is passed to <cite>core.rego</cite> file with RBAC implementation</p>
 <div class="literal-block-wrapper docutils container" id="configure-mapper">
 <div class="code-block-caption"><span class="caption-text">mapper.rego</span><a class="headerlink" href="#configure-mapper" title="Permalink to this code">¶</a></div>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -501,35 +505,35 @@ with a pre-defined set of <a class="reference external" href="https://www.openpo
 <span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">package</span> <span class="nx">odahu</span><span class="p">.</span><span class="nx">mapper</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><span class="kr">package</span><span class="w"> </span><span class="nx">odahu</span><span class="p">.</span><span class="nx">mapper</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">roles</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">roles</span><span class="w"></span>
 
-<span class="nx">roles_map</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&quot;odahu_admin&quot;</span><span class="o">:</span> <span class="nx">roles</span><span class="p">.</span><span class="nx">admin</span><span class="p">,</span>
-  <span class="s2">&quot;odahu_data_scientist&quot;</span><span class="o">:</span> <span class="nx">roles</span><span class="p">.</span><span class="nx">data_scientist</span><span class="p">,</span>
-  <span class="s2">&quot;odahu_viewer&quot;</span><span class="o">:</span> <span class="nx">roles</span><span class="p">.</span><span class="nx">viewer</span>
-<span class="p">}</span>
+<span class="nx">roles_map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="s2">&quot;odahu_admin&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">roles</span><span class="p">.</span><span class="nx">admin</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="s2">&quot;odahu_data_scientist&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">roles</span><span class="p">.</span><span class="nx">data_scientist</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="s2">&quot;odahu_viewer&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">roles</span><span class="p">.</span><span class="nx">viewer</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">jwt</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">metadata_context</span><span class="p">.</span><span class="nx">filter_metadata</span><span class="p">[</span><span class="s2">&quot;envoy.filters.http.jwt_authn&quot;</span><span class="p">].</span><span class="nx">fields</span><span class="p">.</span><span class="nx">jwt_payload</span>
+<span class="nx">jwt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">input</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">metadata_context</span><span class="p">.</span><span class="nx">filter_metadata</span><span class="p">[</span><span class="s2">&quot;envoy.filters.http.jwt_authn&quot;</span><span class="p">].</span><span class="nx">fields</span><span class="p">.</span><span class="nx">jwt_payload</span><span class="w"></span>
 
-<span class="nx">keycloak_user_roles</span><span class="p">[</span><span class="nx">role</span><span class="p">]{</span>
-  <span class="nx">role</span> <span class="o">=</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">Kind</span><span class="p">.</span><span class="nx">StructValue</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">realm_access</span><span class="p">.</span><span class="nx">Kind</span><span class="p">.</span><span class="nx">StructValue</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">roles</span><span class="p">.</span><span class="nx">Kind</span><span class="p">.</span><span class="nx">ListValue</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">_</span><span class="p">].</span><span class="nx">Kind</span><span class="p">.</span><span class="nx">StringValue</span>
-<span class="p">}</span>
+<span class="nx">keycloak_user_roles</span><span class="p">[</span><span class="nx">role</span><span class="p">]{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">jwt</span><span class="p">.</span><span class="nx">Kind</span><span class="p">.</span><span class="nx">StructValue</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">realm_access</span><span class="p">.</span><span class="nx">Kind</span><span class="p">.</span><span class="nx">StructValue</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">roles</span><span class="p">.</span><span class="nx">Kind</span><span class="p">.</span><span class="nx">ListValue</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">_</span><span class="p">].</span><span class="nx">Kind</span><span class="p">.</span><span class="nx">StringValue</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">user_roles</span><span class="p">[</span><span class="nx">role</span><span class="p">]{</span>
-  <span class="nx">role</span> <span class="o">=</span> <span class="nx">roles_map</span><span class="p">[</span><span class="nx">keycloak_user_roles</span><span class="p">[</span><span class="nx">_</span><span class="p">]]</span>
-<span class="p">}</span>
+<span class="nx">user_roles</span><span class="p">[</span><span class="nx">role</span><span class="p">]{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">roles_map</span><span class="p">[</span><span class="nx">keycloak_user_roles</span><span class="p">[</span><span class="nx">_</span><span class="p">]]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">parsed_input</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&quot;action&quot;</span><span class="o">:</span> <span class="nx">input</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">method</span><span class="p">,</span>
-  <span class="s2">&quot;resource&quot;</span><span class="o">:</span> <span class="nx">input</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span>
-  <span class="s2">&quot;user&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;roles&quot;</span><span class="o">:</span> <span class="nx">user_roles</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></table></div>
+<span class="nx">parsed_input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="s2">&quot;action&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">input</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">method</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="s2">&quot;resource&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">input</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="s2">&quot;user&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;roles&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">user_roles</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div>
 </div>
 <p>In this file, we:</p>
 <ul class="simple">
@@ -539,13 +543,13 @@ with a pre-defined set of <a class="reference external" href="https://www.openpo
 </ul>
 </div>
 <div class="section" id="create-custom-policies">
-<h5><a class="toc-backref" href="#id10">Create custom policies</a><a class="headerlink" href="#create-custom-policies" title="Permalink to this headline">¶</a></h5>
-<p>If <a href="#id16"><span class="problematic" id="id17">`Role-based access control`_</span></a> is not enough for your purposes you can customize policies to
-use more general <a href="#id18"><span class="problematic" id="id19">`Attribute-based access control`_</span></a>. For this purpose, rewrite <cite>core.rego</cite> file or create your own rego policies
+<h5><a class="toc-backref" href="#toc-entry-10">Create custom policies</a><a class="headerlink" href="#create-custom-policies" title="Permalink to this headline">¶</a></h5>
+<p>If <a href="#system-message-3"><span class="problematic" id="problematic-3">`Role-based access control`_</span></a> is not enough for your purposes you can customize policies to
+use more general <a href="#system-message-4"><span class="problematic" id="problematic-4">`Attribute-based access control`_</span></a>. For this purpose, rewrite <cite>core.rego</cite> file or create your own rego policies
 from scratch</p>
 <div class="literal-block-wrapper docutils container" id="odahu-role-based-access-implementation">
 <div class="code-block-caption"><span class="caption-text">core.rego</span><a class="headerlink" href="#odahu-role-based-access-implementation" title="Permalink to this code">¶</a></div>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -570,34 +574,34 @@ from scratch</p>
 <span class="normal">23</span>
 <span class="normal">24</span>
 <span class="normal">25</span>
-<span class="normal">26</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">package</span> <span class="nx">odahu</span><span class="p">.</span><span class="nx">core</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><span class="kr">package</span><span class="w"> </span><span class="nx">odahu</span><span class="p">.</span><span class="nx">core</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">mapper</span><span class="p">.</span><span class="nx">parsed_input</span>
-<span class="k">import</span> <span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">permissions</span><span class="p">.</span><span class="nx">permissions</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">mapper</span><span class="p">.</span><span class="nx">parsed_input</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">odahu</span><span class="p">.</span><span class="nx">permissions</span><span class="p">.</span><span class="nx">permissions</span><span class="w"></span>
 
-<span class="k">default</span> <span class="nx">allow</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="k">default</span><span class="w"> </span><span class="nx">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
 
-<span class="nx">allow</span> <span class="p">{</span>
-  <span class="nx">any_user_role</span> <span class="o">:=</span> <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">roles</span><span class="p">[</span><span class="nx">_</span><span class="p">]</span>
-    <span class="nx">any_permission_of_user_role</span> <span class="o">:=</span> <span class="nx">permissions</span><span class="p">[</span><span class="nx">any_user_role</span><span class="p">][</span><span class="nx">_</span><span class="p">]</span>
-    <span class="nx">action</span> <span class="o">:=</span> <span class="nx">any_permission_of_user_role</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span>
-    <span class="nx">resource</span> <span class="o">:=</span> <span class="nx">any_permission_of_user_role</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span>
+<span class="nx">allow</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">any_user_role</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">parsed_input</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">roles</span><span class="p">[</span><span class="nx">_</span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="nx">any_permission_of_user_role</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">permissions</span><span class="p">[</span><span class="nx">any_user_role</span><span class="p">][</span><span class="nx">_</span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="nx">action</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">any_permission_of_user_role</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="nx">resource</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">any_permission_of_user_role</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span><span class="w"></span>
 
-    <span class="nx">re_match</span><span class="p">(</span><span class="nx">action</span><span class="p">,</span> <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">action</span><span class="p">)</span>
-    <span class="nx">re_match</span><span class="p">(</span><span class="nx">resource</span><span class="p">,</span> <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">resource</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="nx">re_match</span><span class="p">(</span><span class="nx">action</span><span class="p">,</span><span class="w"> </span><span class="nx">parsed_input</span><span class="p">.</span><span class="nx">action</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">re_match</span><span class="p">(</span><span class="nx">resource</span><span class="p">,</span><span class="w"> </span><span class="nx">parsed_input</span><span class="p">.</span><span class="nx">resource</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">allow</span> <span class="p">{</span>
-    <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">action</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span>
-    <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">resource</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span>
-<span class="p">}</span>
+<span class="nx">allow</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">parsed_input</span><span class="p">.</span><span class="nx">action</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;GET&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">parsed_input</span><span class="p">.</span><span class="nx">resource</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;/&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">allow</span> <span class="p">{</span>
-    <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">action</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span>
-    <span class="nx">re_match</span><span class="p">(</span><span class="s2">&quot;/swagger*&quot;</span><span class="p">,</span> <span class="nx">parsed_input</span><span class="p">.</span><span class="nx">resource</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></table></div>
+<span class="nx">allow</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">parsed_input</span><span class="p">.</span><span class="nx">action</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;GET&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">re_match</span><span class="p">(</span><span class="s2">&quot;/swagger*&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">parsed_input</span><span class="p">.</span><span class="nx">resource</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div>
 </div>
 <p>In this file, we:</p>
 <ul class="simple">
@@ -609,7 +613,7 @@ from scratch</p>
 </div>
 </div>
 <div class="section" id="odahu-ml-models-pods-policies">
-<h3><a class="toc-backref" href="#id11">ODAHU ML Models pods policies</a><a class="headerlink" href="#odahu-ml-models-pods-policies" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-11">ODAHU ML Models pods policies</a><a class="headerlink" href="#odahu-ml-models-pods-policies" title="Permalink to this headline">¶</a></h3>
 <p>All deployed models contain default policies that permit requests to them for all users
 that have <a class="reference internal" href="gen_glossary.html#term-model-deployment-access-role-name"><span class="xref std std-term">Model Deployment Access Role Name</span></a>. This role can be set at the model deployment stage using
 .Spec.roleName key of the ModelDeployment manifest and also statically configured in policies
@@ -638,7 +642,7 @@ during ODAHU deployment.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Odahu Team.
+        &copy; Copyright 2022, Odahu Team.
 
     </p>
   </div>
@@ -660,7 +664,7 @@ during ODAHU deployment.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'release/1.6.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
